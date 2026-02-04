@@ -1,0 +1,136 @@
+{
+  "nav": {
+    "product": "Product",
+    "frameworks": "Frameworks",
+    "whyUs": "Why Us",
+    "sectors": "Sectors",
+    "contact": "Contact"
+  },
+  "hero": {
+    "headline": "From audit panic to audit readiness 24/7",
+    "subhead": "The Digital Co-Pilot for NCA ECC-2024 and SAMA. AI-powered platform that replaces messy Excel sheets and manual evidence hunting—pre-configured for Saudi frameworks.",
+    "cta": "Request a demo",
+    "ctaSecondary": "Get audit-ready"
+  },
+  "valueProp": {
+    "title": "Why ArabAudit",
+    "items": [
+      { "title": "24/7 Virtual Auditor", "desc": "Always-on readiness, not last-minute panic." },
+      { "title": "AI Pre-Auditor", "desc": "Maps your logs and screenshots to 300+ controls; flags gaps before the auditor arrives." },
+      { "title": "NCA & SAMA pre-configured", "desc": "Built for ECC-2024 and SAMA CSF from day one." },
+      { "title": "Framework Harmonization", "desc": "One evidence, multiple controls—save 40% of your work." },
+      { "title": "Bilingual clarity", "desc": "Executive-level Arabic and English dashboards for the boardroom." }
+    ]
+  },
+  "frameworks": {
+    "title": "Built for Saudi regulations",
+    "nca": {
+      "name": "NCA ECC-2024",
+      "tagline": "The National Guard",
+      "desc": "Essential Cybersecurity Controls for the Kingdom's Critical National Infrastructure. 114 controls across 5 domains: Governance, Defense, Resilience, Third-Party & Cloud, and ICS.",
+      "for": "Government entities and private companies in vital services (Electricity, Water, Healthcare, Telecom, Oil & Gas)."
+    },
+    "sama": {
+      "name": "SAMA CSF",
+      "tagline": "The Financial Shield",
+      "desc": "Saudi Central Bank's Cyber Security Framework. Maturity model 0–5: Level 3 is the minimum passing grade; Level 5 is the gold standard where security predicts attacks.",
+      "for": "Banks, insurance companies, fintechs, and financing companies."
+    },
+    "comparison": {
+      "title": "NCA vs SAMA at a glance",
+      "feature": "Criteria",
+      "authority": "Authority",
+      "focus": "Focus",
+      "metric": "Success metric",
+      "ncaAuthority": "National Cybersecurity Authority",
+      "ncaFocus": "National security & infrastructure",
+      "ncaMetric": "Compliance (controls in place)",
+      "samaAuthority": "Saudi Central Bank",
+      "samaFocus": "Financial sector stability",
+      "samaMetric": "Maturity (how well over time)"
+    }
+  },
+  "howItWorks": {
+    "title": "How it works in the real world",
+    "subtitle": "Example: A fintech like \"Saudico Pay\" getting audit-ready",
+    "phases": [
+      {
+        "title": "Phase 1: Identity audit (NCA)",
+        "rule": "NCA requires 100% Saudi nationals in cybersecurity roles (ECC-2024).",
+        "chaos": "Excel chaos: HR and IT spreadsheets, PDFs flying around—proof for the new Cloud Security Lead goes missing.",
+        "solution": "ArabAudit: Saudization tracker; HR uploads IDs; AI validates all 12 roles → instant green checkmark."
+      },
+      {
+        "title": "Phase 2: Password audit (SAMA)",
+        "rule": "SAMA requires Maturity Level 3: 90-day password expiry and MFA.",
+        "chaos": "Screenshot pasted in Word, saved as Evidence_vFinal_REALLY_FINAL.docx in a shared folder.",
+        "solution": "ArabAudit: Upload screenshot; AI detects 180-day expiry vs 90 required → alert to fix before the examiner arrives."
+      },
+      {
+        "title": "Phase 3: The auditor's visit",
+        "rule": "SAMA and NCA officials arrive for the final check.",
+        "chaos": "CEO sweating; IT with USB drives; auditors frustrated by messy technical English.",
+        "solution": "ArabAudit: Bilingual dashboard on a tablet; switch to Arabic; clear chart of compliance and full history of who fixed what and when."
+      }
+    ]
+  },
+  "features": {
+    "title": "What you get",
+    "items": [
+      { "title": "AI validation", "desc": "We don't just store documents—we read them and flag missing SAMA/NCA requirements." },
+      { "title": "Framework harmonization", "desc": "Complete SAMA Control 3.3.5? AI suggests applying the same evidence to NCA ECC 2.2." },
+      { "title": "NCA ECC-2024 native", "desc": "Up to date with the latest controls, not the 2018 version." },
+      { "title": "SAMA maturity view", "desc": "See your level 0–5 and what's needed to reach Level 3 or 5." },
+      { "title": "Bilingual executive dashboard", "desc": "Arabic and English dashboards fit for Vision 2030 presentations." },
+      { "title": "Pre-loaded templates", "desc": "Days to go live, not months of consultant setup." }
+    ]
+  },
+  "comparison": {
+    "title": "Why we stand out",
+    "tagline": "Saudi-native, smartest and easiest. We don't just store your files—we audit them for you.",
+    "headers": {
+      "feature": "Feature",
+      "global": "Global giants",
+      "regional": "Regional tools",
+      "us": "ArabAudit"
+    },
+    "rows": [
+      { "feature": "Setup time", "global": "Months (very complex)", "regional": "Weeks", "us": "Days (pre-loaded templates)" },
+      { "feature": "Logic", "global": "Western / general", "regional": "Regional / basic", "us": "NCA ECC-2024 native" },
+      { "feature": "Evidence", "global": "Manual upload", "regional": "API integration", "us": "AI analysis & validation" },
+      { "feature": "Arabic", "global": "Basic translation", "regional": "Good", "us": "Executive-level bilingual UX" },
+      { "feature": "Price", "global": "Massive enterprise fees", "regional": "Moderate", "us": "High ROI / pilot-friendly" }
+    ]
+  },
+  "sectors": {
+    "title": "Built for high-pressure sectors",
+    "items": [
+      { "name": "Banking & Finance", "regulator": "SAMA", "framework": "SAMA CSF", "why": "Must reach Maturity Level 3 to keep their banking license." },
+      { "name": "Government entities", "regulator": "NCA", "framework": "NCA ECC-2024", "why": "Mandatory for 100+ ministries to protect national data." },
+      { "name": "Fintech startups", "regulator": "SAMA / NCA", "framework": "SAMA CSF & NCA", "why": "Prove compliance before launching your app." },
+      { "name": "Energy & Utilities", "regulator": "NCA", "framework": "NCA ECC-2024 / ICS", "why": "Critical infrastructure: oil, water, electricity." }
+    ]
+  },
+  "personas": {
+    "title": "Who it's for",
+    "items": [
+      { "role": "CISO / IT Manager", "pain": "Drowning in Excel chaos and manual evidence.", "value": "70% less manual work with AI-led validation." },
+      { "role": "Compliance Officer", "pain": "Fear of SAMA/NCA fines and missing 2024 updates.", "value": "Always up to date with the latest Saudi frameworks." },
+      { "role": "CFO / CEO", "pain": "Can't understand technical IT reports.", "value": "Bilingual clarity: professional Arabic dashboards for the boardroom." },
+      { "role": "Internal Auditor", "pain": "Chasing files; inconsistent evidence formats.", "value": "One source of truth where all proof is organized." }
+    ]
+  },
+  "cta": {
+    "title": "Turn a 2-week NCA audit into a 2-day digital review",
+    "subtitle": "Get audit-ready with Saudi-native AI. Request a demo.",
+    "button": "Request a demo"
+  },
+  "footer": {
+    "tagline": "From audit panic to audit readiness 24/7. Saudi-native Smart Audit Engine.",
+    "links": {
+      "product": "Product",
+      "contact": "Contact",
+      "privacy": "Privacy"
+    }
+  }
+}

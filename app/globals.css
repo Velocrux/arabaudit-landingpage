@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ArabAudit 60-30-10 palette */
+  --color-primary: #0B4634;   /* Deep Forest Green – logo, footer, headers, buttons */
+  --color-accent: #D4AF37;   /* Matte Gold – thin lines, icons, highlights */
+  --color-base: #FFFFFF;     /* Crisp White – backgrounds */
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-base text-primary antialiased;
+  }
+  [dir='rtl'] body {
+    font-family: var(--font-arabic), 'Noto Sans Arabic', system-ui, sans-serif;
+  }
+}
