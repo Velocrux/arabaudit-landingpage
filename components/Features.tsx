@@ -10,7 +10,7 @@ export function Features() {
   return (
     <section className="scroll-mt-16 bg-base px-4 py-16 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-5xl">
-        <h2 className="text-center text-2xl font-bold text-primary sm:text-3xl">
+        <h2 className="text-center text-section font-bold text-primary">
           {t.title}
         </h2>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -7,6 +7,20 @@
   --color-primary: #0B4634;   /* Deep Forest Green – logo, footer, headers, buttons */
   --color-accent: #D4AF37;   /* Matte Gold – thin lines, icons, highlights */
   --color-base: #FFFFFF;     /* Crisp White – backgrounds */
+
+  /* Middle East typography – English / LTR (Desktop: 48–56px hero, 28–32px section, 16px body/cta) */
+  --text-hero: clamp(2rem, 5vw, 3.5rem);
+  --text-section: clamp(1.75rem, 2.5vw, 2rem);
+  --text-body: clamp(0.9375rem, 1vw, 1rem);
+  --text-cta: 1rem;
+}
+
+[dir='rtl'] {
+  /* Arabic – slightly larger for balance (52–60px hero, 30–36px section, 18px body/cta) */
+  --text-hero: clamp(2.25rem, 5vw, 3.75rem);
+  --text-section: clamp(1.875rem, 2.5vw, 2.25rem);
+  --text-body: 1.125rem;
+  --text-cta: 1.125rem;
 }
 
 @layer base {
@@ -15,8 +29,9 @@
   }
   body {
     @apply bg-base text-primary antialiased;
+    font-size: var(--text-body);
   }
   [dir='rtl'] body {
-    font-family: var(--font-arabic), 'Noto Sans Arabic', system-ui, sans-serif;
+    font-family: var(--font-ibm), 'IBM Plex Sans Arabic', system-ui, sans-serif;
   }
 }

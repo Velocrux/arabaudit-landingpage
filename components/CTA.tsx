@@ -14,13 +14,13 @@ export function CTA() {
     >
       <div className="mx-auto max-w-2xl text-center">
         <div className="mx-auto mb-4 h-0.5 w-24 rounded-full bg-accent" />
-        <h2 className="text-2xl font-bold text-primary sm:text-3xl">
+        <h2 className="text-section font-bold text-primary">
           {t.title}
         </h2>
-        <p className="mt-3 text-primary/85">{t.subtitle}</p>
+        <p className="mt-3 text-body text-primary/85">{t.subtitle}</p>
         <a
           href="mailto:contact@arabaudit.com?subject=Demo%20Request"
-          className="mt-8 inline-flex items-center justify-center rounded-lg bg-primary px-8 py-4 text-lg font-semibold text-base shadow-md ring-2 ring-accent/40 ring-offset-2 transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-accent"
+          className="mt-8 inline-flex items-center justify-center rounded-lg bg-primary px-8 py-4 text-cta font-semibold text-base shadow-md ring-2 ring-accent/40 ring-offset-2 transition hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-accent"
         >
           {t.button}
         </a>

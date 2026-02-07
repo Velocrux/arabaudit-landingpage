@@ -10,10 +10,27 @@ export function HowItWorks() {
   return (
     <section id="product" className="scroll-mt-16 bg-primary/5 px-4 py-16 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-4xl">
-        <h2 className="text-center text-2xl font-bold text-primary sm:text-3xl">
+        <h2 className="text-center text-section font-bold text-primary">
           {t.title}
         </h2>
         <p className="mt-2 text-center text-primary/80">{t.subtitle}</p>
+
+        {/* Workflow callout */}
+        {t.workflowNote && (
+          <div className="mt-6 rounded-lg border border-accent/40 bg-accent/5 p-4 text-center">
+            <p className="text-sm text-primary/80">
+              {t.workflowNote}
+            </p>
+            <a
+              href="#productWorkflow"
+              className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline"
+            >
+              {t.workflowLink}
+              <span aria-hidden>↓</span>
+            </a>
+          </div>
+        )}
+
         <div className="mt-12 space-y-10">
           {t.phases.map((phase, i) => (
             <div

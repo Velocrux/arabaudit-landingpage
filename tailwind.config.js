@@ -3,17 +3,25 @@ module.exports = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './context/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        primary: 'var(--color-primary)',
-        accent: 'var(--color-accent)',
-        base: 'var(--color-base)',
+        // RGB format so opacity modifiers (e.g. bg-primary/5, text-primary/80) work
+        primary: 'rgb(11 70 52 / <alpha-value>)',   // #0B4634 Deep Forest Green
+        accent: 'rgb(212 175 55 / <alpha-value>)',   // #D4AF37 Matte Gold
+        base: 'rgb(255 255 255 / <alpha-value>)',    // #FFFFFF Crisp White
       },
       fontFamily: {
-        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        arabic: ['var(--font-arabic)', 'Noto Sans Arabic', 'system-ui', 'sans-serif'],
+        ibm: ['var(--font-ibm)', 'IBM Plex Sans Arabic', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-ibm)', 'IBM Plex Sans Arabic', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        hero: ['var(--text-hero)', { lineHeight: '1.2' }],
+        section: ['var(--text-section)', { lineHeight: '1.3' }],
+        body: ['var(--text-body)', { lineHeight: '1.6' }],
+        cta: ['var(--text-cta)', { lineHeight: '1.5' }],
       },
     },
   },

@@ -10,26 +10,35 @@ export function Sectors() {
   return (
     <section id="sectors" className="scroll-mt-16 bg-base px-4 py-16 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-5xl">
-        <h2 className="text-center text-2xl font-bold text-primary sm:text-3xl">
+        <h2 className="text-center text-section font-bold text-primary">
           {t.title}
         </h2>
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {t.items.map((item, i) => (
             <div
               key={i}
-              className="rounded-xl border border-primary/15 bg-base p-6 shadow-sm"
+              className="rounded-xl border-2 border-primary/15 bg-base p-6 shadow-sm hover:border-accent/30 transition-colors"
             >
-              <div className="flex items-center gap-2 border-b border-accent/40 pb-2">
+              <div className="flex items-center gap-2 border-b border-accent/40 pb-3">
                 <span
-                  className="h-2 w-2 rounded-full bg-accent"
+                  className="h-3 w-3 rounded-full bg-accent"
                   aria-hidden
                 />
                 <h3 className="text-lg font-bold text-primary">{item.name}</h3>
               </div>
-              <p className="mt-2 text-sm font-medium text-primary/80">
-                {item.regulator} · {item.framework}
-              </p>
-              <p className="mt-1 text-sm text-primary/75">{item.why}</p>
+              <div className="mt-4 space-y-2">
+                <p className="text-sm font-medium text-primary/80">
+                  <span className="text-accent">Regulator:</span> {item.regulator}
+                </p>
+                <p className="text-sm font-medium text-primary/80">
+                  <span className="text-accent">Framework:</span> {item.framework}
+                </p>
+                <div className="rounded-lg bg-primary/5 p-3 mt-3">
+                  <p className="text-sm text-primary/85 font-medium">
+                    Why now: {item.why}
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>

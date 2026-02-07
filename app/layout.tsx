@@ -1,22 +1,12 @@
 import type { Metadata } from 'next'
-import { Noto_Sans_Arabic, Inter } from 'next/font/google'
+import { IBM_Plex_Sans_Arabic } from 'next/font/google'
 import './globals.css'
 import { LocaleProvider } from '@/context/LocaleContext'
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-})
 
-const notoArabic = Noto_Sans_Arabic({
-  subsets: ['arabic'],
-  variable: '--font-arabic',
-  display: 'swap',
-})
-
+const ibm = IBM_Plex_Sans_Arabic({ subsets: ['latin', 'arabic'], variable: '--font-ibm', display: 'swap', weight: ['400', '500', '700'] })
 export const metadata: Metadata = {
-  title: 'ArabAudit | From Audit Panic to Audit Readiness 24/7',
+  title: 'ArabAudit | From Audit Panic to Audit Readiness',
   description:
     'Digital Co-Pilot for NCA ECC-2024 and SAMA. AI-powered compliance platform. Saudi-native, bilingual, framework harmonization.',
 }
@@ -29,10 +19,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${notoArabic.variable}`}
+      className={`${ibm.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen font-sans">
+      {/* Body font: IBM Plex Sans Arabic */}
+      <body className="min-h-screen antialiased font-ibm">
         <LocaleProvider>{children}</LocaleProvider>
       </body>
     </html>
