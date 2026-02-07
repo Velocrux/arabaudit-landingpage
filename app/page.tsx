@@ -15,10 +15,12 @@ import { Personas } from '@/components/Personas'
 import { LeadMagnet } from '@/components/LeadMagnet'
 import { CTA } from '@/components/CTA'
 import { Footer } from '@/components/Footer'
+import { ScrollProgress } from '@/components/animations/ScrollProgress'
 
 export default function Home() {
   return (
     <>
+      <ScrollProgress />
       <Header />
       <main>
         <Hero />

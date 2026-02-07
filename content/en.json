@@ -16,7 +16,7 @@
     "title": "Built for NCA ECC-2024, Not Patched for It",
     "subtitle": "Unlike older platforms built on 2018 standards, ArabAudit is native to the new 2024 requirements.",
     "badges": [
-      { "title": "2024 Native", "desc": "Cloud Security, Ransomware Defense, and Supply Chain risks." },
+      { "title": "NCA 2024 Native", "desc": "Cloud Security, Ransomware Defense, and Supply Chain risks." },
       { "title": "SAMA Maturity Promise", "desc": "Aim for Maturity Level 3 (Defined). Fraud Prevention focus." },
       { "title": "Saudi-Native Logic", "desc": "Our AI understands local requirements like Saudization—which global tools might miss." }
     ]

@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 :root {
-  /* ArabAudit 60-30-10 palette */
-  --color-primary: #0B4634;   /* Deep Forest Green – logo, footer, headers, buttons */
-  --color-accent: #D4AF37;   /* Matte Gold – thin lines, icons, highlights */
-  --color-base: #FFFFFF;     /* Crisp White – backgrounds */
+  /* SAMA Authority Royal Palette */
+  --color-primary: #0B4634;   /* Royal Deep Green – headers, buttons, footer, authority */
+  --color-secondary: #006C35; /* Saudi Flag Green – trust badges, success, compliance */
+  --color-accent: #D4AF37;    /* Metallic Gold – premium features, maturity badges, highlights */
+  --color-base: #FFFFFF;      /* Pure White – backgrounds, maximum contrast */
+  --color-text: #1F2937;      /* Charcoal – softer than black for bilingual readability */
 
   /* Middle East typography – English / LTR (Desktop: 48–56px hero, 28–32px section, 16px body/cta) */
   --text-hero: clamp(2rem, 5vw, 3.5rem);
@@ -33,5 +35,43 @@
   }
   [dir='rtl'] body {
     font-family: var(--font-ibm), 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 3s linear infinite;
+  }
+  
+  /* Accessibility: Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    
+    .animate-shimmer {
+      animation: none;
+    }
+  }
+  
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    /* Reduce animation complexity on mobile for performance */
+    .animate-bounce {
+      animation-duration: 2s;
+    }
   }
 }

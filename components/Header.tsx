@@ -13,11 +13,11 @@ export function Header() {
   const t = getContent(locale).nav
 
   return (
-    <header className="sticky top-0 z-50 border-b border-accent/30 bg-base/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b-2 border-accent bg-primary/95 backdrop-blur-sm shadow-royal">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link
           href="/"
-          className="flex shrink-0 items-center gap-2 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 rounded"
+          className="flex shrink-0 items-center gap-2 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary rounded"
           aria-label="ArabAudit Home"
         >
           <Image
@@ -25,7 +25,7 @@ export function Header() {
             alt="ArabAudit"
             width={120}
             height={40}
-            className="h-9 w-auto object-contain"
+            className="h-9 w-auto object-contain brightness-0 invert"
             priority
           />
         </Link>
@@ -34,14 +34,14 @@ export function Header() {
             <Link
               key={id}
               href={`#${id}`}
-              className="text-sm font-medium text-primary underline-offset-4 hover:underline hover:decoration-accent hover:decoration-2"
+              className="text-sm font-medium text-white underline-offset-4 hover:text-accent transition-colors duration-300 tracking-royal"
             >
               {t[id]}
             </Link>
           ))}
           <Link
             href="#contact"
-            className="text-sm font-medium text-primary underline-offset-4 hover:underline hover:decoration-accent hover:decoration-2"
+            className="text-sm font-medium text-white underline-offset-4 hover:text-accent transition-colors duration-300 tracking-royal"
           >
             {t.contact}
           </Link>
