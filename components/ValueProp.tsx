@@ -7,7 +7,7 @@ import { FloatingCard } from './animations/FloatingCard'
 
 export function ValueProp() {
   const { locale } = useLocale()
-  const t = getContent(locale).valueProp
+  const t = getContent(locale).features
 
   return (
     <section id="whyUs" className="scroll-mt-16 bg-gradient-to-b from-base to-primary/5 px-4 py-16 sm:px-6 sm:py-20">

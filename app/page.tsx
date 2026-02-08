@@ -18,10 +18,10 @@ export default function Home() {
       <main>
         <Hero />
         <TrustSignals />
-        <Frameworks />
         <Features />
         <Comparison />
         <Personas />
+        <Frameworks />
         <Team />
         <CTA />
       </main>
