@@ -4,6 +4,7 @@ import { useState, useEffect, FormEvent } from 'react'
 import { useLocale } from '@/context/LocaleContext'
 import { getContent } from '@/lib/content'
 import { validateSaudiPhone, formatSaudiPhone, validateRequired, validateEmail } from '@/lib/validation'
+import { useAnalytics } from '@/lib/hooks/useAnalytics'
 
 interface DemoRequestModalProps {
   isOpen: boolean
@@ -32,7 +33,8 @@ interface FormErrors {
 export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
   const { locale } = useLocale()
   const t = getContent(locale).demoModal
-  
+  const { trackFormEvent, trackDemoRequest, getTimeOnPage, sectionsViewed } = useAnalytics()
+
   const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
@@ -41,12 +43,16 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
     industry: '',
     phone: '+966 '
   })
-  
+
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [showError, setShowError] = useState(false)
-  
+
+  // Form tracking state
+  const [formStartTime, setFormStartTime] = useState<number | null>(null)
+  const [fieldFocusTimes, setFieldFocusTimes] = useState<Record<string, number>>({})
+
   // Handle ESC key to close modal
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -54,18 +60,18 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
         onClose()
       }
     }
-    
+
     if (isOpen) {
       document.addEventListener('keydown', handleEsc)
       document.body.style.overflow = 'hidden'
     }
-    
+
     return () => {
       document.removeEventListener('keydown', handleEsc)
       document.body.style.overflow = 'unset'
     }
   }, [isOpen, onClose])
-  
+
   // Reset form when modal closes
   useEffect(() => {
     if (!isOpen) {
@@ -80,9 +86,22 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
       setErrors({})
       setShowSuccess(false)
       setShowError(false)
+      setFormStartTime(null)
+      setFieldFocusTimes({})
     }
   }, [isOpen])
-  
+
+  // Track modal open/close
+  useEffect(() => {
+    if (isOpen && !formStartTime) {
+      setFormStartTime(Date.now())
+      trackFormEvent('open')
+    } else if (!isOpen && formStartTime) {
+      const timeInForm = Math.floor((Date.now() - formStartTime) / 1000)
+      trackFormEvent('close', undefined, { timeInForm })
+    }
+  }, [isOpen, formStartTime, trackFormEvent])
+
   const handlePhoneChange = (value: string) => {
     const formatted = formatSaudiPhone(value)
     setFormData(prev => ({ ...prev, phone: formatted }))
@@ -91,54 +110,74 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
       setErrors(prev => ({ ...prev, phone: undefined }))
     }
   }
-  
+
+  const handleFieldFocus = (fieldName: string) => {
+    setFieldFocusTimes(prev => ({ ...prev, [fieldName]: Date.now() }))
+    trackFormEvent('field_focus', fieldName)
+  }
+
+  const handleFieldBlur = (fieldName: string, value: string) => {
+    if (fieldFocusTimes[fieldName]) {
+      const timeSpent = Math.floor((Date.now() - fieldFocusTimes[fieldName]) / 1000)
+      trackFormEvent('field_blur', fieldName, { timeSpent, fieldValue: value })
+    }
+  }
+
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
-    
+
     const firstNameValidation = validateRequired(formData.firstName, t.fields.firstName)
     if (!firstNameValidation.isValid) {
       newErrors.firstName = firstNameValidation.error
     }
-    
+
     const lastNameValidation = validateRequired(formData.lastName, t.fields.lastName)
     if (!lastNameValidation.isValid) {
       newErrors.lastName = lastNameValidation.error
     }
-    
+
     const emailValidation = validateEmail(formData.email)
     if (!emailValidation.isValid) {
       newErrors.email = emailValidation.error
     }
-    
+
     const organizationValidation = validateRequired(formData.organization, t.fields.organization)
     if (!organizationValidation.isValid) {
       newErrors.organization = organizationValidation.error
     }
-    
+
     const industryValidation = validateRequired(formData.industry, t.fields.industry)
     if (!industryValidation.isValid) {
       newErrors.industry = industryValidation.error
     }
-    
+
     const phoneValidation = validateSaudiPhone(formData.phone)
     if (!phoneValidation.isValid) {
       newErrors.phone = phoneValidation.error
     }
-    
+
     setErrors(newErrors)
+
+    // Track validation errors
+    Object.entries(newErrors).forEach(([field, error]) => {
+      if (error) {
+        trackFormEvent('validation_error', field, { errorMessage: error })
+      }
+    })
+
     return Object.keys(newErrors).length === 0
   }
-  
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    
+
     if (!validateForm()) {
       return
     }
-    
+
     setIsSubmitting(true)
     setShowError(false)
-    
+
     try {
       const response = await fetch('/api/demo-request', {
         method: 'POST',
@@ -147,53 +186,59 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
         },
         body: JSON.stringify(formData),
       })
-      
+
       const data = await response.json()
-      
+
       if (!response.ok) {
         throw new Error(data.message || 'Failed to submit request')
       }
-      
+
       setShowSuccess(true)
-      
+
+      // Track successful submission and identify user
+      const timeToConversion = formStartTime ? Math.floor((Date.now() - formStartTime) / 1000) : 0
+      const formCompletionTime = timeToConversion
+
+      trackDemoRequest(formData, sectionsViewed, timeToConversion, formCompletionTime)
+
       // Close modal after 3 seconds
       setTimeout(() => {
         onClose()
       }, 3000)
-      
+
     } catch (error) {
       console.error('Error submitting form:', error)
       setShowError(true)
-      setErrors(prev => ({ 
-        ...prev, 
+      setErrors(prev => ({
+        ...prev,
         submit: error instanceof Error ? error.message : 'Failed to send request'
       }))
     } finally {
       setIsSubmitting(false)
     }
   }
-  
+
   if (!isOpen) return null
-  
+
   return (
-    <div 
+    <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-primary/20 backdrop-blur-md overflow-y-auto"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      <div 
-        className="relative w-full max-w-lg bg-base rounded-2xl border-2 border-accent/40 shadow-premium overflow-hidden my-4"
+      <div
+        className="overflow-hidden relative my-4 w-full max-w-lg rounded-2xl border-2 bg-base border-accent/40 shadow-premium"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Gold accent bar */}
         <div className="h-1 bg-accent" />
-        
+
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-primary/60 hover:text-accent transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent rounded-full p-1"
+          className="absolute top-4 right-4 p-1 rounded-full transition-colors duration-300 text-primary/60 hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent"
           aria-label={t.close || 'Close'}
           type="button"
         >
@@ -201,156 +246,161 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        
+
         <div className="p-8">
           {showSuccess ? (
-            <div className="text-center py-8">
-              <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center">
+            <div className="py-8 text-center">
+              <div className="flex justify-center items-center mx-auto mb-4 w-16 h-16 rounded-full bg-secondary/10">
                 <svg className="w-8 h-8 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="text-section font-bold text-primary mb-2">{t.success.title}</h3>
+              <h3 className="mb-2 font-bold text-section text-primary">{t.success.title}</h3>
               <p className="text-body text-primary/80">{t.success.message}</p>
             </div>
           ) : (
             <>
-              <div className="text-center mb-6">
-                <div className="mx-auto mb-3 h-1 w-16 rounded-full bg-accent" />
-                <h2 id="modal-title" className="text-section font-bold text-primary tracking-royal">
+              <div className="mb-6 text-center">
+                <div className="mx-auto mb-3 w-16 h-1 rounded-full bg-accent" />
+                <h2 id="modal-title" className="font-bold text-section text-primary tracking-royal">
                   {t.title}
                 </h2>
                 <p className="mt-2 text-body text-primary/70">{t.subtitle}</p>
               </div>
-              
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* First Name */}
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-primary mb-1">
+                  <label htmlFor="firstName" className="block mb-1 text-sm font-medium text-primary">
                     {t.fields.firstName} <span className="text-accent">*</span>
                   </label>
                   <input
                     type="text"
                     id="firstName"
                     value={formData.firstName}
+                    onFocus={() => handleFieldFocus('firstName')}
+                    onBlur={(e) => handleFieldBlur('firstName', e.target.value)}
                     onChange={(e) => {
                       setFormData(prev => ({ ...prev, firstName: e.target.value }))
                       if (errors.firstName) {
                         setErrors(prev => ({ ...prev, firstName: undefined }))
                       }
                     }}
-                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${
-                      errors.firstName 
-                        ? 'border-red-500 focus:border-red-500' 
+                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.firstName
+                        ? 'border-red-500 focus:border-red-500'
                         : 'border-primary/20 focus:border-accent'
-                    } bg-base text-primary placeholder-primary/40`}
+                      } bg-base text-primary placeholder-primary/40`}
                     placeholder={t.placeholders?.firstName || ''}
                   />
                   {errors.firstName && (
                     <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>
                   )}
                 </div>
-                
+
                 {/* Last Name */}
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-primary mb-1">
+                  <label htmlFor="lastName" className="block mb-1 text-sm font-medium text-primary">
                     {t.fields.lastName} <span className="text-accent">*</span>
                   </label>
                   <input
                     type="text"
                     id="lastName"
                     value={formData.lastName}
+                    onFocus={() => handleFieldFocus('lastName')}
+                    onBlur={(e) => handleFieldBlur('lastName', e.target.value)}
                     onChange={(e) => {
                       setFormData(prev => ({ ...prev, lastName: e.target.value }))
                       if (errors.lastName) {
                         setErrors(prev => ({ ...prev, lastName: undefined }))
                       }
                     }}
-                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${
-                      errors.lastName 
-                        ? 'border-red-500 focus:border-red-500' 
+                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.lastName
+                        ? 'border-red-500 focus:border-red-500'
                         : 'border-primary/20 focus:border-accent'
-                    } bg-base text-primary placeholder-primary/40`}
+                      } bg-base text-primary placeholder-primary/40`}
                     placeholder={t.placeholders?.lastName || ''}
                   />
                   {errors.lastName && (
                     <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>
                   )}
                 </div>
-                
+
                 {/* Email */}
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-primary mb-1">
+                  <label htmlFor="email" className="block mb-1 text-sm font-medium text-primary">
                     {t.fields.email} <span className="text-accent">*</span>
                   </label>
                   <input
                     type="email"
                     id="email"
                     value={formData.email}
+                    onFocus={() => handleFieldFocus('email')}
+                    onBlur={(e) => handleFieldBlur('email', e.target.value)}
                     onChange={(e) => {
                       setFormData(prev => ({ ...prev, email: e.target.value }))
                       if (errors.email) {
                         setErrors(prev => ({ ...prev, email: undefined }))
                       }
                     }}
-                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${
-                      errors.email 
-                        ? 'border-red-500 focus:border-red-500' 
+                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.email
+                        ? 'border-red-500 focus:border-red-500'
                         : 'border-primary/20 focus:border-accent'
-                    } bg-base text-primary placeholder-primary/40`}
+                      } bg-base text-primary placeholder-primary/40`}
                     placeholder={t.placeholders?.email || 'your@email.com'}
                   />
                   {errors.email && (
                     <p className="mt-1 text-sm text-red-600">{errors.email}</p>
                   )}
                 </div>
-                
+
                 {/* Organization */}
                 <div>
-                  <label htmlFor="organization" className="block text-sm font-medium text-primary mb-1">
+                  <label htmlFor="organization" className="block mb-1 text-sm font-medium text-primary">
                     {t.fields.organization} <span className="text-accent">*</span>
                   </label>
                   <input
                     type="text"
                     id="organization"
                     value={formData.organization}
+                    onFocus={() => handleFieldFocus('organization')}
+                    onBlur={(e) => handleFieldBlur('organization', e.target.value)}
                     onChange={(e) => {
                       setFormData(prev => ({ ...prev, organization: e.target.value }))
                       if (errors.organization) {
                         setErrors(prev => ({ ...prev, organization: undefined }))
                       }
                     }}
-                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${
-                      errors.organization 
-                        ? 'border-red-500 focus:border-red-500' 
+                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.organization
+                        ? 'border-red-500 focus:border-red-500'
                         : 'border-primary/20 focus:border-accent'
-                    } bg-base text-primary placeholder-primary/40`}
+                      } bg-base text-primary placeholder-primary/40`}
                     placeholder={t.placeholders?.organization || ''}
                   />
                   {errors.organization && (
                     <p className="mt-1 text-sm text-red-600">{errors.organization}</p>
                   )}
                 </div>
-                
+
                 {/* Industry */}
                 <div>
-                  <label htmlFor="industry" className="block text-sm font-medium text-primary mb-1">
+                  <label htmlFor="industry" className="block mb-1 text-sm font-medium text-primary">
                     {t.fields.industry} <span className="text-accent">*</span>
                   </label>
                   <select
                     id="industry"
                     value={formData.industry}
+                    onFocus={() => handleFieldFocus('industry')}
+                    onBlur={(e) => handleFieldBlur('industry', e.target.value)}
                     onChange={(e) => {
                       setFormData(prev => ({ ...prev, industry: e.target.value }))
                       if (errors.industry) {
                         setErrors(prev => ({ ...prev, industry: undefined }))
                       }
                     }}
-                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${
-                      errors.industry 
-                        ? 'border-red-500 focus:border-red-500' 
+                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.industry
+                        ? 'border-red-500 focus:border-red-500'
                         : 'border-primary/20 focus:border-accent'
-                    } bg-base text-primary`}
+                      } bg-base text-primary`}
                   >
                     <option value="">{t.placeholders?.industry || 'Select industry'}</option>
                     <optgroup label={t.industries?.sama || 'SAMA CSF (Financial Sector)'}>
@@ -379,22 +429,23 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
                     <p className="mt-1 text-sm text-red-600">{errors.industry}</p>
                   )}
                 </div>
-                
+
                 {/* Phone */}
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-primary mb-1">
+                  <label htmlFor="phone" className="block mb-1 text-sm font-medium text-primary">
                     {t.fields.phone} <span className="text-accent">*</span>
                   </label>
                   <input
                     type="tel"
                     id="phone"
                     value={formData.phone}
+                    onFocus={() => handleFieldFocus('phone')}
+                    onBlur={(e) => handleFieldBlur('phone', e.target.value)}
                     onChange={(e) => handlePhoneChange(e.target.value)}
-                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${
-                      errors.phone 
-                        ? 'border-red-500 focus:border-red-500' 
+                    className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.phone
+                        ? 'border-red-500 focus:border-red-500'
                         : 'border-primary/20 focus:border-accent'
-                    } bg-base text-primary placeholder-primary/40`}
+                      } bg-base text-primary placeholder-primary/40`}
                     placeholder="+966 5X XXX XXXX"
                     dir="ltr"
                   />
@@ -403,29 +454,29 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
                   )}
                   <p className="mt-1 text-xs text-primary/60">{t.fields.phoneHint || 'Saudi mobile number format: +966 5X XXX XXXX'}</p>
                 </div>
-                
+
                 {/* Error message */}
                 {showError && errors.submit && (
-                  <div className="p-4 rounded-lg bg-red-50 border border-red-200">
-                    <p className="text-sm text-red-600 mb-2">{errors.submit}</p>
-                    <a 
+                  <div className="p-4 bg-red-50 rounded-lg border border-red-200">
+                    <p className="mb-2 text-sm text-red-600">{errors.submit}</p>
+                    <a
                       href={`mailto:kauser@velocrux.com?subject=[ArabAudit]%20Demo%20Request&body=Name:%20${formData.firstName}%20${formData.lastName}%0AEmail:%20${formData.email}%0AOrganization:%20${formData.organization}%0AIndustry:%20${formData.industry}%0APhone:%20${formData.phone}`}
-                      className="text-sm text-accent hover:text-accent/80 underline font-medium"
+                      className="text-sm font-medium underline text-accent hover:text-accent/80"
                     >
                       {t.error?.fallback || 'Click here to email us directly'}
                     </a>
                   </div>
                 )}
-                
+
                 {/* Submit button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group relative w-full mt-6 inline-flex items-center justify-center rounded-lg bg-accent px-8 py-4 text-cta font-bold text-primary shadow-gold ring-2 ring-accent ring-offset-2 transition-all duration-300 hover:scale-105 hover:shadow-gold focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 overflow-hidden"
+                  className="inline-flex overflow-hidden relative justify-center items-center px-8 py-4 mt-6 w-full font-bold rounded-lg ring-2 ring-offset-2 transition-all duration-300 group bg-accent text-cta text-primary shadow-gold ring-accent hover:scale-105 hover:shadow-gold focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <span className="flex gap-2 items-center">
+                      <svg className="w-5 h-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>

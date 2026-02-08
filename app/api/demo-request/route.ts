@@ -1,8 +1,14 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import Mixpanel from 'mixpanel'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 const DEMO_REQUEST_EMAIL = process.env.DEMO_REQUEST_EMAIL || 'kauser@velocrux.com'
+
+// Initialize server-side Mixpanel
+const mixpanel = process.env.MIXPANEL_TOKEN
+  ? Mixpanel.init(process.env.MIXPANEL_TOKEN)
+  : null
 
 interface DemoRequestBody {
   firstName: string
@@ -183,7 +189,42 @@ This request was submitted through the ArabAudit landing page demo request form.
     }
     
     console.log('Email sent successfully:', data)
-    
+
+    // Track successful demo request server-side
+    if (mixpanel) {
+      try {
+        // Track the conversion event
+        mixpanel.track('demo_requested_server', {
+          first_name: body.firstName,
+          last_name: body.lastName,
+          email: body.email,
+          organization: body.organization,
+          industry: body.industry,
+          phone: body.phone,
+          timestamp: new Date().toISOString(),
+          source: 'api_submission',
+          email_sent: true
+        })
+
+        // Set user properties for the identified user
+        mixpanel.people.set(body.email, {
+          $name: `${body.firstName} ${body.lastName}`,
+          $email: body.email,
+          $phone: body.phone,
+          organization: body.organization,
+          industry: body.industry,
+          demo_requested: true,
+          demo_requested_at: new Date().toISOString(),
+          last_seen: new Date().toISOString()
+        })
+
+        console.log('Mixpanel server-side tracking completed')
+      } catch (mixpanelError) {
+        console.error('Failed to track in Mixpanel:', mixpanelError)
+        // Don't fail the request if tracking fails
+      }
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Demo request submitted successfully'

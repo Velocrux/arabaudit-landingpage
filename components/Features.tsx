@@ -4,13 +4,15 @@ import { useLocale } from '@/context/LocaleContext'
 import { getContent } from '@/lib/content'
 import { FadeInUp } from './animations/FadeInUp'
 import { StaggerChildren, StaggerItem } from './animations/StaggerChildren'
+import { useSectionTracking } from '@/lib/hooks/useAnalytics'
 
 export function Features() {
   const { locale } = useLocale()
   const t = getContent(locale).features
+  const featuresRef = useSectionTracking('features')
 
   return (
-    <section className="relative scroll-mt-16 overflow-hidden px-6 py-20 sm:px-8 sm:py-28">
+    <section ref={featuresRef} id="product" className="relative scroll-mt-16 overflow-hidden px-6 py-20 sm:px-8 sm:py-28">
       {/* Royal gradient: same palette, soft and luxurious */}
       <div
         className="absolute inset-0"
@@ -62,11 +64,10 @@ export function Features() {
             const isHighlighted = 'highlighted' in item && item.highlighted
             return (
               <StaggerItem key={i}>
-                <div className={`group flex h-full min-h-[200px] flex-col rounded-2xl p-8 shadow-lg backdrop-blur-sm transition-all duration-500 ease-out cursor-pointer ${
-                  isHighlighted
-                    ? 'border-2 border-accent/50 bg-gradient-to-br from-accent/10 via-white/95 to-accent/5 ring-2 ring-accent/20 hover:border-accent hover:shadow-gold hover:shadow-2xl hover:scale-[1.02] hover:-translate-y-1'
-                    : 'border border-primary/10 bg-white/95 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/10 hover:scale-[1.01] hover:-translate-y-0.5'
-                }`}>
+                <div className={`group flex h-full min-h-[200px] flex-col rounded-2xl p-8 shadow-lg backdrop-blur-sm transition-all duration-500 ease-out cursor-pointer ${isHighlighted
+                  ? 'border-2 border-accent/50 bg-gradient-to-br from-accent/10 via-white/95 to-accent/5 ring-2 ring-accent/20 hover:border-accent hover:shadow-gold hover:shadow-2xl hover:scale-[1.02] hover:-translate-y-1'
+                  : 'border border-primary/10 bg-white/95 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/10 hover:scale-[1.01] hover:-translate-y-0.5'
+                  }`}>
                   {isHighlighted && (
                     <div className="mb-3 flex items-center gap-2">
                       <svg className="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,18 +77,16 @@ export function Features() {
                     </div>
                   )}
                   <span
-                    className={`mb-4 flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-lg font-bold ring-2 ${
-                      isHighlighted 
-                        ? 'bg-accent/20 text-accent ring-accent/50' 
-                        : 'bg-accent/15 text-accent ring-accent/30'
-                    }`}
+                    className={`mb-4 flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-lg font-bold ring-2 ${isHighlighted
+                      ? 'bg-accent/20 text-accent ring-accent/50'
+                      : 'bg-accent/15 text-accent ring-accent/30'
+                      }`}
                     aria-hidden
                   >
                     {i + 1}
                   </span>
-                  <h3 className={`font-bold text-lg tracking-royal transition-colors duration-300 group-hover:text-accent ${
-                    isHighlighted ? 'text-primary' : 'text-primary'
-                  }`}>
+                  <h3 className={`font-bold text-lg tracking-royal transition-colors duration-300 group-hover:text-accent ${isHighlighted ? 'text-primary' : 'text-primary'
+                    }`}>
                     {item.title}
                   </h3>
                   <p className="mt-3 flex-1 text-[15px] text-primary/80 leading-relaxed">

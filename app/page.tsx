@@ -1,3 +1,4 @@
+'use client'
 import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { TrustSignals } from '@/components/TrustSignals'
@@ -10,7 +11,11 @@ import { CTA } from '@/components/CTA'
 import { Footer } from '@/components/Footer'
 import { ScrollProgress } from '@/components/animations/ScrollProgress'
 
+import { useScrollDepthTracking } from '@/lib/hooks/useAnalytics'
+
 export default function Home() {
+  // Track scroll depth milestones
+  useScrollDepthTracking([25, 50, 75, 100])
   return (
     <>
       <ScrollProgress />

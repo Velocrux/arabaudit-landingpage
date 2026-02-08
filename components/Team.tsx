@@ -5,13 +5,15 @@ import { useLocale } from '@/context/LocaleContext'
 import { getContent } from '@/lib/content'
 import { FadeInUp } from './animations/FadeInUp'
 import { FloatingCard } from './animations/FloatingCard'
+import { useSectionTracking } from '@/lib/hooks/useAnalytics'
 
 export function Team() {
   const { locale } = useLocale()
   const t = getContent(locale).team
+  const teamRef = useSectionTracking('team')
 
   return (
-    <section className="relative scroll-mt-16 overflow-hidden px-6 py-20 sm:px-8 sm:py-28">
+    <section ref={teamRef} className="relative scroll-mt-16 overflow-hidden px-6 py-20 sm:px-8 sm:py-28">
       {/* Royal gradient background */}
       <div
         className="absolute inset-0"

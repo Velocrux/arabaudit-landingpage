@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { IBM_Plex_Sans_Arabic } from 'next/font/google'
 import './globals.css'
 import { LocaleProvider } from '@/context/LocaleContext'
+import { AnalyticsProvider } from '@/context/AnalyticsContext'
 
 const ibm = IBM_Plex_Sans_Arabic({ subsets: ['latin', 'arabic'], variable: '--font-ibm', display: 'swap', weight: ['400', '500', '700'] })
 
@@ -80,7 +81,9 @@ export default function RootLayout({
     >
       {/* Body font: IBM Plex Sans Arabic */}
       <body className="min-h-screen antialiased font-ibm">
-        <LocaleProvider>{children}</LocaleProvider>
+        <LocaleProvider>
+          <AnalyticsProvider>{children}</AnalyticsProvider>
+        </LocaleProvider>
       </body>
     </html>
   )

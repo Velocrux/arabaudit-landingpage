@@ -4,13 +4,15 @@ import { useLocale } from '@/context/LocaleContext'
 import { getContent } from '@/lib/content'
 import { FadeInUp } from './animations/FadeInUp'
 import { StaggerChildren, StaggerItem } from './animations/StaggerChildren'
+import { useSectionTracking } from '@/lib/hooks/useAnalytics'
 
 export function Personas() {
   const { locale } = useLocale()
   const t = getContent(locale).personas
+  const personasRef = useSectionTracking('personas')
 
   return (
-    <section className="relative scroll-mt-16 overflow-hidden px-6 py-20 sm:px-8 sm:py-28">
+    <section ref={personasRef} className="relative scroll-mt-16 overflow-hidden px-6 py-20 sm:px-8 sm:py-28">
       {/* Royal gradient background */}
       <div
         className="absolute inset-0"
@@ -22,7 +24,7 @@ export function Personas() {
           ].join(', '),
         }}
       />
-      
+
       {/* Subtle diamond pattern */}
       <svg
         className="absolute inset-0 h-full w-full opacity-[0.03]"
