@@ -1,9 +1,12 @@
 'use client'
 
+import { useState } from 'react'
 import { useLocale } from '@/context/LocaleContext'
+import { DEMO_CALENDLY_URL } from '@/lib/constants'
 import { getContent } from '@/lib/content'
 import { FadeInUp } from './animations/FadeInUp'
 import { StaggerChildren, StaggerItem } from './animations/StaggerChildren'
+import { DemoRequestModal } from './DemoRequestModal'
 import Image from 'next/image'
 
 export function Hero() {
@@ -13,6 +16,8 @@ export function Hero() {
   const subhead = (t.defaultSubhead as string | undefined) ?? (t.subhead as string)
   const personas = Array.isArray(t.personas) ? t.personas : []
   const firstPersona = personas[0] as { painPoint: string; solution: string } | undefined
+  
+  const [showDemoModal, setShowDemoModal] = useState(false)
 
   return (
     <section className="overflow-hidden relative px-4 py-20 sm:px-6 sm:py-28 lg:py-36">
@@ -52,6 +57,32 @@ export function Hero() {
           </p>
         </FadeInUp>
 
+        {/* Serving Enterprises & Vision 2030 Badges */}
+        <FadeInUp delay={0.25}>
+          <div className="flex flex-wrap gap-2 sm:gap-3 justify-center items-center mt-6 px-2">
+            {/* Serving Enterprises Badge */}
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-full border border-accent/30 bg-white/10 backdrop-blur-sm text-center">
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span className="text-xs sm:text-sm font-medium text-white/90 tracking-wide">
+                {String(t.servingEnterprisesLabel ?? '')}
+              </span>
+            </div>
+
+            {/* Vision 2030 Badge */}
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-full border-2 border-accent/50 bg-accent/10 backdrop-blur-sm">
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+              <span className="text-xs sm:text-sm font-bold text-accent uppercase tracking-wider">
+                {String(t.vision2030Badge ?? '')}
+              </span>
+            </div>
+          </div>
+        </FadeInUp>
+
         {/* Problem/Solution Preview */}
         {firstPersona && (
           <FadeInUp delay={0.3}>
@@ -82,17 +113,20 @@ export function Hero() {
 
         <StaggerChildren className="flex flex-wrap gap-4 justify-center items-center mt-10" staggerDelay={0.1}>
           <StaggerItem>
-            <a
-              href="#contact"
+            <button
+              onClick={() => setShowDemoModal(true)}
+              type="button"
               className="inline-flex overflow-hidden relative justify-center items-center px-8 py-4 font-bold rounded-lg ring-2 ring-offset-2 transition-all duration-300 group bg-accent text-cta text-primary shadow-gold ring-accent ring-offset-primary hover:scale-105 hover:shadow-gold focus:outline-none focus:ring-2 focus:ring-accent"
             >
               <span className="relative z-10">{String(t.cta ?? '')}</span>
               <div className="absolute inset-0 bg-gold-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[length:200%_100%] animate-shimmer"></div>
-            </a>
+            </button>
           </StaggerItem>
           <StaggerItem>
             <a
-              href="#leadMagnet"
+              href={DEMO_CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex justify-center items-center px-8 py-4 font-bold rounded-lg border-2 backdrop-blur-sm transition-all duration-300 border-accent text-cta text-accent bg-white/5 hover:bg-accent hover:text-primary hover:scale-105 hover:shadow-gold focus:outline-none focus:ring-2 focus:ring-accent"
             >
               {String(t.ctaSecondary ?? '')}
@@ -119,6 +153,9 @@ export function Hero() {
           </div>
         </FadeInUp>
       </div>
+      
+      {/* Demo Request Modal */}
+      <DemoRequestModal isOpen={showDemoModal} onClose={() => setShowDemoModal(false)} />
     </section>
   )
 }

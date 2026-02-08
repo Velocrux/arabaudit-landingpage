@@ -1,13 +1,16 @@
 'use client'
 
+import { useState } from 'react'
 import { useLocale } from '@/context/LocaleContext'
 import { getContent } from '@/lib/content'
 import { FadeInUp } from './animations/FadeInUp'
+import { DemoRequestModal } from './DemoRequestModal'
 import Image from 'next/image'
 
 export function CTA() {
   const { locale } = useLocale()
   const t = getContent(locale).cta
+  const [showDemoModal, setShowDemoModal] = useState(false)
 
   return (
     <section
@@ -40,15 +43,19 @@ export function CTA() {
         </FadeInUp>
         
         <FadeInUp delay={0.3}>
-          <a
-            href="mailto:contact@arabaudit.com?subject=Demo%20Request"
+          <button
+            onClick={() => setShowDemoModal(true)}
+            type="button"
             className="group relative mt-10 inline-flex items-center justify-center rounded-lg bg-accent px-10 py-5 text-cta font-bold text-primary shadow-gold ring-2 ring-accent ring-offset-2 ring-offset-primary transition-all duration-300 hover:scale-105 hover:shadow-gold focus:outline-none focus:ring-2 focus:ring-accent overflow-hidden"
           >
             <span className="relative z-10">{t.button}</span>
             <div className="absolute inset-0 bg-gold-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[length:200%_100%] animate-shimmer"></div>
-          </a>
+          </button>
         </FadeInUp>
       </div>
+      
+      {/* Demo Request Modal */}
+      <DemoRequestModal isOpen={showDemoModal} onClose={() => setShowDemoModal(false)} />
     </section>
   )
 }

@@ -1,7 +1,6 @@
 'use client'
 
 import { useLocale } from '@/context/LocaleContext'
-import type { Locale } from '@/context/LocaleContext'
 
 export function LanguageToggle() {
   const { locale, setLocale } = useLocale()
@@ -18,7 +17,7 @@ export function LanguageToggle() {
         aria-pressed={locale === 'en'}
         aria-label="English"
       >
-        EN
+        ENG
       </button>
       <button
         type="button"
@@ -28,9 +27,9 @@ export function LanguageToggle() {
             : 'text-primary hover:bg-primary/10'
           }`}
         aria-pressed={locale === 'ar'}
-        aria-label="العربية"
+        aria-label="Arabic"
       >
-        AR
+        العربية
       </button>
     </div>
   )
