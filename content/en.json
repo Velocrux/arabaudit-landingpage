@@ -11,7 +11,7 @@
     "cta": "Schedule demo",
     "ctaSecondary": "Talk to us",
     "ctaDownloadECC": "Download ECC Checklist",
-    "servingEnterprisesLabel": "Serving enterprises from Riyadh and across the Kingdom",
+    "servingEnterprisesLabel": "Serving enterprises across KSA",
     "vision2030Badge": "Vision 2030 Aligned"
   },
   "demoModal": {
@@ -71,7 +71,7 @@
       {
         "framework": "NCA ECC-2024",
         "title": "Essential Cybersecurity Controls",
-        "desc": "Run the criteria checklist, upload evidence we map your data to NCA control IDs. One-click export generates the .xlsx the authority requires. No more days of copy-paste into the government sheet."
+        "desc": "Run the criteria checklist, upload evidence we map your data to NCA control IDs (e.g. ECC 2.2, 3.5). One-click export generates the .xlsx the authority requires. No more days of copy-paste into the government sheet."
       },
       {
         "framework": "SAMA CSF",
@@ -81,63 +81,7 @@
       {
         "framework": "SDAIA / PDPL",
         "title": "Data Protection & Privacy",
-        "desc": "Align policies and consent flows with PDPL. Validate privacy evidence in the same workflow inline comments for audit trail, one source of truth. Ready for data protection audits."
-      }
-    ]
-  },
-  "aiDifferentiation": {
-    "title": "Deep technical AI, not just document dates",
-    "subtitle": "Other audit platforms only check dates. We read your evidence and tell you exactly which NCA or SAMA control is non-compliant and what to fix.",
-    "headers": {
-      "category": "Feature",
-      "competitor": "Other audit platforms (surface-level)",
-      "arabaudit": "ArabAudit AI (Deep Technical)"
-    },
-    "comparison": [
-      {
-        "category": "Input",
-        "competitor": "PDF or image of a policy",
-        "arabaudit": "Log files, screenshots, and documents"
-      },
-      {
-        "category": "Action",
-        "competitor": "Flags the \"2022\" date as expired",
-        "arabaudit": "Reads your evidence and links it to the exact NCA or SAMA control"
-      },
-      {
-        "category": "Output",
-        "competitor": "Document appears expired.",
-        "arabaudit": "Control 3.5: Non-compliant and what to fix."
-      }
-    ],
-    "realExample": {
-      "title": "From the audit workflow: policy upload and regulator export",
-      "competitor": "During the audit the auditor uploads an insurance policy. Other audit platforms might only show \"Document appears expired\"—or do nothing. There is no recommendation to mark as non-compliant, and no link to which NCA or SAMA control it maps to. When the report is done, the auditor manually figures out each control and spends days copy-pasting findings into the regulator's Excel template.",
-      "arabaudit": "Same upload. Our AI flags the expiry, recommends \"Mark as Non-Compliant,\" and maps the finding to the specific control (e.g. NCA ECC 2.2 or SAMA criteria) so the auditor knows exactly what to do. When the report is ready, one click exports the .xlsx in the format the regulator requires. No manual mapping, no copy-paste."
-    }
-  },
-  "valueProp": {
-    "title": "Why ArabAudit",
-    "items": [
-      {
-        "title": "Upload once, comply everywhere",
-        "desc": "Complete SAMA Control 3.3.5? Our AI suggests applying the same evidence to NCA ECC 2.2. One policy, both frameworks saves 40% of your work instantly."
-      },
-      {
-        "title": "One-Click Regulatory Export",
-        "desc": "Regulators want data in their Excel templates. We map your findings into official NCA and SAMA formats. No more days of manual copy-paste into the government sheet."
-      },
-      {
-        "title": "Deep technical AI, not just dates",
-        "desc": "AI acts as a Pre-Auditor: reads your evidence, recommends \"Mark as Non-Compliant,\" and maps to the right control. You keep the final click; we do the heavy lifting."
-      },
-      {
-        "title": "Saudi context out of the box",
-        "desc": "NCA, SAMA, and SDAIA/PDPL built in. Tell us your industry we provision the right frameworks. No configuration required."
-      },
-      {
-        "title": "Instant on-demand, not reactive",
-        "desc": "Run a compliance check when you need it. We flag gaps and suggest fixes before the auditor arrives so you're audit-ready, not audit-panicking."
+        "desc": "Upload your privacy policies and consent evidence. We validate them against PDPL and keep one audit trail. Ready for SDAIA data protection audits."
       }
     ]
   },
@@ -176,63 +120,24 @@
       "for": "Everyone that collects, processes, or shares personal data."
     }
   },
-  "auditProcess": {
-    "title": "Understanding the Saudi Audit Process",
-    "subtitle": "Companies often follow NCA, SAMA, and PDPL. Teams manually map frameworks in Excel, we turn that into one workflow.",
-    "workflowStepsLabel": "Workflow steps",
-    "painLabel": "Pain point",
-    "dualCompliance": {
-      "headline": "The dual framework challenge",
-      "description": "A Saudi bank is financial entity, critical infrastructure, and a handler of personal data—so it must comply with NCA, SAMA, and PDPL. Today that means doing everything two or three times.",
-      "example": "One password policy → written for SAMA, rewritten for NCA → audited twice → submitted to two portals"
-    },
-    "workflows": [
-      {
-        "framework": "NCA ECC-2024",
-        "authority": "National Cybersecurity Authority",
-        "target": "Government & Critical Infrastructure",
-        "steps": [
-          "Scoping: Which of 114 controls apply to your organization",
-          "Gap analysis: Compare current security posture vs. ECC-2024",
-          "Policy prep: Align policies with the five domains (Governance, Defense, Resilience, Third-Party & Cloud, ICS)",
-          "Evidence collection: Screenshots, logs, training records",
-          "Internal audit: Dry run before the official NCA audit",
-          "Submit to NCA Portal: Final compliance report in the required format"
-        ],
-        "pain": "Manual Excel mapping of evidence to 114 controls—days of copy-paste into the government template"
-      },
-      {
-        "framework": "SAMA CSF",
-        "authority": "Saudi Central Bank",
-        "target": "Banks, Insurance, Fintechs",
-        "steps": [
-          "Determine target maturity: Usually Level 3 minimum (Level 5 is the gold standard)",
-          "Maturity enhancement: Build and document processes; SAMA cares how well they work over time",
-          "Continuous monitoring: Track KRIs and KPIs",
-          "Periodic reporting: Submit maturity status to the Central Bank",
-          "Follow-up: Address SAMA feedback and close gaps"
-        ],
-        "pain": "Proving maturity over time—not just one-time compliance"
-      }
-    ],
-    "harmonization": {
-      "title": "ArabAudit's framework harmonization",
-      "description": "Upload once, comply everywhere. One policy satisfies both frameworks; one piece of evidence tags to multiple controls.",
-      "steps": [
-        "Map controls: AI maps SAMA 3.3.5 ↔ NCA ECC 2.2 so you don't do the work twice",
-        "One unified policy: Write once for both NCA and SAMA",
-        "Collect once: Upload evidence (e.g. MFA report) and tag for SAMA and NCA",
-        "Export twice: One-click export to NCA and SAMA portals in their required formats"
-      ],
-      "savings": "40% less work by eliminating duplication"
-    }
-  },
   "features": {
     "title": "Capabilities",
     "items": [
       {
+        "title": "Compliance dashboard",
+        "desc": "One dashboard: see non-compliant audits, tasks assigned to the person fixing each finding, and audit completion status all in one place."
+      },
+      {
+        "title": "AI-generated reports",
+        "desc": "Reports generated with AI include rich content: graphs, compliant vs non-compliant breakdown, scores per control, and full findings in the format regulators expect. One-click export to NCA and SAMA."
+      },
+      {
+        "title": "AI-assisted auditing",
+        "desc": "AI helps auditors as they work: suggests controls, flags gaps, and maps evidence in real time during the audit itself."
+      },
+      {
         "title": "AI validation",
-        "desc": "We don't just store documents—we read them and flag missing SAMA/NCA requirements."
+        "desc": "We don't just store documents we read them and flag missing SAMA/NCA requirements."
       },
       {
         "title": "Framework harmonization",
@@ -253,7 +158,7 @@
       },
       {
         "title": "Pre-loaded templates",
-        "desc": "Days to go live, not months of consultant setup."
+        "desc": "Instant go-live based on your industry selection—no months of consultant setup."
       }
     ]
   },
@@ -267,28 +172,46 @@
     },
     "rows": [
       {
+        "feature": "Dashboard & visibility",
+        "other": "Scattered spreadsheets: no single view of non-compliant items or who's fixing what.",
+        "us": "One dashboard: non-compliant audits, tasks assigned to owners, and audit completion status.",
+        "whyItMatters": "See gaps and ownership at a glance, no chasing status in email or Excel."
+      },
+      {
+        "feature": "Reports",
+        "other": "Manual report writing and copy-paste into regulator templates.",
+        "us": "AI-generated reports with rich content: graphs, compliant/non-compliant breakdown, scores per control, and full findings. One-click export to NCA and SAMA.",
+        "whyItMatters": "Audit completed, report generated with AI, graphs, scores, and everything regulators need, ready for submission."
+      },
+      {
+        "feature": "AI during the audit",
+        "other": "Auditor works alone with checklists and Excel.",
+        "us": "AI assists while the auditor works: suggests controls, flags gaps, maps evidence in real time.",
+        "whyItMatters": "Faster, more accurate audits, AI helps during the audit itself."
+      },
+      {
         "feature": "Regulatory export",
         "other": "Auditors copy-paste findings into government spreadsheets by hand.",
         "us": "One-click export to official NCA and SAMA Excel templates.",
-        "whyItMatters": "Minutes instead of days—no manual mapping, no portal rejections."
+        "whyItMatters": "Minutes instead of days, no manual mapping, no portal rejections."
       },
       {
         "feature": "AI depth",
         "other": "Surface-level: checks dates and metadata only.",
         "us": "Deep technical: reads evidence, maps to control IDs, recommends Mark Non-Compliant.",
-        "whyItMatters": "You get a Pre-Auditor that flags gaps before the regulator arrives."
+        "whyItMatters": "You get a Pre-Auditor that flags gaps before the regulator arrives, not after."
       },
       {
         "feature": "Saudi frameworks",
         "other": "Treated as an add-on or afterthought.",
         "us": "NCA ECC-2024, SAMA CSF, and PDPL built in from day one.",
-        "whyItMatters": "No configuration. Your industry determines the right frameworks."
+        "whyItMatters": "No configuration, your industry determines the right frameworks."
       },
       {
         "feature": "Setup & go-live",
         "other": "Months with consultants or weeks of custom config.",
-        "us": "Days with pre-loaded templates.",
-        "whyItMatters": "Audit-ready now, not after a long implementation."
+        "us": "Instant go-live based on industry selection. Pre-loaded templates, no consultant setup.",
+        "whyItMatters": "Audit-ready now, select your industry and you're live."
       }
     ]
   },
@@ -307,7 +230,7 @@
         "role": "Compliance Officer",
         "headline": "Always Audit-Ready",
         "pain": "Fear of SAMA/NCA fines and missing 2024 updates.",
-        "solution": "24/7 Virtual Auditor",
+        "solution": "Up-to-date Virtual Auditor",
         "value": "Always up to date with the latest Saudi frameworks.",
         "feature": "Pre-mapped templates for 300+ controls."
       },
@@ -330,13 +253,13 @@
     ]
   },
   "cta": {
-    "title": "Turn a 2-week NCA audit into a 2-day digital review",
+    "title": "Turn a 2-week NCA audit into an instant digital review",
     "subtitle": "Get audit-ready with Saudi-native AI. Schedule a demo.",
     "button": "Schedule demo"
   },
   "footer": {
-    "tagline": "From audit panic to audit readiness 24/7. Saudi-native Smart Audit Engine.",
-    "servingEnterprises": "Serving enterprises from Riyadh and across the Kingdom",
+    "tagline": "From audit panic to audit readiness—always up to date. Saudi-native Smart Audit Engine.",
+    "servingEnterprises": "Serving enterprises across KSA",
     "links": {
       "product": "Product",
       "contact": "Contact",
@@ -351,9 +274,30 @@
       {
         "name": "Kauser Jahan",
         "role": "Co-Founder & CEO",
-        "bio": "Leading Velocrux with a vision to empower businesses across the Middle East through advanced AI and tailored SaaS solutions. With deep expertise in technology and a forward-looking perspective on the Saudi market, Kauser combines technical leadership with regional insight to help organizations achieve agility in the Kingdom's evolving digital landscape.",
+        "bio": "Leading ArabAudit with a vision to empower businesses across the Middle East through advanced AI and tailored SaaS solutions. With deep expertise in technology and a forward-looking perspective on the Saudi market, Kauser combines technical leadership with regional insight to help organizations achieve agility in the Kingdom's evolving digital landscape.",
         "image": "/images/kauser-jahan.jpg",
         "linkedin": "https://www.linkedin.com/in/kauser-jahan-324985300"
+      },
+      {
+        "name": "Abdul Sagheer",
+        "role": "Co-Founder & CTO",
+        "bio": "CTO of ArabAudit, focused on building AI-native systems, cost-efficient infrastructure, and developer-first products. Passionate about solving practical problems with AI and shipping solutions that help Saudi enterprises move from audit panic to audit readiness.",
+        "image": "/images/Abdul Sagheer.jpg",
+        "linkedin": ""
+      },
+      {
+        "name": "Javeed Pasha",
+        "role": "Chief Product Officer",
+        "bio": "CPO of ArabAudit, driving product strategy and user experience for Saudi compliance automation. Javeed shapes products that bridge the gap between complex compliance frameworks and practical enterprise needs, ensuring ArabAudit delivers intuitive solutions for NCA, SAMA, and PDPL readiness.",
+        "image": "/images/javeed pasha.png",
+        "linkedin": ""
+      },
+      {
+        "name": "Zareen Taj",
+        "role": "Chief Operating Officer",
+        "bio": "COO of ArabAudit, overseeing operations and ensuring seamless delivery of compliance solutions across the Kingdom. Zareen drives operational excellence and scales processes to meet the growing demands of Saudi enterprises navigating NCA, SAMA, and PDPL requirements.",
+        "image": "ZT",
+        "linkedin": ""
       }
     ]
   }

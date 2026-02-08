@@ -62,10 +62,10 @@ export function Features() {
             const isHighlighted = 'highlighted' in item && item.highlighted
             return (
               <StaggerItem key={i}>
-                <div className={`flex h-full min-h-[200px] flex-col rounded-2xl p-8 shadow-lg backdrop-blur-sm transition-all duration-300 ${
-                  isHighlighted 
-                    ? 'border-2 border-accent/50 bg-gradient-to-br from-accent/10 via-white/95 to-accent/5 ring-2 ring-accent/20 hover:border-accent hover:shadow-gold' 
-                    : 'border border-primary/10 bg-white/95 hover:border-accent/30 hover:shadow-xl'
+                <div className={`group flex h-full min-h-[200px] flex-col rounded-2xl p-8 shadow-lg backdrop-blur-sm transition-all duration-500 ease-out cursor-pointer ${
+                  isHighlighted
+                    ? 'border-2 border-accent/50 bg-gradient-to-br from-accent/10 via-white/95 to-accent/5 ring-2 ring-accent/20 hover:border-accent hover:shadow-gold hover:shadow-2xl hover:scale-[1.02] hover:-translate-y-1'
+                    : 'border border-primary/10 bg-white/95 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/10 hover:scale-[1.01] hover:-translate-y-0.5'
                 }`}>
                   {isHighlighted && (
                     <div className="mb-3 flex items-center gap-2">
@@ -85,7 +85,7 @@ export function Features() {
                   >
                     {i + 1}
                   </span>
-                  <h3 className={`font-bold text-lg tracking-royal ${
+                  <h3 className={`font-bold text-lg tracking-royal transition-colors duration-300 group-hover:text-accent ${
                     isHighlighted ? 'text-primary' : 'text-primary'
                   }`}>
                     {item.title}

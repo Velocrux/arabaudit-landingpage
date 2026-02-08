@@ -11,7 +11,7 @@ export function Comparison() {
   const headers = t.headers ?? { feature: 'Feature', other: 'Other audit platforms', us: 'ArabAudit' }
 
   return (
-    <section className="relative scroll-mt-16 overflow-hidden px-6 py-20 sm:px-8 sm:py-28">
+    <section id="whyUs" className="relative scroll-mt-16 overflow-hidden px-6 py-20 sm:px-8 sm:py-28">
       {/* Royal gradient: soft green palette */}
       <div
         className="absolute inset-0"
@@ -64,11 +64,11 @@ export function Comparison() {
         <StaggerChildren className="mt-14 space-y-6">
           {t.rows.map((row, i) => (
             <StaggerItem key={i}>
-              <div className="group overflow-hidden rounded-2xl border border-accent/20 bg-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:shadow-accent/10 hover:border-accent/40">
+              <div className="group overflow-hidden rounded-2xl border border-accent/20 bg-white shadow-xl transition-all duration-500 ease-out cursor-pointer hover:shadow-2xl hover:shadow-accent/10 hover:border-accent/40 hover:scale-[1.01] hover:-translate-y-1">
                 {/* Feature Header with golden accent */}
                 <div className="relative border-b border-accent/20 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 px-8 py-5">
                   <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-accent via-accent/70 to-accent/30" />
-                  <h3 className="text-base font-bold uppercase tracking-widest text-primary">
+                  <h3 className="text-base font-bold uppercase tracking-widest text-primary transition-colors duration-300 group-hover:text-accent">
                     {row.feature}
                   </h3>
                 </div>
@@ -101,8 +101,8 @@ export function Comparison() {
 
                 {/* Why it matters footer with golden border */}
                 <div className="border-t border-accent/20 bg-gradient-to-r from-primary/[0.02] via-accent/[0.04] to-primary/[0.02] px-6 sm:px-8 py-4 sm:py-5">
-                  <p className="text-xs sm:text-sm text-primary/80 leading-relaxed">
-                    <span className="font-semibold text-accent drop-shadow-sm">Why it matters: </span>
+                  <p className="text-xs sm:text-sm text-primary/80 leading-relaxed transition-all duration-300 group-hover:text-primary/90">
+                    <span className="font-semibold text-accent drop-shadow-sm transition-colors duration-300 group-hover:text-accent">Why it matters: </span>
                     {row.whyItMatters}
                   </p>
                 </div>

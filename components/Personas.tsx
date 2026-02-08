@@ -62,14 +62,14 @@ export function Personas() {
         <StaggerChildren className="mt-14 grid gap-6 lg:grid-cols-2">
           {t.items.map((item, i) => (
             <StaggerItem key={i}>
-              <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-accent/20 bg-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:shadow-accent/10 hover:border-accent/40">
+              <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-accent/20 bg-white shadow-xl transition-all duration-500 ease-out cursor-pointer hover:shadow-2xl hover:shadow-accent/10 hover:border-accent/40 hover:scale-[1.02] hover:-translate-y-1">
                 {/* Header with golden accent bar */}
                 <div className="relative border-b border-accent/20 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 px-8 py-6">
                   <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-accent via-accent/70 to-accent/30" />
-                  <h3 className="text-lg font-bold uppercase tracking-wider text-primary">
+                  <h3 className="text-lg font-bold uppercase tracking-wider text-primary transition-colors duration-300 group-hover:text-accent">
                     {item.role}
                   </h3>
-                  <h4 className="mt-2 text-xl font-semibold text-accent leading-snug drop-shadow-sm">
+                  <h4 className="mt-2 text-xl font-semibold text-accent leading-snug drop-shadow-sm transition-all duration-300 group-hover:text-primary group-hover:drop-shadow-md">
                     {item.headline}
                   </h4>
                 </div>
@@ -85,20 +85,20 @@ export function Personas() {
                           The Problem
                         </h5>
                       </div>
-                      <p className="text-[15px] text-primary/75 leading-relaxed">
+                      <p className="text-[15px] text-primary/75 leading-relaxed transition-colors duration-300 group-hover:text-primary/85">
                         {item.pain}
                       </p>
                     </div>
 
                     {/* The Solution - golden highlight */}
-                    <div className="rounded-lg border border-accent/20 bg-gradient-to-br from-accent/8 via-accent/5 to-accent/8 p-4 shadow-sm">
+                    <div className="rounded-lg border border-accent/20 bg-gradient-to-br from-accent/8 via-accent/5 to-accent/8 p-4 shadow-sm transition-all duration-300 group-hover:border-accent/30 group-hover:from-accent/12 group-hover:via-accent/8 group-hover:to-accent/12 group-hover:shadow-md">
                       <div className="mb-2 flex items-center gap-2">
                         <div className="h-1.5 w-1.5 rounded-full bg-accent shadow-sm shadow-accent/50"></div>
                         <h5 className="text-xs font-bold uppercase tracking-widest text-accent">
                           {item.solution}
                         </h5>
                       </div>
-                      <p className="text-[15px] font-medium text-primary leading-relaxed">
+                      <p className="text-[15px] font-medium text-primary leading-relaxed transition-colors duration-300 group-hover:text-primary">
                         {item.value}
                       </p>
                     </div>
@@ -106,12 +106,12 @@ export function Personas() {
 
                   {/* How It Works - footer pinned with golden touch */}
                   <div className="mt-auto pt-6">
-                    <div className="rounded-xl border border-accent/20 bg-gradient-to-r from-primary/[0.02] via-accent/[0.04] to-primary/[0.02] px-6 py-4 shadow-sm">
-                      <h5 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary/70">
+                    <div className="rounded-xl border border-accent/20 bg-gradient-to-r from-primary/[0.02] via-accent/[0.04] to-primary/[0.02] px-6 py-4 shadow-sm transition-all duration-300 group-hover:border-accent/30 group-hover:from-primary/[0.04] group-hover:via-accent/[0.08] group-hover:to-primary/[0.04] group-hover:shadow-md">
+                      <h5 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary/70 transition-colors duration-300 group-hover:text-primary/80">
                         <div className="h-1 w-1 rounded-full bg-accent/60"></div>
                         How It Works
                       </h5>
-                      <p className="text-sm text-primary/80 leading-relaxed">
+                      <p className="text-sm text-primary/80 leading-relaxed transition-colors duration-300 group-hover:text-primary/90">
                         {item.feature}
                       </p>
                     </div>

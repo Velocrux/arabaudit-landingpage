@@ -124,7 +124,7 @@ export function Frameworks() {
             {t.title}
           </h2>
         </FadeInUp>
-        
+
         {'subtitle' in t && (
           <FadeInUp delay={0.1}>
             <p className="mt-4 text-center text-white/80 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -132,7 +132,7 @@ export function Frameworks() {
             </p>
           </FadeInUp>
         )}
-        
+
         <div className="grid gap-10 lg:gap-14 mt-16 lg:mt-20 lg:grid-cols-3">
           <FloatingCard delay={0.2}>
             <div className="p-10 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm h-full flex flex-col min-h-[340px] shadow-xl">
@@ -152,7 +152,7 @@ export function Frameworks() {
               </div>
             </div>
           </FloatingCard>
-          
+
           <FloatingCard delay={0.3}>
             <div className="p-10 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm h-full flex flex-col min-h-[340px] shadow-xl">
               <div className="flex items-start gap-5 pb-5 border-b border-white/20 shrink-0">
@@ -171,7 +171,7 @@ export function Frameworks() {
               </div>
             </div>
           </FloatingCard>
-          
+
           {sdaia && (
             <FloatingCard delay={0.4}>
               <div className="p-10 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-sm h-full flex flex-col min-h-[340px] shadow-xl">

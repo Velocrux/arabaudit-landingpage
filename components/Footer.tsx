@@ -47,22 +47,21 @@ export function Footer() {
           <div className="flex flex-col gap-6 lg:col-span-1">
             <Link
               href="/"
-              className="group focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-lg transition-all duration-300"
+              className="group focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-full transition-all duration-300 inline-flex"
               aria-label="ArabAudit Home"
             >
-              <div className="relative inline-block">
+              <div className="relative w-26 h-26 sm:w-24 sm:h-24 rounded-full bg-pale-silver p-1 border-2 border-accent shadow-gold transition-transform duration-300 group-hover:scale-105 group-hover:shadow-gold flex items-center justify-center">
                 <Image
                   src="/logo.png"
                   alt="ArabAudit"
-                  width={200}
-                  height={80}
-                  className="h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  fill
+                  className="object-cover rounded-full"
                   priority
+                  sizes="104px"
                 />
-                <div className="absolute -bottom-2 left-0 right-0 h-0.5 scale-x-0 rounded-full bg-gradient-to-r from-accent via-accent/60 to-transparent transition-transform duration-300 group-hover:scale-x-100" />
               </div>
             </Link>
-            
+
             <p className="max-w-sm text-sm leading-relaxed text-white/80">
               {t.tagline}
             </p>
