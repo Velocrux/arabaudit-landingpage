@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import Mixpanel from 'mixpanel'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = process.env.RESEND_API_KEY && process.env.RESEND_API_KEY !== 'your_resend_api_key_here'
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null
 const DEMO_REQUEST_EMAIL = process.env.DEMO_REQUEST_EMAIL || 'kauser@velocrux.com'
 
 // Initialize server-side Mixpanel
@@ -172,6 +174,14 @@ This request was submitted through the ArabAudit landing page demo request form.
     `.trim()
     
     // Send email via Resend
+    if (!resend) {
+      console.error('Resend not configured')
+      return NextResponse.json(
+        { success: false, message: 'Email service not configured' },
+        { status: 500 }
+      )
+    }
+
     const { data, error } = await resend.emails.send({
       from: 'ArabAudit Demo Requests <onboarding@resend.dev>',
       to: [DEMO_REQUEST_EMAIL],

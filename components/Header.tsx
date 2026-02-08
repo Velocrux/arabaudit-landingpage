@@ -9,9 +9,9 @@ import { LanguageToggle } from './LanguageToggle'
 import { useAnalytics } from '@/lib/hooks/useAnalytics'
 
 const navItems = [
-  { id: 'product', label: 'Product' },
-  { id: 'whyUs', label: 'Why Us' },
-  { id: 'frameworks', label: 'Frameworks' },
+  { id: 'product', label: 'Product', isExternal: false },
+  { id: 'whyUs', label: 'Why Us', isExternal: false },
+  { id: 'frameworks', label: 'Frameworks', isExternal: false },
   { id: 'contact', label: 'Contact', isExternal: true, href: 'https://mail.google.com/mail/?view=cm&fs=1&to=kauser@velocrux.com' },
 ] as const
 

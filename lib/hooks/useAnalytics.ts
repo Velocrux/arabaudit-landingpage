@@ -2,7 +2,7 @@
 
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import type { SectionName } from '../analytics/types'
-import type { AnalyticsContextValue } from '../../context/AnalyticsContext'
+import { AnalyticsContext } from '../../context/AnalyticsContext'
 
 interface UseAnalyticsReturn {
   // Page tracking
@@ -67,10 +67,11 @@ interface UseAnalyticsReturn {
   getTimeOnPage: () => number
   getCurrentScrollDepth: () => number
   isInitialized: boolean
+  sectionsViewed: SectionName[]
 }
 
 export function useAnalytics(): UseAnalyticsReturn {
-  const context = useContext(require('../../context/AnalyticsContext').AnalyticsContext)
+  const context = useContext(AnalyticsContext)
 
   if (!context) {
     throw new Error('useAnalytics must be used within AnalyticsProvider')
@@ -89,7 +90,8 @@ export function useAnalytics(): UseAnalyticsReturn {
     setUserProperties: contextSetUserProperties,
     getTimeOnPage,
     getCurrentScrollDepth,
-    isInitialized
+    isInitialized,
+    sectionsViewed
   } = context
 
   // Memoized callback functions to prevent unnecessary re-renders
@@ -184,7 +186,8 @@ export function useAnalytics(): UseAnalyticsReturn {
     setUserProperties: memoizedSetUserProperties,
     getTimeOnPage: memoizedGetTimeOnPage,
     getCurrentScrollDepth: memoizedGetCurrentScrollDepth,
-    isInitialized
+    isInitialized,
+    sectionsViewed
   }
 }
 

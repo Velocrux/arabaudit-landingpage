@@ -1,5 +1,4 @@
 'use client'
-
 import { useState, useEffect, FormEvent } from 'react'
 import { useLocale } from '@/context/LocaleContext'
 import { getContent } from '@/lib/content'
