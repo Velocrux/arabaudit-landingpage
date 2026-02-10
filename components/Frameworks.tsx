@@ -4,6 +4,7 @@ import { useLocale } from '@/context/LocaleContext'
 import { getContent } from '@/lib/content'
 import { FadeInUp } from './animations/FadeInUp'
 import { FloatingCard } from './animations/FloatingCard'
+import { useSectionTracking } from '@/lib/hooks/useAnalytics'
 
 // Middle East–inspired icons: shield (guard), landmark (finance), lock+data (privacy)
 function IconNCA() {
@@ -78,9 +79,10 @@ export function Frameworks() {
   const nca = t.nca as FrameworkCard
   const sama = t.sama as FrameworkCard
   const sdaia = 'sdaia' in t ? (t as { sdaia: FrameworkCard }).sdaia : null
+  const frameworksRef = useSectionTracking('frameworks')
 
   return (
-    <section id="frameworks" className="relative px-6 py-20 scroll-mt-16 overflow-hidden text-white sm:px-8 sm:py-28 md:py-32">
+    <section ref={frameworksRef} id="frameworks" className="relative px-6 py-20 scroll-mt-16 overflow-hidden text-white sm:px-8 sm:py-28 md:py-32">
       {/* Royal gradient: deep, smooth, one soft gold glow */}
       <div
         className="absolute inset-0"

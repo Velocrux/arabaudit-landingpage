@@ -7,6 +7,7 @@ import { getContent } from '@/lib/content'
 import { FadeInUp } from './animations/FadeInUp'
 import { StaggerChildren, StaggerItem } from './animations/StaggerChildren'
 import { DemoRequestModal } from './DemoRequestModal'
+import { useSectionTracking, useAnalytics } from '@/lib/hooks/useAnalytics'
 import Image from 'next/image'
 
 export function Hero() {
@@ -16,11 +17,13 @@ export function Hero() {
   const subhead = (t.defaultSubhead as string | undefined) ?? (t.subhead as string)
   const personas = Array.isArray(t.personas) ? t.personas : []
   const firstPersona = personas[0] as { painPoint: string; solution: string } | undefined
-  
+
   const [showDemoModal, setShowDemoModal] = useState(false)
+  const heroRef = useSectionTracking('hero')
+  const { trackButtonClick } = useAnalytics()
 
   return (
-    <section className="overflow-hidden relative px-4 py-20 sm:px-6 sm:py-28 lg:py-36">
+    <section ref={heroRef} className="overflow-hidden relative px-4 py-20 sm:px-6 sm:py-28 lg:py-36">
       {/* Riyadh Skyline at Night */}
       <div className="absolute inset-0">
         <Image
@@ -124,7 +127,10 @@ export function Hero() {
         <StaggerChildren className="flex flex-wrap gap-4 justify-center items-center mt-10" staggerDelay={0.1}>
           <StaggerItem>
             <button
-              onClick={() => setShowDemoModal(true)}
+              onClick={() => {
+                trackButtonClick(String(t.cta ?? ''), 'primary', 'hero_section')
+                setShowDemoModal(true)
+              }}
               type="button"
               className="inline-flex overflow-hidden relative justify-center items-center px-8 py-4 font-bold rounded-lg ring-2 ring-offset-2 transition-all duration-300 group bg-accent text-cta text-primary shadow-gold ring-accent ring-offset-primary hover:scale-105 hover:shadow-gold focus:outline-none focus:ring-2 focus:ring-accent"
             >
@@ -137,6 +143,7 @@ export function Hero() {
               href={DEMO_CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackButtonClick(String(t.ctaSecondary ?? ''), 'secondary', 'hero_section', { href: DEMO_CALENDLY_URL, target: '_blank' })}
               className="inline-flex justify-center items-center px-8 py-4 font-bold rounded-lg border-2 backdrop-blur-sm transition-all duration-300 border-accent text-cta text-accent bg-white/5 hover:bg-accent hover:text-primary hover:scale-105 hover:shadow-gold focus:outline-none focus:ring-2 focus:ring-accent"
             >
               {String(t.ctaSecondary ?? '')}
@@ -163,7 +170,7 @@ export function Hero() {
           </div>
         </FadeInUp>
       </div>
-      
+
       {/* Demo Request Modal */}
       <DemoRequestModal isOpen={showDemoModal} onClose={() => setShowDemoModal(false)} />
     </section>

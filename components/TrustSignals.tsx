@@ -4,11 +4,13 @@ import { useLocale } from '@/context/LocaleContext'
 import { getContent } from '@/lib/content'
 import { FadeInUp } from './animations/FadeInUp'
 import { FloatingCard } from './animations/FloatingCard'
+import { useSectionTracking } from '@/lib/hooks/useAnalytics'
 import Image from 'next/image'
 
 export function TrustSignals() {
   const { locale } = useLocale()
   const t = getContent(locale).trustSignals
+  const trustSignalsRef = useSectionTracking('trust_signals')
 
   const badges = [
     { ...t.badges[0], image: '/images/NCA.png' },
@@ -17,7 +19,7 @@ export function TrustSignals() {
   ]
 
   return (
-    <section className="px-4 py-16 bg-gradient-to-b scroll-mt-16 from-primary/5 via-primary/10 to-base sm:px-6 sm:py-20">
+    <section ref={trustSignalsRef} className="px-4 py-16 bg-gradient-to-b scroll-mt-16 from-primary/5 via-primary/10 to-base sm:px-6 sm:py-20">
       <div className="mx-auto max-w-4xl text-center">
         <FadeInUp>
           <h2 className="font-bold text-hero text-primary tracking-royal">
@@ -34,7 +36,7 @@ export function TrustSignals() {
         <div className="grid gap-8 mt-16 sm:grid-cols-2 md:grid-cols-3">
           {badges.map((badge, i) => (
             <FloatingCard key={i} delay={0.2 + i * 0.1}>
-                <div className="relative p-6 sm:p-8 bg-white rounded-2xl border-2 transition-colors duration-300 shadow-premium border-accent group hover:border-secondary h-full min-h-[260px] sm:min-h-[280px] flex flex-col">
+              <div className="relative p-6 sm:p-8 bg-white rounded-2xl border-2 transition-colors duration-300 shadow-premium border-accent group hover:border-secondary h-full min-h-[260px] sm:min-h-[280px] flex flex-col">
                 {/* Badge Image */}
                 <div className="absolute -top-10 sm:-top-12 left-1/2 -translate-x-1/2">
                   <div className="flex justify-center items-center p-2.5 sm:p-3 w-20 h-20 sm:w-24 sm:h-24 bg-white rounded-full transition-transform duration-300 shadow-gold group-hover:scale-110">
