@@ -7,7 +7,7 @@
   },
   "hero": {
     "headline": "AI-powered platform for NCA, SAMA & PDPL audit-ready",
-    "subhead": "Saudi-native digital co-pilot for NCA, SAMA, and SDAIA/PDPL. One workflow from document upload to one-click regulatory export, AI validates your evidence, harmonizes frameworks, and keeps you portal-ready. Built for the Kingdom's requirements from day one.",
+    "subhead": "Saudi-native digital co-pilot for NCA, SAMA, and SDAIA/PDPL. One workflow from document upload to cryptographically signed regulatory export. AI validates evidence, suggests reuse across frameworks, locks audits for immutability, and keeps you portal-ready. Built for the Kingdom's requirements from day one.",
     "cta": "Schedule demo",
     "ctaSecondary": "Talk to us",
     "ctaDownloadECC": "Download ECC Checklist",
@@ -71,12 +71,12 @@
       {
         "framework": "NCA ECC-2024",
         "title": "Essential Cybersecurity Controls",
-        "desc": "Run the criteria checklist, upload evidence we map your data to NCA control IDs (e.g. ECC 2.2, 3.5). One-click export generates the .xlsx the authority requires. No more days of copy-paste into the government sheet."
+        "desc": "Run the criteria checklist, upload evidence, we map your data to NCA control IDs (e.g., ECC 2.2, 3.5). One-click export generates official .xlsx with domains, risk levels, and findings. Lock and sign the audit for immutable regulatory submission."
       },
       {
         "framework": "SAMA CSF",
         "title": "Financial Sector Maturity",
-        "desc": "Select SAMA framework, link documents from the Media Manager, run the audit. We validate evidence and export in SAMA's Excel format maturity and findings ready for the Central Bank portal."
+        "desc": "Select SAMA framework, link documents from Media Manager, run the audit. We validate evidence and export in official SAMA Excel format with maturity levels, executive summary, and digital signatures—ready for Central Bank portal submission."
       },
       {
         "framework": "SDAIA / PDPL",
@@ -133,7 +133,7 @@
       },
       {
         "title": "AI-assisted auditing",
-        "desc": "AI helps auditors as they work: suggests controls, flags gaps, and maps evidence in real time during the audit itself."
+        "desc": "AI copilot assists auditors in real time: suggests evidence from similar controls, detects compliance gaps before submission, validates evidence quality, and provides confidence scores reducing audit time and improving accuracy."
       },
       {
         "title": "AI validation",
@@ -141,7 +141,7 @@
       },
       {
         "title": "Framework harmonization",
-        "desc": "Complete SAMA Control 3.3.5? AI suggests applying the same evidence to NCA ECC 2.2."
+        "desc": "Complete SAMA Control 3.3.5? AI automatically suggests reusing evidence for NCA ECC 2.2 using vector similarity search 70% less duplicate evidence collection across audits."
       },
       {
         "title": "NCA ECC-2024 native",
@@ -157,8 +157,16 @@
         "highlighted": true
       },
       {
+        "title": "Audit locking & immutability",
+        "desc": "Lock completed audits with cryptographic hash verification. Once locked, responses cannot be changed—ensuring audit integrity for regulatory submission and preventing tampering."
+      },
+      {
+        "title": "Digital signatures",
+        "desc": "Auditors digitally sign locked audits with cryptographic verification. Every signature is timestamped and immutable ready for NCA/SAMA submission with full audit trail."
+      },
+      {
         "title": "Pre-loaded templates",
-        "desc": "Instant go-live based on your industry selection—no months of consultant setup."
+        "desc": "Instant go-live based on your industry selection no months of consultant setup."
       }
     ]
   },
@@ -192,8 +200,14 @@
       {
         "feature": "Regulatory export",
         "other": "Auditors copy-paste findings into government spreadsheets by hand.",
-        "us": "One-click export to official NCA and SAMA Excel templates.",
-        "whyItMatters": "Minutes instead of days, no manual mapping, no portal rejections."
+        "us": "Official NCA and SAMA Excel/PDF templates with proper headers, domains, maturity levels, and digital signatures—ready for portal submission.",
+        "whyItMatters": "Minutes instead of days, no manual mapping, no portal rejections. Reports match official regulatory formats exactly."
+      },
+      {
+        "feature": "Audit integrity & signatures",
+        "other": "No audit trail verification; reports can be modified after completion; no digital signatures.",
+        "us": "Cryptographic audit locking with hash verification. Digital signatures from auditors. Immutable audit trail—no tampering possible after locking.",
+        "whyItMatters": "Regulator-grade audit integrity. Reports are cryptographically verified and signed, preventing any post-audit modifications. Essential for regulatory acceptance."
       },
       {
         "feature": "AI depth",
