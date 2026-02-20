@@ -1,5 +1,6 @@
 # ArabAudit Landing Page
 
+
 > Saudi Arabia's first AI-powered GRC platform with native support for NCA ECC-2024, SAMA CSF, and SDAIA PDPL
 
 ## 🎯 Project Overview
