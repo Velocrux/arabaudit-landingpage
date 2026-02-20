@@ -104,7 +104,7 @@ AA-landingpage/
 
 1. **CISO / IT Manager**
    - Pain: Excel chaos, manual evidence gathering
-   - Solution: 70% automation with AI
+   - Solution: 70% automation with AI.
 
 2. **Compliance Officer**
    - Pain: Fear of NCA/SAMA fines
