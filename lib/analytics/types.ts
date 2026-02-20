@@ -150,6 +150,7 @@ export type SectionName =
   | 'hero'
   | 'trust_signals'
   | 'features'
+  | 'aiCapabilities'
   | 'comparison'
   | 'personas'
   | 'frameworks'

@@ -4,6 +4,7 @@ import { Hero } from '@/components/Hero'
 import { TrustSignals } from '@/components/TrustSignals'
 import { Frameworks } from '@/components/Frameworks'
 import { Features } from '@/components/Features'
+import { AICapabilities } from '@/components/AICapabilities'
 import { Comparison } from '@/components/Comparison'
 import { Personas } from '@/components/Personas'
 import { Team } from '@/components/Team'
@@ -24,6 +25,7 @@ export default function Home() {
         <Hero />
         <TrustSignals />
         <Features />
+        <AICapabilities />
         <Comparison />
         <Personas />
         <Frameworks />

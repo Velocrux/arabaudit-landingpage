@@ -76,7 +76,7 @@
       {
         "framework": "SAMA CSF",
         "title": "Financial Sector Maturity",
-        "desc": "Select SAMA framework, link documents from Media Manager, run the audit. We validate evidence and export in official SAMA Excel format with maturity levels, executive summary, and digital signatures—ready for Central Bank portal submission."
+        "desc": "Select SAMA framework, link documents from Media Manager, run the audit. We validate evidence and export in official SAMA Excel format with maturity levels, executive summary, and digital signatures - ready for Central Bank portal submission."
       },
       {
         "framework": "SDAIA / PDPL",
@@ -140,6 +140,26 @@
         "desc": "We don't just store documents we read them and flag missing SAMA/NCA requirements."
       },
       {
+        "title": "Audit Copilot (in-audit chat)",
+        "desc": "Conversational AI during the audit: ask questions in English or Arabic; get framework-grounded answers, evidence guidance, and suggested follow-up questions. Knowledge boundary ensures no guessing - only answers from the actual framework."
+      },
+      {
+        "title": "AI readiness check",
+        "desc": "Before you start or submit: domain coverage, required and expiring documents, and AI-generated bilingual recommendations so you know exactly what to fix."
+      },
+      {
+        "title": "AI insights & predictions",
+        "desc": "Trend narratives, root cause analysis, predictive readiness, and focus-area recommendations from your dashboard data - generated in English and/or Arabic for reports and board summaries."
+      },
+      {
+        "title": "Remediation AI",
+        "desc": "AI drafts root cause, impact, and recommended action for findings and tickets in both English and Arabic - edit and attach to remediation plans in one click."
+      },
+      {
+        "title": "Auto document linking",
+        "desc": "AI suggests which documents map to which controls or criteria using embeddings and LLM validation, with confidence scores and reasoning - cut manual mapping time."
+      },
+      {
         "title": "Framework harmonization",
         "desc": "Complete SAMA Control 3.3.5? AI automatically suggests reusing evidence for NCA ECC 2.2 using vector similarity search 70% less duplicate evidence collection across audits."
       },
@@ -158,7 +178,7 @@
       },
       {
         "title": "Audit locking & immutability",
-        "desc": "Lock completed audits with cryptographic hash verification. Once locked, responses cannot be changed—ensuring audit integrity for regulatory submission and preventing tampering."
+        "desc": "Lock completed audits with cryptographic hash verification. Once locked, responses cannot be changed - ensuring audit integrity for regulatory submission and preventing tampering."
       },
       {
         "title": "Digital signatures",
@@ -166,7 +186,108 @@
       },
       {
         "title": "Pre-loaded templates",
-        "desc": "Instant go-live based on your industry selection no months of consultant setup."
+        "desc": "Instant go-live based on your industry selection - no months of consultant setup."
+      }
+    ]
+  },
+  "aiCapabilities": {
+    "title": "AI that works across the entire audit lifecycle",
+    "subtitle": "Six AI assistants that cut manual work, keep findings regulator-ready, and surface insights before the regulator arrives",
+    "items": [
+      {
+        "title": "AI Evidence Validation",
+        "tagline": "Evidence checked against the framework - in seconds",
+        "painTitle": "The pain",
+        "painPoints": [
+          "Auditors spend hours reading every policy and log to see if it actually meets the control.",
+          "Easy to miss gaps or accept weak evidence, leading to findings when the real NCA or SAMA audit happens.",
+          "Inconsistent judgment between auditors: one marks compliant, another does not."
+        ],
+        "benefitTitle": "How we help",
+        "benefits": [
+          "AI reads your uploaded evidence and validates it against the specific NCA or SAMA control using regulatory context (RAG).",
+          "You get a clear recommendation: compliant or not, with confidence score, recommended rating, and bilingual justification (EN/AR). Auditor makes the final call; AI only recommends."
+        ]
+      },
+      {
+        "title": "AI Finding Draft",
+        "tagline": "Professional findings in English and Arabic - drafted from your documents",
+        "painTitle": "The pain",
+        "painPoints": [
+          "Writing findings is slow: title, description, root cause, impact, recommended action - for every non-compliant criterion.",
+          "You must cite the right control and evidence; wording must be consistent and regulator-ready.",
+          "Bilingual reports need proper Arabic and English - double the writing and review time."
+        ],
+        "benefitTitle": "How we help",
+        "benefits": [
+          "AI generates a full finding draft from your linked documents, criterion context, and regulatory knowledge base.",
+          "You get title, description, root cause, impact, and recommended action - in both English and Arabic.",
+          "Edit and accept in one click; the finding is created in the audit with the right control and evidence summary."
+        ]
+      },
+      {
+        "title": "Audit Copilot (Chat)",
+        "tagline": "Real-time conversational AI for requirements and evidence - bilingual",
+        "painTitle": "The pain",
+        "painPoints": [
+          "Auditors need quick answers: What does this control mean? What evidence do I need?",
+          "Searching through framework PDFs and spreadsheets is slow and error-prone.",
+          "Same questions get asked repeatedly; no single source of truth during the audit."
+        ],
+        "benefitTitle": "How we help",
+        "benefits": [
+          "In-audit AI copilot answers questions in the same language you ask (English or Arabic), grounded in the actual framework.",
+          "Get concise explanations, evidence guidance, and 2–3 suggested follow-up questions per response.",
+          "Knowledge boundary: if the answer isn't in the framework, the copilot says so - no guessing for Saudi regulatory audits."
+        ]
+      },
+      {
+        "title": "AI Readiness Check",
+        "tagline": "Pre-audit readiness with AI-generated recommendations",
+        "painTitle": "The pain",
+        "painPoints": [
+          "Hard to know if you're truly ready before starting or submitting an audit.",
+          "Document coverage per domain and expiring/expired documents are scattered across spreadsheets.",
+          "No clear view of which domains need more evidence or which documents to refresh."
+        ],
+        "benefitTitle": "How we help",
+        "benefits": [
+          "Run an AI readiness check per audit: see domain-level coverage, required documents, and expiring/expired document alerts.",
+          "AI generates concise bilingual (EN/AR) recommendations per domain so you know exactly what to fix.",
+          "Overall readiness score and actionable list - so you go into the audit or submission with confidence."
+        ]
+      },
+      {
+        "title": "AI Insights & Predictions",
+        "tagline": "Trend narrative, root cause analysis, and predictive readiness - bilingual",
+        "painTitle": "The pain",
+        "painPoints": [
+          "Dashboard data is numbers only; turning it into narrative for the board or regulator is manual.",
+          "Root causes of non-compliance and focus areas are guessed, not data-driven.",
+          "No forward-looking view of readiness or risk before the next audit cycle."
+        ],
+        "benefitTitle": "How we help",
+        "benefits": [
+          "AI generates trend narratives, root cause analysis, and focus-area recommendations from your dashboard data - in English and/or Arabic.",
+          "Predictive readiness: see which areas are likely to need attention and get actionable recommendations.",
+          "One-click generation with rate limits and caching; use insights in reports and executive summaries."
+        ]
+      },
+      {
+        "title": "Remediation AI & Smart Document Linking",
+        "tagline": "Remediation suggestions for findings; AI suggests which documents link to which controls",
+        "painTitle": "The pain",
+        "painPoints": [
+          "Writing remediation plans (root cause, impact, recommended action) for every finding is repetitive.",
+          "Mapping documents to controls and criteria is manual and inconsistent.",
+          "Gap detection across controls and evidence quality checks take hours."
+        ],
+        "benefitTitle": "How we help",
+        "benefits": [
+          "Remediation AI drafts root cause, impact, and recommended action for tickets in English and Arabic - edit and use in one click.",
+          "Auto document linking: AI suggests which uploaded documents map to which controls/criteria with confidence scores and reasoning.",
+          "Gap detection and evidence-validation copilot: identify likely non-compliant controls, risk assessment, and suggested evidence improvements."
+        ]
       }
     ]
   },
@@ -200,13 +321,13 @@
       {
         "feature": "Regulatory export",
         "other": "Auditors copy-paste findings into government spreadsheets by hand.",
-        "us": "Official NCA and SAMA Excel/PDF templates with proper headers, domains, maturity levels, and digital signatures—ready for portal submission.",
+        "us": "Official NCA and SAMA Excel/PDF templates with proper headers, domains, maturity levels, and digital signatures - ready for portal submission.",
         "whyItMatters": "Minutes instead of days, no manual mapping, no portal rejections. Reports match official regulatory formats exactly."
       },
       {
         "feature": "Audit integrity & signatures",
         "other": "No audit trail verification; reports can be modified after completion; no digital signatures.",
-        "us": "Cryptographic audit locking with hash verification. Digital signatures from auditors. Immutable audit trail—no tampering possible after locking.",
+        "us": "Cryptographic audit locking with hash verification. Digital signatures from auditors. Immutable audit trail - no tampering possible after locking.",
         "whyItMatters": "Regulator-grade audit integrity. Reports are cryptographically verified and signed, preventing any post-audit modifications. Essential for regulatory acceptance."
       },
       {
@@ -272,7 +393,7 @@
     "button": "Schedule demo"
   },
   "footer": {
-    "tagline": "From audit panic to audit readiness—always up to date. Saudi-native Smart Audit Engine.",
+    "tagline": "From audit panic to audit readiness - always up to date. Saudi-native Smart Audit Engine.",
     "servingEnterprises": "Serving enterprises across KSA",
     "links": {
       "product": "Product",
