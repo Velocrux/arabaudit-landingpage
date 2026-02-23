@@ -122,71 +122,95 @@
   },
   "features": {
     "title": "Capabilities",
+    "tablistAriaLabel": "Feature categories",
+    "featuredBadge": "Featured",
+    "categories": {
+      "ai": "AI-Powered Auditing",
+      "automation": "Smart Automation",
+      "compliance": "Regulatory Compliance",
+      "security": "Security & Integrity"
+    },
     "items": [
       {
         "title": "Compliance dashboard",
-        "desc": "One dashboard: see non-compliant audits, tasks assigned to the person fixing each finding, and audit completion status all in one place."
+        "desc": "One dashboard: see non-compliant audits, tasks assigned to the person fixing each finding, and audit completion status all in one place.",
+        "category": "automation"
       },
       {
         "title": "AI-generated reports",
-        "desc": "Reports generated with AI include rich content: graphs, compliant vs non-compliant breakdown, scores per control, and full findings in the format regulators expect. One-click export to NCA and SAMA."
+        "desc": "Reports generated with AI include rich content: graphs, compliant vs non-compliant breakdown, scores per control, and full findings in the format regulators expect. One-click export to NCA and SAMA.",
+        "category": "automation"
       },
       {
         "title": "AI-assisted auditing",
-        "desc": "AI copilot assists auditors in real time: suggests evidence from similar controls, detects compliance gaps before submission, validates evidence quality, and provides confidence scores reducing audit time and improving accuracy."
+        "desc": "AI copilot assists auditors in real time: suggests evidence from similar controls, detects compliance gaps before submission, validates evidence quality, and provides confidence scores reducing audit time and improving accuracy.",
+        "category": "ai"
       },
       {
         "title": "AI validation",
-        "desc": "We don't just store documents we read them and flag missing SAMA/NCA requirements."
+        "desc": "We don't just store documents we read them and flag missing SAMA/NCA requirements.",
+        "category": "ai"
       },
       {
         "title": "Audit Copilot (in-audit chat)",
-        "desc": "Conversational AI during the audit: ask questions in English or Arabic; get framework-grounded answers, evidence guidance, and suggested follow-up questions. Knowledge boundary ensures no guessing - only answers from the actual framework."
+        "desc": "Conversational AI during the audit: ask questions in English or Arabic; get framework-grounded answers, evidence guidance, and suggested follow-up questions. Knowledge boundary ensures no guessing - only answers from the actual framework.",
+        "category": "ai"
       },
       {
         "title": "AI readiness check",
-        "desc": "Before you start or submit: domain coverage, required and expiring documents, and AI-generated bilingual recommendations so you know exactly what to fix."
+        "desc": "Before you start or submit: domain coverage, required and expiring documents, and AI-generated bilingual recommendations so you know exactly what to fix.",
+        "category": "ai"
       },
       {
         "title": "AI insights & predictions",
-        "desc": "Trend narratives, root cause analysis, predictive readiness, and focus-area recommendations from your dashboard data - generated in English and/or Arabic for reports and board summaries."
+        "desc": "Trend narratives, root cause analysis, predictive readiness, and focus-area recommendations from your dashboard data - generated in English and/or Arabic for reports and board summaries.",
+        "category": "ai"
       },
       {
         "title": "Remediation AI",
-        "desc": "AI drafts root cause, impact, and recommended action for findings and tickets in both English and Arabic - edit and attach to remediation plans in one click."
+        "desc": "AI drafts root cause, impact, and recommended action for findings and tickets in both English and Arabic - edit and attach to remediation plans in one click.",
+        "category": "ai"
       },
       {
         "title": "Auto document linking",
-        "desc": "AI suggests which documents map to which controls or criteria using embeddings and LLM validation, with confidence scores and reasoning - cut manual mapping time."
+        "desc": "AI suggests which documents map to which controls or criteria using embeddings and LLM validation, with confidence scores and reasoning - cut manual mapping time.",
+        "category": "automation"
       },
       {
         "title": "Framework harmonization",
-        "desc": "Complete SAMA Control 3.3.5? AI automatically suggests reusing evidence for NCA ECC 2.2 using vector similarity search 70% less duplicate evidence collection across audits."
+        "desc": "Complete SAMA Control 3.3.5? AI automatically suggests reusing evidence for NCA ECC 2.2 using vector similarity search 70% less duplicate evidence collection across audits.",
+        "category": "automation"
       },
       {
         "title": "NCA ECC-2024 native",
-        "desc": "Up to date with the latest controls."
+        "desc": "Up to date with the latest controls.",
+        "category": "compliance"
       },
       {
         "title": "SAMA maturity view",
-        "desc": "See your level 0–5 and what's needed to reach Level 3 or 5."
+        "desc": "See your level 0–5 and what's needed to reach Level 3 or 5.",
+        "category": "compliance"
       },
       {
         "title": "Vision 2030 & Government Digital Transformation",
         "desc": "Arabic and English executive dashboards designed for Vision 2030 presentations and Kingdom digital transformation initiatives. Board-ready compliance reporting that aligns with Saudi Arabia's strategic objectives.",
+        "category": "security",
         "highlighted": true
       },
       {
         "title": "Audit locking & immutability",
-        "desc": "Lock completed audits with cryptographic hash verification. Once locked, responses cannot be changed - ensuring audit integrity for regulatory submission and preventing tampering."
+        "desc": "Lock completed audits with cryptographic hash verification. Once locked, responses cannot be changed - ensuring audit integrity for regulatory submission and preventing tampering.",
+        "category": "security"
       },
       {
         "title": "Digital signatures",
-        "desc": "Auditors digitally sign locked audits with cryptographic verification. Every signature is timestamped and immutable ready for NCA/SAMA submission with full audit trail."
+        "desc": "Auditors digitally sign locked audits with cryptographic verification. Every signature is timestamped and immutable ready for NCA/SAMA submission with full audit trail.",
+        "category": "security"
       },
       {
         "title": "Pre-loaded templates",
-        "desc": "Instant go-live based on your industry selection - no months of consultant setup."
+        "desc": "Instant go-live based on your industry selection - no months of consultant setup.",
+        "category": "compliance"
       }
     ]
   },
