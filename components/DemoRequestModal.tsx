@@ -421,6 +421,7 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
                       <option value="Technology & Software">{t.industries?.technology || 'Technology & Software'}</option>
                       <option value="Professional Services">{t.industries?.professional || 'Professional Services (Consulting, Legal, HR)'}</option>
                       <option value="Real Estate & Construction">{t.industries?.realEstate || 'Real Estate & Construction'}</option>
+                      <option value="Travel & Hospitality">{t.industries?.travel || 'Travel & Hospitality (Tours, Agencies, Airlines)'}</option>
                       <option value="Other">{t.industries?.other || 'Other'}</option>
                     </optgroup>
                   </select>

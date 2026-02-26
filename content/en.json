@@ -46,6 +46,7 @@
       "healthcare": "Healthcare & Hospitals",
       "telecom": "Telecommunications",
       "transport": "Transportation & Logistics",
+      "travel": "Travel & Hospitality (Tours, Agencies, Airlines)",
       "education": "Education",
       "pdpl": "PDPL (All Sectors with Personal Data)",
       "retail": "Retail & E-commerce",
@@ -82,6 +83,11 @@
         "framework": "SDAIA / PDPL",
         "title": "Data Protection & Privacy",
         "desc": "Upload your privacy policies and consent evidence. We validate them against PDPL and keep one audit trail. Ready for SDAIA data protection audits."
+      },
+      {
+        "framework": "Internal Operational Audit",
+        "title": "Iqama, Invoice & Tours & Travels",
+        "desc": "AI-powered document checks for HR and finance: Iqama expiry alerts (avoid MHRSD fines), three-way invoice match (PO, Invoice, Receipt), and travel industry support for visa retention and compliance. One platform for CISO, CFO, and CAE."
       }
     ]
   },
@@ -211,6 +217,21 @@
         "title": "Pre-loaded templates",
         "desc": "Instant go-live based on your industry selection - no months of consultant setup.",
         "category": "compliance"
+      },
+      {
+        "title": "Iqama expiry check",
+        "desc": "Upload Iqama documents. AI reads Arabic expiry dates, extracts holder details, and flags expiring or expired Iqamas 30 days in advance - avoid MHRSD penalties and bank account blocks.",
+        "category": "automation"
+      },
+      {
+        "title": "Three-way invoice match",
+        "desc": "AI performs procure-to-pay validation: upload Purchase Order, Vendor Invoice, and Bank Receipt. Get automatic matching for amounts, vendors, and dates - detect discrepancies and fraud.",
+        "category": "automation"
+      },
+      {
+        "title": "Tours & travel support",
+        "desc": "Built for travel agencies, airlines, and hospitality. Visa retention compliance, passenger PII checks, and document intelligence tailored for Saudi travel industry requirements.",
+        "category": "automation"
       }
     ]
   },
