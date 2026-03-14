@@ -12,12 +12,15 @@ export const metadata: Metadata = {
     template: '%s | ArabAudit',
   },
   description:
-    'AI-powered audit compliance platform for the Kingdom. One workflow from evidence upload to one-click regulatory export. NCA ECC-2024, SAMA CSF, and PDPL—validated against Saudi authority templates. Built for critical infrastructure, financial sector, and government.',
+    'AI-powered audit compliance platform for the Kingdom and the Middle East—available worldwide. One workflow from evidence upload to one-click regulatory export. NCA ECC-2024, SAMA CSF, and PDPL—validated against Saudi authority templates. Built for critical infrastructure, financial sector, and government.',
   keywords: [
     'NCA ECC-2024',
     'SAMA CSF',
     'PDPL',
     'Saudi Arabia',
+    'KSA',
+    'Middle East',
+    'GCC',
     'audit compliance',
     'cybersecurity controls',
     'regulatory export',
@@ -33,6 +36,14 @@ export const metadata: Metadata = {
   publisher: 'ArabAudit',
   formatDetection: { email: false, address: false, telephone: false },
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://arabaudit.com'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'x-default': '/',
+      en: '/',
+      ar: '/',
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
