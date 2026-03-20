@@ -1,12 +1,14 @@
 'use client'
 
-import { useState, useCallback, useRef, useEffect } from 'react'
+import { useState, useCallback, useRef, useEffect, useMemo } from 'react'
 import { createPortal } from 'react-dom'
+import { motion } from 'framer-motion'
+import { useReducedMotionSafe } from '@/lib/hooks/useReducedMotionSafe'
 import { useLocale } from '@/context/LocaleContext'
 import { getContent } from '@/lib/content'
-import { FadeInUp } from './animations/FadeInUp'
-import { StaggerChildren, StaggerItem } from './animations/StaggerChildren'
 import { useSectionTracking } from '@/lib/hooks/useAnalytics'
+
+const ease = [0.25, 0.1, 0.25, 1] as const
 
 function IconCheck({ className }: { className?: string }) {
   return (
@@ -67,6 +69,7 @@ function IconLink({ className }: { className?: string }) {
 
 export function AICapabilities() {
   const { locale } = useLocale()
+  const reduce = useReducedMotionSafe()
   const content = getContent(locale) as {
     aiCapabilities?: {
       title: string
@@ -84,34 +87,30 @@ export function AICapabilities() {
   const t = content.aiCapabilities
   const sectionRef = useSectionTracking('aiCapabilities')
 
-  if (!t?.items?.length) return null
-
-  // Single active card for expansion (only one can be expanded at a time)
   const [activeCard, setActiveCard] = useState<number | null>(null)
   const [drawerEntered, setDrawerEntered] = useState(false)
   const [drawerClosing, setDrawerClosing] = useState(false)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
 
-  // Toggle card expansion (functional update avoids stale closure)
+  const titleWords = useMemo(() => (t?.title ?? '').split(/\s+/).filter(Boolean), [t?.title])
+  const subtitleWords = useMemo(() => (t?.subtitle ?? '').split(/\s+/).filter(Boolean), [t?.subtitle])
+
   const toggleCard = useCallback((index: number) => {
-    setActiveCard(prev => (prev === index ? null : index))
+    setActiveCard((prev) => (prev === index ? null : index))
   }, [])
 
-  // Drawer enter animation: start off-screen then slide in
   useEffect(() => {
     if (activeCard !== null) {
       setDrawerClosing(false)
       setDrawerEntered(false)
-      const t = requestAnimationFrame(() => {
+      const raf = requestAnimationFrame(() => {
         requestAnimationFrame(() => setDrawerEntered(true))
       })
-      return () => cancelAnimationFrame(t)
-    } else {
-      setDrawerEntered(false)
+      return () => cancelAnimationFrame(raf)
     }
+    setDrawerEntered(false)
   }, [activeCard])
 
-  // Close drawer: slide out then clear state
   const closeDrawer = useCallback(() => {
     setDrawerClosing(true)
     closeTimeoutRef.current = setTimeout(() => {
@@ -126,7 +125,6 @@ export function AICapabilities() {
     }
   }, [])
 
-  // Close drawer on Escape
   useEffect(() => {
     if (activeCard === null) return
     const handleEscape = (e: KeyboardEvent) => {
@@ -136,7 +134,6 @@ export function AICapabilities() {
     return () => window.removeEventListener('keydown', handleEscape)
   }, [activeCard, closeDrawer])
 
-  // Lock body scroll when drawer is open
   useEffect(() => {
     const open = activeCard !== null || drawerClosing
     if (open) document.body.style.overflow = 'hidden'
@@ -146,20 +143,53 @@ export function AICapabilities() {
     }
   }, [activeCard, drawerClosing])
 
-  // Short summaries for collapsed state
   const getPainSummary = (index: number): string => {
     const summaries = [
-      "Manual evidence validation is slow and error-prone",
-      "Writing findings takes too long and must be regulator-ready",
-      "Auditors lack quick access to framework guidance",
-      "Hard to assess audit readiness before submission",
-      "Dashboard data lacks actionable insights",
-      "Remediation and document mapping is manual and slow"
+      'Manual evidence validation is slow and error-prone',
+      'Writing findings takes too long and must be regulator-ready',
+      'Auditors lack quick access to framework guidance',
+      'Hard to assess audit readiness before submission',
+      'Dashboard data lacks actionable insights',
+      'Remediation and document mapping is manual and slow',
     ]
-    return summaries[index] || "Pain point summary"
+    return summaries[index] || 'Pain point summary'
   }
 
   const icons = [IconFileSearch, IconSparkles, IconChat, IconClipboardCheck, IconChartBar, IconLink] as const
+
+  const drawerListVariants = useMemo(
+    () => ({
+      hidden: { opacity: reduce ? 1 : 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: reduce ? 0 : 0.05,
+          delayChildren: reduce ? 0 : 0.06,
+        },
+      },
+    }),
+    [reduce]
+  )
+
+  const drawerListItemVariants = useMemo(
+    () => ({
+      hidden: {
+        opacity: reduce ? 1 : 0,
+        x: reduce ? 0 : locale === 'ar' ? -8 : 8,
+      },
+      visible: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: reduce ? 0 : 0.3, ease },
+      },
+    }),
+    [reduce, locale]
+  )
+
+  if (!t?.items?.length) return null
+
+  const drawerOpen = drawerEntered && !drawerClosing
+  const panelX = locale === 'ar' ? '-100%' : '100%'
 
   return (
     <section
@@ -177,8 +207,19 @@ export function AICapabilities() {
           ].join(', '),
         }}
       />
+
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] animate-gradient-shift opacity-35"
+        style={{
+          background:
+            'linear-gradient(118deg, rgba(11,70,52,0.05) 0%, rgba(216,176,74,0.06) 45%, rgba(11,70,52,0.04) 100%)',
+          backgroundSize: '200% 200%',
+        }}
+        aria-hidden
+      />
+
       <svg
-        className="absolute inset-0 h-full w-full opacity-[0.04]"
+        className="absolute inset-0 z-[1] h-full w-full opacity-[0.04]"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
@@ -191,169 +232,269 @@ export function AICapabilities() {
       </svg>
 
       <div className="relative z-10 mx-auto max-w-6xl">
-        <FadeInUp>
-          <div className="text-center">
-            <div className="mx-auto w-16 h-1 rounded-full bg-accent" />
-            <h2 className="mt-4 font-bold text-section tracking-royal text-primary">{t.title}</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-base text-primary/80">{t.subtitle}</p>
-          </div>
-        </FadeInUp>
+        <div className="text-center">
+          <motion.div
+            className="mx-auto h-1 w-16 origin-center rounded-full bg-accent"
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: reduce ? 0.01 : 0.45, ease }}
+          />
+          <h2 className="mt-4 text-section font-bold tracking-royal text-primary">
+            {titleWords.map((word, i) => (
+              <span key={`${word}-${i}`} className="inline-block">
+                <motion.span
+                  className="inline-block"
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{
+                    duration: reduce ? 0.01 : 0.45,
+                    delay: reduce ? 0 : 0.06 + i * 0.035,
+                    ease,
+                  }}
+                >
+                  {word}
+                </motion.span>
+                {i < titleWords.length - 1 ? '\u00A0' : ''}
+              </span>
+            ))}
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-base text-primary/80">
+            {subtitleWords.map((word, i) => (
+              <motion.span
+                key={`${word}-${i}`}
+                className="inline-block"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{
+                  duration: reduce ? 0.01 : 0.38,
+                  delay: reduce ? 0 : 0.1 + i * 0.022,
+                  ease,
+                }}
+              >
+                {word}
+                {i < subtitleWords.length - 1 ? '\u00A0' : ''}
+              </motion.span>
+            ))}
+          </p>
+        </div>
 
-        <StaggerChildren className="grid grid-cols-1 gap-8 mt-14 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {t.items.map((item, i) => {
             const Icon = icons[i] ?? IconSparkles
             const isActive = activeCard === i
 
             return (
-              <StaggerItem key={i}>
-                <div className={`flex flex-col h-full min-h-[340px] rounded-2xl border-2 bg-white/95 shadow-xl backdrop-blur-sm transition-all duration-300 border-accent/20 hover:border-accent/40 hover:shadow-2xl hover:shadow-accent/10 ${isActive ? 'ring-2 border-accent ring-accent/30' : ''} ${locale === 'ar' ? 'text-right' : 'text-left'}`}>
-                  {/* Header */}
-                  <div className="px-6 py-5 bg-gradient-to-r via-white border-b border-accent/20 from-accent/10 to-accent/5">
-                    <div className="flex gap-4 items-start">
-                      <div className="flex justify-center items-center w-12 h-12 rounded-xl ring-2 shrink-0 bg-accent/20 text-accent ring-accent/30">
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold tracking-royal text-primary">
-                          {item.title}
-                        </h3>
-                        <p className="mt-1 text-sm text-primary/75">{item.tagline}</p>
-                      </div>
-                    </div>
-                  </div>
+              <motion.article
+                key={i}
+                className={`group relative flex min-h-[340px] flex-col overflow-hidden rounded-2xl border-2 border-accent/20 bg-white/95 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:shadow-2xl hover:shadow-accent/10 ${isActive ? 'border-accent ring-2 ring-accent/30' : ''} ${locale === 'ar' ? 'text-right' : 'text-left'}`}
+                initial={{ opacity: 0, y: 28, scale: 0.94 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{
+                  type: 'spring',
+                  stiffness: reduce ? 500 : 300,
+                  damping: reduce ? 55 : 26,
+                  delay: reduce ? 0 : i * 0.07,
+                }}
+                whileHover={
+                  reduce
+                    ? undefined
+                    : {
+                        y: -6,
+                        transition: { type: 'spring', stiffness: 400, damping: 22 },
+                      }
+                }
+              >
+                <div
+                  className="absolute inset-x-0 top-0 z-[1] h-0.5 origin-center scale-x-0 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-[transform,opacity] duration-300 ease-out group-hover:scale-x-100 group-hover:opacity-100"
+                  aria-hidden
+                />
 
-                  {/* Pain: one-line summary only (full list is in the expansion panel) */}
-                  <div className="flex-1 px-6 py-5 border-b border-primary/10 min-h-[100px]">
-                    <div className="flex gap-2 items-center text-sm font-bold tracking-wider uppercase text-primary/90">
-                      <IconAlert className="w-4 h-4 text-amber-600 shrink-0" />
-                      {item.painTitle}
-                    </div>
-                    <div className="mt-3">
-                      <div className="flex gap-2 text-sm text-primary/80">
-                        <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400/80" />
-                        <span>{getPainSummary(i)}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* How we help + View details (opens drawer) */}
-                  <div className="px-6 py-5">
-                    <div className="flex gap-2 items-center mb-3 text-sm font-bold tracking-wider uppercase text-accent">
-                      <IconCheck className="w-4 h-4 shrink-0" />
-                      {item.benefitTitle}
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => toggleCard(i)}
-                      className="inline-flex gap-2 items-center rounded-full border-2 border-accent/40 bg-accent/10 px-4 py-2.5 text-sm font-semibold text-accent transition-colors duration-200 hover:bg-accent/20 hover:border-accent/60"
-                      aria-expanded={isActive}
-                      aria-controls={isActive ? 'ai-capability-detail-panel' : undefined}
+                <div className="border-b border-accent/20 bg-gradient-to-r from-accent/10 via-white to-accent/5 px-6 py-5">
+                  <div
+                    className={`flex items-start gap-4 ${locale === 'ar' ? 'flex-row-reverse' : ''}`}
+                  >
+                    <motion.div
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/20 text-accent ring-2 ring-accent/30"
+                      whileHover={reduce ? undefined : { scale: 1.06 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 18 }}
                     >
-                      <span>{locale === 'ar' ? 'عرض التفاصيل' : 'View details'}</span>
-                      {locale === 'ar' ? (
-                        <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                      ) : (
-                        <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      )}
-                    </button>
+                      <Icon className="h-6 w-6" />
+                    </motion.div>
+                    <div className="min-w-0 flex-1">
+                      <motion.h3
+                        className="text-xl font-bold tracking-royal text-primary"
+                        initial={{ opacity: 0, y: 6 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          delay: reduce ? 0 : 0.08 + i * 0.04,
+                          duration: 0.35,
+                          ease,
+                        }}
+                      >
+                        {item.title}
+                      </motion.h3>
+                      <motion.p
+                        className="mt-1 text-sm text-primary/75"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: reduce ? 0 : 0.12 + i * 0.04, duration: 0.35 }}
+                      >
+                        {item.tagline}
+                      </motion.p>
+                    </div>
                   </div>
                 </div>
-              </StaggerItem>
+
+                <div className="min-h-[100px] flex-1 border-b border-primary/10 px-6 py-5">
+                  <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary/90">
+                    <IconAlert className="h-4 w-4 shrink-0 text-amber-600" />
+                    {item.painTitle}
+                  </div>
+                  <div className="mt-3">
+                    <div className="flex gap-2 text-sm text-primary/80">
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400/80" />
+                      <span>{getPainSummary(i)}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="px-6 py-5">
+                  <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">
+                    <IconCheck className="h-4 w-4 shrink-0" />
+                    {item.benefitTitle}
+                  </div>
+                  <motion.button
+                    type="button"
+                    onClick={() => toggleCard(i)}
+                    className="inline-flex items-center gap-2 rounded-full border-2 border-accent/40 bg-accent/10 px-4 py-2.5 text-sm font-semibold text-accent transition-colors duration-200 hover:border-accent/60 hover:bg-accent/20"
+                    aria-expanded={isActive}
+                    aria-controls={isActive ? 'ai-capability-detail-panel' : undefined}
+                    whileTap={{ scale: 0.97 }}
+                    whileHover={reduce ? undefined : { scale: 1.02 }}
+                  >
+                    <span>{locale === 'ar' ? 'عرض التفاصيل' : 'View details'}</span>
+                    {locale === 'ar' ? (
+                      <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    ) : (
+                      <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    )}
+                  </motion.button>
+                </div>
+              </motion.article>
             )
           })}
-        </StaggerChildren>
+        </div>
 
-        {/* Right-side drawer - portaled to body so it sits above header navbar */}
         {(activeCard !== null || drawerClosing) &&
           typeof document !== 'undefined' &&
           createPortal(
             <>
-              {/* Backdrop: click outside to close */}
-              <div
+              <motion.div
                 role="presentation"
-                className={`fixed inset-0 z-[9998] bg-black/50 backdrop-blur-sm transition-opacity duration-300 ${
-                  drawerClosing ? 'opacity-0' : 'opacity-100'
-                }`}
+                className="fixed inset-0 z-[9998] bg-black/50 backdrop-blur-sm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: drawerClosing ? 0 : 1 }}
+                transition={{ duration: reduce ? 0.01 : 0.3, ease }}
                 onClick={closeDrawer}
                 aria-hidden
               />
 
-              {/* Drawer panel - slides in from the right (or left in RTL) */}
-              <div
+              <motion.div
                 id="ai-capability-detail-panel"
                 role="dialog"
                 aria-modal="true"
-                aria-label="Capability details"
-                className={`fixed top-0 bottom-0 z-[9999] w-full max-w-md sm:max-w-lg bg-white shadow-2xl overflow-y-auto transition-transform duration-300 ease-out ${
-                locale === 'ar' ? 'left-0' : 'right-0'
-              } ${
-                drawerEntered && !drawerClosing
-                  ? 'translate-x-0'
-                  : locale === 'ar'
-                    ? '-translate-x-full'
-                    : 'translate-x-full'
-              }`}
-              onClick={e => e.stopPropagation()}
-            >
-              <div className="sticky top-0 z-10 border-b-2 border-accent/30 bg-white pr-14 py-4 pl-6 shadow-md">
-                <h3 className={`text-lg font-bold text-primary min-w-0 truncate ${locale === 'ar' ? 'text-right' : 'text-left'}`}>
-                  {activeCard !== null ? t.items[activeCard].title : ''}
-                </h3>
-                {/* Close button fixed to top-right corner of drawer */}
-                <button
-                  type="button"
-                  onClick={closeDrawer}
-                  className={`absolute top-4 w-10 h-10 flex items-center justify-center rounded-full border-2 border-accent bg-accent/15 text-accent transition-colors hover:bg-accent/25 hover:border-accent ${locale === 'ar' ? 'left-4' : 'right-4'}`}
-                  aria-label="Close drawer"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
+                aria-label={locale === 'ar' ? 'تفاصيل القدرة' : 'Capability details'}
+                className={`fixed bottom-0 top-0 z-[9999] w-full max-w-md overflow-y-auto bg-white shadow-2xl sm:max-w-lg ${locale === 'ar' ? 'left-0' : 'right-0'}`}
+                initial={{ x: panelX }}
+                animate={{ x: drawerOpen ? 0 : panelX }}
+                transition={{ duration: reduce ? 0.01 : 0.3, ease }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="sticky top-0 z-10 border-b-2 border-accent/30 bg-white py-4 pl-6 pr-14 shadow-md">
+                  <h3
+                    className={`min-w-0 truncate text-lg font-bold text-primary ${locale === 'ar' ? 'text-right' : 'text-left'}`}
+                  >
+                    {activeCard !== null ? t.items[activeCard].title : ''}
+                  </h3>
+                  <motion.button
+                    type="button"
+                    onClick={closeDrawer}
+                    className={`absolute top-4 flex h-10 w-10 items-center justify-center rounded-full border-2 border-accent bg-accent/15 text-accent transition-colors hover:border-accent hover:bg-accent/25 ${locale === 'ar' ? 'left-4' : 'right-4'}`}
+                    aria-label={locale === 'ar' ? 'إغلاق' : 'Close drawer'}
+                    whileTap={{ scale: 0.94 }}
+                  >
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </motion.button>
+                </div>
 
-              <div className="p-6">
-                {activeCard !== null && (
-                  <div className={`space-y-8 ${locale === 'ar' ? 'text-right' : 'text-left'}`}>
-                    {/* Pain Points */}
-                    <div>
-                      <div className="flex gap-2 items-center mb-4 text-sm font-bold tracking-wider uppercase text-primary/90">
-                        <IconAlert className="w-5 h-5 text-amber-600 shrink-0" />
-                        {t.items[activeCard].painTitle}
+                <div className="p-6">
+                  {activeCard !== null && (
+                    <div className={`space-y-8 ${locale === 'ar' ? 'text-right' : 'text-left'}`}>
+                      <div>
+                        <div className="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary/90">
+                          <IconAlert className="h-5 w-5 shrink-0 text-amber-600" />
+                          {t.items[activeCard].painTitle}
+                        </div>
+                        <motion.ul
+                          className="space-y-3"
+                          initial="hidden"
+                          animate="visible"
+                          variants={drawerListVariants}
+                          key={`pain-${activeCard}`}
+                        >
+                          {t.items[activeCard].painPoints.map((point, j) => (
+                            <motion.li
+                              key={j}
+                              className="flex gap-2 text-sm text-primary/80"
+                              variants={drawerListItemVariants}
+                            >
+                              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400/80" />
+                              <span>{point}</span>
+                            </motion.li>
+                          ))}
+                        </motion.ul>
                       </div>
-                      <ul className="space-y-3">
-                        {t.items[activeCard].painPoints.map((point, j) => (
-                          <li key={j} className="flex gap-2 text-sm text-primary/80">
-                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400/80" />
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
 
-                    {/* Benefits */}
-                    <div>
-                      <div className="flex gap-2 items-center mb-4 text-sm font-bold tracking-wider uppercase text-accent">
-                        <IconCheck className="w-5 h-5 shrink-0" />
-                        {t.items[activeCard].benefitTitle}
+                      <div>
+                        <div className="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-accent">
+                          <IconCheck className="h-5 w-5 shrink-0" />
+                          {t.items[activeCard].benefitTitle}
+                        </div>
+                        <motion.ul
+                          className="space-y-3"
+                          initial="hidden"
+                          animate="visible"
+                          variants={drawerListVariants}
+                          key={`benefit-${activeCard}`}
+                        >
+                          {t.items[activeCard].benefits.map((benefit, j) => (
+                            <motion.li
+                              key={j}
+                              className="flex gap-2 text-sm text-primary/85"
+                              variants={drawerListItemVariants}
+                            >
+                              <IconCheck className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                              <span>{benefit}</span>
+                            </motion.li>
+                          ))}
+                        </motion.ul>
                       </div>
-                      <ul className="space-y-3">
-                        {t.items[activeCard].benefits.map((benefit, j) => (
-                          <li key={j} className="flex gap-2 text-sm text-primary/85">
-                            <IconCheck className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                            <span>{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
                     </div>
-                  </div>
-                )}
-              </div>
-            </div>
+                  )}
+                </div>
+              </motion.div>
             </>,
             document.body
           )}

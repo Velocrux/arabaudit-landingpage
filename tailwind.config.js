@@ -53,6 +53,14 @@ module.exports = {
       letterSpacing: {
         royal: "0.02em",
       },
+      /* Keyframes live in app/globals.css to avoid duplicate @keyframes; names match below */
+      animation: {
+        float: "float 6s ease-in-out infinite",
+        "float-slow": "float 9s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "gradient-shift": "gradient-shift 8s ease infinite",
+        "draw-underline": "draw-underline 0.5s ease forwards",
+      },
     },
   },
   plugins: [],

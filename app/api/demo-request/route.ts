@@ -1,38 +1,48 @@
-import { NextResponse } from 'next/server'
-import { Resend } from 'resend'
-import Mixpanel from 'mixpanel'
+import { NextResponse } from "next/server";
+import { Resend } from "resend";
+import Mixpanel from "mixpanel";
 
-const resend = process.env.RESEND_API_KEY && process.env.RESEND_API_KEY !== 'your_resend_api_key_here'
-  ? new Resend(process.env.RESEND_API_KEY)
-  : null
-const DEMO_REQUEST_EMAIL = process.env.DEMO_REQUEST_EMAIL || 'kauser@velocrux.com'
+const resend =
+  process.env.RESEND_API_KEY &&
+  process.env.RESEND_API_KEY !== "your_resend_api_key_here"
+    ? new Resend(process.env.RESEND_API_KEY)
+    : null;
+const DEMO_REQUEST_EMAIL =
+  process.env.DEMO_REQUEST_EMAIL || "kauser@arabaudit.com";
 
 // Initialize server-side Mixpanel
 const mixpanel = process.env.MIXPANEL_TOKEN
   ? Mixpanel.init(process.env.MIXPANEL_TOKEN)
-  : null
+  : null;
 
 interface DemoRequestBody {
-  firstName: string
-  lastName: string
-  email: string
-  organization: string
-  industry: string
-  phone: string
+  firstName: string;
+  lastName: string;
+  email: string;
+  organization: string;
+  industry: string;
+  phone: string;
 }
 
 export async function POST(request: Request) {
   try {
-    const body: DemoRequestBody = await request.json()
-    
+    const body: DemoRequestBody = await request.json();
+
     // Validate required fields
-    if (!body.firstName || !body.lastName || !body.email || !body.organization || !body.industry || !body.phone) {
+    if (
+      !body.firstName ||
+      !body.lastName ||
+      !body.email ||
+      !body.organization ||
+      !body.industry ||
+      !body.phone
+    ) {
       return NextResponse.json(
-        { success: false, message: 'All fields are required' },
-        { status: 400 }
-      )
+        { success: false, message: "All fields are required" },
+        { status: 400 },
+      );
     }
-    
+
     // Create email HTML
     const emailHtml = `
 <!DOCTYPE html>
@@ -142,18 +152,18 @@ export async function POST(request: Request) {
     </div>
     
     <div class="footer">
-      <p class="timestamp">Received on ${new Date().toLocaleString('en-US', { 
-        dateStyle: 'full', 
-        timeStyle: 'long',
-        timeZone: 'Asia/Riyadh'
+      <p class="timestamp">Received on ${new Date().toLocaleString("en-US", {
+        dateStyle: "full",
+        timeStyle: "long",
+        timeZone: "Asia/Riyadh",
       })}</p>
       <p>This request was submitted through the ArabAudit landing page demo request form.</p>
     </div>
   </div>
 </body>
 </html>
-    `.trim()
-    
+    `.trim();
+
     // Create plain text version
     const emailText = `
 New Demo Request - ArabAudit
@@ -164,47 +174,47 @@ Organization: ${body.organization}
 Industry: ${body.industry}
 Phone: ${body.phone}
 
-Received: ${new Date().toLocaleString('en-US', { 
-  dateStyle: 'full', 
-  timeStyle: 'long',
-  timeZone: 'Asia/Riyadh'
-})}
+Received: ${new Date().toLocaleString("en-US", {
+      dateStyle: "full",
+      timeStyle: "long",
+      timeZone: "Asia/Riyadh",
+    })}
 
 This request was submitted through the ArabAudit landing page demo request form.
-    `.trim()
-    
+    `.trim();
+
     // Send email via Resend
     if (!resend) {
-      console.error('Resend not configured')
+      console.error("Resend not configured");
       return NextResponse.json(
-        { success: false, message: 'Email service not configured' },
-        { status: 500 }
-      )
+        { success: false, message: "Email service not configured" },
+        { status: 500 },
+      );
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'ArabAudit Demo Requests <onboarding@resend.dev>',
+      from: "ArabAudit Demo Requests <onboarding@resend.dev>",
       to: [DEMO_REQUEST_EMAIL],
       subject: `[ArabAudit] Demo Request - ${body.organization}`,
       html: emailHtml,
       text: emailText,
-    })
-    
+    });
+
     if (error) {
-      console.error('Resend API error:', error)
+      console.error("Resend API error:", error);
       return NextResponse.json(
-        { success: false, message: 'Failed to send email. Please try again.' },
-        { status: 500 }
-      )
+        { success: false, message: "Failed to send email. Please try again." },
+        { status: 500 },
+      );
     }
-    
-    console.log('Email sent successfully:', data)
+
+    console.log("Email sent successfully:", data);
 
     // Track successful demo request server-side
     if (mixpanel) {
       try {
         // Track the conversion event
-        mixpanel.track('demo_requested_server', {
+        mixpanel.track("demo_requested_server", {
           first_name: body.firstName,
           last_name: body.lastName,
           email: body.email,
@@ -212,9 +222,9 @@ This request was submitted through the ArabAudit landing page demo request form.
           industry: body.industry,
           phone: body.phone,
           timestamp: new Date().toISOString(),
-          source: 'api_submission',
-          email_sent: true
-        })
+          source: "api_submission",
+          email_sent: true,
+        });
 
         // Set user properties for the identified user
         mixpanel.people.set(body.email, {
@@ -225,29 +235,31 @@ This request was submitted through the ArabAudit landing page demo request form.
           industry: body.industry,
           demo_requested: true,
           demo_requested_at: new Date().toISOString(),
-          last_seen: new Date().toISOString()
-        })
+          last_seen: new Date().toISOString(),
+        });
 
-        console.log('Mixpanel server-side tracking completed')
+        console.log("Mixpanel server-side tracking completed");
       } catch (mixpanelError) {
-        console.error('Failed to track in Mixpanel:', mixpanelError)
+        console.error("Failed to track in Mixpanel:", mixpanelError);
         // Don't fail the request if tracking fails
       }
     }
 
     return NextResponse.json({
       success: true,
-      message: 'Demo request submitted successfully'
-    })
-    
+      message: "Demo request submitted successfully",
+    });
   } catch (error) {
-    console.error('Error processing demo request:', error)
+    console.error("Error processing demo request:", error);
     return NextResponse.json(
-      { 
-        success: false, 
-        message: error instanceof Error ? error.message : 'An unexpected error occurred' 
+      {
+        success: false,
+        message:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred",
       },
-      { status: 500 }
-    )
+      { status: 500 },
+    );
   }
 }

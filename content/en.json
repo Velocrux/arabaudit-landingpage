@@ -8,6 +8,9 @@
   "hero": {
     "headline": "AI-powered platform for NCA, SAMA & PDPL audit-ready",
     "subhead": "Saudi-native digital co-pilot for NCA, SAMA, and SDAIA/PDPL. One workflow from document upload to cryptographically signed regulatory export. AI validates evidence, suggests reuse across frameworks, locks audits for immutability, and keeps you portal-ready. Built for the Kingdom's requirements from day one.",
+    "problemLabel": "The Problem",
+    "solutionLabel": "The Solution",
+    "cryptoVerifiedBadge": "Cryptographically Verified",
     "cta": "Schedule demo",
     "ctaSecondary": "Talk to us",
     "ctaDownloadECC": "Download ECC Checklist",
@@ -339,6 +342,7 @@
   "comparison": {
     "title": "Why we stand out",
     "tagline": "Saudi-native from day one. One-click export, deep AI, no copy-paste.",
+    "whyItMattersLabel": "Why it matters:",
     "headers": {
       "feature": "Feature",
       "other": "Other audit platforms",
@@ -397,6 +401,8 @@
   },
   "personas": {
     "title": "Who it's for",
+    "problemLabel": "The Problem",
+    "howItWorksLabel": "How It Works",
     "items": [
       {
         "role": "CISO / IT Manager",
@@ -440,6 +446,15 @@
   "footer": {
     "tagline": "From audit panic to audit readiness - always up to date. Saudi-native Smart Audit Engine.",
     "servingEnterprises": "Serving enterprises across KSA",
+    "quickLinksTitle": "Quick Links",
+    "getInTouchTitle": "Get in Touch",
+    "emailLabel": "Email",
+    "established": "Est. 2026",
+    "builtForKingdom": "Built for the Kingdom",
+    "engineTagline": "Saudi-native Smart Audit Engine",
+    "copyrightLine": "© {year} ArabAudit. All rights reserved.",
+    "navAriaLabel": "Footer navigation",
+    "homeAriaLabel": "ArabAudit Home",
     "links": {
       "product": "Product",
       "contact": "Contact",
@@ -450,6 +465,7 @@
   "team": {
     "title": "Leadership",
     "subtitle": "Building the digital infrastructure for Gulf enterprise",
+    "connectLinkedIn": "Connect on LinkedIn",
     "members": [
       {
         "name": "Kauser Jahan",

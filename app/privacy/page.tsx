@@ -107,7 +107,7 @@ export default function PrivacyPolicy() {
               {content.contact.text}
             </p>
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=kauser@velocrux.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=kauser@arabaudit.com"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 font-semibold text-primary shadow-md transition-all hover:bg-accent/90 hover:shadow-lg"
@@ -115,7 +115,7 @@ export default function PrivacyPolicy() {
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              kauser@velocrux.com
+              kauser@arabaudit.com
             </a>
           </div>
         </div>
@@ -218,7 +218,7 @@ const contentEn = {
         'Withdrawal: Withdraw consent for optional data processing',
       ],
       additionalContent: [
-        'To exercise these rights, please contact us at kauser@velocrux.com. We will respond within the timeframes required by Saudi law.',
+        'To exercise these rights, please contact us at kauser@arabaudit.com. We will respond within the timeframes required by Saudi law.',
       ],
     },
     {
@@ -371,7 +371,7 @@ const contentAr = {
         'السحب: سحب الموافقة على معالجة البيانات الاختيارية',
       ],
       additionalContent: [
-        'لممارسة هذه الحقوق، يرجى الاتصال بنا على kauser@velocrux.com. سنرد خلال الأطر الزمنية المطلوبة بموجب القانون السعودي.',
+        'لممارسة هذه الحقوق، يرجى الاتصال بنا على kauser@arabaudit.com. سنرد خلال الأطر الزمنية المطلوبة بموجب القانون السعودي.',
       ],
     },
     {

@@ -286,8 +286,8 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
                       }
                     }}
                     className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.firstName
-                        ? 'border-red-500 focus:border-red-500'
-                        : 'border-primary/20 focus:border-accent'
+                      ? 'border-red-500 focus:border-red-500'
+                      : 'border-primary/20 focus:border-accent'
                       } bg-base text-primary placeholder-primary/40`}
                     placeholder={t.placeholders?.firstName || ''}
                   />
@@ -314,8 +314,8 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
                       }
                     }}
                     className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.lastName
-                        ? 'border-red-500 focus:border-red-500'
-                        : 'border-primary/20 focus:border-accent'
+                      ? 'border-red-500 focus:border-red-500'
+                      : 'border-primary/20 focus:border-accent'
                       } bg-base text-primary placeholder-primary/40`}
                     placeholder={t.placeholders?.lastName || ''}
                   />
@@ -342,8 +342,8 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
                       }
                     }}
                     className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.email
-                        ? 'border-red-500 focus:border-red-500'
-                        : 'border-primary/20 focus:border-accent'
+                      ? 'border-red-500 focus:border-red-500'
+                      : 'border-primary/20 focus:border-accent'
                       } bg-base text-primary placeholder-primary/40`}
                     placeholder={t.placeholders?.email || 'your@email.com'}
                   />
@@ -370,8 +370,8 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
                       }
                     }}
                     className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.organization
-                        ? 'border-red-500 focus:border-red-500'
-                        : 'border-primary/20 focus:border-accent'
+                      ? 'border-red-500 focus:border-red-500'
+                      : 'border-primary/20 focus:border-accent'
                       } bg-base text-primary placeholder-primary/40`}
                     placeholder={t.placeholders?.organization || ''}
                   />
@@ -397,8 +397,8 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
                       }
                     }}
                     className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.industry
-                        ? 'border-red-500 focus:border-red-500'
-                        : 'border-primary/20 focus:border-accent'
+                      ? 'border-red-500 focus:border-red-500'
+                      : 'border-primary/20 focus:border-accent'
                       } bg-base text-primary`}
                   >
                     <option value="">{t.placeholders?.industry || 'Select industry'}</option>
@@ -443,8 +443,8 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
                     onBlur={(e) => handleFieldBlur('phone', e.target.value)}
                     onChange={(e) => handlePhoneChange(e.target.value)}
                     className={`w-full px-4 py-3 rounded-lg border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/40 ${errors.phone
-                        ? 'border-red-500 focus:border-red-500'
-                        : 'border-primary/20 focus:border-accent'
+                      ? 'border-red-500 focus:border-red-500'
+                      : 'border-primary/20 focus:border-accent'
                       } bg-base text-primary placeholder-primary/40`}
                     placeholder="+966 5X XXX XXXX"
                     dir="ltr"
@@ -460,7 +460,7 @@ export function DemoRequestModal({ isOpen, onClose }: DemoRequestModalProps) {
                   <div className="p-4 bg-red-50 rounded-lg border border-red-200">
                     <p className="mb-2 text-sm text-red-600">{errors.submit}</p>
                     <a
-                      href={`mailto:kauser@velocrux.com?subject=[ArabAudit]%20Demo%20Request&body=Name:%20${formData.firstName}%20${formData.lastName}%0AEmail:%20${formData.email}%0AOrganization:%20${formData.organization}%0AIndustry:%20${formData.industry}%0APhone:%20${formData.phone}`}
+                      href={`mailto:kauser@arabaudit.com?subject=[ArabAudit]%20Demo%20Request&body=Name:%20${formData.firstName}%20${formData.lastName}%0AEmail:%20${formData.email}%0AOrganization:%20${formData.organization}%0AIndustry:%20${formData.industry}%0APhone:%20${formData.phone}`}
                       className="text-sm font-medium underline text-accent hover:text-accent/80"
                     >
                       {t.error?.fallback || 'Click here to email us directly'}
