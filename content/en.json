@@ -6,8 +6,8 @@
     "contact": "Contact"
   },
   "hero": {
-    "headline": "AI-powered platform for NCA, SAMA & PDPL audit-ready",
-    "subhead": "Saudi-native digital co-pilot for NCA, SAMA, and SDAIA/PDPL. One workflow from document upload to cryptographically signed regulatory export. AI validates evidence, suggests reuse across frameworks, locks audits for immutability, and keeps you portal-ready. Built for the Kingdom's requirements from day one.",
+    "headline": "AI-powered platform for NCA, SAMA, PDPL & CBAHI-aligned readiness",
+    "subhead": "Saudi-native digital co-pilot for NCA, SAMA, and SDAIA/PDPL — plus structured evidence paths for healthcare providers aligning with CBAHI (Saudi Central Board for Accreditation of Healthcare Institutions). One workflow from document upload to cryptographically signed regulatory export. AI validates evidence, suggests reuse across frameworks, locks audits for immutability, and keeps you portal-ready. Built for the Kingdom's requirements from day one.",
     "problemLabel": "The Problem",
     "solutionLabel": "The Solution",
     "cryptoVerifiedBadge": "Cryptographically Verified",
@@ -70,7 +70,7 @@
   },
   "trustSignals": {
     "title": "Built for the Kingdom. Ready for your audit.",
-    "subtitle": "NCA, SAMA, PDPL one platform. AI validates. You export.",
+    "subtitle": "NCA, SAMA, PDPL, and CBAHI-aligned healthcare paths — one platform. AI validates. You export.",
     "badges": [
       {
         "framework": "NCA ECC-2024",
@@ -91,12 +91,17 @@
         "framework": "Internal Operational Audit",
         "title": "Iqama, Invoice & Tours & Travels",
         "desc": "AI-powered document checks for HR and finance: Iqama expiry alerts (avoid MHRSD fines), three-way invoice match (PO, Invoice, Receipt), and travel industry support for visa retention and compliance. One platform for CISO, CFO, and CAE."
+      },
+      {
+        "framework": "CBAHI",
+        "title": "Healthcare accreditation readiness",
+        "desc": "CBAHI sets national standards for healthcare quality and patient safety in the Kingdom. Organize policies, clinical governance evidence, and improvement cycles alongside your cybersecurity and PDPL work — one audit trail for hospitals, clinics, and labs pursuing accreditation."
       }
     ]
   },
   "frameworks": {
-    "title": "Built for the Big Three Saudi frameworks",
-    "subtitle": "NCA, SAMA, and SDAIA who makes the rules and who must comply",
+    "title": "Built for Saudi regulatory & healthcare frameworks",
+    "subtitle": "NCA, SAMA, SDAIA/PDPL, and CBAHI — who sets the bar and who must comply",
     "forLabel": "Who must comply",
     "nca": {
       "name": "NCA ECC-2024",
@@ -127,6 +132,16 @@
         "Focus: consent management, data subject rights, and breach notification."
       ],
       "for": "Everyone that collects, processes, or shares personal data."
+    },
+    "cbahi": {
+      "name": "CBAHI",
+      "tagline": "Healthcare accreditation",
+      "points": [
+        "The Saudi Central Board for Accreditation of Healthcare Institutions (CBAHI) is the national body for healthcare quality and patient safety standards.",
+        "Accreditation covers governance, clinical services, infection prevention, medication safety, and continuous improvement — with evidence and surveys similar in rigor to your IT audits.",
+        "ArabAudit helps you keep evidence organized for CBAHI expectations while you run NCA/PDPL workstreams in parallel."
+      ],
+      "for": "Hospitals, medical centers, clinics, labs, and healthcare providers seeking accreditation."
     }
   },
   "features": {
@@ -388,8 +403,8 @@
       {
         "feature": "Saudi frameworks",
         "other": "Treated as an add-on or afterthought.",
-        "us": "NCA ECC-2024, SAMA CSF, and PDPL built in from day one.",
-        "whyItMatters": "No configuration, your industry determines the right frameworks."
+        "us": "NCA ECC-2024, SAMA CSF, PDPL, and CBAHI-aligned healthcare paths built in from day one.",
+        "whyItMatters": "No configuration, your industry determines the right frameworks — including healthcare accreditation alongside cyber and privacy."
       },
       {
         "feature": "Setup & go-live",

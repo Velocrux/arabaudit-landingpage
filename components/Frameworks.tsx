@@ -6,6 +6,7 @@ import { useReducedMotionSafe } from '@/lib/hooks/useReducedMotionSafe'
 import { useLocale } from '@/context/LocaleContext'
 import { getContent } from '@/lib/content'
 import { useSectionTracking } from '@/lib/hooks/useAnalytics'
+import Image from 'next/image'
 
 const ease = [0.25, 0.1, 0.25, 1] as const
 
@@ -124,7 +125,9 @@ function CardContent({
 }
 
 type ColumnConfig = {
-  Icon: () => JSX.Element
+  Icon?: () => JSX.Element
+  imageSrc?: string
+  imageAlt?: string
   data: FrameworkCard
 }
 
@@ -136,6 +139,7 @@ export function Frameworks() {
   const nca = t.nca as FrameworkCard
   const sama = t.sama as FrameworkCard
   const sdaia = 'sdaia' in t ? (t as { sdaia: FrameworkCard }).sdaia : null
+  const cbahi = 'cbahi' in t ? (t as { cbahi: FrameworkCard }).cbahi : null
   const subtitle = 'subtitle' in t ? (t as { subtitle?: string }).subtitle : undefined
   const frameworksRef = useSectionTracking('frameworks')
   const isRTL = locale === 'ar'
@@ -146,14 +150,21 @@ export function Frameworks() {
     [subtitle]
   )
 
-  const columns: ColumnConfig[] = useMemo(
-    () => [
+  const columns: ColumnConfig[] = useMemo(() => {
+    const base: ColumnConfig[] = [
       { Icon: IconNCA, data: nca },
       { Icon: IconSAMA, data: sama },
       ...(sdaia ? [{ Icon: IconSDAIA, data: sdaia }] : []),
-    ],
-    [nca, sama, sdaia]
-  )
+    ]
+    if (cbahi) {
+      base.push({
+        imageSrc: '/images/cbahi.jpeg',
+        imageAlt: 'CBAHI — Saudi Central Board for Accreditation of Healthcare Institutions',
+        data: cbahi,
+      })
+    }
+    return base
+  }, [nca, sama, sdaia, cbahi])
 
   return (
     <section
@@ -260,8 +271,10 @@ export function Frameworks() {
           </p>
         )}
 
-        <div className="mt-16 grid gap-10 lg:mt-20 lg:grid-cols-3 lg:gap-14">
-          {columns.map(({ Icon, data }, colIndex) => (
+        <div
+          className={`mt-16 grid gap-10 lg:mt-20 lg:gap-14 ${columns.length >= 4 ? 'lg:grid-cols-2 xl:grid-cols-4' : 'lg:grid-cols-3'}`}
+        >
+          {columns.map(({ Icon, imageSrc, imageAlt, data }, colIndex) => (
             <motion.article
               key={data.name}
               className="group relative flex min-h-[340px] flex-col overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-10 shadow-xl backdrop-blur-sm transition-[border-color,box-shadow] duration-300 hover:border-accent/35 hover:shadow-2xl hover:shadow-accent/10"
@@ -278,9 +291,9 @@ export function Frameworks() {
                 reduce
                   ? undefined
                   : {
-                      y: -8,
-                      transition: { type: 'spring', stiffness: 400, damping: 22 },
-                    }
+                    y: -8,
+                    transition: { type: 'spring', stiffness: 400, damping: 22 },
+                  }
               }
             >
               <div
@@ -295,7 +308,19 @@ export function Frameworks() {
                   whileHover={reduce ? undefined : { scale: 1.06 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 18 }}
                 >
-                  <Icon />
+                  {imageSrc ? (
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/10 ring-1 ring-white/20">
+                      <Image
+                        src={imageSrc}
+                        alt={imageAlt ?? data.name}
+                        width={40}
+                        height={40}
+                        className="h-10 w-10 object-contain"
+                      />
+                    </span>
+                  ) : Icon ? (
+                    <Icon />
+                  ) : null}
                 </motion.div>
                 <div className="min-w-0 flex-1">
                   <motion.h3

@@ -21,6 +21,7 @@ export function TrustSignals() {
     1: '/images/SAMA.jpeg',
     2: '/images/SDAIA.jpeg',
     3: '/images/tour.png',
+    4: '/images/cbahi.jpeg',
   }
   const badges = (t.badges as Array<{ framework: string; title: string; desc: string }>).map((b, i) => ({
     ...b,
@@ -88,9 +89,10 @@ export function TrustSignals() {
           ))}
         </p>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {badges.map((badge, i) => {
             const isTour = i === 3
+            const isCbahi = i === 4
             const imageAlt = `${badge.framework} — ${badge.title}`
 
             return (
@@ -110,9 +112,9 @@ export function TrustSignals() {
                   reduce
                     ? undefined
                     : {
-                        y: -8,
-                        transition: { type: 'spring', stiffness: 400, damping: 22 },
-                      }
+                      y: -8,
+                      transition: { type: 'spring', stiffness: 400, damping: 22 },
+                    }
                 }
               >
                 <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border-2 border-primary/15 bg-white p-6 shadow-lg transition-[border-color,box-shadow] duration-300 group-hover:border-accent/40 group-hover:shadow-xl group-hover:shadow-accent/10 sm:p-6">
@@ -126,7 +128,7 @@ export function TrustSignals() {
                     className={`flex items-center gap-4 ${locale === 'ar' ? 'flex-row-reverse text-right' : 'text-left'}`}
                   >
                     <motion.div
-                      className={`flex shrink-0 items-center justify-center rounded-xl bg-primary/10 ring-2 ring-primary/20 transition-colors group-hover:bg-accent/15 group-hover:ring-accent/30 ${isTour ? 'h-16 w-16' : 'h-14 w-14'}`}
+                      className={`flex shrink-0 items-center justify-center rounded-xl bg-primary/10 ring-2 ring-primary/20 transition-colors group-hover:bg-accent/15 group-hover:ring-accent/30 ${isTour || isCbahi ? 'h-16 w-16' : 'h-14 w-14'}`}
                       whileHover={reduce ? undefined : { scale: 1.06 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                     >
@@ -134,10 +136,10 @@ export function TrustSignals() {
                         <Image
                           src={badge.image}
                           alt={imageAlt}
-                          width={isTour ? 56 : 40}
-                          height={isTour ? 56 : 40}
+                          width={isTour || isCbahi ? 56 : 40}
+                          height={isTour || isCbahi ? 56 : 40}
                           className={
-                            isTour
+                            isTour || isCbahi
                               ? 'h-12 w-12 object-contain sm:h-14 sm:w-14'
                               : 'max-h-10 max-w-10 object-contain'
                           }
