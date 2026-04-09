@@ -47,7 +47,7 @@ export function TrustSignals() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-6xl text-center">
+      <div className="relative mx-auto w-full max-w-7xl text-center">
         <h2 className="font-bold text-primary text-hero tracking-royal">
           {titleWords.map((word, i) => (
             <span key={`${word}-${i}`} className="inline-block">
@@ -69,7 +69,7 @@ export function TrustSignals() {
           ))}
         </h2>
 
-        <p className="mx-auto mt-4 max-w-xl text-lg text-primary/80">
+        <p className="mx-auto mt-4 max-w-4xl text-lg text-primary/80">
           {subtitleWords.map((word, i) => (
             <motion.span
               key={`${word}-${i}`}
@@ -89,7 +89,7 @@ export function TrustSignals() {
           ))}
         </p>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="mt-14 grid w-full min-w-0 grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-6">
           {badges.map((badge, i) => {
             const isTour = i === 3
             const isCbahi = i === 4
@@ -98,7 +98,7 @@ export function TrustSignals() {
             return (
               <motion.article
                 key={i}
-                className="group relative h-full"
+                className="group relative h-full min-w-0"
                 initial={{ opacity: 0, y: 32, scale: 0.94 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, margin: '-50px' }}
