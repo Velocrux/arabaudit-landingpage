@@ -511,5 +511,35 @@
         "linkedin": ""
       }
     ]
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "CBAHI, NCA, SAMA, and PDPL — answered.",
+    "items": [
+      {
+        "q": "What is CBAHI?",
+        "a": "CBAHI is the Saudi Central Board for Accreditation of Healthcare Institutions — the national body that sets healthcare quality and patient safety standards in the Kingdom of Saudi Arabia. It accredits hospitals, medical centers, clinics, labs, and other healthcare providers against national standards covering governance, clinical services, infection prevention, medication safety, and continuous improvement."
+      },
+      {
+        "q": "Who must comply with CBAHI?",
+        "a": "Hospitals, medical centers, clinics, laboratories, and other healthcare providers in Saudi Arabia that seek accreditation. CBAHI is the recognized national benchmark for healthcare quality and patient safety in the Kingdom."
+      },
+      {
+        "q": "How does ArabAudit support CBAHI accreditation readiness?",
+        "a": "ArabAudit helps healthcare providers organize policies, clinical governance evidence, and continuous improvement cycles against CBAHI expectations. Evidence is stored in one audit trail, reused across cybersecurity and privacy frameworks, and kept survey-ready — so hospitals, clinics, and labs can pursue accreditation without duplicating work."
+      },
+      {
+        "q": "Can I run CBAHI alongside NCA and PDPL audits?",
+        "a": "Yes. ArabAudit is designed to run NCA ECC-2024, SAMA CSF, SDAIA/PDPL, and CBAHI workstreams in parallel on a single platform. Evidence uploaded once can be mapped and reused across frameworks, with AI validating alignment and keeping one consolidated audit trail."
+      },
+      {
+        "q": "What does CBAHI accreditation cover?",
+        "a": "CBAHI standards cover governance, clinical services, infection prevention and control, medication safety, patient rights, quality management, and continuous improvement. The accreditation process uses evidence review and on-site surveys comparable in rigor to IT and cybersecurity audits."
+      },
+      {
+        "q": "Is ArabAudit built for Saudi Arabia?",
+        "a": "Yes. ArabAudit is a Saudi-native platform built from day one for the Kingdom. It maps evidence directly to NCA control IDs, exports in official SAMA Excel formats for Central Bank submission, supports SDAIA/PDPL requirements, and structures evidence for CBAHI healthcare accreditation — all with Arabic and English interfaces."
+      }
+    ]
   }
 }

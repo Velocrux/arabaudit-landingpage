@@ -3,6 +3,7 @@ import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { TrustSignals } from '@/components/TrustSignals'
 import { Frameworks } from '@/components/Frameworks'
+import { FAQ } from '@/components/FAQ'
 import { Features } from '@/components/Features'
 import { AICapabilities } from '@/components/AICapabilities'
 import { Comparison } from '@/components/Comparison'
@@ -29,6 +30,7 @@ export default function Home() {
         <Comparison />
         <Personas />
         <Frameworks />
+        <FAQ />
         <Team />
         <CTA />
       </main>

@@ -3,20 +3,28 @@ import { IBM_Plex_Sans_Arabic } from 'next/font/google'
 import './globals.css'
 import { LocaleProvider } from '@/context/LocaleContext'
 import { AnalyticsProvider } from '@/context/AnalyticsContext'
+import { JsonLd } from './json-ld'
 
 const ibm = IBM_Plex_Sans_Arabic({ subsets: ['latin', 'arabic'], variable: '--font-ibm', display: 'swap', weight: ['400', '500', '700'] })
 
 export const metadata: Metadata = {
   title: {
-    default: 'ArabAudit | Saudi-Native Smart Audit Engine for NCA, SAMA & PDPL',
+    default: 'ArabAudit | Saudi-Native Smart Audit Engine for NCA, SAMA, PDPL & CBAHI',
     template: '%s | ArabAudit',
   },
   description:
-    'AI-powered audit compliance platform for the Kingdom and the Middle East—available worldwide. One workflow from evidence upload to one-click regulatory export. NCA ECC-2024, SAMA CSF, and PDPL—validated against Saudi authority templates. Built for critical infrastructure, financial sector, and government.',
+    'AI-powered audit compliance platform for the Kingdom and the Middle East—available worldwide. One workflow from evidence upload to one-click regulatory export. NCA ECC-2024, SAMA CSF, PDPL, and CBAHI healthcare accreditation readiness—validated against Saudi authority templates. Built for critical infrastructure, financial sector, government, and healthcare providers.',
   keywords: [
     'NCA ECC-2024',
     'SAMA CSF',
     'PDPL',
+    'CBAHI',
+    'CBAHI accreditation',
+    'Saudi Central Board for Accreditation of Healthcare Institutions',
+    'healthcare accreditation Saudi Arabia',
+    'hospital accreditation KSA',
+    'patient safety standards',
+    'clinical governance',
     'Saudi Arabia',
     'KSA',
     'Middle East',
@@ -48,9 +56,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     alternateLocale: ['ar_SA'],
-    title: 'ArabAudit | Saudi-Native Smart Audit Engine for NCA, SAMA & PDPL',
+    title: 'ArabAudit | Saudi-Native Smart Audit Engine for NCA, SAMA, PDPL & CBAHI',
     description:
-      'AI-powered audit compliance for the Kingdom. One-click export to NCA and SAMA Excel templates. Built for Saudi critical infrastructure and financial sector.',
+      'AI-powered audit compliance for the Kingdom. One-click export to NCA and SAMA Excel templates, plus CBAHI healthcare accreditation readiness. Built for Saudi critical infrastructure, financial sector, and healthcare providers.',
     siteName: 'ArabAudit',
     images: [
       {
@@ -63,9 +71,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ArabAudit | Saudi-Native Smart Audit Engine for NCA, SAMA & PDPL',
+    title: 'ArabAudit | Saudi-Native Smart Audit Engine for NCA, SAMA, PDPL & CBAHI',
     description:
-      'AI-powered audit compliance for the Kingdom. One-click regulatory export. NCA, SAMA, PDPL.',
+      'AI-powered audit compliance for the Kingdom. One-click regulatory export. NCA, SAMA, PDPL, and CBAHI healthcare accreditation.',
     images: ['/logo.png'],
   },
   icons: {
@@ -92,6 +100,7 @@ export default function RootLayout({
     >
       {/* Body font: IBM Plex Sans Arabic */}
       <body className="min-h-screen antialiased font-ibm">
+        <JsonLd />
         <LocaleProvider>
           <AnalyticsProvider>{children}</AnalyticsProvider>
         </LocaleProvider>
