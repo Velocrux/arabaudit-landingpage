@@ -1,14 +1,19 @@
 'use client'
 
 import { useState, useRef, useMemo, type MouseEvent } from 'react'
+import dynamic from 'next/dynamic'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useReducedMotionSafe } from '@/lib/hooks/useReducedMotionSafe'
 import { useLocale } from '@/context/LocaleContext'
 import { DEMO_CALENDLY_URL } from '@/lib/constants'
 import { getContent } from '@/lib/content'
-import { DemoRequestModal } from './DemoRequestModal'
 import { useSectionTracking, useAnalytics } from '@/lib/hooks/useAnalytics'
 import Image from 'next/image'
+
+const DemoRequestModal = dynamic(
+  () => import('./DemoRequestModal').then((m) => ({ default: m.DemoRequestModal })),
+  { ssr: false },
+)
 
 const headlineEase = [0.25, 0.1, 0.25, 1] as const
 
@@ -87,7 +92,6 @@ export function Hero() {
   const reduce = useReducedMotionSafe()
 
   const headlineWords = useMemo(() => headline.split(/\s+/).filter(Boolean), [headline])
-  const subheadWords = useMemo(() => subhead.split(/\s+/).filter(Boolean), [subhead])
 
   return (
     <section ref={heroRef} className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-28 lg:py-36">
@@ -97,24 +101,26 @@ export function Hero() {
           src="/images/riyadh-skyline.jpg"
           alt="Riyadh Skyline at Night - Saudi Arabia"
           fill
-          className="object-cover"
+          sizes="100vw"
+          quality={70}
           priority
+          fetchPriority="high"
+          className="object-cover"
         />
         {/* Base overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/55 to-primary/75" />
-        {/* Subtle shifting gradient */}
+        {/* Static accent wash (previously animated; composited statically for perf) */}
         <div
-          className="absolute inset-0 animate-gradient-shift opacity-90 mix-blend-soft-light"
+          className="absolute inset-0 opacity-80 mix-blend-soft-light"
           style={{
             background:
               'linear-gradient(125deg, rgba(11,70,52,0.55) 0%, rgba(216,176,74,0.12) 40%, rgba(11,70,52,0.65) 100%)',
-            backgroundSize: '220% 220%',
           }}
         />
       </div>
 
-      {/* Floating gold particles */}
-      <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
+      {/* Floating gold particles (desktop only to keep mobile TBT low) */}
+      <div className="pointer-events-none absolute inset-0 z-[1] hidden overflow-hidden md:block">
         {PARTICLE_POSITIONS.map((p, i) => (
           <motion.span
             key={i}
@@ -145,7 +151,12 @@ export function Hero() {
       <div className="absolute bottom-0 left-0 right-0 z-[1] h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
 
       <div className="relative z-[2] mx-auto max-w-4xl text-center">
-        <h1 className="font-bold text-white drop-shadow-lg text-hero tracking-royal">
+        <motion.h1
+          className="font-bold text-white drop-shadow-lg text-hero tracking-royal"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduce ? 0.01 : 0.5, ease: headlineEase }}
+        >
           {headlineWords.map((word, i) => {
             const isHighlight =
               word.toLowerCase().includes('readiness') ||
@@ -154,32 +165,13 @@ export function Hero() {
               word.toLowerCase().includes('جاهز')
             return (
               <span key={`${word}-${i}`} className="inline-block whitespace-nowrap">
-                <span className="relative inline-block">
-                  <motion.span
-                    className={`inline-block ${isHighlight ? 'text-accent' : ''}`}
-                    initial={{ opacity: 0, y: 28 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: reduce ? 0.01 : 0.55,
-                      delay: reduce ? 0 : i * 0.05,
-                      ease: headlineEase,
-                    }}
-                  >
-                    {word}
-                  </motion.span>
+                <span className={`relative inline-block ${isHighlight ? 'text-accent' : ''}`}>
+                  {word}
                   {isHighlight && (
-                    <motion.span
-                      className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-accent ${
-                        locale === 'ar' ? 'right-0 left-auto origin-right' : 'origin-left'
+                    <span
+                      className={`absolute -bottom-1 h-0.5 w-full rounded-full bg-accent ${
+                        locale === 'ar' ? 'right-0' : 'left-0'
                       }`}
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{
-                        duration: reduce ? 0.01 : 0.45,
-                        delay: reduce ? 0 : 0.25 + i * 0.05,
-                        ease: headlineEase,
-                      }}
-                      style={{ width: '100%' }}
                     />
                   )}
                 </span>
@@ -187,26 +179,20 @@ export function Hero() {
               </span>
             )
           })}
-        </h1>
+        </motion.h1>
 
-        <p className="mx-auto mt-6 max-w-3xl leading-relaxed text-body text-white/95 lg:mt-8">
-          {subheadWords.map((word, i) => (
-            <motion.span
-              key={`${word}-${i}`}
-              className="inline-block"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: reduce ? 0.01 : 0.4,
-                delay: reduce ? 0 : 0.15 + i * 0.02,
-                ease: headlineEase,
-              }}
-            >
-              {word}
-              {i < subheadWords.length - 1 ? '\u00A0' : ''}
-            </motion.span>
-          ))}
-        </p>
+        <motion.p
+          className="mx-auto mt-6 max-w-3xl leading-relaxed text-body text-white/95 lg:mt-8"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: reduce ? 0.01 : 0.4,
+            delay: reduce ? 0 : 0.15,
+            ease: headlineEase,
+          }}
+        >
+          {subhead}
+        </motion.p>
 
         {/* Badges */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-2 px-2 sm:gap-3">
@@ -426,7 +412,9 @@ export function Hero() {
         </div>
       </div>
 
-      <DemoRequestModal isOpen={showDemoModal} onClose={() => setShowDemoModal(false)} />
+      {showDemoModal && (
+        <DemoRequestModal isOpen={showDemoModal} onClose={() => setShowDemoModal(false)} />
+      )}
     </section>
   )
 }
