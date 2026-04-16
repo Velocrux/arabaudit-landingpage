@@ -94,15 +94,15 @@ export function Hero() {
   const headlineWords = useMemo(() => headline.split(/\s+/).filter(Boolean), [headline])
 
   return (
-    <section ref={heroRef} className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-28 lg:py-36">
+    <section ref={heroRef} className="relative overflow-hidden bg-primary px-4 py-20 sm:px-6 sm:py-28 lg:py-36">
       {/* Riyadh Skyline at Night */}
       <div className="absolute inset-0">
         <Image
-          src="/images/riyadh-skyline.jpg"
+          src="/images/riyadh-skyline.webp"
           alt="Riyadh Skyline at Night - Saudi Arabia"
           fill
           sizes="100vw"
-          quality={70}
+          unoptimized
           priority
           fetchPriority="high"
           className="object-cover"

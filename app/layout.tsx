@@ -5,7 +5,7 @@ import { LocaleProvider } from '@/context/LocaleContext'
 import { AnalyticsProvider } from '@/context/AnalyticsContext'
 import { JsonLd } from './json-ld'
 
-const ibm = IBM_Plex_Sans_Arabic({ subsets: ['latin', 'arabic'], variable: '--font-ibm', display: 'swap', weight: ['400', '500', '700'] })
+const ibm = IBM_Plex_Sans_Arabic({ subsets: ['latin', 'arabic'], variable: '--font-ibm', display: 'swap', weight: ['400', '700'] })
 
 export const metadata: Metadata = {
   title: {
@@ -98,7 +98,15 @@ export default function RootLayout({
       className={`${ibm.variable}`}
       suppressHydrationWarning
     >
-      {/* Body font: IBM Plex Sans Arabic */}
+      <head>
+        <link
+          rel="preload"
+          href="/images/riyadh-skyline.webp"
+          as="image"
+          type="image/webp"
+          fetchPriority="high"
+        />
+      </head>
       <body className="min-h-screen antialiased font-ibm">
         <JsonLd />
         <LocaleProvider>
