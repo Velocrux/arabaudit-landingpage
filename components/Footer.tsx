@@ -95,11 +95,10 @@ export function Footer() {
       className={`relative overflow-hidden border-t-2 border-accent/40 bg-gradient-to-b from-primary via-[#0B4634] to-[#082f24] ${isRTL ? 'rtl' : 'ltr'}`}
     >
       <div
-        className="pointer-events-none absolute inset-0 z-[1] animate-gradient-shift opacity-20 mix-blend-soft-light"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-20 mix-blend-soft-light"
         style={{
           background:
             'linear-gradient(118deg, rgba(216,176,74,0.08) 0%, rgba(255,255,255,0.03) 50%, rgba(216,176,74,0.06) 100%)',
-          backgroundSize: '200% 200%',
         }}
         aria-hidden
       />
@@ -155,7 +154,7 @@ export function Footer() {
                     alt="ArabAudit"
                     fill
                     className="rounded-full object-cover"
-                    priority
+                    loading="lazy"
                     sizes="104px"
                   />
                 </div>

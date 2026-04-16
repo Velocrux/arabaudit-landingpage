@@ -38,11 +38,10 @@ export function TrustSignals() {
     >
       {/* Subtle shifting wash (matches Hero depth) */}
       <div
-        className="pointer-events-none absolute inset-0 animate-gradient-shift opacity-40"
+        className="pointer-events-none absolute inset-0 opacity-40"
         style={{
           background:
             'linear-gradient(118deg, rgba(11,70,52,0.06) 0%, rgba(216,176,74,0.07) 45%, rgba(11,70,52,0.05) 100%)',
-          backgroundSize: '200% 200%',
         }}
         aria-hidden
       />

@@ -75,15 +75,14 @@ export function CTA() {
       className={`relative scroll-mt-16 overflow-hidden border-t-2 border-accent bg-gradient-to-br from-primary via-primary to-primary/90 px-4 py-20 sm:px-6 sm:py-24 ${isRTL ? 'rtl' : 'ltr'}`}
     >
       <div className="absolute inset-0 opacity-15">
-        <Image src="/images/riyadh-skyline.jpg" alt="" fill className="object-cover" />
+        <Image src="/images/riyadh-skyline.jpg" alt="" fill sizes="100vw" quality={50} loading="lazy" className="object-cover" />
       </div>
 
       <div
-        className="pointer-events-none absolute inset-0 z-[1] animate-gradient-shift opacity-40 mix-blend-soft-light"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-40 mix-blend-soft-light"
         style={{
           background:
             'linear-gradient(125deg, rgba(11,70,52,0.5) 0%, rgba(216,176,74,0.12) 45%, rgba(11,70,52,0.55) 100%)',
-          backgroundSize: '220% 220%',
         }}
         aria-hidden
       />

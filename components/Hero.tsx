@@ -293,25 +293,12 @@ export function Hero() {
         {firstPersona && (
           <motion.div
             className="mt-10 rounded-2xl border-2 border-accent/50 bg-white/10 p-6 text-left shadow-premium backdrop-blur-md sm:p-8"
-            initial={{ opacity: 0, y: 24, boxShadow: '0 0 0 rgba(216, 176, 74, 0)' }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              boxShadow: reduce
-                ? '0 20px 60px -15px rgba(11, 70, 52, 0.2), 0 10px 20px -10px rgba(11, 70, 52, 0.1)'
-                : [
-                    '0 0 0 rgba(216, 176, 74, 0)',
-                    '0 0 36px rgba(216, 176, 74, 0.35)',
-                    '0 20px 60px -15px rgba(11, 70, 52, 0.2), 0 10px 20px -10px rgba(11, 70, 52, 0.1)',
-                  ],
-            }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: reduce ? 0.01 : 0.55,
               delay: reduce ? 0 : 0.35,
               ease: headlineEase,
-              boxShadow: reduce
-                ? undefined
-                : { duration: 1.35, times: [0, 0.42, 1], delay: 0.35 },
             }}
           >
             <div className="grid gap-6 sm:grid-cols-2">
@@ -377,14 +364,8 @@ export function Hero() {
                   target: '_blank',
                 })
               }
-              className="relative inline-flex items-center justify-center overflow-hidden rounded-lg border-2 border-accent bg-white/5 px-8 py-4 font-bold text-cta text-accent backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-accent"
-              whileHover={{
-                scale: 1.04,
-                borderColor: 'rgba(216, 176, 74, 1)',
-                boxShadow:
-                  '0 0 0 1px rgba(216, 176, 74, 0.5), 0 0 28px rgba(216, 176, 74, 0.35), inset 0 0 20px rgba(216, 176, 74, 0.08)',
-                backgroundColor: 'rgba(216, 176, 74, 0.12)',
-              }}
+              className="relative inline-flex items-center justify-center overflow-hidden rounded-lg border-2 border-accent bg-white/5 px-8 py-4 font-bold text-cta text-accent backdrop-blur-sm transition-colors duration-300 hover:border-accent hover:bg-accent/10 hover:shadow-gold focus:outline-none focus:ring-2 focus:ring-accent"
+              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 400, damping: 22 }}
             >

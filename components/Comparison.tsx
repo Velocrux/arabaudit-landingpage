@@ -61,11 +61,10 @@ export function Comparison() {
       />
 
       <div
-        className="pointer-events-none absolute inset-0 z-[1] animate-gradient-shift opacity-35"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-35"
         style={{
           background:
             'linear-gradient(118deg, rgba(11,70,52,0.05) 0%, rgba(216,176,74,0.06) 45%, rgba(11,70,52,0.04) 100%)',
-          backgroundSize: '200% 200%',
         }}
         aria-hidden
       />
@@ -144,15 +143,7 @@ export function Comparison() {
             damping: reduce ? 55 : 28,
             delay: reduce ? 0 : 0.08,
           }}
-          whileHover={
-            reduce
-              ? undefined
-              : {
-                  boxShadow:
-                    '0 25px 50px -12px rgba(11, 70, 52, 0.15), 0 0 0 1px rgba(216, 176, 74, 0.12)',
-                  transition: { duration: 0.35, ease },
-                }
-          }
+          whileHover={reduce ? undefined : { scale: 1.01 }}
         >
           <div
             className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-0.5 origin-center scale-x-0 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-[transform,opacity] duration-500 ease-out group-hover:scale-x-100 group-hover:opacity-100"

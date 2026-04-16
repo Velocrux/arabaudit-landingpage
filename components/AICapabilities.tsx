@@ -209,11 +209,10 @@ export function AICapabilities() {
       />
 
       <div
-        className="pointer-events-none absolute inset-0 z-[1] animate-gradient-shift opacity-35"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-35"
         style={{
           background:
             'linear-gradient(118deg, rgba(11,70,52,0.05) 0%, rgba(216,176,74,0.06) 45%, rgba(11,70,52,0.04) 100%)',
-          backgroundSize: '200% 200%',
         }}
         aria-hidden
       />

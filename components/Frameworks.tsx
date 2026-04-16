@@ -183,11 +183,10 @@ export function Frameworks() {
       />
 
       <div
-        className="pointer-events-none absolute inset-0 z-[1] animate-gradient-shift opacity-25"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-25"
         style={{
           background:
             'linear-gradient(118deg, rgba(216,176,74,0.07) 0%, rgba(255,255,255,0.04) 45%, rgba(216,176,74,0.05) 100%)',
-          backgroundSize: '200% 200%',
         }}
         aria-hidden
       />
