@@ -106,20 +106,15 @@ export function Header() {
           ? 'border-b border-accent/25 bg-primary/95 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.35)]'
           : 'border-b-2 border-primary/20 bg-pale-silver/95 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.08)]'
         }`}
-      initial={{ y: -24, opacity: 0 }}
+      initial={{ y: 0, opacity: 1 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <motion.div
         className={`mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 transition-[min-height] duration-300 ease-out sm:gap-4 sm:px-6 ${scrolled ? 'min-h-[52px]' : 'min-h-[3.6rem] sm:min-h-[4.2rem] md:min-h-[4.8rem]'
           }`}
       >
         <div className="flex items-center">
-          <motion.div
-            initial={{ scale: 0.88, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.08 }}
-          >
+          <div>
             <Link
               href="/"
               onClick={() => trackNavigationClick('logo_click', 'ArabAudit Logo', '/')}
@@ -127,21 +122,19 @@ export function Header() {
                 }`}
               aria-label="ArabAudit Home"
             >
-              <motion.div transition={{ type: 'spring', stiffness: 400, damping: 35 }}>
-                <Image
-                  src="/logo.png"
-                  alt="ArabAudit"
-                  width={180}
-                  height={180}
-                  className={`w-auto object-contain transition-all duration-300 ${scrolled
-                      ? 'h-9 sm:h-10'
-                      : 'h-[3.6rem] sm:h-[4.2rem] md:h-[4.8rem]'
-                    }`}
-                  priority
-                />
-              </motion.div>
+              <Image
+                src="/logo.png"
+                alt="ArabAudit"
+                width={180}
+                height={180}
+                className={`w-auto object-contain transition-all duration-300 ${scrolled
+                    ? 'h-9 sm:h-10'
+                    : 'h-[3.6rem] sm:h-[4.2rem] md:h-[4.8rem]'
+                  }`}
+                priority
+              />
             </Link>
-          </motion.div>
+          </div>
         </div>
 
         {/* Desktop Navigation */}
