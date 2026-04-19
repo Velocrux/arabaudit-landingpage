@@ -6,6 +6,8 @@ import { useTranslations } from "next-intl";
 export default function ContactForm() {
   const t = useTranslations("contact");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   if (submitted) {
     return (
@@ -35,52 +37,113 @@ export default function ContactForm() {
         {t("formSub")}
       </p>
 
+      {error ? (
+        <p
+          role="alert"
+          style={{
+            color: "#b91c1c",
+            fontSize: 14,
+            margin: "0 0 16px",
+            lineHeight: 1.5,
+          }}
+        >
+          {error}
+        </p>
+      ) : null}
+
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          setSubmitted(true);
-          if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+          setError(null);
+          const form = e.currentTarget;
+          const fd = new FormData(form);
+
+          const agree = fd.get("agree");
+          if (agree !== "on") {
+            setError(t("errorValidation"));
+            return;
+          }
+
+          const body = {
+            firstName: String(fd.get("fname") ?? "").trim(),
+            lastName: String(fd.get("lname") ?? "").trim(),
+            email: String(fd.get("email") ?? "").trim(),
+            phone: String(fd.get("phone") ?? "").trim(),
+            organization: String(fd.get("org") ?? "").trim(),
+            role: String(fd.get("role") ?? "").trim(),
+            frameworks: fd.getAll("fw").map(String),
+            plan: String(fd.get("plan") ?? "").trim(),
+            timing: String(fd.get("timing") ?? "").trim(),
+            message: String(fd.get("message") ?? "").trim(),
+          };
+
+          setIsSubmitting(true);
+          try {
+            const res = await fetch("/api/contact", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body),
+            });
+            const data = (await res.json().catch(() => ({}))) as {
+              error?: string;
+            };
+
+            if (!res.ok) {
+              setError(data.error ?? t("errorGeneric"));
+              return;
+            }
+
+            setSubmitted(true);
+            form.reset();
+            if (typeof window !== "undefined") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          } catch {
+            setError(t("errorGeneric"));
+          } finally {
+            setIsSubmitting(false);
+          }
         }}
       >
         <div className="cf-row">
           <div className="cf-field">
             <label htmlFor="fname">{t("fnameL")}</label>
-            <input id="fname" type="text" required placeholder={t("fnameP")} />
+            <input id="fname" name="fname" type="text" required placeholder={t("fnameP")} disabled={isSubmitting} />
           </div>
           <div className="cf-field">
             <label htmlFor="lname">{t("lnameL")}</label>
-            <input id="lname" type="text" required placeholder={t("lnameP")} />
+            <input id="lname" name="lname" type="text" required placeholder={t("lnameP")} disabled={isSubmitting} />
           </div>
         </div>
 
         <div className="cf-row">
           <div className="cf-field">
             <label htmlFor="email">{t("emailL")}</label>
-            <input id="email" type="email" required placeholder={t("emailP")} />
+            <input id="email" name="email" type="email" required placeholder={t("emailP")} disabled={isSubmitting} />
           </div>
           <div className="cf-field">
             <label htmlFor="phone">{t("phoneL")}</label>
-            <input id="phone" type="tel" placeholder={t("phoneP")} />
+            <input id="phone" name="phone" type="tel" placeholder={t("phoneP")} disabled={isSubmitting} />
           </div>
         </div>
 
         <div className="cf-row">
           <div className="cf-field">
             <label htmlFor="org">{t("orgL")}</label>
-            <input id="org" type="text" required placeholder={t("orgP")} />
+            <input id="org" name="org" type="text" required placeholder={t("orgP")} disabled={isSubmitting} />
           </div>
           <div className="cf-field">
             <label htmlFor="role">{t("roleL")}</label>
-            <select id="role" required defaultValue="">
+            <select id="role" name="role" required defaultValue="" disabled={isSubmitting}>
               <option value="" disabled>{t("roleSelect")}</option>
-              <option>{t("role1")}</option>
-              <option>{t("role2")}</option>
-              <option>{t("role3")}</option>
-              <option>{t("role4")}</option>
-              <option>{t("role5")}</option>
-              <option>{t("role6")}</option>
-              <option>{t("role7")}</option>
-              <option>{t("role8")}</option>
+              <option value={t("role1")}>{t("role1")}</option>
+              <option value={t("role2")}>{t("role2")}</option>
+              <option value={t("role3")}>{t("role3")}</option>
+              <option value={t("role4")}>{t("role4")}</option>
+              <option value={t("role5")}>{t("role5")}</option>
+              <option value={t("role6")}>{t("role6")}</option>
+              <option value={t("role7")}>{t("role7")}</option>
+              <option value={t("role8")}>{t("role8")}</option>
             </select>
           </div>
         </div>
@@ -90,7 +153,7 @@ export default function ContactForm() {
           <div className="cf-cb">
             {frameworks.map((f) => (
               <label key={f.v}>
-                <input type="checkbox" name="fw" value={f.v} /> {f.label}
+                <input type="checkbox" name="fw" value={f.v} disabled={isSubmitting} /> {f.label}
               </label>
             ))}
           </div>
@@ -98,45 +161,44 @@ export default function ContactForm() {
 
         <div className="cf-field">
           <label htmlFor="plan">{t("planL")}</label>
-          <select id="plan" defaultValue={t("plan2")}>
-            <option>{t("plan1")}</option>
-            <option>{t("plan2")}</option>
-            <option>{t("plan3")}</option>
-            <option>{t("plan4")}</option>
+          <select id="plan" name="plan" defaultValue={t("plan2")} disabled={isSubmitting}>
+            <option value={t("plan1")}>{t("plan1")}</option>
+            <option value={t("plan2")}>{t("plan2")}</option>
+            <option value={t("plan3")}>{t("plan3")}</option>
+            <option value={t("plan4")}>{t("plan4")}</option>
           </select>
         </div>
 
         <div className="cf-field">
           <label htmlFor="timing">{t("timingL")}</label>
-          <select id="timing">
-            <option>{t("timing1")}</option>
-            <option>{t("timing2")}</option>
-            <option>{t("timing3")}</option>
-            <option>{t("timing4")}</option>
-            <option>{t("timing5")}</option>
+          <select id="timing" name="timing" defaultValue={t("timing1")} disabled={isSubmitting}>
+            <option value={t("timing1")}>{t("timing1")}</option>
+            <option value={t("timing2")}>{t("timing2")}</option>
+            <option value={t("timing3")}>{t("timing3")}</option>
+            <option value={t("timing4")}>{t("timing4")}</option>
+            <option value={t("timing5")}>{t("timing5")}</option>
           </select>
         </div>
 
         <div className="cf-field">
           <label htmlFor="message">{t("msgL")}</label>
-          <textarea id="message" placeholder={t("msgP")} />
+          <textarea id="message" name="message" placeholder={t("msgP")} disabled={isSubmitting} />
         </div>
 
         <div className="cf-field">
-          <label className="cf-cb" style={{ display: "inline-flex", marginTop: 6 }}>
-            <input type="checkbox" required />{" "}
-            <span style={{ textTransform: "none", letterSpacing: 0, fontFamily: "inherit" }}>
-              {t("agree")}
-            </span>
+          <label className="cf-agree">
+            <input type="checkbox" name="agree" disabled={isSubmitting} />
+            <span>{t("agree")}</span>
           </label>
         </div>
 
         <button
           type="submit"
           className="btn btn-primary"
-          style={{ width: "100%", padding: 14, fontSize: 15, border: "none", cursor: "pointer", marginTop: 8 }}
+          style={{ width: "100%", padding: 14, fontSize: 15, border: "none", cursor: isSubmitting ? "wait" : "pointer", marginTop: 8 }}
+          disabled={isSubmitting}
         >
-          {t("submit")}
+          {isSubmitting ? t("sending") : t("submit")}
         </button>
 
         <p style={{ textAlign: "center", color: "var(--ink-3)", fontSize: 12, margin: "16px 0 0" }}>
