@@ -70,10 +70,7 @@ export default function ContactForm() {
             email: String(fd.get("email") ?? "").trim(),
             phone: String(fd.get("phone") ?? "").trim(),
             organization: String(fd.get("org") ?? "").trim(),
-            role: String(fd.get("role") ?? "").trim(),
             frameworks: fd.getAll("fw").map(String),
-            plan: String(fd.get("plan") ?? "").trim(),
-            timing: String(fd.get("timing") ?? "").trim(),
             message: String(fd.get("message") ?? "").trim(),
           };
 
@@ -132,20 +129,6 @@ export default function ContactForm() {
             <label htmlFor="org">{t("orgL")}</label>
             <input id="org" name="org" type="text" required placeholder={t("orgP")} disabled={isSubmitting} />
           </div>
-          <div className="cf-field">
-            <label htmlFor="role">{t("roleL")}</label>
-            <select id="role" name="role" required defaultValue="" disabled={isSubmitting}>
-              <option value="" disabled>{t("roleSelect")}</option>
-              <option value={t("role1")}>{t("role1")}</option>
-              <option value={t("role2")}>{t("role2")}</option>
-              <option value={t("role3")}>{t("role3")}</option>
-              <option value={t("role4")}>{t("role4")}</option>
-              <option value={t("role5")}>{t("role5")}</option>
-              <option value={t("role6")}>{t("role6")}</option>
-              <option value={t("role7")}>{t("role7")}</option>
-              <option value={t("role8")}>{t("role8")}</option>
-            </select>
-          </div>
         </div>
 
         <div className="cf-field">
@@ -157,27 +140,6 @@ export default function ContactForm() {
               </label>
             ))}
           </div>
-        </div>
-
-        <div className="cf-field">
-          <label htmlFor="plan">{t("planL")}</label>
-          <select id="plan" name="plan" defaultValue={t("plan2")} disabled={isSubmitting}>
-            <option value={t("plan1")}>{t("plan1")}</option>
-            <option value={t("plan2")}>{t("plan2")}</option>
-            <option value={t("plan3")}>{t("plan3")}</option>
-            <option value={t("plan4")}>{t("plan4")}</option>
-          </select>
-        </div>
-
-        <div className="cf-field">
-          <label htmlFor="timing">{t("timingL")}</label>
-          <select id="timing" name="timing" defaultValue={t("timing1")} disabled={isSubmitting}>
-            <option value={t("timing1")}>{t("timing1")}</option>
-            <option value={t("timing2")}>{t("timing2")}</option>
-            <option value={t("timing3")}>{t("timing3")}</option>
-            <option value={t("timing4")}>{t("timing4")}</option>
-            <option value={t("timing5")}>{t("timing5")}</option>
-          </select>
         </div>
 
         <div className="cf-field">

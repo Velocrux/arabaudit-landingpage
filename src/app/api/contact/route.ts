@@ -5,9 +5,6 @@ const MAX = {
   name: 120,
   org: 200,
   phone: 40,
-  role: 120,
-  plan: 200,
-  timing: 200,
   message: 8000,
   fwLabel: 80,
 } as const;
@@ -30,10 +27,7 @@ export type ContactPayload = {
   email: string;
   phone: string;
   organization: string;
-  role: string;
   frameworks: string[];
-  plan: string;
-  timing: string;
   message: string;
 };
 
@@ -47,9 +41,6 @@ function parseBody(data: unknown): ContactPayload | null {
   const phone = typeof o.phone === "string" ? o.phone.trim() : "";
   const organization =
     typeof o.organization === "string" ? o.organization.trim() : "";
-  const role = typeof o.role === "string" ? o.role.trim() : "";
-  const plan = typeof o.plan === "string" ? o.plan.trim() : "";
-  const timing = typeof o.timing === "string" ? o.timing.trim() : "";
   const message = typeof o.message === "string" ? o.message.trim() : "";
 
   let frameworks: string[] = [];
@@ -66,15 +57,11 @@ function parseBody(data: unknown): ContactPayload | null {
     !lastName ||
     !email ||
     !organization ||
-    !role ||
     firstName.length > MAX.name ||
     lastName.length > MAX.name ||
     !isValidEmail(email) ||
     phone.length > MAX.phone ||
     organization.length > MAX.org ||
-    role.length > MAX.role ||
-    plan.length > MAX.plan ||
-    timing.length > MAX.timing ||
     message.length > MAX.message ||
     frameworks.some((f) => f.length > MAX.fwLabel)
   ) {
@@ -87,10 +74,7 @@ function parseBody(data: unknown): ContactPayload | null {
     email,
     phone,
     organization,
-    role,
     frameworks,
-    plan,
-    timing,
     message,
   };
 }
@@ -101,10 +85,7 @@ function buildEmailHtml(p: ContactPayload): string {
     ["Email", p.email],
     ["Phone", p.phone || "—"],
     ["Organization", p.organization],
-    ["Role", p.role],
     ["Frameworks (codes)", p.frameworks.length ? p.frameworks.join(", ") : "—"],
-    ["Plan", p.plan || "—"],
-    ["Timing", p.timing || "—"],
     ["Message", p.message || "—"],
   ];
 
@@ -183,10 +164,7 @@ export async function POST(req: Request) {
       `Email: ${payload.email}`,
       `Phone: ${payload.phone || "—"}`,
       `Organization: ${payload.organization}`,
-      `Role: ${payload.role}`,
       `Frameworks: ${payload.frameworks.join(", ") || "—"}`,
-      `Plan: ${payload.plan || "—"}`,
-      `Timing: ${payload.timing || "—"}`,
       `Message: ${payload.message || "—"}`,
     ].join("\n"),
   });
