@@ -216,55 +216,83 @@ export default async function PricingPage({
           <div className="eyebrow">{t("compareEyebrow")}</div>
           <h2 className="mt-4 h1" style={{ maxWidth: 720 }}>{t("compareTitle")}</h2>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Feature</th>
-                <th>Starter<br /><span style={{ fontFamily: "var(--f-serif)", fontSize: 13, color: "var(--emerald-3)", textTransform: "none", letterSpacing: 0 }}>SAR 30,000/yr</span></th>
-                <th>Professional<br /><span style={{ fontFamily: "var(--f-serif)", fontSize: 13, color: "var(--emerald-3)", textTransform: "none", letterSpacing: 0 }}>SAR 70,000/yr</span></th>
-                <th>Enterprise<br /><span style={{ fontFamily: "var(--f-serif)", fontSize: 13, color: "var(--emerald-3)", textTransform: "none", letterSpacing: 0 }}>Custom</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="section-head"><td colSpan={4}>Frameworks & Scope</td></tr>
-              <tr><td>Frameworks included</td><td><span className="val">1 Core</span></td><td><span className="val">Multi-framework</span></td><td><span className="val">Unlimited</span></td></tr>
-              <tr><td>Additional frameworks</td><td><span className="val">SAR 20k each</span></td><td><span className="val">SAR 20k each</span></td><td><span className="val">Included</span></td></tr>
-              <tr><td>Multi-Framework Overlap Engine</td><td className="dash">—</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>Findings & Remediation workflow</td><td className="dash">—</td><td className="check">✓</td><td className="check">✓</td></tr>
+          {(() => {
+            type Cell = { kind: "check" } | { kind: "dash" } | { kind: "val"; key: string };
+            const rows: Array<
+              | { head: true; key: string }
+              | { head: false; labelKey: string; cells: [Cell, Cell, Cell] }
+            > = [
+              { head: true, key: "sec1" },
+              { head: false, labelKey: "r1", cells: [{ kind: "val", key: "r1s" }, { kind: "val", key: "r1p" }, { kind: "val", key: "r1e" }] },
+              { head: false, labelKey: "r2", cells: [{ kind: "val", key: "r2s" }, { kind: "val", key: "r2p" }, { kind: "val", key: "r2e" }] },
+              { head: false, labelKey: "r3", cells: [{ kind: "dash" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r4", cells: [{ kind: "dash" }, { kind: "check" }, { kind: "check" }] },
 
-              <tr className="section-head"><td colSpan={4}>AI Features</td></tr>
-              <tr><td>AI-powered validity monitoring</td><td className="check">✓</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>AI Audit Readiness</td><td className="check">✓</td><td><span className="val">Richer readiness</span></td><td><span className="val">Richer readiness</span></td></tr>
-              <tr><td>AI Evidence Validation</td><td className="dash">—</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>AI Finding Draft (bilingual)</td><td className="dash">—</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>Audit Copilot</td><td className="dash">—</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>Deep Arabic Document AI</td><td className="dash">—</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>AI Summary Report (streaming)</td><td className="dash">—</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>AI Remediation Planner</td><td className="dash">—</td><td className="check">✓</td><td className="check">✓</td></tr>
+              { head: true, key: "sec2" },
+              { head: false, labelKey: "r5", cells: [{ kind: "check" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r6", cells: [{ kind: "check" }, { kind: "val", key: "richer" }, { kind: "val", key: "richer" }] },
+              { head: false, labelKey: "r7", cells: [{ kind: "dash" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r8", cells: [{ kind: "dash" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r9", cells: [{ kind: "dash" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r10", cells: [{ kind: "dash" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r11", cells: [{ kind: "dash" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r12", cells: [{ kind: "dash" }, { kind: "check" }, { kind: "check" }] },
 
-              <tr className="section-head"><td colSpan={4}>Operations & Export</td></tr>
-              <tr><td>Digital Evidence Vault</td><td className="check">✓</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>One-Click Regulatory Export</td><td className="check">✓</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>Evidence ledger (SHA-256)</td><td className="check">✓</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>Data export (JSON/CSV/PDF)</td><td className="check">✓</td><td className="check">✓</td><td className="check">✓</td></tr>
+              { head: true, key: "sec3" },
+              { head: false, labelKey: "r13", cells: [{ kind: "check" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r14", cells: [{ kind: "check" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r15", cells: [{ kind: "check" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r16", cells: [{ kind: "check" }, { kind: "check" }, { kind: "check" }] },
 
-              <tr className="section-head"><td colSpan={4}>Users & Access</td></tr>
-              <tr><td>User seats included</td><td><span className="val">3 seats</span></td><td><span className="val">10 seats</span></td><td><span className="val">Unlimited</span></td></tr>
-              <tr><td>Additional user seats</td><td className="dash">—</td><td><span className="val">On request</span></td><td><span className="val">Included</span></td></tr>
-              <tr><td>Role-based access control</td><td className="check">✓</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>SSO · SAML · AD integration</td><td className="dash">—</td><td className="dash">—</td><td className="check">✓</td></tr>
+              { head: true, key: "sec4" },
+              { head: false, labelKey: "r17", cells: [{ kind: "val", key: "r17s" }, { kind: "val", key: "r17p" }, { kind: "val", key: "r17e" }] },
+              { head: false, labelKey: "r18", cells: [{ kind: "dash" }, { kind: "val", key: "r18p" }, { kind: "val", key: "r18e" }] },
+              { head: false, labelKey: "r19", cells: [{ kind: "check" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r20", cells: [{ kind: "dash" }, { kind: "dash" }, { kind: "check" }] },
 
-              <tr className="section-head"><td colSpan={4}>Infrastructure</td></tr>
-              <tr><td>Hosting</td><td><span className="val">me-central-2</span></td><td><span className="val">me-central-2</span></td><td><span className="val">Sovereign Gateway (on-prem)</span></td></tr>
-              <tr><td>Custom integrations (AD/SIEM)</td><td className="dash">—</td><td className="dash">—</td><td className="check">✓</td></tr>
-              <tr><td>API access & webhooks</td><td className="dash">—</td><td className="dash">—</td><td className="check">✓</td></tr>
+              { head: true, key: "sec5" },
+              { head: false, labelKey: "r21", cells: [{ kind: "val", key: "r21s" }, { kind: "val", key: "r21p" }, { kind: "val", key: "r21e" }] },
+              { head: false, labelKey: "r22", cells: [{ kind: "dash" }, { kind: "dash" }, { kind: "check" }] },
+              { head: false, labelKey: "r23", cells: [{ kind: "dash" }, { kind: "dash" }, { kind: "check" }] },
 
-              <tr className="section-head"><td colSpan={4}>Support</td></tr>
-              <tr><td>Email support</td><td className="check">✓</td><td className="check">✓</td><td className="check">✓</td></tr>
-              <tr><td>Response SLA</td><td className="dash">—</td><td><span className="val">4-hr</span></td><td><span className="val">1-hr</span></td></tr>
-              <tr><td>Dedicated Customer Success Manager</td><td className="dash">—</td><td className="dash">—</td><td className="check">✓</td></tr>
-            </tbody>
-          </table>
+              { head: true, key: "sec6" },
+              { head: false, labelKey: "r24", cells: [{ kind: "check" }, { kind: "check" }, { kind: "check" }] },
+              { head: false, labelKey: "r25", cells: [{ kind: "dash" }, { kind: "val", key: "r25p" }, { kind: "val", key: "r25e" }] },
+              { head: false, labelKey: "r26", cells: [{ kind: "dash" }, { kind: "dash" }, { kind: "check" }] },
+            ];
+            return (
+              <table>
+                <thead>
+                  <tr>
+                    <th>{t("cmp.thFeature")}</th>
+                    <th>{t("p1name")}<br /><span style={{ fontFamily: "var(--f-serif)", fontSize: 13, color: "var(--emerald-3)", textTransform: "none", letterSpacing: 0 }}>{t("cmp.priceStarter")}</span></th>
+                    <th>{t("p2name")}<br /><span style={{ fontFamily: "var(--f-serif)", fontSize: 13, color: "var(--emerald-3)", textTransform: "none", letterSpacing: 0 }}>{t("cmp.pricePro")}</span></th>
+                    <th>{t("p3name")}<br /><span style={{ fontFamily: "var(--f-serif)", fontSize: 13, color: "var(--emerald-3)", textTransform: "none", letterSpacing: 0 }}>{t("cmp.priceEnterprise")}</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((row, i) =>
+                    row.head ? (
+                      <tr key={i} className="section-head"><td colSpan={4}>{t(`cmp.${row.key}` as any)}</td></tr>
+                    ) : (
+                      <tr key={i}>
+                        <td>{t(`cmp.${row.labelKey}` as any)}</td>
+                        {row.cells.map((cell, j) =>
+                          cell.kind === "check" ? (
+                            <td key={j} className="check">✓</td>
+                          ) : cell.kind === "dash" ? (
+                            <td key={j} className="dash">—</td>
+                          ) : (
+                            <td key={j}><span className="val">{t(`cmp.${cell.key}` as any)}</span></td>
+                          ),
+                        )}
+                      </tr>
+                    ),
+                  )}
+                </tbody>
+              </table>
+            );
+          })()}
         </div>
       </section>
 

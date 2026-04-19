@@ -218,35 +218,35 @@ export default function HomeHero() {
 
               <div className="proof-domains">
                 <div className="pdom">
-                  <div className="name">Leadership</div>
+                  <div className="name">{t("proofD1")}</div>
                   <div className="bar">
                     <i style={{ width: "94%" }} />
                   </div>
                   <div className="val">94</div>
                 </div>
                 <div className="pdom">
-                  <div className="name">Patient Care</div>
+                  <div className="name">{t("proofD2")}</div>
                   <div className="bar">
                     <i style={{ width: "86%" }} />
                   </div>
                   <div className="val">86</div>
                 </div>
                 <div className="pdom warn">
-                  <div className="name">Medication</div>
+                  <div className="name">{t("proofD3")}</div>
                   <div className="bar">
                     <i style={{ width: "68%" }} />
                   </div>
                   <div className="val">68</div>
                 </div>
                 <div className="pdom low">
-                  <div className="name">Infection Ctrl</div>
+                  <div className="name">{t("proofD4")}</div>
                   <div className="bar">
                     <i style={{ width: "52%" }} />
                   </div>
                   <div className="val">52</div>
                 </div>
                 <div className="pdom crit">
-                  <div className="name">Emergency</div>
+                  <div className="name">{t("proofD5")}</div>
                   <div className="bar">
                     <i style={{ width: "28%" }} />
                   </div>

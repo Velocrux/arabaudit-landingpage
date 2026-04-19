@@ -4,7 +4,7 @@ import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
-import { frameworks } from "@/lib/data";
+import { buildFrameworks } from "@/lib/data";
 import { buildMetadata } from "@/lib/seo";
 import {
   breadcrumbNode,
@@ -40,6 +40,8 @@ export default async function FrameworksListPage({
   setRequestLocale(locale);
   const t = await getTranslations("frameworks");
   const m = await getTranslations({ locale, namespace: "meta.frameworks" });
+  const tFw = await getTranslations("fwData");
+  const frameworks = buildFrameworks(tFw);
   const ld = jsonLdGraph([
     frameworksItemListNode(locale),
     breadcrumbNode(locale, [

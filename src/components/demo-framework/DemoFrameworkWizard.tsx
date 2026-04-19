@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
-import { frameworks, type Framework } from "@/lib/data";
+import { buildFrameworks, type Framework } from "@/lib/data";
 import {
   Calendar03Icon,
   MagicWand01Icon,
@@ -19,6 +19,8 @@ const INDUSTRY = "Financial Services";
 
 export default function DemoFrameworkWizard() {
   const t = useTranslations("demoFramework");
+  const tFw = useTranslations("fwData");
+  const frameworks = buildFrameworks(tFw);
   const router = useRouter();
   const searchParams = useSearchParams();
   const preId = searchParams?.get("id") || null;
@@ -362,6 +364,7 @@ export default function DemoFrameworkWizard() {
               <p className="stage-sub">{t("stage3Sub")}</p>
 
               <div
+                className="dfw-pending-grid"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr",
@@ -460,7 +463,7 @@ export default function DemoFrameworkWizard() {
                       <div className="avatar" style={{ background: "var(--aa-gold)", color: "var(--aa-primary)" }}>
                         SA
                       </div>
-                      <div className="name" style={{ color: "var(--cream-1)" }}>SuperAdmin</div>
+                      <div className="name" style={{ color: "var(--cream-1)" }}>{t("superadmin")}</div>
                     </div>
                   </div>
                   <div className="app-content" style={{ padding: 20, background: "var(--aa-slate-50)" }}>

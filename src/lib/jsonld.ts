@@ -1,5 +1,5 @@
 import { BRAND, SITE_URL } from "./seo";
-import { frameworks } from "./data";
+import { buildFrameworks, frameworkMeta } from "./data";
 
 type Graph = Record<string, unknown>;
 
@@ -126,14 +126,23 @@ export function faqNode(items: { q: string; a: string }[]): Graph {
   };
 }
 
-export function frameworksItemListNode(locale: string): Graph {
+export function frameworksItemListNode(
+  locale: string,
+  t?: (key: string) => string
+): Graph {
+  const fwList = t
+    ? buildFrameworks(t)
+    : frameworkMeta.map((m) => ({
+        id: m.id,
+        name: m.shortCode,
+      }));
   return {
     "@type": "ItemList",
     name:
       locale === "ar"
         ? "أطر الامتثال السعودية المدعومة"
         : "Supported Saudi regulatory frameworks",
-    itemListElement: frameworks.map((f, i) => ({
+    itemListElement: fwList.map((f, i) => ({
       "@type": "ListItem",
       position: i + 1,
       url: `${SITE_URL}/${locale}/frameworks/${f.id}`,
@@ -144,9 +153,24 @@ export function frameworksItemListNode(locale: string): Graph {
 
 export function frameworkDetailNode(
   locale: string,
-  id: string
+  id: string,
+  t?: (key: string) => string
 ): Graph | null {
-  const f = frameworks.find((x) => x.id === id);
+  if (!t) {
+    const m = frameworkMeta.find((x) => x.id === id);
+    if (!m) return null;
+    return {
+      "@type": "TechArticle",
+      headline: m.shortCode,
+      name: m.shortCode,
+      url: `${SITE_URL}/${locale}/frameworks/${m.id}`,
+      inLanguage: locale === "ar" ? "ar-SA" : "en-US",
+      keywords: [m.shortCode, "Saudi Arabia", "compliance"],
+      author: { "@id": ORG_ID },
+      publisher: { "@id": ORG_ID },
+    };
+  }
+  const f = buildFrameworks(t).find((x) => x.id === id);
   if (!f) return null;
   return {
     "@type": "TechArticle",

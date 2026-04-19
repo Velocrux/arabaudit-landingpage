@@ -93,7 +93,7 @@ export default function ReadinessDemo() {
             <div className="live">LIVE</div>
           </div>
           <div className="app-body">
-            <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 24, alignItems: "center" }}>
+            <div className="readiness-ring-grid" style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 24, alignItems: "center" }}>
               <div>
                 <div className="readiness-status-ring">
                   <svg viewBox="0 0 140 140">

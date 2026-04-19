@@ -114,7 +114,7 @@ export default async function AboutPage({
       {/* Mission */}
       <section className="section" style={{ background: "var(--cream-1)" }}>
         <div className="wrap">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 80, alignItems: "start" }}>
+          <div className="about-mission-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 80, alignItems: "start" }}>
             <div>
               <div className="eyebrow">{t("missionEyebrow")}</div>
               <h2 className="h1" style={{ marginTop: 12 }}>{t("missionTitle")}</h2>
@@ -253,7 +253,7 @@ export default async function AboutPage({
           <div className="eyebrow">{t("partnersEyebrow")}</div>
           <h2 className="mt-4 h1" style={{ maxWidth: 720 }}>{t("partnersTitle")}</h2>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, marginTop: 40 }}>
+          <div className="about-partners-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, marginTop: 40 }}>
             {[
               { h: "p1h", tt: "p1t", s: "p1s" },
               { h: "p2h", tt: "p2t", s: "p2s" },

@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
-import { frameworks, getFramework } from "@/lib/data";
+import { frameworks, buildFramework } from "@/lib/data";
 import { routing } from "@/i18n/routing";
 import { buildMetadata } from "@/lib/seo";
 import {
@@ -26,7 +26,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string; id: string }>;
 }): Promise<Metadata> {
   const { locale, id } = await params;
-  const framework = getFramework(id);
+  const tFw = await getTranslations({ locale, namespace: "fwData" });
+  const framework = buildFramework(tFw, id);
   if (!framework) return {};
 
   const m = await getTranslations({
@@ -66,7 +67,8 @@ export default async function FrameworkDetailPage({
 }) {
   const { locale, id } = await params;
   setRequestLocale(locale);
-  const framework = getFramework(id);
+  const tFw = await getTranslations("fwData");
+  const framework = buildFramework(tFw, id);
   if (!framework) notFound();
   const t = await getTranslations("frameworkDetail");
   const mf = await getTranslations({ locale, namespace: "meta.frameworks" });
