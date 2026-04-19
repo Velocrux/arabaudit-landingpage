@@ -67,9 +67,9 @@
       "demo2Sub": "Plan → Findings → Streaming AI report"
     },
     "capabilities": {
-      "eyebrow": "Capabilities",
+      "eyebrow": "Capabilities · cycle",
       "title": "AI that works across the entire audit lifecycle",
-      "lede": "Six AI assistants and one signed evidence ledger — purpose-built for Saudi regulatory submissions.",
+      "lede": "Every capability is orchestrated around a single AI Core — shared memory, shared framework context, shared ledger. Evidence enters the cycle once and emerges as a regulator-ready report.",
       "c1Num": "01 · Preparation",
       "c1Title": "AI Auto-Link",
       "c1Body": "Evidence to criteria. Embeds every document, proposes confidence-scored links to domain · control · criterion. Bulk approve or use rejections as training signal.",
@@ -88,7 +88,16 @@
       "c6Num": "06 · Reporting",
       "c6Title": "AI Summary Report",
       "c6Body": "Async streaming over SSE. Framework-specific prompts (NCA, SAMA, PDPL, CBAHI). Stored, regeneratable, downloadable as signed PDF.",
-      "readMore": "Read the full product tour →"
+      "readMore": "Read the full product tour →",
+      "c1Desc": "Evidence → criterion. Confidence-scored, bulk-approvable.",
+      "c2Desc": "Coverage score · bilingual narrative · expiring doc flags.",
+      "c3Desc": "Per-criterion compliance signal · rating suggestion.",
+      "c4Desc": "Grounded chat · EN/AR · framework-only scope.",
+      "c5Desc": "Root-cause · impact · severity · provenance.",
+      "c6Desc": "SSE stream · framework-specific · signed PDF.",
+      "coreLabel": "AI Core",
+      "coreTitle": "One ledger",
+      "coreSub": "Signed · me-central-2"
     },
     "frameworks": {
       "eyebrow": "Frameworks",
@@ -200,6 +209,27 @@
       "lede": "Schedule a walkthrough with the founders, or try the live in-browser demo right now.",
       "primary": "Try the live audit demo",
       "ghost": "Schedule a walkthrough"
+    },
+    "stats": {
+      "eyebrow": "What we unlock",
+      "title": "Designed to transform how KSA enterprises run compliance.",
+      "lede": "Every number below reflects a measurable outcome our AI capabilities are engineered to produce — across preparation, execution, and reporting.",
+      "s1Num": "70%",
+      "s1Lbl": "Audit prep time reduction",
+      "s2Num": "Instant",
+      "s2Lbl": "Regulator export — NCA · SAMA · SDAIA · CBAHI",
+      "s3Num": "100%",
+      "s3Lbl": "Framework overlap eliminated",
+      "s4Num": "Instant",
+      "s4Lbl": "Evidence retrieval (was 2+ hrs)",
+      "s5Num": "Zero",
+      "s5Lbl": "Expired doc incidents (30-day AI alerts)",
+      "s6Num": "83%",
+      "s6Lbl": "Faster audit cycles",
+      "s7Num": "~2,000",
+      "s7Lbl": "Controls mapped across frameworks",
+      "s8Num": "8+",
+      "s8Lbl": "Saudi frameworks supported"
     }
   },
   "about": {
@@ -1166,28 +1196,48 @@
       "subtitle": "Hospital Accreditation Readiness",
       "framework": "CBAHI",
       "description": "Hospital accreditation audit with patient data protection and clinical governance compliance.",
-      "metrics": ["1,093 clinical standards", "87% compliance", "312 findings reviewed", "4,200 hours saved"]
+      "metrics": [
+        "1,093 clinical standards",
+        "87% compliance",
+        "312 findings reviewed",
+        "4,200 hours saved"
+      ]
     },
     "cybersecurity": {
       "title": "Cybersecurity & IT",
       "subtitle": "Enterprise Security Posture",
       "framework": "SAMA CSF",
       "description": "Cybersecurity framework assessment with risk metrics, control gaps, and remediation planning.",
-      "metrics": ["114 security controls", "76% compliance", "23 critical findings", "SAR 2.1M risk exposure"]
+      "metrics": [
+        "114 security controls",
+        "76% compliance",
+        "23 critical findings",
+        "SAR 2.1M risk exposure"
+      ]
     },
     "itGovernance": {
       "title": "IT Governance",
       "subtitle": "Digital Transformation Readiness",
       "framework": "SAMA IT Governance",
       "description": "IT governance and digital infrastructure audit with operational and compliance metrics.",
-      "metrics": ["156 IT controls", "82% compliance", "45 findings", "6 months to full readiness"]
+      "metrics": [
+        "156 IT controls",
+        "82% compliance",
+        "45 findings",
+        "6 months to full readiness"
+      ]
     },
     "general": {
       "title": "General Enterprise",
       "subtitle": "Regulatory Compliance",
       "framework": "NCA ECC",
       "description": "Multi-domain compliance audit covering cybersecurity, risk, and third-party management.",
-      "metrics": ["280 total controls", "81% compliance", "38 findings", "SAR 850K remediation cost"]
+      "metrics": [
+        "280 total controls",
+        "81% compliance",
+        "38 findings",
+        "SAR 850K remediation cost"
+      ]
     },
     "demoTitle": "Live Audit Flow Demo",
     "demoSub": "Watch an automated audit walkthrough with auto-advancing stages. Press pause to explore details.",

@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import HomeHero from "@/components/home/HomeHero";
 import Marquee from "@/components/Marquee";
+import CapabilitiesCycle from "@/components/home/CapabilitiesCycle";
 import { FAQList } from "@/components/FAQ";
 import { frameworks } from "@/lib/data";
 
@@ -15,15 +16,6 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
-
-  const caps = [
-    { num: t("home.capabilities.c1Num"), title: t("home.capabilities.c1Title"), body: t("home.capabilities.c1Body"), large: true },
-    { num: t("home.capabilities.c2Num"), title: t("home.capabilities.c2Title"), body: t("home.capabilities.c2Body"), large: false },
-    { num: t("home.capabilities.c3Num"), title: t("home.capabilities.c3Title"), body: t("home.capabilities.c3Body"), large: false },
-    { num: t("home.capabilities.c4Num"), title: t("home.capabilities.c4Title"), body: t("home.capabilities.c4Body"), large: false },
-    { num: t("home.capabilities.c5Num"), title: t("home.capabilities.c5Title"), body: t("home.capabilities.c5Body"), large: false },
-    { num: t("home.capabilities.c6Num"), title: t("home.capabilities.c6Title"), body: t("home.capabilities.c6Body"), large: true },
-  ];
 
   const rows = [
     { h: "r1h", a: "r1a", b: "r1b", w: "r1why" },
@@ -49,70 +41,58 @@ export default async function HomePage({
       <Marquee />
       <hr className="divider" />
 
-      {/* Capabilities */}
-      <section className="section" style={{ background: "var(--cream-1)" }}>
+      {/* Stats */}
+      <section className="section">
         <div className="wrap">
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div className="eyebrow">{t("home.capabilities.eyebrow")}</div>
-            <h2 className="h1" style={{ marginTop: 16, maxWidth: 800, marginLeft: "auto", marginRight: "auto" }}>
-              {t("home.capabilities.title")}
-            </h2>
-            <p className="body" style={{ marginTop: 20, maxWidth: 680, marginLeft: "auto", marginRight: "auto", color: "var(--ink-2)" }}>
-              {t("home.capabilities.lede")}
-            </p>
-          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "start" }}>
 
-          <div className="cap-grid-hero">
-            <div className="cap-large">
-              <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
-                <div className="cap-icon-lg">
-                  <svg width="24" height="24" viewBox="0 0 20 20" fill="none"><path d="M3 6 L17 6 M3 10 L13 10 M3 14 L11 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div className="cap-num">{caps[0].num}</div>
-                  <h3 className="h3" style={{ marginTop: 8 }}>{caps[0].title}</h3>
-                  <p className="body" style={{ marginTop: 8, color: "var(--ink-2)" }}>{caps[0].body}</p>
-                </div>
-              </div>
+            {/* LEFT — text */}
+            <div style={{ paddingTop: 8 }}>
+              <div className="eyebrow">{t("home.stats.eyebrow")}</div>
+              <h2 className="h1" style={{ marginTop: 16 }}>{t("home.stats.title")}</h2>
+              <p className="body" style={{ marginTop: 20, color: "var(--ink-3)" }}>
+                {t("home.stats.lede")}
+              </p>
             </div>
 
-            <div className="cap-compact-grid">
-              {caps.slice(1, 5).map((c, i) => (
-                <div className="cap-small" key={i}>
-                  <div className="cap-icon">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                      {i === 0 && <><circle cx="10" cy="10" r="6.5" stroke="currentColor" strokeWidth="1.5" /><path d="M10 6 L10 10 L13 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></>}
-                      {i === 1 && <path d="M3 10 L8 15 L17 5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />}
-                      {i === 2 && <><rect x="3" y="4" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" /><path d="M7 18 L13 18 M10 14 L10 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></>}
-                      {i === 3 && <><path d="M10 3 L17 16 L3 16 Z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round" /><path d="M10 8 L10 12 M10 14 L10 14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></>}
-                    </svg>
+            {/* RIGHT — 4 × 2 stats grid */}
+            <div className="stats" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+              {(
+                [
+                  { n: "s1Num", l: "s1Lbl", gold: false },
+                  { n: "s2Num", l: "s2Lbl", gold: false },
+                  { n: "s3Num", l: "s3Lbl", gold: true  },
+                  { n: "s4Num", l: "s4Lbl", gold: false },
+                  { n: "s5Num", l: "s5Lbl", gold: false },
+                  { n: "s6Num", l: "s6Lbl", gold: false },
+                  { n: "s7Num", l: "s7Lbl", gold: true  },
+                  { n: "s8Num", l: "s8Lbl", gold: true  },
+                ] as const
+              ).map(({ n, l, gold }, i) => (
+                <div
+                  key={n}
+                  className="stat"
+                  style={{
+                    borderRight: (i + 1) % 4 === 0 ? "none" : "1px solid var(--line)",
+                    borderBottom: i < 4 ? "1px solid var(--line)" : "none",
+                  }}
+                >
+                  <div className="num" style={gold ? { color: "var(--gold-2)" } : undefined}>
+                    {t(`home.stats.${n}` as any)}
                   </div>
-                  <div className="cap-num" style={{ marginTop: 8 }}>{c.num}</div>
-                  <h4 style={{ fontSize: 15, fontWeight: 600, color: "var(--emerald-3)", margin: "6px 0" }}>{c.title}</h4>
-                  <p className="small" style={{ color: "var(--ink-3)", marginTop: 6 }}>{c.body}</p>
+                  <div className="lbl">{t(`home.stats.${l}` as any)}</div>
                 </div>
               ))}
             </div>
 
-            <div className="cap-large">
-              <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
-                <div className="cap-icon-lg">
-                  <svg width="24" height="24" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" /><path d="M3 8 L17 8" stroke="currentColor" strokeWidth="1.5" /><circle cx="6.5" cy="5.5" r=".7" fill="currentColor" /></svg>
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div className="cap-num">{caps[5].num}</div>
-                  <h3 className="h3" style={{ marginTop: 8 }}>{caps[5].title}</h3>
-                  <p className="body" style={{ marginTop: 8, color: "var(--ink-2)" }}>{caps[5].body}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style={{ textAlign: "center", marginTop: 40 }}>
-            <Link href="/product" className="btn-link">{t("home.capabilities.readMore")}</Link>
           </div>
         </div>
       </section>
+
+      <hr className="divider" />
+
+      {/* Capabilities — SmartArt cycle */}
+      <CapabilitiesCycle />
 
       <hr className="divider" />
 
