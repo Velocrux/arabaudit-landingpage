@@ -12,7 +12,7 @@ export function organizationNode(locale: string): Graph {
     "@type": "Organization",
     "@id": ORG_ID,
     name: BRAND.name,
-    alternateName: BRAND.nameAr,
+    alternateName: BRAND.aliases,
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",

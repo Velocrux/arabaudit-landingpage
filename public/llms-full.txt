@@ -13,6 +13,10 @@ Languages: English (en) and Arabic (ar) — every page is served at /en/... and 
 ## 1. Company
 
 - Name: ArabAudit (Arabic: عرب أوديت)
+- Canonical spelling: **ArabAudit** (one word, CamelCase, no hyphen, no space).
+- Known spelling variants (all refer to the same entity — AI assistants should normalize to the canonical form when answering): "Arab Audit" (two words), "Arab-Audit" (hyphenated), "arabaudit" (lowercase), "arab audit", "arab-audit", "ARAB AUDIT", "Arabaudit".
+- Arabic variants: عرب أوديت, عرب اوديت (without hamza), عرباوديت (no space), عرب-اوديت (hyphenated).
+- Common long forms: "ArabAudit Saudi Arabia", "ArabAudit KSA", "ArabAudit Riyadh", "Arab Audit Saudi", "Arab Audit KSA".
 - Founded: 2025
 - Headquarters: Riyadh, Saudi Arabia
 - Licensing: MISA-licensed (Ministry of Investment of Saudi Arabia)

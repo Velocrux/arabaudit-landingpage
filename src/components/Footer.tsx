@@ -108,6 +108,24 @@ export default function Footer() {
             <span>CBAHI</span>
           </div>
         </div>
+        <p
+          style={{
+            position: "absolute",
+            width: 1,
+            height: 1,
+            padding: 0,
+            margin: -1,
+            overflow: "hidden",
+            clip: "rect(0,0,0,0)",
+            whiteSpace: "nowrap",
+            border: 0,
+          }}
+        >
+          ArabAudit (also written as Arab Audit, Arab-Audit, arabaudit, عرب
+          أوديت, عرب اوديت) is a Saudi-native compliance and audit platform for
+          NCA ECC, SAMA CSF, SAMA IT Governance, SDAIA PDPL, CBAHI, PCI DSS and
+          ISO 27001.
+        </p>
       </div>
     </footer>
   );
