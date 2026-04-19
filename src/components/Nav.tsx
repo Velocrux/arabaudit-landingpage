@@ -8,6 +8,7 @@ import LangToggle from "./LangToggle";
 const LINKS = [
   { href: "/product", key: "product" },
   { href: "/frameworks", key: "frameworks" },
+  { href: "/use-cases", key: "useCases" },
   { href: "/demo-framework", key: "demos" },
   { href: "/pricing", key: "pricing" },
   { href: "/about", key: "about" },

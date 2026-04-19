@@ -2,6 +2,7 @@
   "nav": {
     "product": "Product",
     "frameworks": "Frameworks",
+    "useCases": "Use Cases",
     "demos": "Live Demos",
     "pricing": "Pricing",
     "about": "About",
@@ -1151,5 +1152,77 @@
       "primary": "Try the live audit demo",
       "ghost": "Schedule a walkthrough"
     }
+  },
+  "useCases": {
+    "heroEyebrow": "Industry-specific audits",
+    "heroTitleA": "Choose your sector.",
+    "heroTitleB": "See audit readiness",
+    "heroTitleC": "end-to-end.",
+    "heroLede": "Pick your industry and framework. Watch a complete audit flow with real metrics, findings, and compliance scores specific to your sector.",
+    "selectUseCaseTitle": "Select your use case",
+    "selectUseCaseSub": "Each use case demo showcases a complete audit with industry-specific metrics, findings, and regulator-ready reports.",
+    "healthcare": {
+      "title": "Healthcare",
+      "subtitle": "Hospital Accreditation Readiness",
+      "framework": "CBAHI",
+      "description": "Hospital accreditation audit with patient data protection and clinical governance compliance.",
+      "metrics": ["1,093 clinical standards", "87% compliance", "312 findings reviewed", "4,200 hours saved"]
+    },
+    "cybersecurity": {
+      "title": "Cybersecurity & IT",
+      "subtitle": "Enterprise Security Posture",
+      "framework": "SAMA CSF",
+      "description": "Cybersecurity framework assessment with risk metrics, control gaps, and remediation planning.",
+      "metrics": ["114 security controls", "76% compliance", "23 critical findings", "SAR 2.1M risk exposure"]
+    },
+    "itGovernance": {
+      "title": "IT Governance",
+      "subtitle": "Digital Transformation Readiness",
+      "framework": "SAMA IT Governance",
+      "description": "IT governance and digital infrastructure audit with operational and compliance metrics.",
+      "metrics": ["156 IT controls", "82% compliance", "45 findings", "6 months to full readiness"]
+    },
+    "general": {
+      "title": "General Enterprise",
+      "subtitle": "Regulatory Compliance",
+      "framework": "NCA ECC",
+      "description": "Multi-domain compliance audit covering cybersecurity, risk, and third-party management.",
+      "metrics": ["280 total controls", "81% compliance", "38 findings", "SAR 850K remediation cost"]
+    },
+    "demoTitle": "Live Audit Flow Demo",
+    "demoSub": "Watch an automated audit walkthrough with auto-advancing stages. Press pause to explore details.",
+    "stage": "Stage",
+    "of": "of",
+    "riskMetrics": "Risk Metrics",
+    "complianceMetrics": "Compliance Metrics",
+    "efficiencyMetrics": "Efficiency Metrics",
+    "costMetrics": "Cost Metrics",
+    "findings": "Findings",
+    "findings_count": "{count} total",
+    "riskScore": "Risk Score",
+    "criticalFindings": "Critical",
+    "highFindings": "High",
+    "mediumFindings": "Medium",
+    "lowFindings": "Low",
+    "complianceScore": "Compliance %",
+    "requirementsMet": "Reqs Met",
+    "requirementsFailed": "Reqs Failed",
+    "frameworkCompliance": "Framework %",
+    "auditDuration": "Duration",
+    "hoursSaved": "Hours Saved",
+    "departmentsCovered": "Depts Scanned",
+    "costPerAudit": "Cost per Audit",
+    "estimatedROI": "Est. ROI",
+    "remediationCost": "Remediation Cost",
+    "autoAdvancing": "Auto-advancing in",
+    "seconds": "seconds",
+    "pause": "Pause",
+    "resume": "Resume",
+    "next": "Next stage",
+    "viewDetails": "View details",
+    "ctaEyebrow": "See it in action",
+    "ctaTitle": "Every industry. Every framework.",
+    "ctaPrimary": "Try the audit demo",
+    "ctaGhost": "Schedule a walkthrough"
   }
 }
