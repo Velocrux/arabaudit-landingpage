@@ -1,8 +1,35 @@
+import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { FAQList } from "@/components/FAQ";
+import JsonLd from "@/components/JsonLd";
+import { buildMetadata, SITE_URL, BRAND } from "@/lib/seo";
+import {
+  breadcrumbNode,
+  faqNode,
+  jsonLdGraph,
+} from "@/lib/jsonld";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const m = await getTranslations({ locale, namespace: "meta.pricing" });
+  return buildMetadata({
+    locale,
+    path: "/pricing",
+    title: m("title"),
+    description: m("description"),
+    keywords: m("keywords")
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean),
+  });
+}
 
 export default async function PricingPage({
   params,
@@ -12,11 +39,54 @@ export default async function PricingPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("pricing");
+  const m = await getTranslations({ locale, namespace: "meta.pricing" });
 
   const faqItems = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
     q: t(`q${n}` as any),
     a: t(`a${n}` as any),
   }));
+
+  const offersLd = {
+    "@type": "Product",
+    name: `${BRAND.name} — ${locale === "ar" ? "باقات الامتثال" : "Compliance Plans"}`,
+    description: m("description"),
+    brand: { "@type": "Brand", name: BRAND.name },
+    url: `${SITE_URL}/${locale}/pricing`,
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Starter",
+        price: "30000",
+        priceCurrency: "SAR",
+        availability: "https://schema.org/InStock",
+        url: `${SITE_URL}/${locale}/pricing`,
+      },
+      {
+        "@type": "Offer",
+        name: "Professional",
+        price: "70000",
+        priceCurrency: "SAR",
+        availability: "https://schema.org/InStock",
+        url: `${SITE_URL}/${locale}/pricing`,
+      },
+      {
+        "@type": "Offer",
+        name: "Enterprise",
+        priceCurrency: "SAR",
+        availability: "https://schema.org/InStock",
+        url: `${SITE_URL}/${locale}/contact`,
+      },
+    ],
+  };
+
+  const ld = jsonLdGraph([
+    offersLd,
+    faqNode(faqItems),
+    breadcrumbNode(locale, [
+      { name: "ArabAudit", path: "/" },
+      { name: m("title"), path: "/pricing" },
+    ]),
+  ]);
 
   interface Plan {
     name: string;
@@ -76,7 +146,9 @@ export default async function PricingPage({
 
   return (
     <>
+      <JsonLd id="ld-pricing" data={ld} />
       <Nav />
+      <main id="main">
 
       <section className="pricing-hero">
         <div className="wrap">
@@ -224,6 +296,7 @@ export default async function PricingPage({
         </div>
       </section>
 
+      </main>
       <Footer />
     </>
   );

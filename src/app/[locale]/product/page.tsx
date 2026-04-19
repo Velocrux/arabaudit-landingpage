@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
@@ -11,6 +12,32 @@ import ReportDemo from "@/components/product/ReportDemo";
 import DocChatDemo from "@/components/product/DocChatDemo";
 import InsightsDemo from "@/components/product/InsightsDemo";
 import RemediationDemo from "@/components/product/RemediationDemo";
+import JsonLd from "@/components/JsonLd";
+import { buildMetadata } from "@/lib/seo";
+import {
+  breadcrumbNode,
+  jsonLdGraph,
+  softwareApplicationNode,
+} from "@/lib/jsonld";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const m = await getTranslations({ locale, namespace: "meta.product" });
+  return buildMetadata({
+    locale,
+    path: "/product",
+    title: m("title"),
+    description: m("description"),
+    keywords: m("keywords")
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean),
+  });
+}
 
 export default async function ProductPage({
   params,
@@ -20,10 +47,20 @@ export default async function ProductPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("product");
+  const m = await getTranslations({ locale, namespace: "meta.product" });
+  const ld = jsonLdGraph([
+    softwareApplicationNode(locale),
+    breadcrumbNode(locale, [
+      { name: "ArabAudit", path: "/" },
+      { name: m("title"), path: "/product" },
+    ]),
+  ]);
 
   return (
     <>
+      <JsonLd id="ld-product" data={ld} />
       <Nav />
+      <main id="main">
 
       {/* HERO */}
       <section
@@ -187,6 +224,7 @@ export default async function ProductPage({
         </div>
       </section>
 
+      </main>
       <Footer />
     </>
   );

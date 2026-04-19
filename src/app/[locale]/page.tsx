@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
@@ -6,7 +7,35 @@ import HomeHero from "@/components/home/HomeHero";
 import Marquee from "@/components/Marquee";
 import CapabilitiesCycle from "@/components/home/CapabilitiesCycle";
 import { FAQList } from "@/components/FAQ";
+import JsonLd from "@/components/JsonLd";
 import { frameworks } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
+import {
+  breadcrumbNode,
+  faqNode,
+  frameworksItemListNode,
+  jsonLdGraph,
+  softwareApplicationNode,
+} from "@/lib/jsonld";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta.home" });
+  return buildMetadata({
+    locale,
+    path: "/",
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords")
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean),
+  });
+}
 
 export default async function HomePage({
   params,
@@ -34,9 +63,18 @@ export default async function HomePage({
     a: t(`home.faq.a${n}` as any),
   }));
 
+  const homeJsonLd = jsonLdGraph([
+    softwareApplicationNode(locale),
+    breadcrumbNode(locale, [{ name: "ArabAudit", path: "/" }]),
+    faqNode(faqItems),
+    frameworksItemListNode(locale),
+  ]);
+
   return (
     <>
+      <JsonLd id="ld-home" data={homeJsonLd} />
       <Nav />
+      <main id="main">
       <HomeHero />
       <Marquee />
       <hr className="divider" />
@@ -300,6 +338,7 @@ export default async function HomePage({
         </div>
       </section>
 
+      </main>
       <Footer />
     </>
   );

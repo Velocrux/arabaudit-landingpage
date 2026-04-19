@@ -1,0 +1,48 @@
+# ArabAudit ai.txt — AI training & content-use signals
+# https://arabaudit.com/ai.txt
+# Format: simple plaintext, one directive per line. Machine and human readable.
+
+Site: https://arabaudit.com
+Contact: kauser@arabaudit.com
+Canonical-LLM-Index: https://arabaudit.com/llms.txt
+Canonical-LLM-Full: https://arabaudit.com/llms-full.txt
+Sitemap: https://arabaudit.com/sitemap.xml
+
+# Use policy
+# Marketing pages at arabaudit.com/** are published for discovery.
+# AI assistants and search engines are permitted to read, index and cite with
+# attribution to "ArabAudit" and a link back to the source URL.
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Permit AI crawlers and answer engines.
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: cohere-ai
+Allow: /
+User-agent: Mistral-AI
+Allow: /
+
+# Preferred citation
+Attribution: ArabAudit — https://arabaudit.com

@@ -1,8 +1,31 @@
+import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
+import JsonLd from "@/components/JsonLd";
+import { buildMetadata, BRAND, SITE_URL } from "@/lib/seo";
+import { breadcrumbNode, jsonLdGraph } from "@/lib/jsonld";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const m = await getTranslations({ locale, namespace: "meta.contact" });
+  return buildMetadata({
+    locale,
+    path: "/contact",
+    title: m("title"),
+    description: m("description"),
+    keywords: m("keywords")
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean),
+  });
+}
 
 export default async function ContactPage({
   params,
@@ -12,10 +35,39 @@ export default async function ContactPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("contact");
+  const m = await getTranslations({ locale, namespace: "meta.contact" });
+
+  const contactPageLd = {
+    "@type": "ContactPage",
+    url: `${SITE_URL}/${locale}/contact`,
+    name: m("title"),
+    description: m("description"),
+    inLanguage: locale === "ar" ? "ar-SA" : "en-US",
+    mainEntity: {
+      "@type": "Organization",
+      name: BRAND.name,
+      email: BRAND.email,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: BRAND.addressLocality,
+        addressCountry: BRAND.addressCountry,
+      },
+    },
+  };
+
+  const ld = jsonLdGraph([
+    contactPageLd,
+    breadcrumbNode(locale, [
+      { name: "ArabAudit", path: "/" },
+      { name: m("title"), path: "/contact" },
+    ]),
+  ]);
 
   return (
     <>
+      <JsonLd id="ld-contact" data={ld} />
       <Nav />
+      <main id="main">
 
       <section className="contact-hero">
         <div className="wrap">
@@ -84,6 +136,7 @@ export default async function ContactPage({
         </div>
       </section>
 
+      </main>
       <Footer />
     </>
   );

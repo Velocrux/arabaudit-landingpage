@@ -1,15 +1,62 @@
+import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 import { frameworks, getFramework } from "@/lib/data";
 import { routing } from "@/i18n/routing";
+import { buildMetadata } from "@/lib/seo";
+import {
+  breadcrumbNode,
+  frameworkDetailNode,
+  jsonLdGraph,
+} from "@/lib/jsonld";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
     frameworks.map((f) => ({ locale, id: f.id }))
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; id: string }>;
+}): Promise<Metadata> {
+  const { locale, id } = await params;
+  const framework = getFramework(id);
+  if (!framework) return {};
+
+  const m = await getTranslations({
+    locale,
+    namespace: "meta.frameworkDetail",
+  });
+
+  const values = {
+    name: framework.name,
+    shortCode: framework.shortCode,
+    domains: framework.domains,
+    controls: framework.controls,
+    authority: framework.authority,
+  };
+
+  const title = m("titleTemplate", values);
+  const description = m("descriptionTemplate", values);
+  const keywords = m("keywordsTemplate", values)
+    .split(",")
+    .map((k) => k.trim())
+    .filter(Boolean);
+
+  return buildMetadata({
+    locale,
+    path: `/frameworks/${framework.id}`,
+    title,
+    description,
+    keywords,
+    type: "article",
+  });
 }
 
 export default async function FrameworkDetailPage({
@@ -22,10 +69,25 @@ export default async function FrameworkDetailPage({
   const framework = getFramework(id);
   if (!framework) notFound();
   const t = await getTranslations("frameworkDetail");
+  const mf = await getTranslations({ locale, namespace: "meta.frameworks" });
+
+  const detailNode = frameworkDetailNode(locale, id);
+  const ld = jsonLdGraph(
+    [
+      detailNode,
+      breadcrumbNode(locale, [
+        { name: "ArabAudit", path: "/" },
+        { name: mf("title"), path: "/frameworks" },
+        { name: framework.name, path: `/frameworks/${framework.id}` },
+      ]),
+    ].filter((n): n is NonNullable<typeof n> => n !== null)
+  );
 
   return (
     <>
+      <JsonLd id={`ld-framework-${framework.id}`} data={ld} />
       <Nav />
+      <main id="main">
 
       <section className="detail-hero">
         <div className="wrap">
@@ -145,6 +207,7 @@ export default async function FrameworkDetailPage({
         </div>
       </section>
 
+      </main>
       <Footer />
     </>
   );

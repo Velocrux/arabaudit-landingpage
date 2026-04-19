@@ -1274,5 +1274,62 @@
     "ctaTitle": "Every industry. Every framework.",
     "ctaPrimary": "Try the audit demo",
     "ctaGhost": "Schedule a walkthrough"
+  },
+  "meta": {
+    "default": {
+      "titleTemplate": "%s · ArabAudit",
+      "siteName": "ArabAudit",
+      "tagline": "Saudi-native compliance, validated by AI"
+    },
+    "home": {
+      "title": "ArabAudit · Saudi-native compliance, validated by AI",
+      "description": "AI-native audit and compliance platform for NCA ECC, SAMA CSF, SDAIA PDPL, CBAHI, PCI DSS and ISO 27001. Bilingual evidence, findings and regulator-ready reports — built for Saudi Arabia.",
+      "keywords": "Saudi compliance, NCA ECC, SAMA CSF, SDAIA PDPL, CBAHI, PCI DSS, ISO 27001, audit automation, GRC Saudi Arabia, compliance AI, Arabic audit reports, regulator-ready"
+    },
+    "about": {
+      "title": "About ArabAudit — the Saudi-native audit AI team",
+      "description": "Meet the team building ArabAudit: a bilingual, sovereign-by-design audit AI for Saudi regulators — NCA ECC, SAMA CSF, SDAIA PDPL and CBAHI. Evidence-first, ledger-anchored.",
+      "keywords": "ArabAudit team, Saudi compliance company, audit AI Riyadh, sovereign compliance, MISA licensed"
+    },
+    "contact": {
+      "title": "Contact ArabAudit — pilots, demos, enterprise deployments",
+      "description": "Talk to the ArabAudit team in Riyadh about NCA ECC, SAMA CSF, PDPL or CBAHI audit pilots, live demos and enterprise deployments across Saudi Arabia.",
+      "keywords": "contact ArabAudit, compliance demo KSA, SAMA audit pilot, NCA ECC pilot, CBAHI accreditation demo"
+    },
+    "pricing": {
+      "title": "Pricing — SAR plans for Saudi compliance teams",
+      "description": "Transparent SAR pricing for Saudi compliance audits. Starter SAR 30k/yr, Professional SAR 70k/yr and Enterprise sovereign deployments with PDPL, NCA and SAMA readiness.",
+      "keywords": "ArabAudit pricing, Saudi GRC pricing, compliance software SAR, audit platform cost KSA"
+    },
+    "product": {
+      "title": "Product — the AI audit copilot for Saudi regulations",
+      "description": "Nine AI capabilities on a single audit core: AutoLink evidence, readiness coverage, evidence validation, bilingual copilot, finding drafts, regulator-grade reports, document chat, insights and remediation.",
+      "keywords": "audit copilot, compliance AI, evidence mapping, readiness check, bilingual audit report, Saudi audit software"
+    },
+    "frameworks": {
+      "title": "Saudi regulatory frameworks — NCA, SAMA, PDPL, CBAHI",
+      "description": "Browse every Saudi compliance framework ArabAudit supports: NCA ECC, SAMA CSF, SAMA IT Governance, SDAIA PDPL, CBAHI, PCI DSS v4.0.1 and ISO 27001:2022 — with domain and control counts.",
+      "keywords": "NCA ECC-2024, SAMA CSF, SDAIA PDPL, CBAHI standards, PCI DSS v4, ISO 27001 2022, Saudi compliance frameworks"
+    },
+    "frameworkDetail": {
+      "titleTemplate": "{name} — controls, domains & audit guide",
+      "descriptionTemplate": "ArabAudit support for {name} ({shortCode}): {domains} domains, {controls} controls, issued by {authority}. Audit-ready evidence linking, bilingual findings and regulator-grade reports.",
+      "keywordsTemplate": "{name}, {shortCode}, {authority}, Saudi compliance, audit"
+    },
+    "demoAudit": {
+      "title": "Live audit demo — generate a Saudi compliance report",
+      "description": "Run a guided end-to-end audit against NCA ECC, SAMA CSF or PDPL controls and download a signed, evidence-linked compliance report in English and Arabic.",
+      "keywords": "audit demo, live compliance demo, NCA ECC demo, SAMA CSF demo, PDPL demo, audit report generator"
+    },
+    "demoFramework": {
+      "title": "Framework demo — map controls across NCA, SAMA, PDPL",
+      "description": "Preview ArabAudit's multi-framework overlap engine: map one control once and satisfy NCA ECC, SAMA CSF, SDAIA PDPL, CBAHI, PCI DSS and ISO 27001.",
+      "keywords": "cross-framework mapping, control overlap, framework browser, NCA SAMA mapping"
+    },
+    "useCases": {
+      "title": "Use cases — Saudi compliance by industry and role",
+      "description": "Explore ArabAudit use cases across banking (SAMA), healthcare (CBAHI), data protection (PDPL) and critical infrastructure (NCA ECC). Industry-specific audit flows, metrics and reports.",
+      "keywords": "SAMA banking audit, CBAHI hospital accreditation, PDPL compliance use case, NCA ECC use case"
+    }
   }
 }

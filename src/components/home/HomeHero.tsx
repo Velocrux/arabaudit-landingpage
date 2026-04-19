@@ -123,13 +123,13 @@ export default function HomeHero() {
 
           <h1 className="hero2-title" ref={titleRef}>
             <span className="line">
-              <span data-text={t("line1")} />
+              <span data-text={t("line1")}>{t("line1")}</span>
             </span>
             <span className="line">
-              <span data-text={t("line2a")} />
-              <span className="em" data-text={t("line2b")} />
+              <span data-text={t("line2a")}>{t("line2a")}</span>
+              <span className="em" data-text={t("line2b")}>{t("line2b")}</span>
             </span>
-            <span className="ar" data-text={t("arabicSub")} />
+            <span className="ar" data-text={t("arabicSub")}>{t("arabicSub")}</span>
           </h1>
 
           <p>
