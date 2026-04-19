@@ -69,72 +69,70 @@ export default async function ContactPage({
       <Nav />
       <main id="main">
 
-      <section className="contact-hero">
-        <div className="wrap">
-          <div className="eyebrow">{t("eyebrow")}</div>
-          <h1 className="h1" style={{ marginTop: 14, maxWidth: 820 }}>
-            {t("titleA")}
-            <br />
-            <em style={{ color: "var(--gold-1)" }}>{t("titleB")}</em>
-          </h1>
-          <p className="lede" style={{ marginTop: 20, maxWidth: 640 }}>{t("lede")}</p>
-        </div>
-      </section>
+        <section className="contact-hero">
+          <div className="wrap">
+            <div className="eyebrow">{t("eyebrow")}</div>
+            <h1 className="h1" style={{ marginTop: 14, maxWidth: 820 }}>
+              {t("titleA")}
+              <br />
+              <em style={{ color: "var(--gold-1)" }}>{t("titleB")}</em>
+            </h1>
+            <p className="lede" style={{ marginTop: 20, maxWidth: 640 }}>{t("lede")}</p>
+          </div>
+        </section>
 
-      <section>
-        <div className="wrap">
-          <div className="contact-grid">
-            <ContactForm />
+        <section>
+          <div className="wrap">
+            <div className="contact-grid">
+              <ContactForm />
 
-            <div className="contact-info">
-              {[
-                { l: "i1L", tt: "i1T", body: <p>{t("i1P")}</p>, extra: <p><a href="mailto:kauser@arabaudit.com">kauser@arabaudit.com</a></p> },
-                { l: "i2L", tt: "i2T", body: <p>{t("i2P1")}<br />{t("i2P2")}</p>, extra: <p style={{ color: "var(--ink-3)" }}>{t("i2P3")}</p> },
-                { l: "i3L", tt: "i3T", body: <p>{t("i3P")}</p> },
-                {
-                  l: "i4L",
-                  tt: "i4T",
-                  body: <p>{t("i4P")}</p>,
-                  extra: (
-                    <p style={{ marginTop: 10 }}>
-                      <Link href="/demo-audit">{t("i4Link1")}</Link>
-                      <br />
-                      <Link href="/demo-framework" style={{ marginTop: 4, display: "inline-block" }}>
-                        {t("i4Link2")}
-                      </Link>
-                    </p>
-                  ),
-                },
-              ].map((b, i) => (
-                <div className="info-block" key={i}>
-                  <div className="meta">{t(b.l as any)}</div>
-                  <h4>{t(b.tt as any)}</h4>
-                  {b.body}
-                  {b.extra}
+              <div className="contact-info">
+                {[
+                  { l: "i1L", tt: "i1T", body: <p>{t("i1P")}</p>, extra: <p><a href="mailto:kauser@arabaudit.com">kauser@arabaudit.com</a></p> },
+                  {
+                    l: "i4L",
+                    tt: "i4T",
+                    body: <p>{t("i4P")}</p>,
+                    extra: (
+                      <p style={{ marginTop: 10 }}>
+                        <Link href="/demo-audit">{t("i4Link1")}</Link>
+                        <br />
+                        <Link href="/demo-framework" style={{ marginTop: 4, display: "inline-block" }}>
+                          {t("i4Link2")}
+                        </Link>
+                      </p>
+                    ),
+                  },
+                ].map((b, i) => (
+                  <div className="info-block" key={i}>
+                    <div className="meta">{t(b.l as any)}</div>
+                    <h4>{t(b.tt as any)}</h4>
+                    {b.body}
+                    {b.extra}
+                  </div>
+                ))}
+
+                <div className="map-illus">
+                  <svg className="arabesque" viewBox="0 0 200 200" fill="none">
+                    <g stroke="currentColor" strokeWidth="1" fill="none">
+                      <circle cx="100" cy="100" r="98" />
+                      <circle cx="100" cy="100" r="75" />
+                      <circle cx="100" cy="100" r="52" />
+                      <polygon
+                        points="100,10 130,70 190,100 130,130 100,190 70,130 10,100 70,70"
+                        transform="rotate(22.5 100 100)"
+                      />
+                      <polygon points="100,10 130,70 190,100 130,130 100,190 70,130 10,100 70,70" />
+                    </g>
+                  </svg>
+                  <div className="loc-label">{t("mapL")}</div>
+                  <h5>{t("mapT")}</h5>
+                  <p>{t("mapP")}</p>
                 </div>
-              ))}
-
-              <div className="map-illus">
-                <svg className="arabesque" viewBox="0 0 200 200" fill="none">
-                  <g stroke="currentColor" strokeWidth="1" fill="none">
-                    <circle cx="100" cy="100" r="98" />
-                    <circle cx="100" cy="100" r="75" />
-                    <circle cx="100" cy="100" r="52" />
-                    <polygon
-                      points="100,10 130,70 190,100 130,130 100,190 70,130 10,100 70,70"
-                      transform="rotate(22.5 100 100)"
-                    />
-                    <polygon points="100,10 130,70 190,100 130,130 100,190 70,130 10,100 70,70" />
-                  </g>
-                </svg>
-                <div className="loc-label">{t("mapL")}</div>
-                <h5>{t("mapT")}</h5>
-                <p>{t("mapP")}</p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       </main>
       <Footer />
