@@ -381,8 +381,6 @@ export default function DemoAuditFlow() {
   useEffect(() => {
     if (phase === 4) {
       regenerateFinding();
-    } else {
-      clearTypewriter();
     }
     return () => clearTypewriter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
