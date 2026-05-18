@@ -2131,7 +2131,7 @@ hr {
   .home-stats-grid .stat:nth-child(2n) {
     border-right: 0 !important;
   }
-  .home-stats-grid .stat:nth-last-child(-n+2) {
+  .home-stats-grid .stat:nth-last-child(-n + 2) {
     border-bottom: 0 !important;
   }
   .home-roles-grid {
@@ -2255,7 +2255,7 @@ hr {
   color: var(--cream-1);
   border-color: var(--emerald-3);
 }
-/* Consent checkbox: must stay focusable & visible — .cf-cb hides inputs for pill UI */
+/* Consent checkbox: must stay focusable & visible - .cf-cb hides inputs for pill UI */
 .cf-field label.cf-agree {
   display: inline-flex;
   align-items: flex-start;
@@ -2522,7 +2522,7 @@ hr {
   color: var(--ink-4);
 }
 .plan-features li.na::before {
-  content: "—";
+  content: "-";
   color: var(--ink-4);
 }
 .plan-cta {
@@ -6682,26 +6682,37 @@ hr {
 }
 
 /* ============================================================
-   GLOBAL RESPONSIVE OVERLAY — apply lowest-breakpoint fixes in one place
+   GLOBAL RESPONSIVE OVERLAY - apply lowest-breakpoint fixes in one place
    Keeps the rest of the file untouched; overrides only where inline
    styles or fixed pixels leak past existing media queries.
    ============================================================ */
 
-html, body {
+html,
+body {
   overflow-x: hidden;
   max-width: 100%;
 }
-img, svg, video {
+img,
+svg,
+video {
   max-width: 100%;
   height: auto;
 }
 
 /* --- Wrap / section paddings scale on small screens --- */
 @media (max-width: 768px) {
-  .wrap { padding: 0 clamp(16px, 4vw, 28px); }
-  .wrap-narrow { padding: 0 clamp(16px, 4vw, 28px); }
-  .section { padding: clamp(48px, 8vw, 96px) 0; }
-  .section-tight { padding: clamp(32px, 6vw, 64px) 0; }
+  .wrap {
+    padding: 0 clamp(16px, 4vw, 28px);
+  }
+  .wrap-narrow {
+    padding: 0 clamp(16px, 4vw, 28px);
+  }
+  .section {
+    padding: clamp(48px, 8vw, 96px) 0;
+  }
+  .section-tight {
+    padding: clamp(32px, 6vw, 64px) 0;
+  }
 }
 
 /* --- Nav: scale inner padding, hide Arabic brand on tiny screens --- */
@@ -6711,14 +6722,26 @@ img, svg, video {
     gap: 12px !important;
     height: 60px !important;
   }
-  .brand { font-size: 16px !important; gap: 8px !important; }
-  .brand .mark { width: 32px !important; height: 32px !important; }
-  .brand > span > span { display: none !important; } /* Arabic subtitle */
+  .brand {
+    font-size: 16px !important;
+    gap: 8px !important;
+  }
+  .brand .mark {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .brand > span > span {
+    display: none !important;
+  } /* Arabic subtitle */
 }
 
 /* --- Footer: stack columns, wrap bottom row, scale padding --- */
-.footer { padding: clamp(48px, 8vw, 80px) 0 clamp(24px, 4vw, 40px) !important; }
-.footer .grid { gap: clamp(24px, 3vw, 56px); }
+.footer {
+  padding: clamp(48px, 8vw, 80px) 0 clamp(24px, 4vw, 40px) !important;
+}
+.footer .grid {
+  gap: clamp(24px, 3vw, 56px);
+}
 @media (max-width: 640px) {
   .footer .grid {
     grid-template-columns: 1fr !important;
@@ -6737,23 +6760,38 @@ img, svg, video {
 
 /* --- Contact form rows stack on mobile --- */
 @media (max-width: 640px) {
-  .cf-row { grid-template-columns: 1fr !important; gap: 0 !important; }
-  .contact-form { padding: 20px !important; }
+  .cf-row {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .contact-form {
+    padding: 20px !important;
+  }
 }
 
 /* --- About hero vertical padding scales --- */
-.about-hero { padding: clamp(64px, 10vw, 120px) 0 clamp(48px, 7vw, 80px) !important; }
+.about-hero {
+  padding: clamp(64px, 10vw, 120px) 0 clamp(48px, 7vw, 80px) !important;
+}
 
 /* --- Pricing hero scales, plans-grid breakpoints --- */
-.pricing-hero { padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 64px) !important; }
+.pricing-hero {
+  padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 64px) !important;
+}
 @media (max-width: 1100px) and (min-width: 641px) {
-  .plans-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .plans-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }
 
 /* --- Pricing compare table: horizontal scroll on mobile instead of squish --- */
 @media (max-width: 640px) {
-  .compare-table { padding: clamp(40px, 7vw, 80px) 0 !important; }
-  .compare-table > .wrap { padding-right: 0; }
+  .compare-table {
+    padding: clamp(40px, 7vw, 80px) 0 !important;
+  }
+  .compare-table > .wrap {
+    padding-right: 0;
+  }
   .compare-table table {
     display: block;
     overflow-x: auto;
@@ -6762,14 +6800,25 @@ img, svg, video {
     min-width: 100%;
   }
   .compare-table thead th,
-  .compare-table tbody td { white-space: normal; min-width: 120px; }
+  .compare-table tbody td {
+    white-space: normal;
+    min-width: 120px;
+  }
 }
 
 /* --- Contact hero + frameworks hero + detail hero scale --- */
-.contact-hero { padding: clamp(48px, 7vw, 80px) 0 0 !important; }
-.fw-hero { padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 64px) !important; }
-.detail-hero { padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 64px) !important; }
-.demo-hero { padding: clamp(56px, 9vw, 100px) 0 clamp(36px, 6vw, 60px) !important; }
+.contact-hero {
+  padding: clamp(48px, 7vw, 80px) 0 0 !important;
+}
+.fw-hero {
+  padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 64px) !important;
+}
+.detail-hero {
+  padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 64px) !important;
+}
+.demo-hero {
+  padding: clamp(56px, 9vw, 100px) 0 clamp(36px, 6vw, 60px) !important;
+}
 
 /* --- Home report split: stack on narrow, center aspect-ratio card --- */
 @media (max-width: 960px) {
@@ -6806,7 +6855,8 @@ img, svg, video {
     padding: 20px 8px 0 !important;
     gap: 4px;
   }
-  .stepper::before, .stepper::after {
+  .stepper::before,
+  .stepper::after {
     left: 28px !important;
     right: 28px !important;
     top: 36px !important;
@@ -6822,49 +6872,91 @@ img, svg, video {
     white-space: nowrap;
   }
   table.compare th,
-  table.compare td { white-space: normal; min-width: 140px; }
+  table.compare td {
+    white-space: normal;
+    min-width: 140px;
+  }
 }
 
 /* --- Chips / framework lists wrap on small --- */
 @media (max-width: 640px) {
-  .chip { font-size: 11px !important; padding: 5px 9px !important; }
+  .chip {
+    font-size: 11px !important;
+    padding: 5px 9px !important;
+  }
 }
 
 /* --- Thanks banner + info block tighter on mobile --- */
 @media (max-width: 640px) {
-  .thanks-banner { padding: 20px !important; }
-  .info-block { padding: 20px 0 !important; }
+  .thanks-banner {
+    padding: 20px !important;
+  }
+  .info-block {
+    padding: 20px 0 !important;
+  }
 }
 
 /* --- Long text safety --- */
-main#main h1, main#main h2, main#main h3, main#main h4 { word-break: break-word; }
-main#main p, main#main li { overflow-wrap: anywhere; }
+main#main h1,
+main#main h2,
+main#main h3,
+main#main h4 {
+  word-break: break-word;
+}
+main#main p,
+main#main li {
+  overflow-wrap: anywhere;
+}
 
 /* --- Inline 1fr-1fr grids that need to stack on mobile --- */
 @media (max-width: 640px) {
-  .dfw-pending-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
-  .readiness-ring-grid { grid-template-columns: 1fr !important; justify-items: center; text-align: center; gap: 16px !important; }
-  .remedy-risk-pair { grid-template-columns: 1fr !important; }
+  .dfw-pending-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .readiness-ring-grid {
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+    text-align: center;
+    gap: 16px !important;
+  }
+  .remedy-risk-pair {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 /* --- Pricing plan card: tame padding on phones --- */
 @media (max-width: 640px) {
-  .plan { padding: 22px !important; }
-  .plan-title { font-size: 22px !important; }
-  .plan-price .amt { font-size: 44px !important; }
+  .plan {
+    padding: 22px !important;
+  }
+  .plan-title {
+    font-size: 22px !important;
+  }
+  .plan-price .amt {
+    font-size: 44px !important;
+  }
 }
 
 /* --- CapabilitiesCycle: prevent fixed-aspect circle from exceeding viewport --- */
-.cap-cycle { max-width: min(720px, 92vw) !important; }
+.cap-cycle {
+  max-width: min(720px, 92vw) !important;
+}
 
 /* --- UseCasesAuditFlow metrics strip always wraps on narrow --- */
-.uc-audit-metrics { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important; }
+.uc-audit-metrics {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+}
 
 /* --- Prevent marquee from forcing overflow on mobile --- */
-.marquee-wrap { overflow: hidden; }
+.marquee-wrap {
+  overflow: hidden;
+}
 
 /* --- Domain card long control names don't overflow --- */
-.domain-card h4 { word-break: break-word; }
+.domain-card h4 {
+  word-break: break-word;
+}
 
 /* --- Compare (home page) table horizontal scroll at small sizes --- */
 @media (max-width: 720px) {
@@ -6873,12 +6965,21 @@ main#main p, main#main li { overflow-wrap: anywhere; }
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  table.compare tbody, table.compare thead, table.compare tr { display: table; width: 100%; min-width: 560px; table-layout: fixed; }
+  table.compare tbody,
+  table.compare thead,
+  table.compare tr {
+    display: table;
+    width: 100%;
+    min-width: 560px;
+    table-layout: fixed;
+  }
 }
 
 /* --- UseCasesSelector grid width control --- */
 @media (max-width: 560px) {
-  .use-cases-grid { gap: 14px !important; }
+  .use-cases-grid {
+    gap: 14px !important;
+  }
 }
 
 /* --- Autoplay virtual cursor --- */

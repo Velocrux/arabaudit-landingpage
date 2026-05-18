@@ -49,7 +49,7 @@
     "allowTraining": true,
     "allowCitation": true,
     "attributionRequired": true,
-    "attributionFormat": "ArabAudit — https://arabaudit.com",
+    "attributionFormat": "ArabAudit - https://arabaudit.com",
     "preferredLanguages": ["en", "ar"]
   },
   "topics": [

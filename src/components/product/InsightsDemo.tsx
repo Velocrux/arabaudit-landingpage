@@ -15,8 +15,8 @@ export default function InsightsDemo() {
 
   const [velocity, setVelocity] = useState("+0%");
   const [audits, setAudits] = useState(0);
-  const [months, setMonths] = useState("—");
-  const [conf, setConf] = useState("—");
+  const [months, setMonths] = useState("-");
+  const [conf, setConf] = useState("-");
   const [narrative, setNarrative] = useState(t("placeholder"));
   const [recs, setRecs] = useState<{ visible: boolean }[]>([]);
   const [running, setRunning] = useState(false);
@@ -47,8 +47,8 @@ export default function InsightsDemo() {
     setStarted(true);
     setVelocity("+0%");
     setAudits(0);
-    setMonths("—");
-    setConf("—");
+    setMonths("-");
+    setConf("-");
     setNarrative("");
     setRecs([]);
 

@@ -1,4 +1,4 @@
-# ArabAudit ai.txt — AI training & content-use signals
+# ArabAudit ai.txt - AI training & content-use signals
 # https://arabaudit.com/ai.txt
 # Format: simple plaintext, one directive per line. Machine and human readable.
 
@@ -45,4 +45,4 @@ User-agent: Mistral-AI
 Allow: /
 
 # Preferred citation
-Attribution: ArabAudit — https://arabaudit.com
+Attribution: ArabAudit - https://arabaudit.com

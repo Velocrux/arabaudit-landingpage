@@ -134,7 +134,7 @@ export default function RemediationDemo() {
                   <div className="title" style={{ marginTop: 4 }}>{t("findingTitle")}</div>
                 </div>
                 <div className="ticket-priority">
-                  <div className="score">{state === "result" ? priority : "—"}</div>
+                  <div className="score">{state === "result" ? priority : "-"}</div>
                   <div className="label">{t("priorityLabel")}</div>
                 </div>
               </div>

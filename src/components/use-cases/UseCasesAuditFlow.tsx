@@ -88,8 +88,8 @@ const useCaseMeta: Record<
   healthcare: {
     framework: "CBAHI",
     controlIds: ["HG", "CG", "RM", "CM", "DM"],
-    critIds: ["HG-1","HG-2","HG-3","CG-1","CG-2","CG-3","RM-1","RM-2","RM-3","CM-1","CM-2","CM-3","DM-1","DM-2","DM-3"],
-    critToControl: { "HG-1":"HG","HG-2":"HG","HG-3":"HG","CG-1":"CG","CG-2":"CG","CG-3":"CG","RM-1":"RM","RM-2":"RM","RM-3":"RM","CM-1":"CM","CM-2":"CM","CM-3":"CM","DM-1":"DM","DM-2":"DM","DM-3":"DM" },
+    critIds: ["HG-1", "HG-2", "HG-3", "CG-1", "CG-2", "CG-3", "RM-1", "RM-2", "RM-3", "CM-1", "CM-2", "CM-3", "DM-1", "DM-2", "DM-3"],
+    critToControl: { "HG-1": "HG", "HG-2": "HG", "HG-3": "HG", "CG-1": "CG", "CG-2": "CG", "CG-3": "CG", "RM-1": "RM", "RM-2": "RM", "RM-3": "RM", "CM-1": "CM", "CM-2": "CM", "CM-3": "CM", "DM-1": "DM", "DM-2": "DM", "DM-3": "DM" },
     docs: [
       { i: 0, pattern: "Patient Privacy Policy v2.1.pdf" },
       { i: 1, pattern: "Clinical Governance Framework.pdf" },
@@ -99,8 +99,8 @@ const useCaseMeta: Record<
   cybersecurity: {
     framework: "SAMA CSF",
     controlIds: ["GOV", "ASST", "ACC", "RESP", "SUPP"],
-    critIds: ["GOV-1","GOV-2","GOV-3","ASST-1","ASST-2","ASST-3","ACC-1","ACC-2","ACC-3","RESP-1","RESP-2","RESP-3","SUPP-1","SUPP-2","SUPP-3"],
-    critToControl: { "GOV-1":"GOV","GOV-2":"GOV","GOV-3":"GOV","ASST-1":"ASST","ASST-2":"ASST","ASST-3":"ASST","ACC-1":"ACC","ACC-2":"ACC","ACC-3":"ACC","RESP-1":"RESP","RESP-2":"RESP","RESP-3":"RESP","SUPP-1":"SUPP","SUPP-2":"SUPP","SUPP-3":"SUPP" },
+    critIds: ["GOV-1", "GOV-2", "GOV-3", "ASST-1", "ASST-2", "ASST-3", "ACC-1", "ACC-2", "ACC-3", "RESP-1", "RESP-2", "RESP-3", "SUPP-1", "SUPP-2", "SUPP-3"],
+    critToControl: { "GOV-1": "GOV", "GOV-2": "GOV", "GOV-3": "GOV", "ASST-1": "ASST", "ASST-2": "ASST", "ASST-3": "ASST", "ACC-1": "ACC", "ACC-2": "ACC", "ACC-3": "ACC", "RESP-1": "RESP", "RESP-2": "RESP", "RESP-3": "RESP", "SUPP-1": "SUPP", "SUPP-2": "SUPP", "SUPP-3": "SUPP" },
     docs: [
       { i: 0, pattern: "Information Security Policy v3.0.pdf" },
       { i: 1, pattern: "SAMA CSF Risk Framework.pdf" },
@@ -110,8 +110,8 @@ const useCaseMeta: Record<
   itGovernance: {
     framework: "SAMA IT Governance",
     controlIds: ["STRAT", "RESRC", "PERF", "RISK", "COMP"],
-    critIds: ["STRAT-1","STRAT-2","STRAT-3","RESRC-1","RESRC-2","RESRC-3","PERF-1","PERF-2","PERF-3","RISK-1","RISK-2","RISK-3","COMP-1","COMP-2","COMP-3"],
-    critToControl: { "STRAT-1":"STRAT","STRAT-2":"STRAT","STRAT-3":"STRAT","RESRC-1":"RESRC","RESRC-2":"RESRC","RESRC-3":"RESRC","PERF-1":"PERF","PERF-2":"PERF","PERF-3":"PERF","RISK-1":"RISK","RISK-2":"RISK","RISK-3":"RISK","COMP-1":"COMP","COMP-2":"COMP","COMP-3":"COMP" },
+    critIds: ["STRAT-1", "STRAT-2", "STRAT-3", "RESRC-1", "RESRC-2", "RESRC-3", "PERF-1", "PERF-2", "PERF-3", "RISK-1", "RISK-2", "RISK-3", "COMP-1", "COMP-2", "COMP-3"],
+    critToControl: { "STRAT-1": "STRAT", "STRAT-2": "STRAT", "STRAT-3": "STRAT", "RESRC-1": "RESRC", "RESRC-2": "RESRC", "RESRC-3": "RESRC", "PERF-1": "PERF", "PERF-2": "PERF", "PERF-3": "PERF", "RISK-1": "RISK", "RISK-2": "RISK", "RISK-3": "RISK", "COMP-1": "COMP", "COMP-2": "COMP", "COMP-3": "COMP" },
     docs: [
       { i: 0, pattern: "IT Strategy Document 2026.pdf" },
       { i: 1, pattern: "Resource Management Plan v2.docx" },
@@ -121,8 +121,8 @@ const useCaseMeta: Record<
   general: {
     framework: "NCA ECC",
     controlIds: ["ORG", "RISK", "SEC", "OPS", "TP"],
-    critIds: ["ORG-1","ORG-2","ORG-3","RISK-1","RISK-2","RISK-3","SEC-1","SEC-2","SEC-3","OPS-1","OPS-2","OPS-3","TP-1","TP-2","TP-3"],
-    critToControl: { "ORG-1":"ORG","ORG-2":"ORG","ORG-3":"ORG","RISK-1":"RISK","RISK-2":"RISK","RISK-3":"RISK","SEC-1":"SEC","SEC-2":"SEC","SEC-3":"SEC","OPS-1":"OPS","OPS-2":"OPS","OPS-3":"OPS","TP-1":"TP","TP-2":"TP","TP-3":"TP" },
+    critIds: ["ORG-1", "ORG-2", "ORG-3", "RISK-1", "RISK-2", "RISK-3", "SEC-1", "SEC-2", "SEC-3", "OPS-1", "OPS-2", "OPS-3", "TP-1", "TP-2", "TP-3"],
+    critToControl: { "ORG-1": "ORG", "ORG-2": "ORG", "ORG-3": "ORG", "RISK-1": "RISK", "RISK-2": "RISK", "RISK-3": "RISK", "SEC-1": "SEC", "SEC-2": "SEC", "SEC-3": "SEC", "OPS-1": "OPS", "OPS-2": "OPS", "OPS-3": "OPS", "TP-1": "TP", "TP-2": "TP", "TP-3": "TP" },
     docs: [
       { i: 0, pattern: "Corporate Governance Policy.pdf" },
       { i: 1, pattern: "Compliance Framework v2.1.pdf" },
@@ -215,7 +215,7 @@ export default function UseCasesAuditFlow({
 
   const [rptLang, setRptLang] = useState<"en" | "ar">("en");
   const [rptContentVisible, setRptContentVisible] = useState(false);
-  const [rptGrade, setRptGrade] = useState<string>("—");
+  const [rptGrade, setRptGrade] = useState<string>("-");
   const [rptGradeLbl, setRptGradeLbl] = useState<string>(t("computing"));
   const [rptGaugeOffset, setRptGaugeOffset] = useState(170);
   const [rptGaugeVal, setRptGaugeVal] = useState(0);
@@ -523,7 +523,7 @@ export default function UseCasesAuditFlow({
       score >= 90 ? t("gradeExcellent") : score >= 75 ? t("gradeGood") : score >= 60 ? t("gradeSatisfactory") : t("gradeNeedsWork");
 
     setRptContentVisible(false);
-    setRptGrade("—");
+    setRptGrade("-");
     setRptGradeLbl(t("computing"));
     setRptGaugeOffset(170);
     setRptGaugeVal(0);
@@ -1749,7 +1749,7 @@ export default function UseCasesAuditFlow({
                             ) : r === "noncompliant" ? (
                               <AlertCircleIcon size={22} />
                             ) : (
-                              <span>—</span>
+                              <span>-</span>
                             )}
                           </div>
                           <div className="rl">{label}</div>

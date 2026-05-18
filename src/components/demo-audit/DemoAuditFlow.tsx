@@ -88,18 +88,18 @@ export default function DemoAuditFlow() {
   // ----- State -----
   const PHASES: { n: Phase; label: string }[] = fromFramework
     ? [
-        { n: 2, label: t("pPrepare") },
-        { n: 3, label: t("pExecute") },
-        { n: 5, label: t("pReport") },
-        { n: 6, label: t("pComplete") },
-      ]
+      { n: 2, label: t("pPrepare") },
+      { n: 3, label: t("pExecute") },
+      { n: 5, label: t("pReport") },
+      { n: 6, label: t("pComplete") },
+    ]
     : [
-        { n: 1, label: t("pSchedule") },
-        { n: 2, label: t("pPrepare") },
-        { n: 3, label: t("pExecute") },
-        { n: 5, label: t("pReport") },
-        { n: 6, label: t("pComplete") },
-      ];
+      { n: 1, label: t("pSchedule") },
+      { n: 2, label: t("pPrepare") },
+      { n: 3, label: t("pExecute") },
+      { n: 5, label: t("pReport") },
+      { n: 6, label: t("pComplete") },
+    ];
 
   const [phase, setPhase] = useState<Phase>(fromFramework ? 2 : 1);
   const [requiredDocs, setRequiredDocs] = useState<RequiredDoc[]>(initialRequiredDocs);
@@ -134,7 +134,7 @@ export default function DemoAuditFlow() {
   // Report
   const [rptLang, setRptLang] = useState<"en" | "ar">("en");
   const [rptContentVisible, setRptContentVisible] = useState(false);
-  const [rptGrade, setRptGrade] = useState<string>("—");
+  const [rptGrade, setRptGrade] = useState<string>("-");
   const [rptGradeLbl, setRptGradeLbl] = useState<string>(t("computing"));
   const [rptGaugeOffset, setRptGaugeOffset] = useState(170);
   const [rptGaugeVal, setRptGaugeVal] = useState(0);
@@ -455,7 +455,7 @@ export default function DemoAuditFlow() {
 
     // reset
     setRptContentVisible(false);
-    setRptGrade("—");
+    setRptGrade("-");
     setRptGradeLbl(t("computing"));
     setRptGaugeOffset(170);
     setRptGaugeVal(0);
@@ -1065,9 +1065,8 @@ export default function DemoAuditFlow() {
                       </div>
                     </div>
                     <span
-                      className={`severity-badge ${
-                        findingSeverity === "critical" ? "sev-critical" : "sev-medium"
-                      }`}
+                      className={`severity-badge ${findingSeverity === "critical" ? "sev-critical" : "sev-medium"
+                        }`}
                     >
                       {findingSeverity === "critical" ? t("sevCritical") : t("sevAnalyzing")}
                     </span>
@@ -1810,8 +1809,8 @@ export default function DemoAuditFlow() {
                             crit.rating === "compliant"
                               ? "compliant"
                               : crit.rating === "noncompliant"
-                              ? "noncompliant"
-                              : "";
+                                ? "noncompliant"
+                                : "";
                           const shortTitle =
                             crit.title.length > 26 ? crit.title.slice(0, 24) + "…" : crit.title;
                           return (
@@ -1863,8 +1862,8 @@ export default function DemoAuditFlow() {
                         r === "compliant"
                           ? t("ratingCompliant")
                           : r === "noncompliant"
-                          ? t("ratingNonCompliant")
-                          : t("ratingNA");
+                            ? t("ratingNonCompliant")
+                            : t("ratingNA");
                       return (
                         <div
                           key={r}
@@ -1881,7 +1880,7 @@ export default function DemoAuditFlow() {
                             ) : r === "noncompliant" ? (
                               <AlertCircleIcon size={22} />
                             ) : (
-                              <span>—</span>
+                              <span>-</span>
                             )}
                           </div>
                           <div className="rl">{label}</div>

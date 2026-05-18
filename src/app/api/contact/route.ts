@@ -94,7 +94,7 @@ function buildEmailHtml(p: ContactPayload): string {
     ...(p.plan ? [["Plan interest", p.plan] as [string, string]] : []),
     ["Name", `${p.firstName} ${p.lastName}`],
     ["Email", p.email],
-    ["Phone", p.phone || "—"],
+    ["Phone", p.phone || "-"],
     ["Organization", p.organization],
     ...(p.teamSize ? [["Team size", p.teamSize] as [string, string]] : []),
     ["Frameworks (codes)", p.frameworks.length ? p.frameworks.join(", ") : "—"],
@@ -109,7 +109,9 @@ function buildEmailHtml(p: ContactPayload): string {
     .join("");
 
   const isQuote = !!p.plan;
-  const heading = isQuote ? "New ArabAudit pricing inquiry" : "New ArabAudit contact request";
+  const heading = isQuote
+    ? "New ArabAudit pricing inquiry"
+    : "New ArabAudit contact request";
   const subtitle = isQuote
     ? `Submitted via the pricing page — interested in the <strong>${escapeHtml(p.plan ?? "")}</strong> plan.`
     : "Submitted via the landing page contact form.";
@@ -177,12 +179,14 @@ export async function POST(req: Request) {
     subject: subject.slice(0, 998),
     html: buildEmailHtml(payload),
     text: [
-      payload.plan ? "New ArabAudit pricing inquiry" : "New ArabAudit contact request",
+      payload.plan
+        ? "New ArabAudit pricing inquiry"
+        : "New ArabAudit contact request",
       "",
       ...(payload.plan ? [`Plan interest: ${payload.plan}`] : []),
       `Name: ${payload.firstName} ${payload.lastName}`,
       `Email: ${payload.email}`,
-      `Phone: ${payload.phone || "—"}`,
+      `Phone: ${payload.phone || "-"}`,
       `Organization: ${payload.organization}`,
       ...(payload.teamSize ? [`Team size: ${payload.teamSize}`] : []),
       `Frameworks: ${payload.frameworks.join(", ") || "—"}`,

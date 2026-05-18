@@ -3,7 +3,7 @@ import { BRAND } from "@/lib/seo";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${BRAND.name} — ${BRAND.tagline}`,
+    name: `${BRAND.name} - ${BRAND.tagline}`,
     short_name: BRAND.name,
     description: BRAND.description,
     start_url: "/",

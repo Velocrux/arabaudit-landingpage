@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 
-export const SITE_URL = ("https://arabaudit.com"
-).replace(/\/$/, "");
+export const SITE_URL = "https://arabaudit.com".replace(/\/$/, "");
 
 export const BRAND = {
   name: "ArabAudit",
@@ -45,7 +44,7 @@ export const DEFAULT_OG_IMAGE = {
   url: `${SITE_URL}/logo.png`,
   width: 1200,
   height: 630,
-  alt: "ArabAudit — Saudi-native compliance, validated by AI",
+  alt: "ArabAudit - Saudi-native compliance, validated by AI",
 } as const;
 
 export const LOCALE_OG_MAP: Record<string, string> = {
@@ -85,7 +84,7 @@ type BuildMetadataInput = {
 
 /**
  * Build a Metadata object with consistent OG/Twitter/canonical/hreflang.
- * Titles are expected to be already localized (don't include brand — the
+ * Titles are expected to be already localized (don't include brand - the
  * layout title template appends it).
  */
 export function buildMetadata({

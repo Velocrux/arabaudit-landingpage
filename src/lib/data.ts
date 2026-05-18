@@ -201,7 +201,10 @@ export function buildFrameworks(t: Translator): Framework[] {
   }));
 }
 
-export function buildFramework(t: Translator, id: string): Framework | undefined {
+export function buildFramework(
+  t: Translator,
+  id: string,
+): Framework | undefined {
   return buildFrameworks(t).find((f) => f.id === id);
 }
 
@@ -209,7 +212,7 @@ export function buildMarqueeExtras(t: Translator): string[] {
   return [t("marqueeSamaIt"), t("marqueePci")];
 }
 
-// Static raw data — English fallback used by non-localized consumers (e.g. sitemap, routing).
+// Static raw data - English fallback used by non-localized consumers (e.g. sitemap, routing).
 export const frameworks: Framework[] = frameworkMeta.map((m) => ({
   id: m.id,
   frameworkId: m.frameworkId,
