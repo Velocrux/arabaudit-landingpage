@@ -10,6 +10,9 @@ import {
   Refresh01Icon,
   ArrowLeft01Icon,
 } from "hugeicons-react";
+import { useAutoplay } from "@/components/autoplay/useAutoplay";
+import AutoplayCursor from "@/components/autoplay/AutoplayCursor";
+import { buildAuditFlowSequence } from "@/components/autoplay/sequences/auditFlow";
 
 type UseCaseKey = "healthcare" | "cybersecurity" | "itGovernance" | "general";
 type Phase = 1 | 2 | 3 | 4 | 5 | 6;
@@ -26,16 +29,50 @@ type LocalFile = { icon: React.ReactNode; name: string; size: string; date: stri
 type RequiredDoc = { cat: string; name: string; file: string | null; pattern: string };
 type FilePickerContext = "bulk" | "crit" | number | null;
 
-const LOCAL_FILES: LocalFile[] = [
-  { icon: <File01Icon size={18} />, name: "Compliance Policy v2.1.pdf", size: "2.4 MB", date: "15 Nov 2025" },
-  { icon: <File01Icon size={18} />, name: "سياسة الامتثال.pdf", size: "1.8 MB", date: "22 Nov 2025" },
-  { icon: <File01Icon size={18} />, name: "System Configuration Q4-2025.xlsx", size: "512 KB", date: "31 Dec 2025" },
-  { icon: <File01Icon size={18} />, name: "Audit Evidence Attestation.pdf", size: "890 KB", date: "12 Jan 2026" },
-  { icon: <File01Icon size={18} />, name: "Quarterly Review Q4.csv", size: "128 KB", date: "03 Jan 2026" },
-  { icon: <File01Icon size={18} />, name: "Classification-Standard.pdf", size: "1.2 MB", date: "28 Oct 2025" },
-  { icon: <File01Icon size={18} />, name: "Management-Plan-v2.docx", size: "760 KB", date: "05 Feb 2026" },
-  { icon: <File01Icon size={18} />, name: "Assessment-Results-2026.xlsx", size: "320 KB", date: "18 Apr 2026" },
-];
+// Per-use-case file lists so the file picker, the auto-suggested upload, and
+// the linked evidence shown in the report all look domain-appropriate.
+const LOCAL_FILES_BY_USE_CASE: Record<UseCaseKey, LocalFile[]> = {
+  healthcare: [
+    { icon: <File01Icon size={18} />, name: "Patient Privacy Policy v2.1.pdf", size: "2.4 MB", date: "15 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "Clinical Governance Framework.pdf", size: "1.8 MB", date: "22 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "Infection Control SOP v3.docx", size: "760 KB", date: "05 Feb 2026" },
+    { icon: <File01Icon size={18} />, name: "Patient Safety Event Log Q4.xlsx", size: "512 KB", date: "31 Dec 2025" },
+    { icon: <File01Icon size={18} />, name: "Medical Records Retention Standard.pdf", size: "1.2 MB", date: "28 Oct 2025" },
+    { icon: <File01Icon size={18} />, name: "Clinical Audit Findings 2025.pdf", size: "890 KB", date: "12 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "Healthcare Risk Register 2026.xlsx", size: "320 KB", date: "18 Apr 2026" },
+    { icon: <File01Icon size={18} />, name: "سياسة خصوصية المرضى.pdf", size: "1.6 MB", date: "20 Nov 2025" },
+  ],
+  cybersecurity: [
+    { icon: <File01Icon size={18} />, name: "Information Security Policy v3.0.pdf", size: "2.4 MB", date: "15 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "SAMA CSF Risk Framework.pdf", size: "1.8 MB", date: "22 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "Incident Response Playbook.pdf", size: "1.4 MB", date: "10 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "Vulnerability Scan Report Q4.pdf", size: "890 KB", date: "12 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "Privileged Access Review Q4.csv", size: "128 KB", date: "03 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "Penetration Test Report 2026.pdf", size: "2.1 MB", date: "28 Feb 2026" },
+    { icon: <File01Icon size={18} />, name: "Threat Intelligence Brief.docx", size: "640 KB", date: "05 Feb 2026" },
+    { icon: <File01Icon size={18} />, name: "سياسة أمن المعلومات.pdf", size: "1.6 MB", date: "20 Nov 2025" },
+  ],
+  itGovernance: [
+    { icon: <File01Icon size={18} />, name: "IT Strategy Document 2026.pdf", size: "2.4 MB", date: "15 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "Resource Management Plan v2.docx", size: "1.8 MB", date: "22 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "IT KPI Dashboard Q4-2025.xlsx", size: "512 KB", date: "31 Dec 2025" },
+    { icon: <File01Icon size={18} />, name: "IT Risk Register 2026.xlsx", size: "640 KB", date: "18 Apr 2026" },
+    { icon: <File01Icon size={18} />, name: "Capacity Planning Report.pdf", size: "1.1 MB", date: "12 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "Enterprise Architecture Standards.pdf", size: "1.4 MB", date: "28 Oct 2025" },
+    { icon: <File01Icon size={18} />, name: "User Satisfaction Survey Q4.csv", size: "128 KB", date: "03 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "BC-DR Test Results 2025.pdf", size: "890 KB", date: "05 Feb 2026" },
+  ],
+  general: [
+    { icon: <File01Icon size={18} />, name: "Corporate Governance Policy.pdf", size: "2.4 MB", date: "15 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "Compliance Framework v2.1.pdf", size: "1.8 MB", date: "22 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "Enterprise Risk Register.xlsx", size: "640 KB", date: "31 Dec 2025" },
+    { icon: <File01Icon size={18} />, name: "Vendor Risk Assessment Q4.xlsx", size: "512 KB", date: "12 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "Change Management Procedure.pdf", size: "1.1 MB", date: "28 Oct 2025" },
+    { icon: <File01Icon size={18} />, name: "Business Continuity Plan 2026.pdf", size: "1.4 MB", date: "05 Feb 2026" },
+    { icon: <File01Icon size={18} />, name: "Security Awareness Training Records.csv", size: "128 KB", date: "03 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "سياسة الحوكمة المؤسسية.pdf", size: "1.6 MB", date: "20 Nov 2025" },
+  ],
+};
 
 const useCaseMeta: Record<
   UseCaseKey,
@@ -54,8 +91,8 @@ const useCaseMeta: Record<
     critIds: ["HG-1","HG-2","HG-3","CG-1","CG-2","CG-3","RM-1","RM-2","RM-3","CM-1","CM-2","CM-3","DM-1","DM-2","DM-3"],
     critToControl: { "HG-1":"HG","HG-2":"HG","HG-3":"HG","CG-1":"CG","CG-2":"CG","CG-3":"CG","RM-1":"RM","RM-2":"RM","RM-3":"RM","CM-1":"CM","CM-2":"CM","CM-3":"CM","DM-1":"DM","DM-2":"DM","DM-3":"DM" },
     docs: [
-      { i: 0, pattern: "Compliance Policy v2.1.pdf" },
-      { i: 1, pattern: "System Configuration Q4-2025.xlsx" },
+      { i: 0, pattern: "Patient Privacy Policy v2.1.pdf" },
+      { i: 1, pattern: "Clinical Governance Framework.pdf" },
     ],
     colors: { primary: "rgb(34, 197, 94)", accent: "rgba(34, 197, 94, 0.15)", light: "rgba(34, 197, 94, 0.08)" },
   },
@@ -65,8 +102,8 @@ const useCaseMeta: Record<
     critIds: ["GOV-1","GOV-2","GOV-3","ASST-1","ASST-2","ASST-3","ACC-1","ACC-2","ACC-3","RESP-1","RESP-2","RESP-3","SUPP-1","SUPP-2","SUPP-3"],
     critToControl: { "GOV-1":"GOV","GOV-2":"GOV","GOV-3":"GOV","ASST-1":"ASST","ASST-2":"ASST","ASST-3":"ASST","ACC-1":"ACC","ACC-2":"ACC","ACC-3":"ACC","RESP-1":"RESP","RESP-2":"RESP","RESP-3":"RESP","SUPP-1":"SUPP","SUPP-2":"SUPP","SUPP-3":"SUPP" },
     docs: [
-      { i: 0, pattern: "Compliance Policy v2.1.pdf" },
-      { i: 1, pattern: "System Configuration Q4-2025.xlsx" },
+      { i: 0, pattern: "Information Security Policy v3.0.pdf" },
+      { i: 1, pattern: "SAMA CSF Risk Framework.pdf" },
     ],
     colors: { primary: "rgb(59, 130, 246)", accent: "rgba(59, 130, 246, 0.15)", light: "rgba(59, 130, 246, 0.08)" },
   },
@@ -76,8 +113,8 @@ const useCaseMeta: Record<
     critIds: ["STRAT-1","STRAT-2","STRAT-3","RESRC-1","RESRC-2","RESRC-3","PERF-1","PERF-2","PERF-3","RISK-1","RISK-2","RISK-3","COMP-1","COMP-2","COMP-3"],
     critToControl: { "STRAT-1":"STRAT","STRAT-2":"STRAT","STRAT-3":"STRAT","RESRC-1":"RESRC","RESRC-2":"RESRC","RESRC-3":"RESRC","PERF-1":"PERF","PERF-2":"PERF","PERF-3":"PERF","RISK-1":"RISK","RISK-2":"RISK","RISK-3":"RISK","COMP-1":"COMP","COMP-2":"COMP","COMP-3":"COMP" },
     docs: [
-      { i: 0, pattern: "Compliance Policy v2.1.pdf" },
-      { i: 1, pattern: "Management-Plan-v2.docx" },
+      { i: 0, pattern: "IT Strategy Document 2026.pdf" },
+      { i: 1, pattern: "Resource Management Plan v2.docx" },
     ],
     colors: { primary: "rgb(168, 85, 247)", accent: "rgba(168, 85, 247, 0.15)", light: "rgba(168, 85, 247, 0.08)" },
   },
@@ -87,8 +124,8 @@ const useCaseMeta: Record<
     critIds: ["ORG-1","ORG-2","ORG-3","RISK-1","RISK-2","RISK-3","SEC-1","SEC-2","SEC-3","OPS-1","OPS-2","OPS-3","TP-1","TP-2","TP-3"],
     critToControl: { "ORG-1":"ORG","ORG-2":"ORG","ORG-3":"ORG","RISK-1":"RISK","RISK-2":"RISK","RISK-3":"RISK","SEC-1":"SEC","SEC-2":"SEC","SEC-3":"SEC","OPS-1":"OPS","OPS-2":"OPS","OPS-3":"OPS","TP-1":"TP","TP-2":"TP","TP-3":"TP" },
     docs: [
-      { i: 0, pattern: "Compliance Policy v2.1.pdf" },
-      { i: 1, pattern: "Classification-Standard.pdf" },
+      { i: 0, pattern: "Corporate Governance Policy.pdf" },
+      { i: 1, pattern: "Compliance Framework v2.1.pdf" },
     ],
     colors: { primary: "rgb(217, 119, 6)", accent: "rgba(217, 119, 6, 0.15)", light: "rgba(217, 119, 6, 0.08)" },
   },
@@ -104,6 +141,7 @@ export default function UseCasesAuditFlow({
   const t = useTranslations("demoAudit");
   const tc = useTranslations("useCases.flow");
   const meta = useCaseMeta[selectedUseCase];
+  const localFiles = LOCAL_FILES_BY_USE_CASE[selectedUseCase];
 
   const config = {
     framework: meta.framework,
@@ -214,6 +252,7 @@ export default function UseCasesAuditFlow({
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const typewriterTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const typewriterIntervalsRef = useRef<ReturnType<typeof setInterval>[]>([]);
+  const autoplayRootRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const panel = document.querySelector(".panel");
@@ -263,7 +302,7 @@ export default function UseCasesAuditFlow({
     setFilePickerOpen(true);
     const expected = typeof ctx === "number" ? requiredDocs[ctx]?.pattern : null;
     if (expected) {
-      const idx = LOCAL_FILES.findIndex((f) => f.name === expected);
+      const idx = localFiles.findIndex((f) => f.name === expected);
       if (idx > -1) {
         setTimeout(() => setSelectedFileIdx(idx), 300);
       }
@@ -276,7 +315,7 @@ export default function UseCasesAuditFlow({
 
   const confirmFilePicker = () => {
     if (selectedFileIdx === null) return;
-    const file = LOCAL_FILES[selectedFileIdx];
+    const file = localFiles[selectedFileIdx];
     closeFilePicker();
     simulateUpload(file);
   };
@@ -285,7 +324,7 @@ export default function UseCasesAuditFlow({
     const ctx = filePickerContext;
     if (ctx === "bulk") {
       requiredDocs.forEach((d, i) => {
-        const match = LOCAL_FILES.find((f) => f.name === d.pattern);
+        const match = localFiles.find((f) => f.name === d.pattern);
         if (match) {
           setTimeout(() => {
             setRequiredDocs((prev) => {
@@ -331,13 +370,14 @@ export default function UseCasesAuditFlow({
     }
   };
 
-  const selectRating = (r: Rating) => {
+  const rateCriterion = (idx: number, r: Rating) => {
     setCriteria((prev) => {
       const next = [...prev];
-      next[activeCritIdx] = { ...next[activeCritIdx], rating: r };
+      if (!next[idx]) return prev;
+      next[idx] = { ...next[idx], rating: r };
       return next;
     });
-    const isLast = activeCritIdx === criteria.length - 1;
+    const isLast = idx === criteria.length - 1;
     if (!isLast) {
       setAdvancingHint(true);
       setTimeout(() => {
@@ -564,9 +604,9 @@ export default function UseCasesAuditFlow({
     );
 
     const recommendations = [
-      { text: t("rec1"), show: false },
-      { text: t("rec2"), show: false },
-      { text: t("rec3"), show: false },
+      { text: tc(`${selectedUseCase}.rec1`), show: false },
+      { text: tc(`${selectedUseCase}.rec2`), show: false },
+      { text: tc(`${selectedUseCase}.rec3`), show: false },
     ];
     setRptRecommendationsShow(recommendations.map(() => false));
     recommendations.forEach((_, i) => {
@@ -583,13 +623,13 @@ export default function UseCasesAuditFlow({
     const tMetrics = setTimeout(() => setRptMetricsShow(true), 1500);
     typewriterTimersRef.current.push(tMetrics);
 
-    const narrativeEN = t("narrativeEN", {
+    const narrativeEN = tc(`${selectedUseCase}.narrativeEN`, {
       solidOrDeveloping: score >= 75 ? t("solid") : t("developing"),
       score,
       total,
       ncLine: nc > 0 ? t("ncLineEN") : t("noCriticalEN"),
     });
-    const narrativeAR = t("narrativeAR", {
+    const narrativeAR = tc(`${selectedUseCase}.narrativeAR`, {
       solidOrDeveloping: score >= 75 ? t("solidAr") : t("developingAr"),
       score,
       total,
@@ -648,8 +688,29 @@ export default function UseCasesAuditFlow({
   const curIdx = PHASES.findIndex((p) => p.n === phase);
   const pct = PHASES.length <= 1 ? 100 : (curIdx / (PHASES.length - 1)) * 100;
 
+  // ----- Autoplay -----
+  const autoplaySteps = buildAuditFlowSequence({
+    phase,
+    filePickerOpen,
+    requiredDocs,
+    criteria,
+    signState,
+    titleToType: t("defaultAuditTitle"),
+    descriptionToType: t("defaultDescription"),
+    goTo,
+    openFilePicker,
+    confirmFilePicker,
+    rateCriterion,
+    triggerAIAnimation,
+  });
+  const cursorState = useAutoplay({
+    containerRef: autoplayRootRef,
+    steps: autoplaySteps,
+  });
+
   return (
-    <>
+    <div ref={autoplayRootRef}>
+      <AutoplayCursor state={cursorState} />
       {/* HERO + STEPPER */}
       <section className="demo-hero">
         <div className="wrap" style={{ position: "relative", zIndex: 1 }}>
@@ -861,6 +922,7 @@ export default function UseCasesAuditFlow({
                               type="button"
                               className="btn-aa ghost btn-sm"
                               onClick={() => openFilePicker(i)}
+                              data-autoplay={`link-doc-${i}`}
                             >
                               {d.file ? (
                                 <>
@@ -1098,7 +1160,7 @@ export default function UseCasesAuditFlow({
                       <MagicWand01Icon size={16} /> {t("aiRecsHeading")}
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                      {[t("rec1"), t("rec2"), t("rec3")].map(
+                      {[tc(`${selectedUseCase}.rec1`), tc(`${selectedUseCase}.rec2`), tc(`${selectedUseCase}.rec3`)].map(
                         (rec, i) => (
                           <div
                             key={i}
@@ -1169,7 +1231,12 @@ export default function UseCasesAuditFlow({
                       <button type="button" className="btn-aa ghost" onClick={downloadReport}>
                         <File01Icon size={14} /> {t("downloadPdf")}
                       </button>
-                      <button type="button" className="btn-aa gold" onClick={() => goTo(6)}>
+                      <button
+                        type="button"
+                        className="btn-aa gold"
+                        onClick={() => goTo(6)}
+                        data-autoplay="sign-and-lock"
+                      >
                         {t("signLockAudit")}
                       </button>
                     </div>
@@ -1505,7 +1572,7 @@ export default function UseCasesAuditFlow({
                 </div>
               </div>
               <div className="fp-files">
-                {LOCAL_FILES.map((f, i) => {
+                {localFiles.map((f, i) => {
                   const expected =
                     typeof filePickerContext === "number"
                       ? requiredDocs[filePickerContext]?.pattern
@@ -1543,6 +1610,7 @@ export default function UseCasesAuditFlow({
                 className="primary"
                 disabled={selectedFileIdx === null}
                 onClick={confirmFilePicker}
+                data-autoplay="picker-confirm"
               >
                 {t("uploadBtn")}
               </button>
@@ -1561,7 +1629,7 @@ export default function UseCasesAuditFlow({
           <div className="sub">{toast.sub}</div>
         </div>
       </div>
-    </>
+    </div>
   );
 
   function ExecutePhase() {
@@ -1669,8 +1737,9 @@ export default function UseCasesAuditFlow({
                         <div
                           key={r}
                           className={`rating-option${selected ? " selected " + r : ""}`}
+                          data-autoplay={`rate-${r}`}
                           onClick={() => {
-                            if (!advancingHint) selectRating(r);
+                            if (!advancingHint) rateCriterion(activeCritIdx, r);
                           }}
                           style={advancingHint ? { pointerEvents: "none" } : undefined}
                         >
@@ -1775,6 +1844,7 @@ export default function UseCasesAuditFlow({
                       className="btn-aa gold"
                       style={{ fontSize: 15, padding: "14px 32px", gap: 10 }}
                       onClick={triggerAIAnimation}
+                      data-autoplay="submit-generate-report"
                     >
                       <MagicWand01Icon size={16} /> {t("submitGenerateReport")}
                     </button>

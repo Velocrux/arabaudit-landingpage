@@ -12,6 +12,9 @@ import {
   Clock04Icon,
   Tick02Icon,
 } from "hugeicons-react";
+import { useAutoplay } from "@/components/autoplay/useAutoplay";
+import AutoplayCursor from "@/components/autoplay/AutoplayCursor";
+import { buildFrameworkWizardSequence } from "@/components/autoplay/sequences/frameworkWizard";
 
 type Step = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -38,7 +41,7 @@ export default function DemoFrameworkWizard() {
   const [countdown, setCountdown] = useState(3);
   const [toastVisible, setToastVisible] = useState(false);
   const [adminApproved, setAdminApproved] = useState(false);
-  const stageRef = useRef<HTMLDivElement | null>(null);
+  const autoplayRootRef = useRef<HTMLDivElement | null>(null);
 
   // Pre-select from ?id=
   useEffect(() => {
@@ -125,6 +128,24 @@ export default function DemoFrameworkWizard() {
   const displayStep = step === 6 ? 5 : step;
   const pct = ((displayStep - 1) / 4) * 100;
 
+  const autoplaySteps = buildFrameworkWizardSequence({
+    step,
+    selected,
+    adminApproved,
+    frameworks,
+    titleToType: t("defaultAuditTitle"),
+    contextToType: t("defaultNotes"),
+    descriptionToType: t("defaultDescription"),
+    toggleFw,
+    goTo,
+    submitRequest,
+    adminApprove,
+  });
+  const cursorState = useAutoplay({
+    containerRef: autoplayRootRef,
+    steps: autoplaySteps,
+  });
+
   const stepperSteps = [
     { n: 1 as const, label: t("s1") },
     { n: 2 as const, label: t("s2") },
@@ -134,7 +155,8 @@ export default function DemoFrameworkWizard() {
   ];
 
   return (
-    <>
+    <div ref={autoplayRootRef}>
+      <AutoplayCursor state={cursorState} />
       {/* HERO + STEPPER */}
       <section className="demo-hero">
         <div className="wrap" style={{ position: "relative", zIndex: 1 }}>
@@ -213,7 +235,7 @@ export default function DemoFrameworkWizard() {
       </section>
 
       {/* PANEL */}
-      <section className="panel" ref={stageRef}>
+      <section className="panel">
         <div className="stage">
           {step === 1 && (
             <div>
@@ -243,7 +265,7 @@ export default function DemoFrameworkWizard() {
                   </div>
 
                   <div className="df-fw-grid">
-                    {frameworks.map((fw) => {
+                    {frameworks.map((fw, idx) => {
                       const isMatch =
                         fw.sector === INDUSTRY ||
                         (fw.sector &&
@@ -257,6 +279,7 @@ export default function DemoFrameworkWizard() {
                           className={`df-fw-card${isOwned ? " owned" : ""}${isSelected ? " selected" : ""}`}
                           onClick={() => toggleFw(fw.id)}
                           disabled={isOwned}
+                          data-autoplay={idx < 2 ? `fw-card-${idx}` : undefined}
                         >
                           <div className="df-fw-check" />
                           <div className="name">{fw.name}</div>
@@ -280,6 +303,7 @@ export default function DemoFrameworkWizard() {
                       className="btn-aa primary"
                       disabled={selected.length === 0}
                       onClick={() => goTo(2)}
+                      data-autoplay="goto-step-2"
                     >
                       {t("requestAccess")} ({selected.length}) →
                     </button>
@@ -338,6 +362,7 @@ export default function DemoFrameworkWizard() {
                       rows={3}
                       placeholder={t("additionalContextP")}
                       defaultValue={t("defaultNotes")}
+                      data-autoplay="step2-context-textarea"
                     />
                   </div>
 
@@ -345,7 +370,12 @@ export default function DemoFrameworkWizard() {
                     <button type="button" className="btn-aa ghost" onClick={() => goTo(1)}>
                       {t("backCatalog")}
                     </button>
-                    <button type="button" className="btn-aa gold" onClick={submitRequest}>
+                    <button
+                      type="button"
+                      className="btn-aa gold"
+                      onClick={submitRequest}
+                      data-autoplay="submit-request"
+                    >
                       <MagicWand01Icon size={16} /> {t("submitRequest")} ({selected.length})
                     </button>
                   </div>
@@ -535,6 +565,7 @@ export default function DemoFrameworkWizard() {
                           }}
                           onClick={adminApprove}
                           disabled={adminApproved}
+                          data-autoplay="admin-approve"
                         >
                           {adminApproved ? `✓ ${t("approved")}` : `✓ ${t("approve")}`}
                         </button>
@@ -644,7 +675,12 @@ export default function DemoFrameworkWizard() {
                     <button type="button" className="btn-aa ghost" onClick={() => goTo(3)}>
                       {t("back")}
                     </button>
-                    <button type="button" className="btn-aa gold" onClick={() => goTo(5)}>
+                    <button
+                      type="button"
+                      className="btn-aa gold"
+                      onClick={() => goTo(5)}
+                      data-autoplay="schedule-first-audit"
+                    >
                       {t("scheduleFirst")}
                     </button>
                   </div>
@@ -682,6 +718,7 @@ export default function DemoFrameworkWizard() {
                           type="text"
                           value={auditTitle}
                           onChange={(e) => setAuditTitle(e.target.value)}
+                          data-autoplay="step5-title-input"
                         />
                         <div className="help">{t("auditTitleHelp")}</div>
                       </div>
@@ -692,6 +729,7 @@ export default function DemoFrameworkWizard() {
                         <select
                           value={auditFrameworkId}
                           onChange={(e) => setAuditFrameworkId(e.target.value)}
+                          data-autoplay="step5-framework-select"
                         >
                           {owned.map((id) => {
                             const fw = byId(id);
@@ -718,11 +756,17 @@ export default function DemoFrameworkWizard() {
                           type="date"
                           value={auditDate}
                           onChange={(e) => setAuditDate(e.target.value)}
+                          data-autoplay="step5-date-input"
                         />
                       </div>
                       <div className="field">
                         <label>{t("description")}</label>
-                        <textarea rows={3} placeholder={t("descriptionP")} defaultValue={t("defaultDescription")} />
+                        <textarea
+                          rows={3}
+                          placeholder={t("descriptionP")}
+                          defaultValue={t("defaultDescription")}
+                          data-autoplay="step5-description-textarea"
+                        />
                       </div>
                     </div>
 
@@ -734,7 +778,7 @@ export default function DemoFrameworkWizard() {
                         <label>
                           {t("leadAuditor")} <span className="req">*</span>
                         </label>
-                        <select>
+                        <select data-autoplay="step5-lead-auditor-select">
                           <option>Layla Al-Sulaiman (CISA) · Lead</option>
                           <option>Khalid Al-Mansour (CIA)</option>
                           <option>Ahmed Al-Farouq (CISA, CISM)</option>
@@ -762,7 +806,7 @@ export default function DemoFrameworkWizard() {
                       </div>
                       <div className="field">
                         <label>{t("orgContact")}</label>
-                        <select>
+                        <select data-autoplay="step5-org-contact-select">
                           <option>Mohammed Al-Qahtani (CISO)</option>
                           <option>Hassan Al-Rashid (Head of Compliance)</option>
                           <option>Fatima Al-Zahrani (Risk Manager)</option>
@@ -775,10 +819,20 @@ export default function DemoFrameworkWizard() {
                       </h4>
                       <div className="settings">
                         <label>
-                          <input type="checkbox" defaultChecked /> {t("allowRemote")}
+                          <input
+                            type="checkbox"
+                            defaultChecked
+                            data-autoplay="step5-allow-remote-checkbox"
+                          />{" "}
+                          {t("allowRemote")}
                         </label>
                         <label>
-                          <input type="checkbox" defaultChecked /> {t("requireSignoff")}
+                          <input
+                            type="checkbox"
+                            defaultChecked
+                            data-autoplay="step5-require-signoff-checkbox"
+                          />{" "}
+                          {t("requireSignoff")}
                         </label>
                       </div>
                     </div>
@@ -792,7 +846,12 @@ export default function DemoFrameworkWizard() {
                       <button type="button" className="btn-aa ghost" onClick={() => goTo(6)}>
                         {t("saveDraft")}
                       </button>
-                      <button type="button" className="btn-aa gold" onClick={() => goTo(6)}>
+                      <button
+                        type="button"
+                        className="btn-aa gold"
+                        onClick={() => goTo(6)}
+                        data-autoplay="schedule-audit-final"
+                      >
                         <Calendar03Icon size={16} /> {t("scheduleAudit")}
                       </button>
                     </div>
@@ -915,7 +974,7 @@ export default function DemoFrameworkWizard() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

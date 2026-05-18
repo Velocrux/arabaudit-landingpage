@@ -10,6 +10,9 @@ import {
   AlertCircleIcon,
   Refresh01Icon,
 } from "hugeicons-react";
+import { useAutoplay } from "@/components/autoplay/useAutoplay";
+import AutoplayCursor from "@/components/autoplay/AutoplayCursor";
+import { buildAuditFlowSequence } from "@/components/autoplay/sequences/auditFlow";
 
 // ----- Types -----
 type Phase = 1 | 2 | 3 | 4 | 5 | 6;
@@ -165,6 +168,7 @@ export default function DemoAuditFlow() {
   });
 
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const autoplayRootRef = useRef<HTMLDivElement | null>(null);
 
   // ----- Scroll on phase change -----
   useEffect(() => {
@@ -291,13 +295,14 @@ export default function DemoAuditFlow() {
   };
 
   // ----- Phase 3: Execution -----
-  const selectRating = (r: Rating) => {
+  const rateCriterion = (idx: number, r: Rating) => {
     setCriteria((prev) => {
       const next = [...prev];
-      next[activeCritIdx] = { ...next[activeCritIdx], rating: r };
+      if (!next[idx]) return prev;
+      next[idx] = { ...next[idx], rating: r };
       return next;
     });
-    const isLast = activeCritIdx === criteria.length - 1;
+    const isLast = idx === criteria.length - 1;
     if (!isLast) {
       setAdvancingHint(true);
       setTimeout(() => {
@@ -610,9 +615,30 @@ export default function DemoAuditFlow() {
   const curIdx = PHASES.findIndex((p) => p.n === phase);
   const pct = PHASES.length <= 1 ? 100 : (curIdx / (PHASES.length - 1)) * 100;
 
+  // ----- Autoplay -----
+  const autoplaySteps = buildAuditFlowSequence({
+    phase,
+    filePickerOpen,
+    requiredDocs,
+    criteria,
+    signState,
+    titleToType: t("defaultAuditTitle"),
+    descriptionToType: t("defaultDescription"),
+    goTo,
+    openFilePicker,
+    confirmFilePicker,
+    rateCriterion,
+    triggerAIAnimation,
+  });
+  const cursorState = useAutoplay({
+    containerRef: autoplayRootRef,
+    steps: autoplaySteps,
+  });
+
   // ----- Render -----
   return (
-    <>
+    <div ref={autoplayRootRef}>
+      <AutoplayCursor state={cursorState} />
       {/* HERO + STEPPER */}
       <section className="demo-hero">
         <div className="wrap" style={{ position: "relative", zIndex: 1 }}>
@@ -727,13 +753,20 @@ export default function DemoAuditFlow() {
                         <label>
                           {t("auditTitle")} <span className="req">*</span>
                         </label>
-                        <input type="text" defaultValue={t("defaultAuditTitle")} />
+                        <input
+                          type="text"
+                          defaultValue={t("defaultAuditTitle")}
+                          data-autoplay="phase1-title-input"
+                        />
                       </div>
                       <div className="field">
                         <label>
                           {t("framework")} <span className="req">*</span>
                         </label>
-                        <select defaultValue="nca-ecc">
+                        <select
+                          defaultValue="nca-ecc"
+                          data-autoplay="phase1-framework-select"
+                        >
                           <option value="nca-ecc">NCA ECC (v2024)</option>
                           <option value="sama-csf">SAMA CSF (v2024)</option>
                           <option value="sdaia-pdpl">SDAIA PDPL (v2023)</option>
@@ -741,7 +774,11 @@ export default function DemoAuditFlow() {
                       </div>
                       <div className="field">
                         <label>{t("scheduledDate")}</label>
-                        <input type="date" defaultValue="2026-04-25" />
+                        <input
+                          type="date"
+                          defaultValue="2026-04-25"
+                          data-autoplay="phase1-date-input"
+                        />
                       </div>
                     </div>
                     <div className="form-card">
@@ -752,7 +789,7 @@ export default function DemoAuditFlow() {
                         <label>
                           {t("leadAuditor")} <span className="req">*</span>
                         </label>
-                        <select>
+                        <select data-autoplay="phase1-lead-auditor-select">
                           <option>Layla Al-Sulaiman (CISA)</option>
                           <option>Khalid Al-Mansour (CIA)</option>
                         </select>
@@ -765,7 +802,11 @@ export default function DemoAuditFlow() {
                       </div>
                       <div className="field">
                         <label>{t("description")}</label>
-                        <textarea rows={3} defaultValue={t("defaultDescription")} />
+                        <textarea
+                          rows={3}
+                          defaultValue={t("defaultDescription")}
+                          data-autoplay="phase1-description-textarea"
+                        />
                       </div>
                     </div>
                   </div>
@@ -773,7 +814,12 @@ export default function DemoAuditFlow() {
                     <a className="btn-aa ghost" href="/">
                       {t("backToSite")}
                     </a>
-                    <button type="button" className="btn-aa gold" onClick={() => goTo(2)}>
+                    <button
+                      type="button"
+                      className="btn-aa gold"
+                      onClick={() => goTo(2)}
+                      data-autoplay="continue-to-prep"
+                    >
                       {t("continueToPrep")}
                     </button>
                   </div>
@@ -897,6 +943,7 @@ export default function DemoAuditFlow() {
                               type="button"
                               className="btn-aa ghost btn-sm"
                               onClick={() => openFilePicker(i)}
+                              data-autoplay={`link-doc-${i}`}
                             >
                               {d.file ? (
                                 <>
@@ -1296,7 +1343,12 @@ export default function DemoAuditFlow() {
                       <button type="button" className="btn-aa ghost" onClick={downloadReport}>
                         <File01Icon size={14} /> {t("downloadPdf")}
                       </button>
-                      <button type="button" className="btn-aa gold" onClick={() => goTo(6)}>
+                      <button
+                        type="button"
+                        className="btn-aa gold"
+                        onClick={() => goTo(6)}
+                        data-autoplay="sign-and-lock"
+                      >
                         {t("signLockAudit")}
                       </button>
                     </div>
@@ -1688,6 +1740,7 @@ export default function DemoAuditFlow() {
                 className="primary"
                 disabled={selectedFileIdx === null}
                 onClick={confirmFilePicker}
+                data-autoplay="picker-confirm"
               >
                 {t("uploadBtn")}
               </button>
@@ -1706,7 +1759,7 @@ export default function DemoAuditFlow() {
           <div className="sub">{toast.sub}</div>
         </div>
       </div>
-    </>
+    </div>
   );
 
   // ----- Phase 3: Execute (inner component) -----
@@ -1816,8 +1869,9 @@ export default function DemoAuditFlow() {
                         <div
                           key={r}
                           className={`rating-option${selected ? " selected " + r : ""}`}
+                          data-autoplay={`rate-${r}`}
                           onClick={() => {
-                            if (!advancingHint) selectRating(r);
+                            if (!advancingHint) rateCriterion(activeCritIdx, r);
                           }}
                           style={advancingHint ? { pointerEvents: "none" } : undefined}
                         >
@@ -1922,6 +1976,7 @@ export default function DemoAuditFlow() {
                       className="btn-aa gold"
                       style={{ fontSize: 15, padding: "14px 32px", gap: 10 }}
                       onClick={triggerAIAnimation}
+                      data-autoplay="submit-generate-report"
                     >
                       <MagicWand01Icon size={16} /> {t("submitGenerateReport")}
                     </button>

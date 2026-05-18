@@ -983,6 +983,33 @@
     "ctaPrimary": "Request access",
     "ctaGhost": "Talk to founder"
   },
+  "autoplay": {
+    "selectingFramework": "Selecting framework…",
+    "selectingSecondFramework": "Adding a second framework…",
+    "openingRequestForm": "Opening access request…",
+    "submittingRequest": "Submitting framework request…",
+    "approvingRequest": "Approving as superadmin…",
+    "openingAuditScheduler": "Opening audit scheduler…",
+    "schedulingAudit": "Scheduling the audit…",
+    "openingPreparation": "Continuing to preparation…",
+    "linkingEvidence": "Linking evidence document…",
+    "confirmingEvidence": "Uploading evidence…",
+    "ratingCompliant": "Marking control as compliant…",
+    "ratingNonCompliant": "Marking control as non-compliant…",
+    "ratingNa": "Marking control as N/A…",
+    "generatingReport": "Generating compliance report…",
+    "signingAudit": "Signing and locking the audit…",
+    "typingAuditTitle": "Typing audit title…",
+    "typingDescription": "Typing description…",
+    "typingAdditionalContext": "Adding context…",
+    "selectingFrameworkOption": "Selecting framework…",
+    "selectingComplianceFramework": "Choosing compliance framework…",
+    "pickingDate": "Picking date…",
+    "selectingLeadAuditor": "Selecting lead auditor…",
+    "selectingOrgContact": "Selecting organization contact…",
+    "confirmingRemoteSetting": "Confirming remote audit setting…",
+    "confirmingSignoffSetting": "Confirming sign-off setting…"
+  },
   "product": {
     "of": "of",
     "hero": {
@@ -1422,7 +1449,12 @@
           "DM-1": { "title": "Medical Record Standards", "expect": "Standard formats and retention policies for all medical records" },
           "DM-2": { "title": "Policy Management", "expect": "Documented policies with review dates, approvals, and evidence of implementation" },
           "DM-3": { "title": "Records Archival", "expect": "Secure archival and retrieval processes for historical records" }
-        }
+        },
+        "narrativeEN": "Najm Insurance's Healthcare Accreditation audit for Q1 2026 demonstrates {solidOrDeveloping} alignment with CBAHI controls, achieving {score}% compliance across {total} criteria. The patient privacy policy and clinical governance framework are formally documented, approved, and maintained in both English and Arabic — satisfying the bilingual accreditation requirement. Patient safety reporting and medical records retention controls are in place. {ncLine} Evidence coverage is 100%, with all responses AI-validated against CBAHI standards. Recommend completing the medical records archival sync and scheduling the Q2 clinical governance review before the next accreditation cycle.",
+        "narrativeAR": "أظهرت شركة نجم للتأمين في مراجعة اعتماد القطاع الصحي للربع الأول 2026 توافقاً {solidOrDeveloping} مع متطلبات CBAHI، محققةً نسبة امتثال {score}٪ عبر {total} معايير. سياسة خصوصية المرضى وإطار الحوكمة السريرية موثقان ومعتمدان ومتاحان باللغتين العربية والإنجليزية — وهو ما يستوفي متطلب الاعتماد الثنائي اللغة. ضوابط الإبلاغ عن أحداث سلامة المرضى وحفظ السجلات الطبية قائمة وموثقة. {ncLine} تغطية الأدلة 100٪ مع التحقق الكامل بالذكاء الاصطناعي وفق معايير CBAHI. يُوصى بإتمام مزامنة أرشفة السجلات الطبية وجدولة مراجعة الحوكمة السريرية للربع الثاني قبل دورة الاعتماد التالية.",
+        "rec1": "Prioritize remediation of critical findings in patient safety and clinical governance domains.",
+        "rec2": "Implement enhanced monitoring for partially compliant patient privacy controls within 30 days.",
+        "rec3": "Establish executive oversight for medical records retention and infection control programs."
       },
       "cybersecurity": {
         "domain": "Cybersecurity Framework",
@@ -1453,7 +1485,12 @@
           "SUPP-1": { "title": "Vendor Assessment", "expect": "Security assessment of vendors and third-party service providers" },
           "SUPP-2": { "title": "Supply Chain Monitoring", "expect": "Continuous monitoring of supply chain security posture and compliance" },
           "SUPP-3": { "title": "Software Supply Chain", "expect": "Controls for software development pipeline security and code integrity" }
-        }
+        },
+        "narrativeEN": "Najm Insurance's Cybersecurity Framework audit for Q1 2026 demonstrates {solidOrDeveloping} alignment with SAMA CSF controls, achieving {score}% compliance across {total} criteria. The information security policy and incident response playbook are formally documented, approved, and tested. Privileged access management and multi-factor authentication are enforced on critical systems. {ncLine} Evidence coverage is 100%, with all responses AI-validated against SAMA Cybersecurity Framework requirements. Recommend tightening the supply chain vendor assessment cycle and completing the Q2 penetration test before the next regulator review.",
+        "narrativeAR": "أظهرت شركة نجم للتأمين في مراجعة إطار الأمن السيبراني للربع الأول 2026 توافقاً {solidOrDeveloping} مع متطلبات SAMA CSF، محققةً نسبة امتثال {score}٪ عبر {total} معايير. سياسة أمن المعلومات ودليل الاستجابة للحوادث موثقة ومعتمدة ومختبَرة. يتم تطبيق إدارة الوصول المميز والمصادقة متعددة العوامل على الأنظمة الحرجة. {ncLine} تغطية الأدلة 100٪ مع التحقق الكامل بالذكاء الاصطناعي وفق متطلبات إطار الأمن السيبراني SAMA. يُوصى بإحكام دورة تقييم موردي سلسلة التوريد واستكمال اختبار الاختراق للربع الثاني قبل المراجعة التنظيمية القادمة.",
+        "rec1": "Prioritize remediation of critical findings in privileged access and incident response controls.",
+        "rec2": "Implement enhanced monitoring for partially compliant supply chain security controls within 30 days.",
+        "rec3": "Establish board-level oversight for vulnerability management and threat intelligence programs."
       },
       "itGovernance": {
         "domain": "IT Governance",
@@ -1484,7 +1521,12 @@
           "COMP-1": { "title": "Regulatory Mapping", "expect": "Documented mapping of IT controls to regulatory requirements" },
           "COMP-2": { "title": "Compliance Audits", "expect": "Internal and external audits of IT controls with management review" },
           "COMP-3": { "title": "Policy Enforcement", "expect": "Documented enforcement of IT policies and standards" }
-        }
+        },
+        "narrativeEN": "Najm Insurance's IT Governance audit for Q1 2026 demonstrates {solidOrDeveloping} alignment with SAMA IT Governance controls, achieving {score}% compliance across {total} criteria. IT strategy is documented and approved by the governance committee, with a digital roadmap aligned to business objectives. Resource management and the IT risk register are maintained with active oversight. {ncLine} Evidence coverage is 100%, with all responses AI-validated against SAMA IT Governance Framework. Recommend completing the capacity planning refresh and scheduling the Q2 BC/DR test before the next governance review.",
+        "narrativeAR": "أظهرت شركة نجم للتأمين في مراجعة حوكمة تقنية المعلومات للربع الأول 2026 توافقاً {solidOrDeveloping} مع متطلبات حوكمة SAMA لتقنية المعلومات، محققةً نسبة امتثال {score}٪ عبر {total} معايير. استراتيجية تقنية المعلومات موثقة ومعتمدة من لجنة الحوكمة، مع خارطة طريق رقمية متوافقة مع أهداف الأعمال. تتم إدارة الموارد وسجل مخاطر تقنية المعلومات تحت إشراف فعّال. {ncLine} تغطية الأدلة 100٪ مع التحقق الكامل بالذكاء الاصطناعي وفق إطار حوكمة SAMA لتقنية المعلومات. يُوصى باستكمال تحديث تخطيط السعة وجدولة اختبار استمرارية الأعمال للربع الثاني قبل مراجعة الحوكمة التالية.",
+        "rec1": "Prioritize remediation of critical findings in IT strategy alignment and risk management controls.",
+        "rec2": "Implement enhanced monitoring for partially compliant performance and capacity planning controls within 30 days.",
+        "rec3": "Establish executive oversight for IT compliance and business continuity programs."
       },
       "general": {
         "domain": "Enterprise Compliance",
@@ -1515,7 +1557,12 @@
           "TP-1": { "title": "Vendor Risk Assessment", "expect": "Assessment of third-party risks before engagement and ongoing monitoring" },
           "TP-2": { "title": "Vendor Contracts", "expect": "Contracts include security and compliance requirements with audit rights" },
           "TP-3": { "title": "Vendor Compliance", "expect": "Regular monitoring of third-party compliance with contractual obligations" }
-        }
+        },
+        "narrativeEN": "Najm Insurance's Enterprise Compliance audit for Q1 2026 demonstrates {solidOrDeveloping} alignment with NCA ECC controls, achieving {score}% compliance across {total} criteria. Corporate governance, risk management, and third-party oversight policies are formally documented and approved in both English and Arabic. Operational resilience and security awareness programs are in place with documented training records. {ncLine} Evidence coverage is 100%, with all responses AI-validated against NCA ECC-2024 requirements. Recommend completing the vendor risk reassessment cycle and scheduling the Q2 board compliance review before the next regulator submission.",
+        "narrativeAR": "أظهرت شركة نجم للتأمين في مراجعة الامتثال المؤسسي للربع الأول 2026 توافقاً {solidOrDeveloping} مع متطلبات NCA ECC، محققةً نسبة امتثال {score}٪ عبر {total} معايير. سياسات الحوكمة المؤسسية وإدارة المخاطر وإشراف الأطراف الثالثة موثقة ومعتمدة باللغتين العربية والإنجليزية. برامج المرونة التشغيلية والتوعية الأمنية قائمة مع سجلات تدريب موثقة. {ncLine} تغطية الأدلة 100٪ مع التحقق الكامل بالذكاء الاصطناعي وفق متطلبات NCA ECC-2024. يُوصى بإكمال دورة إعادة تقييم مخاطر الموردين وجدولة مراجعة الامتثال على مستوى مجلس الإدارة للربع الثاني قبل التقديم التنظيمي التالي.",
+        "rec1": "Prioritize remediation of critical findings in high-risk governance and security control domains.",
+        "rec2": "Implement enhanced monitoring for partially compliant operational and third-party controls within 30 days.",
+        "rec3": "Establish governance oversight for identified control improvement areas across the enterprise."
       }
     },
     "healthcare": {
