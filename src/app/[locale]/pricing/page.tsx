@@ -5,12 +5,9 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { FAQList } from "@/components/FAQ";
 import JsonLd from "@/components/JsonLd";
+import PricingForm from "@/components/PricingForm";
 import { buildMetadata, SITE_URL, BRAND } from "@/lib/seo";
-import {
-  breadcrumbNode,
-  faqNode,
-  jsonLdGraph,
-} from "@/lib/jsonld";
+import { breadcrumbNode, faqNode, jsonLdGraph } from "@/lib/jsonld";
 
 export async function generateMetadata({
   params,
@@ -46,41 +43,14 @@ export default async function PricingPage({
     a: t(`a${n}` as any),
   }));
 
-  const offersLd = {
-    "@type": "Product",
-    name: `${BRAND.name} — ${locale === "ar" ? "باقات الامتثال" : "Compliance Plans"}`,
-    description: m("description"),
-    brand: { "@type": "Brand", name: BRAND.name },
-    url: `${SITE_URL}/${locale}/pricing`,
-    offers: [
-      {
-        "@type": "Offer",
-        name: "Starter",
-        price: "30000",
-        priceCurrency: "SAR",
-        availability: "https://schema.org/InStock",
-        url: `${SITE_URL}/${locale}/pricing`,
-      },
-      {
-        "@type": "Offer",
-        name: "Professional",
-        price: "70000",
-        priceCurrency: "SAR",
-        availability: "https://schema.org/InStock",
-        url: `${SITE_URL}/${locale}/pricing`,
-      },
-      {
-        "@type": "Offer",
-        name: "Enterprise",
-        priceCurrency: "SAR",
-        availability: "https://schema.org/InStock",
-        url: `${SITE_URL}/${locale}/contact`,
-      },
-    ],
-  };
-
   const ld = jsonLdGraph([
-    offersLd,
+    {
+      "@type": "Product",
+      name: `${BRAND.name} — ${locale === "ar" ? "باقات الامتثال" : "Compliance Plans"}`,
+      description: m("description"),
+      brand: { "@type": "Brand", name: BRAND.name },
+      url: `${SITE_URL}/${locale}/pricing`,
+    },
     faqNode(faqItems),
     breadcrumbNode(locale, [
       { name: "ArabAudit", path: "/" },
@@ -88,59 +58,25 @@ export default async function PricingPage({
     ]),
   ]);
 
-  interface Plan {
-    name: string;
-    title: string;
-    desc: string;
-    amt: string;
-    per: string;
-    note: string;
-    features: string[];
-    cta: string;
-    ctaHref: string;
-    ctaClass: string;
-    featured?: boolean;
-    amtSmall?: boolean;
-  }
-
-  const plans: Plan[] = [
+  const plans = [
     {
       name: t("p1name"),
       title: t("p1title"),
       desc: t("p1desc"),
-      amt: t("p1amt"),
-      per: t("p1per"),
-      note: t("p1note"),
       features: [t("p1f1"), t("p1f2"), t("p1f3"), t("p1f4"), t("p1f5"), t("p1f6"), t("p1f7")],
-      cta: t("p1cta"),
-      ctaHref: "mailto:kauser@arabaudit.com?subject=Starter%20Plan%20Inquiry",
-      ctaClass: "ghost",
     },
     {
       name: t("p2name"),
       title: t("p2title"),
       desc: t("p2desc"),
-      amt: t("p2amt"),
-      per: t("p2per"),
-      note: t("p2note"),
       features: [t("p2f1"), t("p2f2"), t("p2f3"), t("p2f4"), t("p2f5"), t("p2f6")],
-      cta: t("p2cta"),
-      ctaHref: "mailto:kauser@arabaudit.com?subject=Professional%20Plan%20Inquiry",
-      ctaClass: "featured-cta",
       featured: true,
     },
     {
       name: t("p3name"),
       title: t("p3title"),
       desc: t("p3desc"),
-      amt: t("p3amt"),
-      per: t("p3per"),
-      note: t("p3note"),
       features: [t("p3f1"), t("p3f2"), t("p3f3"), t("p3f4"), t("p3f5"), t("p3f6"), t("p3f7")],
-      cta: t("p3cta"),
-      ctaHref: "mailto:kauser@arabaudit.com?subject=Enterprise%20Inquiry",
-      ctaClass: "primary",
-      amtSmall: true,
     },
   ];
 
@@ -150,6 +86,7 @@ export default async function PricingPage({
       <Nav />
       <main id="main">
 
+      {/* HERO */}
       <section className="pricing-hero">
         <div className="wrap">
           <div className="eyebrow">{t("eyebrow")}</div>
@@ -158,59 +95,184 @@ export default async function PricingPage({
             <em style={{ color: "var(--gold-1)" }}>{t("titleB")}</em>
           </h1>
           <p className="lede" style={{ marginTop: 20, maxWidth: 720 }}>{t("lede")}</p>
-
-          <div className="plans-grid">
-            {plans.map((p, i) => (
-              <div
-                key={i}
-                className={`plan${p.featured ? " featured" : ""}`}
-                data-popular={p.featured ? t("mostPopular") : undefined}
-              >
-                <div className="plan-name">{p.name}</div>
-                <div className="plan-title">{p.title}</div>
-                <div className="plan-desc">{p.desc}</div>
-
-                <div className="plan-price">
-                  <div className="amt" style={p.amtSmall ? { fontSize: 36 } : undefined}>
-                    {!p.amtSmall && <span className="cur">SAR</span>}
-                    {p.amt}
-                  </div>
-                  <div className="per">{p.per}</div>
-                  <div className="note">{p.note}</div>
-                </div>
-
-                <ul className="plan-features">
-                  {p.features.map((f, j) => <li key={j}>{f}</li>)}
-                </ul>
-
-                <a href={p.ctaHref} className={`plan-cta ${p.ctaClass}`}>
-                  {p.cta}
-                </a>
-              </div>
-            ))}
-          </div>
-
-          <div
-            style={{
-              marginTop: 40,
-              padding: 20,
-              background: "white",
-              border: "1px solid var(--line)",
-              borderLeft: "3px solid var(--gold-1)",
-              borderRadius: 8,
-              textAlign: "center",
-              fontSize: 14,
-              color: "var(--ink-2)",
-              fontStyle: "italic",
-            }}
-          >
-            {t("addonNoteA")}
-            <strong style={{ color: "var(--emerald-3)", fontStyle: "normal" }}>{t("addonNoteB")}</strong>
-          </div>
         </div>
       </section>
 
-      {/* Compare */}
+      {/* PLANS + FORM */}
+      <section style={{ padding: "0 0 80px" }}>
+        <div className="wrap">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 48,
+              alignItems: "start",
+            }}
+            className="pricing-split"
+          >
+            {/* LEFT: plan feature cards */}
+            <div>
+              <div
+                style={{
+                  fontFamily: "var(--f-mono)",
+                  fontSize: 11,
+                  letterSpacing: ".14em",
+                  textTransform: "uppercase",
+                  color: "var(--ink-3)",
+                  marginBottom: 20,
+                }}
+              >
+                {t("plansEyebrow")}
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                {plans.map((p, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      background: p.featured
+                        ? "linear-gradient(135deg, #0e3f2e 0%, #1a6b4f 100%)"
+                        : "#fff",
+                      border: p.featured
+                        ? "none"
+                        : "1px solid var(--line)",
+                      borderRadius: 14,
+                      padding: "24px 28px",
+                      boxShadow: p.featured
+                        ? "0 16px 40px -8px rgba(14,63,46,.35)"
+                        : "0 2px 12px -4px rgba(14,63,46,.08)",
+                      position: "relative",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {p.featured && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: 16,
+                          right: 16,
+                          background: "var(--gold-3)",
+                          color: "#0e3f2e",
+                          fontSize: 10,
+                          fontFamily: "var(--f-mono)",
+                          letterSpacing: ".1em",
+                          fontWeight: 700,
+                          padding: "3px 10px",
+                          borderRadius: 20,
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {t("mostPopular")}
+                      </div>
+                    )}
+                    <div
+                      style={{
+                        fontFamily: "var(--f-mono)",
+                        fontSize: 10,
+                        letterSpacing: ".14em",
+                        color: p.featured ? "var(--gold-3)" : "var(--gold-1)",
+                        textTransform: "uppercase",
+                        marginBottom: 4,
+                      }}
+                    >
+                      {p.name}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--f-serif)",
+                        fontSize: 20,
+                        color: p.featured ? "var(--cream-1)" : "var(--emerald-3)",
+                        fontWeight: 500,
+                        marginBottom: 6,
+                      }}
+                    >
+                      {p.title}
+                    </div>
+                    <p
+                      style={{
+                        fontSize: 13,
+                        color: p.featured ? "rgba(247,243,234,.72)" : "var(--ink-3)",
+                        margin: "0 0 16px",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {p.desc}
+                    </p>
+                    <ul
+                      style={{
+                        padding: 0,
+                        margin: 0,
+                        listStyle: "none",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 6,
+                      }}
+                    >
+                      {p.features.map((f, j) => (
+                        <li
+                          key={j}
+                          style={{
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: 8,
+                            fontSize: 13,
+                            color: p.featured ? "rgba(247,243,234,.85)" : "var(--ink-2)",
+                            lineHeight: 1.4,
+                          }}
+                        >
+                          <span
+                            style={{
+                              color: p.featured ? "var(--gold-3)" : "var(--emerald-3)",
+                              flexShrink: 0,
+                              marginTop: 1,
+                            }}
+                          >
+                            ✓
+                          </span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+
+              <div
+                style={{
+                  marginTop: 20,
+                  padding: "16px 20px",
+                  background: "var(--cream-1)",
+                  border: "1px solid var(--line)",
+                  borderLeft: "3px solid var(--gold-1)",
+                  borderRadius: 8,
+                  fontSize: 13,
+                  color: "var(--ink-3)",
+                  fontStyle: "italic",
+                }}
+              >
+                {t("addonNoteA")}
+                <strong style={{ color: "var(--emerald-3)", fontStyle: "normal" }}>
+                  {t("addonNoteB")}
+                </strong>
+              </div>
+            </div>
+
+            {/* RIGHT: inquiry form */}
+            <div style={{ position: "sticky", top: 100 }}>
+              <PricingForm />
+            </div>
+          </div>
+        </div>
+
+        <style>{`
+          @media (max-width: 900px) {
+            .pricing-split {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}</style>
+      </section>
+
+      {/* FEATURE COMPARE TABLE */}
       <section className="compare-table">
         <div className="wrap">
           <div className="eyebrow">{t("compareEyebrow")}</div>
@@ -265,15 +327,17 @@ export default async function PricingPage({
                 <thead>
                   <tr>
                     <th>{t("cmp.thFeature")}</th>
-                    <th>{t("p1name")}<br /><span style={{ fontFamily: "var(--f-serif)", fontSize: 13, color: "var(--emerald-3)", textTransform: "none", letterSpacing: 0 }}>{t("cmp.priceStarter")}</span></th>
-                    <th>{t("p2name")}<br /><span style={{ fontFamily: "var(--f-serif)", fontSize: 13, color: "var(--emerald-3)", textTransform: "none", letterSpacing: 0 }}>{t("cmp.pricePro")}</span></th>
-                    <th>{t("p3name")}<br /><span style={{ fontFamily: "var(--f-serif)", fontSize: 13, color: "var(--emerald-3)", textTransform: "none", letterSpacing: 0 }}>{t("cmp.priceEnterprise")}</span></th>
+                    <th>{t("p1name")}</th>
+                    <th>{t("p2name")}</th>
+                    <th>{t("p3name")}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {rows.map((row, i) =>
                     row.head ? (
-                      <tr key={i} className="section-head"><td colSpan={4}>{t(`cmp.${row.key}` as any)}</td></tr>
+                      <tr key={i} className="section-head">
+                        <td colSpan={4}>{t(`cmp.${row.key}` as any)}</td>
+                      </tr>
                     ) : (
                       <tr key={i}>
                         <td>{t(`cmp.${row.labelKey}` as any)}</td>
@@ -315,11 +379,13 @@ export default async function PricingPage({
       <section className="dark" style={{ padding: "120px 0", backgroundColor: "rgb(7, 55, 39)" }}>
         <div className="wrap" style={{ textAlign: "center" }}>
           <div className="eyebrow on-dark">{t("ctaEyebrow")}</div>
-          <h2 className="display" style={{ fontSize: "clamp(40px, 5.6vw, 84px)", marginTop: 20 }}>{t("ctaTitle")}</h2>
+          <h2 className="display" style={{ fontSize: "clamp(40px, 5.6vw, 84px)", marginTop: 20 }}>
+            {t("ctaTitle")}
+          </h2>
           <p className="lede" style={{ margin: "28px auto 0", maxWidth: 680 }}>{t("ctaLede")}</p>
           <div className="flex gap-3 mt-8 center">
             <Link href="/demo-audit" className="btn btn-primary">{t("ctaPrimary")}</Link>
-            <a href="mailto:kauser@arabaudit.com" className="btn btn-ghost on-dark">{t("ctaGhost")}</a>
+            <Link href="/contact" className="btn btn-ghost on-dark">{t("ctaGhost")}</Link>
           </div>
         </div>
       </section>
