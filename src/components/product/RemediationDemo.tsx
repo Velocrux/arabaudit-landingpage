@@ -159,7 +159,7 @@ export default function RemediationDemo() {
                   <>
                     <div className={`ticket-section ${visibleSections.s1 ? "visible" : ""}`}>
                       <div className="ticket-section-label">{t("riskImpact")}</div>
-                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                      <div className="remedy-risk-pair" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                         <div
                           style={{
                             padding: "10px 12px",

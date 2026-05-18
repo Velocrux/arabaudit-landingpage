@@ -31,21 +31,21 @@ export default function AutoLinkDemo() {
   const tShared = useTranslations("product");
 
   const docs: Doc[] = [
-    { id: 1, name: t("doc1"), meta: "POLICY · 2.4 MB", lang: "EN", icon: <File01Icon size={16} /> },
-    { id: 2, name: t("doc2"), meta: "POLICY · 1.8 MB", lang: "AR", icon: <File01Icon size={16} /> },
-    { id: 3, name: t("doc3"), meta: "CONFIG · 512 KB", lang: "EN", icon: <File01Icon size={16} /> },
-    { id: 4, name: t("doc4"), meta: "CERT · 890 KB", lang: "EN", icon: <Certificate01Icon size={16} /> },
-    { id: 5, name: t("doc5"), meta: "LOG · 128 KB", lang: "EN", icon: <ChartIncreaseIcon size={16} /> },
+    { id: 1, name: t("doc1"), meta: `${t("tagPolicy")} · 2.4 MB`, lang: "EN", icon: <File01Icon size={16} /> },
+    { id: 2, name: t("doc2"), meta: `${t("tagPolicy")} · 1.8 MB`, lang: "AR", icon: <File01Icon size={16} /> },
+    { id: 3, name: t("doc3"), meta: `${t("tagConfig")} · 512 KB`, lang: "EN", icon: <File01Icon size={16} /> },
+    { id: 4, name: t("doc4"), meta: `${t("tagCert")} · 890 KB`, lang: "EN", icon: <Certificate01Icon size={16} /> },
+    { id: 5, name: t("doc5"), meta: `${t("tagLog")} · 128 KB`, lang: "EN", icon: <ChartIncreaseIcon size={16} /> },
   ];
 
   const allSuggestions: Suggestion[] = [
-    { doc: t("doc1"), path: "D1 Governance > CR-1.2.3 Cybersecurity Policy", conf: 94, reason: t("reason1") },
-    { doc: t("doc1"), path: "D1 Governance > CR-1.1.1 Cybersecurity Strategy", conf: 82, reason: t("reason2") },
-    { doc: t("doc2"), path: "D1 Governance > CR-1.2.3 Cybersecurity Policy", conf: 92, reason: t("reason3") },
-    { doc: t("doc3"), path: "D2 Defense > CR-2.5.1 Network Security", conf: 88, reason: t("reason4") },
-    { doc: t("doc4"), path: "D4 Third Party > CR-4.1.2 Cloud Data Residency", conf: 97, reason: t("reason5") },
-    { doc: t("doc5"), path: "D2 Defense > CR-2.7.2 Privileged Access", conf: 76, reason: t("reason6") },
-    { doc: t("doc5"), path: "D2 Defense > CR-2.3.1 User Access Management", conf: 84, reason: t("reason7") },
+    { doc: t("doc1"), path: t("path1"), conf: 94, reason: t("reason1") },
+    { doc: t("doc1"), path: t("path2"), conf: 82, reason: t("reason2") },
+    { doc: t("doc2"), path: t("path1"), conf: 92, reason: t("reason3") },
+    { doc: t("doc3"), path: t("path4"), conf: 88, reason: t("reason4") },
+    { doc: t("doc4"), path: t("path5"), conf: 97, reason: t("reason5") },
+    { doc: t("doc5"), path: t("path6"), conf: 76, reason: t("reason6") },
+    { doc: t("doc5"), path: t("path7"), conf: 84, reason: t("reason7") },
   ];
 
   const [step, setStep] = useState(1);

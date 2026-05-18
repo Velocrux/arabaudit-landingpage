@@ -64,11 +64,17 @@
       "demo1Title": "Framework Browser",
       "demo1Sub": "NCA ECC tree · domains · cross-framework overlap",
       "demo2Title": "End-to-end Audit",
-      "demo2Sub": "Plan → Findings → Streaming AI report"
+      "demo2Sub": "Plan → Findings → Streaming AI report",
+      "proofD1": "Leadership",
+      "proofD2": "Patient Care",
+      "proofD3": "Medication",
+      "proofD4": "Infection Ctrl",
+      "proofD5": "Emergency"
     },
     "capabilities": {
       "eyebrow": "Capabilities · cycle",
       "title": "AI that works across the entire audit lifecycle",
+      "titleRich": "<em>AI</em> that works across the entire audit lifecycle",
       "lede": "Every capability is orchestrated around a single AI Core — shared memory, shared framework context, shared ledger. Evidence enters the cycle once and emerges as a regulator-ready report.",
       "c1Num": "01 · Preparation",
       "c1Title": "AI Auto-Link",
@@ -424,6 +430,61 @@
     "addonNoteB": "Each additional framework: SAR 20,000/yr",
     "compareEyebrow": "Feature comparison",
     "compareTitle": "Compare plans side-by-side.",
+    "cmp": {
+      "thFeature": "Feature",
+      "priceStarter": "SAR 30,000/yr",
+      "pricePro": "SAR 70,000/yr",
+      "priceEnterprise": "Custom",
+      "sec1": "Frameworks & Scope",
+      "sec2": "AI Features",
+      "sec3": "Operations & Export",
+      "sec4": "Users & Access",
+      "sec5": "Infrastructure",
+      "sec6": "Support",
+      "r1": "Frameworks included",
+      "r1s": "1 Core",
+      "r1p": "Multi-framework",
+      "r1e": "Unlimited",
+      "r2": "Additional frameworks",
+      "r2s": "SAR 20k each",
+      "r2p": "SAR 20k each",
+      "r2e": "Included",
+      "r3": "Multi-Framework Overlap Engine",
+      "r4": "Findings & Remediation workflow",
+      "r5": "AI-powered validity monitoring",
+      "r6": "AI Audit Readiness",
+      "richer": "Richer readiness",
+      "r7": "AI Evidence Validation",
+      "r8": "AI Finding Draft (bilingual)",
+      "r9": "Audit Copilot",
+      "r10": "Deep Arabic Document AI",
+      "r11": "AI Summary Report (streaming)",
+      "r12": "AI Remediation Planner",
+      "r13": "Digital Evidence Vault",
+      "r14": "One-Click Regulatory Export",
+      "r15": "Evidence ledger (SHA-256)",
+      "r16": "Data export (JSON/CSV/PDF)",
+      "r17": "User seats included",
+      "r17s": "3 seats",
+      "r17p": "10 seats",
+      "r17e": "Unlimited",
+      "r18": "Additional user seats",
+      "r18p": "On request",
+      "r18e": "Included",
+      "r19": "Role-based access control",
+      "r20": "SSO · SAML · AD integration",
+      "r21": "Hosting",
+      "r21s": "me-central-2",
+      "r21p": "me-central-2",
+      "r21e": "Sovereign Gateway (on-prem)",
+      "r22": "Custom integrations (AD/SIEM)",
+      "r23": "API access & webhooks",
+      "r24": "Email support",
+      "r25": "Response SLA",
+      "r25p": "4-hr",
+      "r25e": "1-hr",
+      "r26": "Dedicated Customer Success Manager"
+    },
     "ctaEyebrow": "Ready to start?",
     "ctaTitle": "Start free. Scale when you're ready.",
     "ctaLede": "Every plan — including free — includes me-central-2 hosting, bilingual OCR, and the signed evidence ledger. No credit card to start.",
@@ -447,6 +508,93 @@
     "a7": "All plans are annual billed. You can cancel at any point with 30 days' notice; all your audit data and evidence is exportable as a signed JSON archive regardless of plan. Enterprise contracts are typically 12–36 months with volume discounts.",
     "q8": "Do you support ZATCA e-invoicing?",
     "a8": "Yes. All invoices are ZATCA Phase 2-compliant, issued as signed XML + PDF with QR codes, and automatically submitted to the Fatoora portal. We are registered VAT payer under the Kingdom's tax regime."
+  },
+  "fwData": {
+    "sector": "Compliance",
+    "marqueeSamaIt": "SAMA IT Governance",
+    "marqueePci": "PCI-DSS v4",
+    "samaCsf": {
+      "name": "SAMA CSF (Financial)",
+      "authority": "Saudi Central Bank (SAMA)",
+      "tagline": "SAMA Cybersecurity Framework",
+      "summary": "SAMA Cybersecurity Framework",
+      "d1": { "name": "Cyber Security Leadership and Governance", "desc": "Controls related to Cyber Security Leadership and Governance" },
+      "d2": { "name": "Cyber Security Risk Management and Compliance", "desc": "Controls related to Cyber Security Risk Management and Compliance" },
+      "d3": { "name": "Cyber Security Operations and Technology", "desc": "Controls related to Cyber Security Operations and Technology" },
+      "d4": { "name": "Third Party Cyber Security", "desc": "Controls related to Third Party Cyber Security" }
+    },
+    "ncaEcc": {
+      "name": "NCA ECC (Cybersecurity)",
+      "authority": "National Cybersecurity Authority (NCA)",
+      "tagline": "NCA Essential Cybersecurity Controls",
+      "summary": "NCA Essential Cybersecurity Controls",
+      "d1": { "name": "Cybersecurity Governance", "desc": "Controls related to Cybersecurity Governance" },
+      "d2": { "name": "Cybersecurity Defense", "desc": "Controls related to Cybersecurity Defense" },
+      "d3": { "name": "Cybersecurity Resilience", "desc": "Controls related to Cybersecurity Resilience" },
+      "d4": { "name": "Third-Party and Cloud Computing Cybersecurity", "desc": "Controls related to Third-Party and Cloud Computing Cybersecurity" }
+    },
+    "sdaiaPdpl": {
+      "name": "SDAIA Personal Data Protection Law",
+      "authority": "Saudi Data & AI Authority (SDAIA)",
+      "tagline": "SDAIA PDPL (نظام حماية البيانات الشخصية)",
+      "summary": "SDAIA PDPL (نظام حماية البيانات الشخصية)",
+      "d1": { "name": "Privacy Governance and Accountability", "desc": "Covers the organisational governance structures, designated privacy roles (DPO), privacy impact assessments, records of processing activities, and management of data processors to ensure accountable personal data handling under SDAIA PDPL." },
+      "d2": { "name": "Lawful Basis and Consent", "desc": "Covers consent management, legitimate bases for processing without consent, and purpose limitation and data minimisation principles under SDAIA PDPL." },
+      "d3": { "name": "Transparency and Individual Rights", "desc": "Covers privacy policy requirements, collection notice obligations, the full framework of data subject rights, and the handling of data subject requests under SDAIA PDPL." },
+      "d4": { "name": "Data Quality and Retention", "desc": "Covers data accuracy obligations, personal data retention management, correction and update notification, and compliant data destruction under SDAIA PDPL." },
+      "d5": { "name": "Data Disclosure, Transfer and Special Processing", "desc": "Covers personal data disclosure controls, cross-border data transfer requirements, direct marketing, scientific and research processing, and special handling of official documents under SDAIA PDPL." },
+      "d6": { "name": "Data Security and Breach Management", "desc": "Covers the implementation of technical and organisational security measures to protect personal data, and the management of personal data breach notifications to SDAIA and data subjects as required under PDPL." }
+    },
+    "samaItGovernance": {
+      "name": "SAMA IT Governance Framework",
+      "authority": "Saudi Central Bank (SAMA)",
+      "tagline": "SAMA IT Governance Framework (الدليل التنظيمي لحوكمة تقنية المعلومات)",
+      "summary": "SAMA IT Governance Framework (الدليل التنظيمي لحوكمة تقنية المعلومات)",
+      "d1": { "name": "IT Governance and Leadership", "desc": "Establishes the governance structure, strategy, policies, roles, regulatory compliance, audit, training, and performance management for IT within the financial institution." },
+      "d2": { "name": "IT Risk Management", "desc": "Covers the identification, analysis, treatment, reporting, and monitoring of IT risks within the financial institution." },
+      "d3": { "name": "Operations Management", "desc": "Governs IT asset management, service levels, availability, data centres, networks, batch processing, incident management, problem management, backup, and virtualisation for the financial institution." },
+      "d4": { "name": "System Change Management", "desc": "Governs system change governance, requirements, acquisition, development, testing, security, release, configuration, patch management, project management, and quality assurance." }
+    },
+    "pciDss": {
+      "name": "PCI DSS v4.0.1",
+      "authority": "PCI Security Standards Council",
+      "tagline": "Payment Card Industry Data Security Standard version 4.0.1. A global security standard designed to protect cardholder data and reduce payment card fraud through technical and operational controls across six domains and twelve core requirements.",
+      "summary": "Payment Card Industry Data Security Standard version 4.0.1. A global security standard designed to protect cardholder data and reduce payment card fraud through technical and operational controls across six domains and twelve core requirements.",
+      "d1": { "name": "Build and Maintain a Secure Network and Systems", "desc": "Establish and maintain network security controls (NSCs) and apply secure configurations to all system components to protect the cardholder data environment." },
+      "d2": { "name": "Protect Account Data", "desc": "Protect stored account data using strong controls and encrypt cardholder data during transmission over open, public networks to prevent unauthorized access." },
+      "d3": { "name": "Maintain a Vulnerability Management Program", "desc": "Protect all systems and networks from malicious software, and develop and maintain secure systems and software to prevent exploitation of vulnerabilities." },
+      "d4": { "name": "Implement Strong Access Control Measures", "desc": "Restrict access to system components and cardholder data by business need to know, uniquely identify all users with authentication, and restrict physical access to cardholder data." },
+      "d5": { "name": "Regularly Monitor and Test Networks", "desc": "Log and monitor all access to network resources and cardholder data, and regularly test security systems and processes to ensure the environment is protected." },
+      "d6": { "name": "Maintain an Information Security Policy", "desc": "An information security policy sets the direction for an entity's approach to managing information security across the enterprise and helps establish a culture of security within the organization." }
+    },
+    "iso27001": {
+      "name": "ISO 27001:2022",
+      "authority": "International Organization for Standardization (ISO)",
+      "tagline": "ISO/IEC 27001:2022 – Information security, cybersecurity and privacy protection. Specifies the requirements for establishing, implementing, maintaining and continually improving an ISMS. Includes mandatory Clauses 4–10 and 93 Annex A controls across four themes: Organizational (5.1–5.37), People (6.1–6.8), Physical (7.1–7.14), Technological (8.1–8.34).",
+      "summary": "ISO/IEC 27001:2022 – Information security, cybersecurity and privacy protection. Specifies the requirements for establishing, implementing, maintaining and continually improving an ISMS. Includes mandatory Clauses 4–10 and 93 Annex A controls across four themes: Organizational (5.1–5.37), People (6.1–6.8), Physical (7.1–7.14), Technological (8.1–8.34).",
+      "d1": { "name": "ISMS Mandatory Clauses (4–10)", "desc": "ISO 27001:2022 mandatory ISMS requirements that every organization must satisfy for certification. These clauses establish, implement, maintain, and continually improve the ISMS." },
+      "d2": { "name": "Organizational Controls", "desc": "Annex A Theme 1 – policies, governance, risk, supplier security, and incident management (controls 5.1–5.37)." },
+      "d3": { "name": "People Controls", "desc": "Annex A Theme 2 – screening, terms of employment, awareness, training, discipline, termination, and event reporting (controls 6.1–6.8)." },
+      "d4": { "name": "Physical Controls", "desc": "Annex A Theme 3 – secure areas, entry, equipment, cabling, and clear desk/screen (controls 7.1–7.14)." },
+      "d5": { "name": "Technological Controls", "desc": "Annex A Theme 4 – endpoint security, access, cryptography, vulnerability management, logging, and network security (controls 8.1–8.34)." }
+    },
+    "cbahiClinic": {
+      "name": "CBAHI National Standards for Ambulatory Care Centers",
+      "authority": "Central Board for Accreditation of Healthcare Institutions",
+      "tagline": "CBAHI National Standards for Ambulatory Care Centers – First Edition 2019, Effective 1 January 2020. 11 chapters, 133 standards, 594 sub-standards (7 core).",
+      "summary": "CBAHI National Standards for Ambulatory Care Centers – First Edition 2019, Effective 1 January 2020. 11 chapters, 133 standards, 594 sub-standards (7 core).",
+      "d1": { "name": "LD - Leadership of the Organization", "desc": "For any ambulatory care center, quality and patient safety depend on effective leadership. The leadership chapter addresses organizational structure, governance, roles and responsibilities of leaders, human resource management, patient and family rights, and quality improvement and patient safety." },
+      "d2": { "name": "PC - Provision of Care", "desc": "The provision of care chapter addresses the process of patient registration, patient assessment and reassessment, plan of care, consultations, patient's and family's education and participation in the treatment plan, cardiopulmonary resuscitation process, transfer and referral, and emergency care." },
+      "d3": { "name": "LB - Laboratory Services", "desc": "The assessment/reassessment of patients to determine the proper diagnosis, the course of treatment, and the evaluation of the treatment plan for future decisions may require laboratory services. To meet the patient's needs, the center should either provide basic laboratory services or outsource them to a recognized laboratory through a formal contracting process. This chapter addresses physical structure, staffing, safety program, specimen collection, equipment management program, labeling, quality management program, and point of care testing." },
+      "d4": { "name": "RD - Radiology Services", "desc": "The assessment/reassessment of patients to determine the proper diagnosis, course of treatment, and evaluation of the treatment plan for future decisions may require radiology services. To meet patient needs, the center should offer radiology services or outsource them through a formal agreement with a recognized radiology center. If the center provides radiology services, the services are expected to meet the necessary national guidelines on radiation safety. This chapter addresses staffing, radiation safety program, and equipment maintenance program." },
+      "d5": { "name": "DN - Dental Services", "desc": "Dental clinics pose a risk to patients that is different from the risks posed in other clinics in the center. This chapter addresses the peculiar dental standards that mitigate such risk, including staffing requirements, patients' assessment and treatment planning, patients' and families' education, medical records documentation requirements, and infection control requirements." },
+      "d6": { "name": "MM - Medication Management", "desc": "The standards in this chapter focus on medication management as it applies to outpatient prescriptions, and medication use in the day procedure unit, the emergency room, and owned outpatient pharmacies. The standards focus on scope of medication services, safe storage of medications, safe medication preparation, review of prescriptions for appropriateness, handling of expired medications, management of narcotics and psychotropic medications, and management of medication errors and adverse drug reactions." },
+      "d7": { "name": "MOI - Management of Information", "desc": "Information management is a cornerstone of patient care and the decision support process by center leaders. Center leaders are required to design and implement an information management plan that defines managing the information required by governmental and external agents, managing internal information requirements, maintaining the security and confidentiality of information, retaining records, and documenting and completing patients' unique medical record." },
+      "d8": { "name": "IPC - Infection Prevention and Control", "desc": "The ambulatory care center requires processes to support the prevention and control of infection that might be acquired or transmitted by patients, staff, and visitors while in the center. These processes reduce the risk or spread of infection and ensure that care is provided in a clean, sterile environment. To ensure staff and patient safety, infection prevention and control requires an effective center-wide infection prevention and control program that identifies, reduces, and eliminates infection risks." },
+      "d9": { "name": "FMS - Facility Management and Safety", "desc": "A safe, functional, and effective environment for patients, staff, and other individuals is crucial to prevent or minimize risks in the environment of care. The center leadership must provide all necessary support and resources to improve safety in the workplace in alignment with regulatory requirements. The center must maintain plans for managing the safety of the environment and must implement these plans. The center must collect and analyze data to determine the effectiveness of the plans and facilitate continuous quality improvement." },
+      "d10": { "name": "DPU - Day Procedure Unit", "desc": "Ambulatory care centers may have a day procedure unit where all day procedures are performed under local anesthesia, sedation analgesia, or general anesthesia. This chapter focuses on the standards required to safely manage patients in the day procedure unit, utilizing evidence-based criteria." },
+      "d11": { "name": "DA - Dermatology & Aesthetics Medicine", "desc": "Although dermatology and aesthetics medicine are recognized scopes of medical services that can be covered by the other chapters in this standards' manual, yet their wide spread practices in the ambulatory arena and their specific risky procedures warrants a separate chapter. The chapter, therefore, focuses on specific human resources and structural requirements as well as clinical risk management requirements." }
+    }
   },
   "frameworks": {
     "eyebrow": "Frameworks",
@@ -482,6 +630,7 @@
     "notFound": "Framework not found."
   },
   "demoFramework": {
+    "superadmin": "SuperAdmin",
     "heroPill": "Interactive walkthrough · click through each stage",
     "heroTitleA": "Browse, request, audit.",
     "heroTitleB": "In that order.",
@@ -593,6 +742,12 @@
     "ctaGhost": "Talk to founder"
   },
   "demoAudit": {
+    "rec1": "Prioritize remediation of critical findings in high-risk control domains.",
+    "rec2": "Implement enhanced monitoring for partially compliant controls within 30 days.",
+    "rec3": "Establish governance oversight for identified control improvement areas.",
+    "aiRecsHeading": "AI-Powered Recommendations",
+    "reportDate": "18 April 2026",
+    "brandDemo": "ArabAudit Demo",
     "heroPill": "End-to-end audit · fully interactive · every button works",
     "heroTitleA": "Run a full audit.",
     "heroTitleB": "In under 5 minutes.",
@@ -849,7 +1004,17 @@
       "reason4": "Configuration matrix covers all 7 required firewall rule categories for NCA ECC.",
       "reason5": "AWS attestation explicitly certifies me-central-2 hosting — direct match to PDPL Art. 23.",
       "reason6": "Access review log shows quarterly cycle; partial coverage for privileged accounts.",
-      "reason7": "Log entries cover user provisioning, de-provisioning, and rotation events."
+      "reason7": "Log entries cover user provisioning, de-provisioning, and rotation events.",
+      "tagPolicy": "POLICY",
+      "tagConfig": "CONFIG",
+      "tagCert": "CERT",
+      "tagLog": "LOG",
+      "path1": "D1 Governance > CR-1.2.3 Cybersecurity Policy",
+      "path2": "D1 Governance > CR-1.1.1 Cybersecurity Strategy",
+      "path4": "D2 Defense > CR-2.5.1 Network Security",
+      "path5": "D4 Third Party > CR-4.1.2 Cloud Data Residency",
+      "path6": "D2 Defense > CR-2.7.2 Privileged Access",
+      "path7": "D2 Defense > CR-2.3.1 User Access Management"
     },
     "readiness": {
       "num": "02 · Preparation",
@@ -1191,6 +1356,133 @@
     "heroLede": "Pick your industry and framework. Watch a complete audit flow with real metrics, findings, and compliance scores specific to your sector.",
     "selectUseCaseTitle": "Select your use case",
     "selectUseCaseSub": "Each use case demo showcases a complete audit with industry-specific metrics, findings, and regulator-ready reports.",
+    "startDemo": "Start audit demo →",
+    "flow": {
+      "healthcare": {
+        "domain": "Healthcare Accreditation",
+        "ctrl": {
+          "HG": "Patient Data Protection",
+          "CG": "Clinical Governance",
+          "RM": "Risk Management",
+          "CM": "Compliance Monitoring",
+          "DM": "Documentation Management"
+        },
+        "doc": {
+          "0": { "cat": "Policies", "name": "Patient Privacy Policy" },
+          "1": { "cat": "Governance", "name": "Clinical Governance Framework" }
+        },
+        "crit": {
+          "HG-1": { "title": "Patient Record Access Controls", "expect": "Ensure patient records are accessible only by authorized personnel with documented approval" },
+          "HG-2": { "title": "Data Encryption Standards", "expect": "All sensitive patient data must be encrypted in transit and at rest using approved algorithms" },
+          "HG-3": { "title": "Data Breach Response", "expect": "Documented procedures for breach notification and incident response within regulatory timeframes" },
+          "CG-1": { "title": "Clinical Quality Standards", "expect": "Established protocols for clinical quality assurance and continuous improvement" },
+          "CG-2": { "title": "Staff Competency Assessment", "expect": "Regular competency assessments and continuing education programs for clinical staff" },
+          "CG-3": { "title": "Patient Safety Reporting", "expect": "Formal adverse event reporting system with root cause analysis capability" },
+          "RM-1": { "title": "Risk Assessment Framework", "expect": "Comprehensive risk assessment process covering clinical, operational, and financial risks" },
+          "RM-2": { "title": "Risk Mitigation Plans", "expect": "Documented risk mitigation strategies with assigned owners and completion targets" },
+          "RM-3": { "title": "Risk Monitoring", "expect": "Regular monitoring and reporting of identified risks to governance bodies" },
+          "CM-1": { "title": "Regulatory Compliance Tracking", "expect": "Documented tracking of regulatory requirements and compliance status" },
+          "CM-2": { "title": "Audit Schedule", "expect": "Annual internal audit plan covering all critical compliance areas" },
+          "CM-3": { "title": "Finding Follow-up", "expect": "Documented evidence of corrective actions and resolution of audit findings" },
+          "DM-1": { "title": "Medical Record Standards", "expect": "Standard formats and retention policies for all medical records" },
+          "DM-2": { "title": "Policy Management", "expect": "Documented policies with review dates, approvals, and evidence of implementation" },
+          "DM-3": { "title": "Records Archival", "expect": "Secure archival and retrieval processes for historical records" }
+        }
+      },
+      "cybersecurity": {
+        "domain": "Cybersecurity Framework",
+        "ctrl": {
+          "GOV": "Governance & Risk",
+          "ASST": "Asset Management",
+          "ACC": "Access Control",
+          "RESP": "Incident Response",
+          "SUPP": "Supply Chain Security"
+        },
+        "doc": {
+          "0": { "cat": "Security", "name": "Information Security Policy" },
+          "1": { "cat": "Governance", "name": "Risk Management Framework" }
+        },
+        "crit": {
+          "GOV-1": { "title": "Security Policy Framework", "expect": "Comprehensive security policies aligned with SAMA CSF and organizational risk appetite" },
+          "GOV-2": { "title": "Board Cybersecurity Oversight", "expect": "Executive and board-level oversight of cybersecurity governance and risk" },
+          "GOV-3": { "title": "Security Risk Assessment", "expect": "Annual comprehensive risk assessment with threat modeling and impact analysis" },
+          "ASST-1": { "title": "Asset Inventory", "expect": "Complete and updated inventory of all IT and security assets" },
+          "ASST-2": { "title": "Asset Classification", "expect": "Classification of assets based on criticality and sensitivity levels" },
+          "ASST-3": { "title": "Vulnerability Management", "expect": "Documented vulnerability scanning and patching procedures with SLAs" },
+          "ACC-1": { "title": "Identity Management", "expect": "Centralized identity and access management with role-based access controls" },
+          "ACC-2": { "title": "Privileged Access Management", "expect": "Documented procedures for privileged account management and monitoring" },
+          "ACC-3": { "title": "Multi-Factor Authentication", "expect": "MFA enforced for all critical systems and privileged accounts" },
+          "RESP-1": { "title": "Incident Response Plan", "expect": "Documented IR plan with clear escalation procedures and contact information" },
+          "RESP-2": { "title": "Security Monitoring", "expect": "24/7 security event logging and monitoring with alerting mechanisms" },
+          "RESP-3": { "title": "Incident Recovery", "expect": "Documented recovery procedures and business continuity plans tested annually" },
+          "SUPP-1": { "title": "Vendor Assessment", "expect": "Security assessment of vendors and third-party service providers" },
+          "SUPP-2": { "title": "Supply Chain Monitoring", "expect": "Continuous monitoring of supply chain security posture and compliance" },
+          "SUPP-3": { "title": "Software Supply Chain", "expect": "Controls for software development pipeline security and code integrity" }
+        }
+      },
+      "itGovernance": {
+        "domain": "IT Governance",
+        "ctrl": {
+          "STRAT": "IT Strategy Alignment",
+          "RESRC": "Resource Management",
+          "PERF": "Performance Monitoring",
+          "RISK": "IT Risk Management",
+          "COMP": "Compliance Management"
+        },
+        "doc": {
+          "0": { "cat": "Strategy", "name": "IT Strategy Document" },
+          "1": { "cat": "Management", "name": "Resource Management Plan" }
+        },
+        "crit": {
+          "STRAT-1": { "title": "IT Strategy Definition", "expect": "Documented IT strategy aligned with business objectives and approved by governance" },
+          "STRAT-2": { "title": "Digital Roadmap", "expect": "Clear digital transformation roadmap with defined milestones and KPIs" },
+          "STRAT-3": { "title": "Architecture Standards", "expect": "Established enterprise architecture standards and technology selection criteria" },
+          "RESRC-1": { "title": "IT Budget Management", "expect": "Formal IT budgeting process with resource allocation and cost tracking" },
+          "RESRC-2": { "title": "Capacity Planning", "expect": "Documented capacity planning process with performance baselines and growth projections" },
+          "RESRC-3": { "title": "Skills Assessment", "expect": "Workforce skills assessment with training and development programs" },
+          "PERF-1": { "title": "Service Metrics", "expect": "Defined SLAs and KPIs for IT services with regular monitoring and reporting" },
+          "PERF-2": { "title": "System Performance", "expect": "Real-time monitoring of system performance with alerting for anomalies" },
+          "PERF-3": { "title": "User Satisfaction", "expect": "Regular measurement of user satisfaction and IT service quality" },
+          "RISK-1": { "title": "IT Risk Framework", "expect": "Comprehensive IT risk identification and assessment framework" },
+          "RISK-2": { "title": "Risk Register", "expect": "Maintained risk register with mitigation plans and ownership" },
+          "RISK-3": { "title": "Business Continuity", "expect": "BC/DR plans tested at least annually with documented recovery time objectives" },
+          "COMP-1": { "title": "Regulatory Mapping", "expect": "Documented mapping of IT controls to regulatory requirements" },
+          "COMP-2": { "title": "Compliance Audits", "expect": "Internal and external audits of IT controls with management review" },
+          "COMP-3": { "title": "Policy Enforcement", "expect": "Documented enforcement of IT policies and standards" }
+        }
+      },
+      "general": {
+        "domain": "Enterprise Compliance",
+        "ctrl": {
+          "ORG": "Organizational Governance",
+          "RISK": "Risk Management",
+          "SEC": "Security Controls",
+          "OPS": "Operational Resilience",
+          "TP": "Third-Party Management"
+        },
+        "doc": {
+          "0": { "cat": "Governance", "name": "Corporate Governance Policy" },
+          "1": { "cat": "Compliance", "name": "Compliance Framework" }
+        },
+        "crit": {
+          "ORG-1": { "title": "Board Governance", "expect": "Documented board structure with clear roles and responsibilities" },
+          "ORG-2": { "title": "Management Accountability", "expect": "Clear accountability frameworks with defined authorities and delegations" },
+          "ORG-3": { "title": "Ethics & Compliance Program", "expect": "Formal ethics and compliance program with training and reporting mechanisms" },
+          "RISK-1": { "title": "Risk Framework", "expect": "Enterprise-wide risk management framework with documented policies" },
+          "RISK-2": { "title": "Risk Assessment", "expect": "Regular risk assessments across all business areas and risk categories" },
+          "RISK-3": { "title": "Risk Reporting", "expect": "Regular risk reporting to senior management and board" },
+          "SEC-1": { "title": "Access Security", "expect": "Security controls for physical and logical access to facilities and systems" },
+          "SEC-2": { "title": "Data Security", "expect": "Encryption and data protection controls for sensitive information" },
+          "SEC-3": { "title": "Security Awareness", "expect": "Mandatory security awareness training for all employees" },
+          "OPS-1": { "title": "Change Management", "expect": "Formal change management process with testing and approval" },
+          "OPS-2": { "title": "Incident Management", "expect": "Formal incident management procedures with escalation paths" },
+          "OPS-3": { "title": "Business Continuity", "expect": "BC/DR plans with regular testing and documented recovery procedures" },
+          "TP-1": { "title": "Vendor Risk Assessment", "expect": "Assessment of third-party risks before engagement and ongoing monitoring" },
+          "TP-2": { "title": "Vendor Contracts", "expect": "Contracts include security and compliance requirements with audit rights" },
+          "TP-3": { "title": "Vendor Compliance", "expect": "Regular monitoring of third-party compliance with contractual obligations" }
+        }
+      }
+    },
     "healthcare": {
       "title": "Healthcare",
       "subtitle": "Hospital Accreditation Readiness",
@@ -1274,5 +1566,62 @@
     "ctaTitle": "Every industry. Every framework.",
     "ctaPrimary": "Try the audit demo",
     "ctaGhost": "Schedule a walkthrough"
+  },
+  "meta": {
+    "default": {
+      "titleTemplate": "%s · ArabAudit",
+      "siteName": "ArabAudit",
+      "tagline": "Saudi-native compliance, validated by AI"
+    },
+    "home": {
+      "title": "ArabAudit · Saudi-native compliance, validated by AI",
+      "description": "AI-native audit and compliance platform for NCA ECC, SAMA CSF, SDAIA PDPL, CBAHI, PCI DSS and ISO 27001. Bilingual evidence, findings and regulator-ready reports — built for Saudi Arabia.",
+      "keywords": "ArabAudit, Arab Audit, Arab-Audit, arabaudit, arab audit, ArabAudit Saudi Arabia, ArabAudit KSA, Arab Audit Riyadh, عرب أوديت, عرب اوديت, Saudi compliance, NCA ECC, SAMA CSF, SDAIA PDPL, CBAHI, PCI DSS, ISO 27001, audit automation, GRC Saudi Arabia, compliance AI, Arabic audit reports, regulator-ready"
+    },
+    "about": {
+      "title": "About ArabAudit — the Saudi-native audit AI team",
+      "description": "Meet the team building ArabAudit: a bilingual, sovereign-by-design audit AI for Saudi regulators — NCA ECC, SAMA CSF, SDAIA PDPL and CBAHI. Evidence-first, ledger-anchored.",
+      "keywords": "ArabAudit team, Saudi compliance company, audit AI Riyadh, sovereign compliance, MISA licensed"
+    },
+    "contact": {
+      "title": "Contact ArabAudit — pilots, demos, enterprise deployments",
+      "description": "Talk to the ArabAudit team in Riyadh about NCA ECC, SAMA CSF, PDPL or CBAHI audit pilots, live demos and enterprise deployments across Saudi Arabia.",
+      "keywords": "contact ArabAudit, compliance demo KSA, SAMA audit pilot, NCA ECC pilot, CBAHI accreditation demo"
+    },
+    "pricing": {
+      "title": "Pricing — SAR plans for Saudi compliance teams",
+      "description": "Transparent SAR pricing for Saudi compliance audits. Starter SAR 30k/yr, Professional SAR 70k/yr and Enterprise sovereign deployments with PDPL, NCA and SAMA readiness.",
+      "keywords": "ArabAudit pricing, Saudi GRC pricing, compliance software SAR, audit platform cost KSA"
+    },
+    "product": {
+      "title": "Product — the AI audit copilot for Saudi regulations",
+      "description": "Nine AI capabilities on a single audit core: AutoLink evidence, readiness coverage, evidence validation, bilingual copilot, finding drafts, regulator-grade reports, document chat, insights and remediation.",
+      "keywords": "audit copilot, compliance AI, evidence mapping, readiness check, bilingual audit report, Saudi audit software"
+    },
+    "frameworks": {
+      "title": "Saudi regulatory frameworks — NCA, SAMA, PDPL, CBAHI",
+      "description": "Browse every Saudi compliance framework ArabAudit supports: NCA ECC, SAMA CSF, SAMA IT Governance, SDAIA PDPL, CBAHI, PCI DSS v4.0.1 and ISO 27001:2022 — with domain and control counts.",
+      "keywords": "NCA ECC-2024, SAMA CSF, SDAIA PDPL, CBAHI standards, PCI DSS v4, ISO 27001 2022, Saudi compliance frameworks"
+    },
+    "frameworkDetail": {
+      "titleTemplate": "{name} — controls, domains & audit guide",
+      "descriptionTemplate": "ArabAudit support for {name} ({shortCode}): {domains} domains, {controls} controls, issued by {authority}. Audit-ready evidence linking, bilingual findings and regulator-grade reports.",
+      "keywordsTemplate": "{name}, {shortCode}, {authority}, Saudi compliance, audit"
+    },
+    "demoAudit": {
+      "title": "Live audit demo — generate a Saudi compliance report",
+      "description": "Run a guided end-to-end audit against NCA ECC, SAMA CSF or PDPL controls and download a signed, evidence-linked compliance report in English and Arabic.",
+      "keywords": "audit demo, live compliance demo, NCA ECC demo, SAMA CSF demo, PDPL demo, audit report generator"
+    },
+    "demoFramework": {
+      "title": "Framework demo — map controls across NCA, SAMA, PDPL",
+      "description": "Preview ArabAudit's multi-framework overlap engine: map one control once and satisfy NCA ECC, SAMA CSF, SDAIA PDPL, CBAHI, PCI DSS and ISO 27001.",
+      "keywords": "cross-framework mapping, control overlap, framework browser, NCA SAMA mapping"
+    },
+    "useCases": {
+      "title": "Use cases — Saudi compliance by industry and role",
+      "description": "Explore ArabAudit use cases across banking (SAMA), healthcare (CBAHI), data protection (PDPL) and critical infrastructure (NCA ECC). Industry-specific audit flows, metrics and reports.",
+      "keywords": "SAMA banking audit, CBAHI hospital accreditation, PDPL compliance use case, NCA ECC use case"
+    }
   }
 }

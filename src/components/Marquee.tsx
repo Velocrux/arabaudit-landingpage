@@ -1,11 +1,15 @@
 "use client";
 
-import { frameworks, marqueeExtras } from "@/lib/data";
+import { useTranslations } from "next-intl";
+import { buildFrameworks, buildMarqueeExtras } from "@/lib/data";
 
 export default function Marquee() {
+  const t = useTranslations("fwData");
+  const frameworks = buildFrameworks(t);
+  const marqueeExtras = buildMarqueeExtras(t);
   const labels = [...frameworks.map((f) => f.shortCode), ...marqueeExtras];
-  const row = labels.flatMap((t, i) => [
-    <span key={`${i}-t`}>{t}</span>,
+  const row = labels.flatMap((label, i) => [
+    <span key={`${i}-t`}>{label}</span>,
     <span key={`${i}-d`}>·</span>,
   ]);
 

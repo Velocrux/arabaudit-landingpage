@@ -6,49 +6,11 @@ import UseCasesAuditFlow from "./UseCasesAuditFlow";
 
 type UseCaseKey = "healthcare" | "cybersecurity" | "itGovernance" | "general";
 
-const useCasesConfig: Record<
-  UseCaseKey,
-  {
-    id: UseCaseKey;
-    title: string;
-    subtitle: string;
-    framework: string;
-    description: string;
-    color: string;
-  }
-> = {
-  healthcare: {
-    id: "healthcare",
-    title: "Healthcare",
-    subtitle: "Hospital Accreditation Readiness",
-    framework: "CBAHI",
-    description: "Hospital accreditation audit with patient data protection and clinical governance compliance.",
-    color: "rgb(34, 197, 94)",
-  },
-  cybersecurity: {
-    id: "cybersecurity",
-    title: "Cybersecurity & IT",
-    subtitle: "Enterprise Security Posture",
-    framework: "SAMA CSF",
-    description: "Cybersecurity framework assessment with risk metrics, control gaps, and remediation planning.",
-    color: "rgb(59, 130, 246)",
-  },
-  itGovernance: {
-    id: "itGovernance",
-    title: "IT Governance",
-    subtitle: "Digital Transformation Readiness",
-    framework: "SAMA IT Governance",
-    description: "IT governance and digital infrastructure audit with operational and compliance metrics.",
-    color: "rgb(168, 85, 247)",
-  },
-  general: {
-    id: "general",
-    title: "General Enterprise",
-    subtitle: "Regulatory Compliance",
-    framework: "NCA ECC",
-    description: "Multi-domain compliance audit covering cybersecurity, risk, and third-party management.",
-    color: "rgb(217, 119, 6)",
-  },
+const useCaseColors: Record<UseCaseKey, string> = {
+  healthcare: "rgb(34, 197, 94)",
+  cybersecurity: "rgb(59, 130, 246)",
+  itGovernance: "rgb(168, 85, 247)",
+  general: "rgb(217, 119, 6)",
 };
 
 export default function UseCasesSelector() {
@@ -72,9 +34,11 @@ export default function UseCasesSelector() {
       <section className="hero-section">
         <div className="fw-hero">
           <div className="wrap">
-            <div className="eyebrow">USE CASES</div>
-            <h1 className="h1">Industry-specific audit frameworks end-to-end</h1>
-            <p className="lede">Four specialized audit journeys. Choose your sector. Watch a complete audit flow with metrics, findings, and compliance-ready reports specific to your industry.</p>
+            <div className="eyebrow">{t("heroEyebrow")}</div>
+            <h1 className="h1">
+              {t("heroTitleA")} {t("heroTitleB")} {t("heroTitleC")}
+            </h1>
+            <p className="lede">{t("heroLede")}</p>
           </div>
         </div>
       </section>
@@ -87,23 +51,21 @@ export default function UseCasesSelector() {
 
           <div className="use-cases-grid">
             {useCases.map((key) => {
-              const caseConfig = useCasesConfig[key];
-
               return (
                 <button
                   key={key}
                   className="uc-card-item"
-                  style={{ borderTopColor: caseConfig.color }}
+                  style={{ borderTopColor: useCaseColors[key] }}
                   onClick={() => setSelectedUseCase(key)}
                 >
                   <div className="uc-card-content">
-                    <div className="uc-card-framework">{caseConfig.framework}</div>
-                    <h3 className="uc-card-title">{caseConfig.title}</h3>
-                    <div className="uc-card-tagline">{caseConfig.subtitle}</div>
-                    <p className="uc-card-summary">{caseConfig.description}</p>
+                    <div className="uc-card-framework">{t(`${key}.framework`)}</div>
+                    <h3 className="uc-card-title">{t(`${key}.title`)}</h3>
+                    <div className="uc-card-tagline">{t(`${key}.subtitle`)}</div>
+                    <p className="uc-card-summary">{t(`${key}.description`)}</p>
                   </div>
                   <div className="uc-card-cta">
-                    <span>Start audit demo →</span>
+                    <span>{t("startDemo")}</span>
                   </div>
                 </button>
               );
@@ -123,7 +85,7 @@ export default function UseCasesSelector() {
         }
 
         .fw-hero {
-          padding: 5rem 2rem;
+          padding: clamp(2.5rem, 5vw, 5rem) clamp(1rem, 3vw, 2rem);
           background: var(--cream-1, rgb(254, 251, 245));
           border-bottom: 1px solid var(--line, rgba(200, 200, 200, 0.1));
         }
@@ -131,6 +93,7 @@ export default function UseCasesSelector() {
         .wrap {
           max-width: 1200px;
           margin: 0 auto;
+          padding: 0 clamp(0.25rem, 1vw, 0.75rem);
         }
 
         .eyebrow {
@@ -145,22 +108,22 @@ export default function UseCasesSelector() {
 
         .h1 {
           font-family: var(--f-serif, serif);
-          font-size: 3.5rem;
+          font-size: clamp(1.875rem, 4.5vw, 3.5rem);
           font-weight: 400;
-          line-height: 1.3;
+          line-height: 1.2;
           margin: 1rem 0 0 0;
           color: var(--emerald-3, #064e3b);
         }
 
         .lede {
-          font-size: 1.0625rem;
+          font-size: clamp(0.95rem, 1.1vw, 1.0625rem);
           line-height: 1.7;
           margin: 1.25rem 0 0 0;
           color: var(--ink-2, #666);
         }
 
         .use-cases-section {
-          padding: 4rem 2rem;
+          padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 3vw, 2rem);
           border-bottom: 1px solid var(--line, rgba(200, 200, 200, 0.1));
         }
 
@@ -171,7 +134,7 @@ export default function UseCasesSelector() {
 
         .section-title {
           font-family: var(--f-serif, serif);
-          font-size: 2.25rem;
+          font-size: clamp(1.5rem, 3vw, 2.25rem);
           font-weight: 400;
           margin: 0 0 1rem 0;
           color: var(--ink-1, #000);

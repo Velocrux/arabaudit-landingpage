@@ -37,60 +37,58 @@ const LOCAL_FILES: LocalFile[] = [
   { icon: <File01Icon size={18} />, name: "Assessment-Results-2026.xlsx", size: "320 KB", date: "18 Apr 2026" },
 ];
 
-const useCaseConfigs: Record<
+const useCaseMeta: Record<
   UseCaseKey,
   {
     framework: string;
-    domain: string;
-    controls: { id: string; name: string }[];
+    controlIds: string[];
+    critIds: string[];
+    critToControl: Record<string, string>;
+    docs: { i: number; pattern: string }[];
     colors: { primary: string; accent: string; light: string };
   }
 > = {
   healthcare: {
     framework: "CBAHI",
-    domain: "Healthcare Accreditation",
-    controls: [
-      { id: "HG", name: "Patient Data Protection" },
-      { id: "CG", name: "Clinical Governance" },
-      { id: "RM", name: "Risk Management" },
-      { id: "CM", name: "Compliance Monitoring" },
-      { id: "DM", name: "Documentation Management" },
+    controlIds: ["HG", "CG", "RM", "CM", "DM"],
+    critIds: ["HG-1","HG-2","HG-3","CG-1","CG-2","CG-3","RM-1","RM-2","RM-3","CM-1","CM-2","CM-3","DM-1","DM-2","DM-3"],
+    critToControl: { "HG-1":"HG","HG-2":"HG","HG-3":"HG","CG-1":"CG","CG-2":"CG","CG-3":"CG","RM-1":"RM","RM-2":"RM","RM-3":"RM","CM-1":"CM","CM-2":"CM","CM-3":"CM","DM-1":"DM","DM-2":"DM","DM-3":"DM" },
+    docs: [
+      { i: 0, pattern: "Compliance Policy v2.1.pdf" },
+      { i: 1, pattern: "System Configuration Q4-2025.xlsx" },
     ],
     colors: { primary: "rgb(34, 197, 94)", accent: "rgba(34, 197, 94, 0.15)", light: "rgba(34, 197, 94, 0.08)" },
   },
   cybersecurity: {
     framework: "SAMA CSF",
-    domain: "Cybersecurity Framework",
-    controls: [
-      { id: "GOV", name: "Governance & Risk" },
-      { id: "ASST", name: "Asset Management" },
-      { id: "ACC", name: "Access Control" },
-      { id: "RESP", name: "Incident Response" },
-      { id: "SUPP", name: "Supply Chain Security" },
+    controlIds: ["GOV", "ASST", "ACC", "RESP", "SUPP"],
+    critIds: ["GOV-1","GOV-2","GOV-3","ASST-1","ASST-2","ASST-3","ACC-1","ACC-2","ACC-3","RESP-1","RESP-2","RESP-3","SUPP-1","SUPP-2","SUPP-3"],
+    critToControl: { "GOV-1":"GOV","GOV-2":"GOV","GOV-3":"GOV","ASST-1":"ASST","ASST-2":"ASST","ASST-3":"ASST","ACC-1":"ACC","ACC-2":"ACC","ACC-3":"ACC","RESP-1":"RESP","RESP-2":"RESP","RESP-3":"RESP","SUPP-1":"SUPP","SUPP-2":"SUPP","SUPP-3":"SUPP" },
+    docs: [
+      { i: 0, pattern: "Compliance Policy v2.1.pdf" },
+      { i: 1, pattern: "System Configuration Q4-2025.xlsx" },
     ],
     colors: { primary: "rgb(59, 130, 246)", accent: "rgba(59, 130, 246, 0.15)", light: "rgba(59, 130, 246, 0.08)" },
   },
   itGovernance: {
     framework: "SAMA IT Governance",
-    domain: "IT Governance",
-    controls: [
-      { id: "STRAT", name: "IT Strategy Alignment" },
-      { id: "RESRC", name: "Resource Management" },
-      { id: "PERF", name: "Performance Monitoring" },
-      { id: "RISK", name: "IT Risk Management" },
-      { id: "COMP", name: "Compliance Management" },
+    controlIds: ["STRAT", "RESRC", "PERF", "RISK", "COMP"],
+    critIds: ["STRAT-1","STRAT-2","STRAT-3","RESRC-1","RESRC-2","RESRC-3","PERF-1","PERF-2","PERF-3","RISK-1","RISK-2","RISK-3","COMP-1","COMP-2","COMP-3"],
+    critToControl: { "STRAT-1":"STRAT","STRAT-2":"STRAT","STRAT-3":"STRAT","RESRC-1":"RESRC","RESRC-2":"RESRC","RESRC-3":"RESRC","PERF-1":"PERF","PERF-2":"PERF","PERF-3":"PERF","RISK-1":"RISK","RISK-2":"RISK","RISK-3":"RISK","COMP-1":"COMP","COMP-2":"COMP","COMP-3":"COMP" },
+    docs: [
+      { i: 0, pattern: "Compliance Policy v2.1.pdf" },
+      { i: 1, pattern: "Management-Plan-v2.docx" },
     ],
     colors: { primary: "rgb(168, 85, 247)", accent: "rgba(168, 85, 247, 0.15)", light: "rgba(168, 85, 247, 0.08)" },
   },
   general: {
     framework: "NCA ECC",
-    domain: "Enterprise Compliance",
-    controls: [
-      { id: "ORG", name: "Organizational Governance" },
-      { id: "RISK", name: "Risk Management" },
-      { id: "SEC", name: "Security Controls" },
-      { id: "OPS", name: "Operational Resilience" },
-      { id: "TP", name: "Third-Party Management" },
+    controlIds: ["ORG", "RISK", "SEC", "OPS", "TP"],
+    critIds: ["ORG-1","ORG-2","ORG-3","RISK-1","RISK-2","RISK-3","SEC-1","SEC-2","SEC-3","OPS-1","OPS-2","OPS-3","TP-1","TP-2","TP-3"],
+    critToControl: { "ORG-1":"ORG","ORG-2":"ORG","ORG-3":"ORG","RISK-1":"RISK","RISK-2":"RISK","RISK-3":"RISK","SEC-1":"SEC","SEC-2":"SEC","SEC-3":"SEC","OPS-1":"OPS","OPS-2":"OPS","OPS-3":"OPS","TP-1":"TP","TP-2":"TP","TP-3":"TP" },
+    docs: [
+      { i: 0, pattern: "Compliance Policy v2.1.pdf" },
+      { i: 1, pattern: "Classification-Standard.pdf" },
     ],
     colors: { primary: "rgb(217, 119, 6)", accent: "rgba(217, 119, 6, 0.15)", light: "rgba(217, 119, 6, 0.08)" },
   },
@@ -104,108 +102,44 @@ export default function UseCasesAuditFlow({
   onBack: () => void;
 }) {
   const t = useTranslations("demoAudit");
-  const config = useCaseConfigs[selectedUseCase];
+  const tc = useTranslations("useCases.flow");
+  const meta = useCaseMeta[selectedUseCase];
+
+  const config = {
+    framework: meta.framework,
+    domain: tc(`${selectedUseCase}.domain`),
+    controls: meta.controlIds.map((id) => ({
+      id,
+      name: tc(`${selectedUseCase}.ctrl.${id}`),
+    })),
+    colors: meta.colors,
+  };
 
   const initialRequiredDocs = useCallback(
-    (): RequiredDoc[] => {
-      const docMaps: Record<UseCaseKey, RequiredDoc[]> = {
-        healthcare: [
-          { cat: "Policies", name: "Patient Privacy Policy", file: null, pattern: "Compliance Policy v2.1.pdf" },
-          { cat: "Governance", name: "Clinical Governance Framework", file: null, pattern: "System Configuration Q4-2025.xlsx" },
-        ],
-        cybersecurity: [
-          { cat: "Security", name: "Information Security Policy", file: null, pattern: "Compliance Policy v2.1.pdf" },
-          { cat: "Governance", name: "Risk Management Framework", file: null, pattern: "System Configuration Q4-2025.xlsx" },
-        ],
-        itGovernance: [
-          { cat: "Strategy", name: "IT Strategy Document", file: null, pattern: "Compliance Policy v2.1.pdf" },
-          { cat: "Management", name: "Resource Management Plan", file: null, pattern: "Management-Plan-v2.docx" },
-        ],
-        general: [
-          { cat: "Governance", name: "Corporate Governance Policy", file: null, pattern: "Compliance Policy v2.1.pdf" },
-          { cat: "Compliance", name: "Compliance Framework", file: null, pattern: "Classification-Standard.pdf" },
-        ],
-      };
-      return docMaps[selectedUseCase] || [];
-    },
-    [t, selectedUseCase]
+    (): RequiredDoc[] =>
+      meta.docs.map((d) => ({
+        cat: tc(`${selectedUseCase}.doc.${d.i}.cat`),
+        name: tc(`${selectedUseCase}.doc.${d.i}.name`),
+        file: null,
+        pattern: d.pattern,
+      })),
+    [tc, selectedUseCase, meta.docs]
   );
 
   const initialCriteria = useCallback(
-    (): Criterion[] => {
-      const baseData: Record<UseCaseKey, Criterion[]> = {
-        healthcare: [
-          { id: "HG-1", domain: "Patient Data Protection", control: "Patient Data Protection", title: "Patient Record Access Controls", expect: "Ensure patient records are accessible only by authorized personnel with documented approval", rating: null },
-          { id: "HG-2", domain: "Patient Data Protection", control: "Patient Data Protection", title: "Data Encryption Standards", expect: "All sensitive patient data must be encrypted in transit and at rest using approved algorithms", rating: null },
-          { id: "HG-3", domain: "Patient Data Protection", control: "Patient Data Protection", title: "Data Breach Response", expect: "Documented procedures for breach notification and incident response within regulatory timeframes", rating: null },
-          { id: "CG-1", domain: "Clinical Governance", control: "Clinical Governance", title: "Clinical Quality Standards", expect: "Established protocols for clinical quality assurance and continuous improvement", rating: null },
-          { id: "CG-2", domain: "Clinical Governance", control: "Clinical Governance", title: "Staff Competency Assessment", expect: "Regular competency assessments and continuing education programs for clinical staff", rating: null },
-          { id: "CG-3", domain: "Clinical Governance", control: "Clinical Governance", title: "Patient Safety Reporting", expect: "Formal adverse event reporting system with root cause analysis capability", rating: null },
-          { id: "RM-1", domain: "Risk Management", control: "Risk Management", title: "Risk Assessment Framework", expect: "Comprehensive risk assessment process covering clinical, operational, and financial risks", rating: null },
-          { id: "RM-2", domain: "Risk Management", control: "Risk Management", title: "Risk Mitigation Plans", expect: "Documented risk mitigation strategies with assigned owners and completion targets", rating: null },
-          { id: "RM-3", domain: "Risk Management", control: "Risk Management", title: "Risk Monitoring", expect: "Regular monitoring and reporting of identified risks to governance bodies", rating: null },
-          { id: "CM-1", domain: "Compliance Monitoring", control: "Compliance Monitoring", title: "Regulatory Compliance Tracking", expect: "Documented tracking of regulatory requirements and compliance status", rating: null },
-          { id: "CM-2", domain: "Compliance Monitoring", control: "Compliance Monitoring", title: "Audit Schedule", expect: "Annual internal audit plan covering all critical compliance areas", rating: null },
-          { id: "CM-3", domain: "Compliance Monitoring", control: "Compliance Monitoring", title: "Finding Follow-up", expect: "Documented evidence of corrective actions and resolution of audit findings", rating: null },
-          { id: "DM-1", domain: "Documentation Management", control: "Documentation Management", title: "Medical Record Standards", expect: "Standard formats and retention policies for all medical records", rating: null },
-          { id: "DM-2", domain: "Documentation Management", control: "Documentation Management", title: "Policy Management", expect: "Documented policies with review dates, approvals, and evidence of implementation", rating: null },
-          { id: "DM-3", domain: "Documentation Management", control: "Documentation Management", title: "Records Archival", expect: "Secure archival and retrieval processes for historical records", rating: null },
-        ],
-        cybersecurity: [
-          { id: "GOV-1", domain: "Governance & Risk", control: "Governance & Risk", title: "Security Policy Framework", expect: "Comprehensive security policies aligned with SAMA CSF and organizational risk appetite", rating: null },
-          { id: "GOV-2", domain: "Governance & Risk", control: "Governance & Risk", title: "Board Cybersecurity Oversight", expect: "Executive and board-level oversight of cybersecurity governance and risk", rating: null },
-          { id: "GOV-3", domain: "Governance & Risk", control: "Governance & Risk", title: "Security Risk Assessment", expect: "Annual comprehensive risk assessment with threat modeling and impact analysis", rating: null },
-          { id: "ASST-1", domain: "Asset Management", control: "Asset Management", title: "Asset Inventory", expect: "Complete and updated inventory of all IT and security assets", rating: null },
-          { id: "ASST-2", domain: "Asset Management", control: "Asset Management", title: "Asset Classification", expect: "Classification of assets based on criticality and sensitivity levels", rating: null },
-          { id: "ASST-3", domain: "Asset Management", control: "Asset Management", title: "Vulnerability Management", expect: "Documented vulnerability scanning and patching procedures with SLAs", rating: null },
-          { id: "ACC-1", domain: "Access Control", control: "Access Control", title: "Identity Management", expect: "Centralized identity and access management with role-based access controls", rating: null },
-          { id: "ACC-2", domain: "Access Control", control: "Access Control", title: "Privileged Access Management", expect: "Documented procedures for privileged account management and monitoring", rating: null },
-          { id: "ACC-3", domain: "Access Control", control: "Access Control", title: "Multi-Factor Authentication", expect: "MFA enforced for all critical systems and privileged accounts", rating: null },
-          { id: "RESP-1", domain: "Incident Response", control: "Incident Response", title: "Incident Response Plan", expect: "Documented IR plan with clear escalation procedures and contact information", rating: null },
-          { id: "RESP-2", domain: "Incident Response", control: "Incident Response", title: "Security Monitoring", expect: "24/7 security event logging and monitoring with alerting mechanisms", rating: null },
-          { id: "RESP-3", domain: "Incident Response", control: "Incident Response", title: "Incident Recovery", expect: "Documented recovery procedures and business continuity plans tested annually", rating: null },
-          { id: "SUPP-1", domain: "Supply Chain Security", control: "Supply Chain Security", title: "Vendor Assessment", expect: "Security assessment of vendors and third-party service providers", rating: null },
-          { id: "SUPP-2", domain: "Supply Chain Security", control: "Supply Chain Security", title: "Supply Chain Monitoring", expect: "Continuous monitoring of supply chain security posture and compliance", rating: null },
-          { id: "SUPP-3", domain: "Supply Chain Security", control: "Supply Chain Security", title: "Software Supply Chain", expect: "Controls for software development pipeline security and code integrity", rating: null },
-        ],
-        itGovernance: [
-          { id: "STRAT-1", domain: "IT Strategy", control: "IT Strategy Alignment", title: "IT Strategy Definition", expect: "Documented IT strategy aligned with business objectives and approved by governance", rating: null },
-          { id: "STRAT-2", domain: "IT Strategy", control: "IT Strategy Alignment", title: "Digital Roadmap", expect: "Clear digital transformation roadmap with defined milestones and KPIs", rating: null },
-          { id: "STRAT-3", domain: "IT Strategy", control: "IT Strategy Alignment", title: "Architecture Standards", expect: "Established enterprise architecture standards and technology selection criteria", rating: null },
-          { id: "RESRC-1", domain: "Resource Management", control: "Resource Management", title: "IT Budget Management", expect: "Formal IT budgeting process with resource allocation and cost tracking", rating: null },
-          { id: "RESRC-2", domain: "Resource Management", control: "Resource Management", title: "Capacity Planning", expect: "Documented capacity planning process with performance baselines and growth projections", rating: null },
-          { id: "RESRC-3", domain: "Resource Management", control: "Resource Management", title: "Skills Assessment", expect: "Workforce skills assessment with training and development programs", rating: null },
-          { id: "PERF-1", domain: "Performance Monitoring", control: "Performance Monitoring", title: "Service Metrics", expect: "Defined SLAs and KPIs for IT services with regular monitoring and reporting", rating: null },
-          { id: "PERF-2", domain: "Performance Monitoring", control: "Performance Monitoring", title: "System Performance", expect: "Real-time monitoring of system performance with alerting for anomalies", rating: null },
-          { id: "PERF-3", domain: "Performance Monitoring", control: "Performance Monitoring", title: "User Satisfaction", expect: "Regular measurement of user satisfaction and IT service quality", rating: null },
-          { id: "RISK-1", domain: "IT Risk Management", control: "IT Risk Management", title: "IT Risk Framework", expect: "Comprehensive IT risk identification and assessment framework", rating: null },
-          { id: "RISK-2", domain: "IT Risk Management", control: "IT Risk Management", title: "Risk Register", expect: "Maintained risk register with mitigation plans and ownership", rating: null },
-          { id: "RISK-3", domain: "IT Risk Management", control: "IT Risk Management", title: "Business Continuity", expect: "BC/DR plans tested at least annually with documented recovery time objectives", rating: null },
-          { id: "COMP-1", domain: "Compliance Management", control: "Compliance Management", title: "Regulatory Mapping", expect: "Documented mapping of IT controls to regulatory requirements", rating: null },
-          { id: "COMP-2", domain: "Compliance Management", control: "Compliance Management", title: "Compliance Audits", expect: "Internal and external audits of IT controls with management review", rating: null },
-          { id: "COMP-3", domain: "Compliance Management", control: "Compliance Management", title: "Policy Enforcement", expect: "Documented enforcement of IT policies and standards", rating: null },
-        ],
-        general: [
-          { id: "ORG-1", domain: "Organizational Governance", control: "Organizational Governance", title: "Board Governance", expect: "Documented board structure with clear roles and responsibilities", rating: null },
-          { id: "ORG-2", domain: "Organizational Governance", control: "Organizational Governance", title: "Management Accountability", expect: "Clear accountability frameworks with defined authorities and delegations", rating: null },
-          { id: "ORG-3", domain: "Organizational Governance", control: "Organizational Governance", title: "Ethics & Compliance Program", expect: "Formal ethics and compliance program with training and reporting mechanisms", rating: null },
-          { id: "RISK-1", domain: "Risk Management", control: "Risk Management", title: "Risk Framework", expect: "Enterprise-wide risk management framework with documented policies", rating: null },
-          { id: "RISK-2", domain: "Risk Management", control: "Risk Management", title: "Risk Assessment", expect: "Regular risk assessments across all business areas and risk categories", rating: null },
-          { id: "RISK-3", domain: "Risk Management", control: "Risk Management", title: "Risk Reporting", expect: "Regular risk reporting to senior management and board", rating: null },
-          { id: "SEC-1", domain: "Security Controls", control: "Security Controls", title: "Access Security", expect: "Security controls for physical and logical access to facilities and systems", rating: null },
-          { id: "SEC-2", domain: "Security Controls", control: "Security Controls", title: "Data Security", expect: "Encryption and data protection controls for sensitive information", rating: null },
-          { id: "SEC-3", domain: "Security Controls", control: "Security Controls", title: "Security Awareness", expect: "Mandatory security awareness training for all employees", rating: null },
-          { id: "OPS-1", domain: "Operational Resilience", control: "Operational Resilience", title: "Change Management", expect: "Formal change management process with testing and approval", rating: null },
-          { id: "OPS-2", domain: "Operational Resilience", control: "Operational Resilience", title: "Incident Management", expect: "Formal incident management procedures with escalation paths", rating: null },
-          { id: "OPS-3", domain: "Operational Resilience", control: "Operational Resilience", title: "Business Continuity", expect: "BC/DR plans with regular testing and documented recovery procedures", rating: null },
-          { id: "TP-1", domain: "Third-Party Management", control: "Third-Party Management", title: "Vendor Risk Assessment", expect: "Assessment of third-party risks before engagement and ongoing monitoring", rating: null },
-          { id: "TP-2", domain: "Third-Party Management", control: "Third-Party Management", title: "Vendor Contracts", expect: "Contracts include security and compliance requirements with audit rights", rating: null },
-          { id: "TP-3", domain: "Third-Party Management", control: "Third-Party Management", title: "Vendor Compliance", expect: "Regular monitoring of third-party compliance with contractual obligations", rating: null },
-        ],
-      };
-      return baseData[selectedUseCase] || [];
-    },
-    [selectedUseCase]
+    (): Criterion[] =>
+      meta.critIds.map((id) => {
+        const ctrlId = meta.critToControl[id];
+        return {
+          id,
+          domain: tc(`${selectedUseCase}.ctrl.${ctrlId}`),
+          control: tc(`${selectedUseCase}.ctrl.${ctrlId}`),
+          title: tc(`${selectedUseCase}.crit.${id}.title`),
+          expect: tc(`${selectedUseCase}.crit.${id}.expect`),
+          rating: null,
+        };
+      }),
+    [tc, selectedUseCase, meta]
   );
 
   const PHASES: { n: Phase; label: string }[] = [
@@ -630,9 +564,9 @@ export default function UseCasesAuditFlow({
     );
 
     const recommendations = [
-      { text: "Prioritize remediation of critical findings in high-risk control domains.", show: false },
-      { text: "Implement enhanced monitoring for partially compliant controls within 30 days.", show: false },
-      { text: "Establish governance oversight for identified control improvement areas.", show: false },
+      { text: t("rec1"), show: false },
+      { text: t("rec2"), show: false },
+      { text: t("rec3"), show: false },
     ];
     setRptRecommendationsShow(recommendations.map(() => false));
     recommendations.forEach((_, i) => {
@@ -1015,8 +949,8 @@ export default function UseCasesAuditFlow({
                       <div className="ov-facts">
                         <span className="ov-fact">{config.domain}</span>
                         <span className="ov-fact">{config.framework} · v2024</span>
-                        <span className="ov-fact">18 April 2026</span>
-                        <span className="ov-fact">ArabAudit Demo</span>
+                        <span className="ov-fact">{t("reportDate")}</span>
+                        <span className="ov-fact">{t("brandDemo")}</span>
                       </div>
                     </div>
                     <div className="ov-grade-wrap">
@@ -1161,10 +1095,10 @@ export default function UseCasesAuditFlow({
 
                   <div className="ov-section" style={{ opacity: rptMetricsShow ? 1 : 0, transition: "opacity .4s", borderTop: "1px solid rgba(200, 200, 200, 0.1)", paddingTop: "1.5rem", marginTop: "1.5rem" }}>
                     <div className="ov-section-head" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <MagicWand01Icon size={16} /> AI-Powered Recommendations
+                      <MagicWand01Icon size={16} /> {t("aiRecsHeading")}
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                      {["Prioritize remediation of critical findings in high-risk control domains.", "Implement enhanced monitoring for partially compliant controls within 30 days.", "Establish governance oversight for identified control improvement areas."].map(
+                      {[t("rec1"), t("rec2"), t("rec3")].map(
                         (rec, i) => (
                           <div
                             key={i}
@@ -1370,7 +1304,7 @@ export default function UseCasesAuditFlow({
                         </div>
                         <div className="row">
                           <span className="k">{t("sigSignedBy")}</span>
-                          <span className="v">ArabAudit Demo</span>
+                          <span className="v">{t("brandDemo")}</span>
                         </div>
                         <div className="row">
                           <span className="k">{t("sigSignedAt")}</span>
@@ -1856,6 +1790,7 @@ export default function UseCasesAuditFlow({
 }
 
 function AppTopbar({ url }: { url: string }) {
+  const t = useTranslations("demoAudit");
   return (
     <div className="app-topbar">
       <div className="dots">
@@ -1866,7 +1801,7 @@ function AppTopbar({ url }: { url: string }) {
       <div className="url">{url}</div>
       <div className="user">
         <div className="avatar">AA</div>
-        <div className="name">ArabAudit Demo</div>
+        <div className="name">{t("brandDemo")}</div>
       </div>
     </div>
   );

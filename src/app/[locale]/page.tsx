@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
@@ -6,7 +7,35 @@ import HomeHero from "@/components/home/HomeHero";
 import Marquee from "@/components/Marquee";
 import CapabilitiesCycle from "@/components/home/CapabilitiesCycle";
 import { FAQList } from "@/components/FAQ";
-import { frameworks } from "@/lib/data";
+import JsonLd from "@/components/JsonLd";
+import { buildFrameworks } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
+import {
+  breadcrumbNode,
+  faqNode,
+  frameworksItemListNode,
+  jsonLdGraph,
+  softwareApplicationNode,
+} from "@/lib/jsonld";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta.home" });
+  return buildMetadata({
+    locale,
+    path: "/",
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords")
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean),
+  });
+}
 
 export default async function HomePage({
   params,
@@ -16,6 +45,8 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
+  const tFw = await getTranslations("fwData");
+  const frameworks = buildFrameworks(tFw);
 
   const rows = [
     { h: "r1h", a: "r1a", b: "r1b", w: "r1why" },
@@ -34,9 +65,18 @@ export default async function HomePage({
     a: t(`home.faq.a${n}` as any),
   }));
 
+  const homeJsonLd = jsonLdGraph([
+    softwareApplicationNode(locale),
+    breadcrumbNode(locale, [{ name: "ArabAudit", path: "/" }]),
+    faqNode(faqItems),
+    frameworksItemListNode(locale),
+  ]);
+
   return (
     <>
+      <JsonLd id="ld-home" data={homeJsonLd} />
       <Nav />
+      <main id="main">
       <HomeHero />
       <Marquee />
       <hr className="divider" />
@@ -44,7 +84,7 @@ export default async function HomePage({
       {/* Stats */}
       <section className="section">
         <div className="wrap">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "start" }}>
+          <div className="home-stats-split" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "start" }}>
 
             {/* LEFT — text */}
             <div style={{ paddingTop: 8 }}>
@@ -56,7 +96,7 @@ export default async function HomePage({
             </div>
 
             {/* RIGHT — 4 × 2 stats grid */}
-            <div className="stats" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+            <div className="stats home-stats-grid" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
               {(
                 [
                   { n: "s1Num", l: "s1Lbl", gold: false },
@@ -187,7 +227,7 @@ export default async function HomePage({
           <div className="eyebrow">{t("home.roles.eyebrow")}</div>
           <h2 className="mt-4 h1" style={{ maxWidth: 760 }}>{t("home.roles.title")}</h2>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginTop: 56 }}>
+          <div className="home-roles-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginTop: 56 }}>
             {[
               { e: "r1e", tt: "r1t", b: "r1b", cs: ["r1c1", "r1c2", "r1c3"], border: "var(--gold-3)" },
               { e: "r2e", tt: "r2t", b: "r2b", cs: ["r2c1", "r2c2", "r2c3"], border: "var(--emerald-4)" },
@@ -214,7 +254,7 @@ export default async function HomePage({
       <section className="section dark" style={{ position: "relative", overflow: "hidden" }}>
         <div className="hero-bg" />
         <div className="wrap" style={{ position: "relative" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
+          <div className="home-report-split" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
             <div>
               <div className="eyebrow on-dark">{t("home.report.eyebrow")}</div>
               <h2 className="h1" style={{ marginTop: 16 }}>{t("home.report.title")}</h2>
@@ -300,6 +340,7 @@ export default async function HomePage({
         </div>
       </section>
 
+      </main>
       <Footer />
     </>
   );

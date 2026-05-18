@@ -1,8 +1,35 @@
+import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import { frameworks } from "@/lib/data";
+import JsonLd from "@/components/JsonLd";
+import { buildFrameworks } from "@/lib/data";
+import { buildMetadata } from "@/lib/seo";
+import {
+  breadcrumbNode,
+  frameworksItemListNode,
+  jsonLdGraph,
+} from "@/lib/jsonld";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const m = await getTranslations({ locale, namespace: "meta.frameworks" });
+  return buildMetadata({
+    locale,
+    path: "/frameworks",
+    title: m("title"),
+    description: m("description"),
+    keywords: m("keywords")
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean),
+  });
+}
 
 export default async function FrameworksListPage({
   params,
@@ -12,10 +39,22 @@ export default async function FrameworksListPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("frameworks");
+  const m = await getTranslations({ locale, namespace: "meta.frameworks" });
+  const tFw = await getTranslations("fwData");
+  const frameworks = buildFrameworks(tFw);
+  const ld = jsonLdGraph([
+    frameworksItemListNode(locale),
+    breadcrumbNode(locale, [
+      { name: "ArabAudit", path: "/" },
+      { name: m("title"), path: "/frameworks" },
+    ]),
+  ]);
 
   return (
     <>
+      <JsonLd id="ld-frameworks" data={ld} />
       <Nav />
+      <main id="main">
 
       <section className="fw-hero">
         <div className="wrap">
@@ -83,6 +122,7 @@ export default async function FrameworksListPage({
         </div>
       </section>
 
+      </main>
       <Footer />
     </>
   );

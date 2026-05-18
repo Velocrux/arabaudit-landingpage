@@ -1139,7 +1139,7 @@ export default function DemoAuditFlow() {
                       <div className="ov-facts">
                         <span className="ov-fact">Najm Insurance Services Co.</span>
                         <span className="ov-fact">NCA ECC · v2024</span>
-                        <span className="ov-fact">18 April 2026</span>
+                        <span className="ov-fact">{t("reportDate")}</span>
                         <span className="ov-fact">Layla Al-Sulaiman, CISA</span>
                       </div>
                     </div>

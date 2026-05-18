@@ -41,8 +41,11 @@ export default function CapabilitiesCycle() {
           <div className="cap-lede">
             <div className="eyebrow">{t("eyebrow")}</div>
             <h2 className="h1" style={{ marginTop: 16, letterSpacing: "-0.025em" }}>
-              <span style={{ color: "var(--gold-3)", fontStyle: "italic" }}>AI</span>{" "}
-              that works across the entire audit lifecycle
+              {t.rich("titleRich", {
+                em: (chunks) => (
+                  <span style={{ color: "var(--gold-3)", fontStyle: "italic" }}>{chunks}</span>
+                ),
+              })}
             </h2>
             <p className="body" style={{ marginTop: 20 }}>
               {t("lede")}

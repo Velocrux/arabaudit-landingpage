@@ -2100,6 +2100,64 @@ hr {
   .stat-block {
     grid-template-columns: repeat(2, 1fr);
   }
+  .about-mission-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .about-partners-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-partners-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ───── Home page inline-grid responsive overrides ───── */
+@media (max-width: 960px) {
+  .home-stats-split {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .home-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .home-stats-grid .stat {
+    border-right: 1px solid var(--line) !important;
+    border-bottom: 1px solid var(--line) !important;
+  }
+  .home-stats-grid .stat:nth-child(2n) {
+    border-right: 0 !important;
+  }
+  .home-stats-grid .stat:nth-last-child(-n+2) {
+    border-bottom: 0 !important;
+  }
+  .home-roles-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .home-report-split {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-stats-split {
+    gap: 28px !important;
+  }
+  .home-stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .home-stats-grid .stat {
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--line) !important;
+    padding: 20px 20px !important;
+  }
+  .home-stats-grid .stat:last-child {
+    border-bottom: 0 !important;
+  }
 }
 
 /* ───── Contact page ───── */
@@ -6621,4 +6679,204 @@ hr {
   .deadlines {
     grid-template-columns: 1fr;
   }
+}
+
+/* ============================================================
+   GLOBAL RESPONSIVE OVERLAY — apply lowest-breakpoint fixes in one place
+   Keeps the rest of the file untouched; overrides only where inline
+   styles or fixed pixels leak past existing media queries.
+   ============================================================ */
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Wrap / section paddings scale on small screens --- */
+@media (max-width: 768px) {
+  .wrap { padding: 0 clamp(16px, 4vw, 28px); }
+  .wrap-narrow { padding: 0 clamp(16px, 4vw, 28px); }
+  .section { padding: clamp(48px, 8vw, 96px) 0; }
+  .section-tight { padding: clamp(32px, 6vw, 64px) 0; }
+}
+
+/* --- Nav: scale inner padding, hide Arabic brand on tiny screens --- */
+@media (max-width: 640px) {
+  .nav-inner {
+    padding: 0 clamp(12px, 4vw, 20px) !important;
+    gap: 12px !important;
+    height: 60px !important;
+  }
+  .brand { font-size: 16px !important; gap: 8px !important; }
+  .brand .mark { width: 32px !important; height: 32px !important; }
+  .brand > span > span { display: none !important; } /* Arabic subtitle */
+}
+
+/* --- Footer: stack columns, wrap bottom row, scale padding --- */
+.footer { padding: clamp(48px, 8vw, 80px) 0 clamp(24px, 4vw, 40px) !important; }
+.footer .grid { gap: clamp(24px, 3vw, 56px); }
+@media (max-width: 640px) {
+  .footer .grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+  .footer > .wrap > div[style*="justify-content"] {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    justify-content: flex-start !important;
+  }
+  .footer > .wrap > div[style*="justify-content"] > div[class*="mono"] {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+  }
+}
+
+/* --- Contact form rows stack on mobile --- */
+@media (max-width: 640px) {
+  .cf-row { grid-template-columns: 1fr !important; gap: 0 !important; }
+  .contact-form { padding: 20px !important; }
+}
+
+/* --- About hero vertical padding scales --- */
+.about-hero { padding: clamp(64px, 10vw, 120px) 0 clamp(48px, 7vw, 80px) !important; }
+
+/* --- Pricing hero scales, plans-grid breakpoints --- */
+.pricing-hero { padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 64px) !important; }
+@media (max-width: 1100px) and (min-width: 641px) {
+  .plans-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* --- Pricing compare table: horizontal scroll on mobile instead of squish --- */
+@media (max-width: 640px) {
+  .compare-table { padding: clamp(40px, 7vw, 80px) 0 !important; }
+  .compare-table > .wrap { padding-right: 0; }
+  .compare-table table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    min-width: 100%;
+  }
+  .compare-table thead th,
+  .compare-table tbody td { white-space: normal; min-width: 120px; }
+}
+
+/* --- Contact hero + frameworks hero + detail hero scale --- */
+.contact-hero { padding: clamp(48px, 7vw, 80px) 0 0 !important; }
+.fw-hero { padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 64px) !important; }
+.detail-hero { padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 64px) !important; }
+.demo-hero { padding: clamp(56px, 9vw, 100px) 0 clamp(36px, 6vw, 60px) !important; }
+
+/* --- Home report split: stack on narrow, center aspect-ratio card --- */
+@media (max-width: 960px) {
+  .home-report-split > div:last-child {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+}
+
+/* --- Ensure inline report heatmap 5-col always fits --- */
+@media (max-width: 420px) {
+  .home-report-split [style*="repeat(5, 1fr)"] {
+    gap: 2px !important;
+  }
+}
+
+/* --- Product demo hero (inline styled) pad scale --- */
+@media (max-width: 768px) {
+  main#main > section[class="section"][style*="emerald-1"] {
+    padding: clamp(64px, 10vw, 120px) 0 clamp(48px, 8vw, 80px) !important;
+  }
+}
+
+/* --- Dark CTA sections (inline style padding: "120px 0") --- */
+@media (max-width: 768px) {
+  section.dark[style*="120px 0"] {
+    padding: clamp(64px, 12vw, 120px) 0 !important;
+  }
+}
+
+/* --- Stepper (demo-framework) stays visible & responsive --- */
+@media (max-width: 640px) {
+  .stepper {
+    padding: 20px 8px 0 !important;
+    gap: 4px;
+  }
+  .stepper::before, .stepper::after {
+    left: 28px !important;
+    right: 28px !important;
+    top: 36px !important;
+  }
+}
+
+/* --- Tables generally get horizontal scroll below 640px --- */
+@media (max-width: 640px) {
+  table.compare {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  table.compare th,
+  table.compare td { white-space: normal; min-width: 140px; }
+}
+
+/* --- Chips / framework lists wrap on small --- */
+@media (max-width: 640px) {
+  .chip { font-size: 11px !important; padding: 5px 9px !important; }
+}
+
+/* --- Thanks banner + info block tighter on mobile --- */
+@media (max-width: 640px) {
+  .thanks-banner { padding: 20px !important; }
+  .info-block { padding: 20px 0 !important; }
+}
+
+/* --- Long text safety --- */
+main#main h1, main#main h2, main#main h3, main#main h4 { word-break: break-word; }
+main#main p, main#main li { overflow-wrap: anywhere; }
+
+/* --- Inline 1fr-1fr grids that need to stack on mobile --- */
+@media (max-width: 640px) {
+  .dfw-pending-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+  .readiness-ring-grid { grid-template-columns: 1fr !important; justify-items: center; text-align: center; gap: 16px !important; }
+  .remedy-risk-pair { grid-template-columns: 1fr !important; }
+}
+
+/* --- Pricing plan card: tame padding on phones --- */
+@media (max-width: 640px) {
+  .plan { padding: 22px !important; }
+  .plan-title { font-size: 22px !important; }
+  .plan-price .amt { font-size: 44px !important; }
+}
+
+/* --- CapabilitiesCycle: prevent fixed-aspect circle from exceeding viewport --- */
+.cap-cycle { max-width: min(720px, 92vw) !important; }
+
+/* --- UseCasesAuditFlow metrics strip always wraps on narrow --- */
+.uc-audit-metrics { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important; }
+
+/* --- Prevent marquee from forcing overflow on mobile --- */
+.marquee-wrap { overflow: hidden; }
+
+/* --- Domain card long control names don't overflow --- */
+.domain-card h4 { word-break: break-word; }
+
+/* --- Compare (home page) table horizontal scroll at small sizes --- */
+@media (max-width: 720px) {
+  table.compare {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table.compare tbody, table.compare thead, table.compare tr { display: table; width: 100%; min-width: 560px; table-layout: fixed; }
+}
+
+/* --- UseCasesSelector grid width control --- */
+@media (max-width: 560px) {
+  .use-cases-grid { gap: 14px !important; }
 }

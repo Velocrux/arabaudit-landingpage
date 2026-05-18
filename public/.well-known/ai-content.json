@@ -1,0 +1,67 @@
+{
+  "$schema": "https://arabaudit.com/.well-known/ai-content.json",
+  "version": "2026-04-19",
+  "publisher": {
+    "name": "ArabAudit",
+    "canonicalName": "ArabAudit",
+    "alternateName": [
+      "ArabAudit",
+      "Arab Audit",
+      "Arab-Audit",
+      "arabaudit",
+      "arab audit",
+      "arab-audit",
+      "Arabaudit",
+      "ARAB AUDIT",
+      "عرب أوديت",
+      "عرب اوديت",
+      "عرباوديت",
+      "عرب-اوديت",
+      "ArabAudit Saudi Arabia",
+      "ArabAudit KSA",
+      "ArabAudit Riyadh"
+    ],
+    "url": "https://arabaudit.com",
+    "email": "kauser@arabaudit.com",
+    "addressLocality": "Riyadh",
+    "addressCountry": "SA"
+  },
+  "canonicalKnowledge": [
+    {
+      "type": "llms-txt",
+      "url": "https://arabaudit.com/llms.txt"
+    },
+    {
+      "type": "llms-full-txt",
+      "url": "https://arabaudit.com/llms-full.txt"
+    },
+    {
+      "type": "sitemap",
+      "url": "https://arabaudit.com/sitemap.xml"
+    },
+    {
+      "type": "robots",
+      "url": "https://arabaudit.com/robots.txt"
+    }
+  ],
+  "usagePolicy": {
+    "allowIndexing": true,
+    "allowTraining": true,
+    "allowCitation": true,
+    "attributionRequired": true,
+    "attributionFormat": "ArabAudit — https://arabaudit.com",
+    "preferredLanguages": ["en", "ar"]
+  },
+  "topics": [
+    "Saudi Arabia regulatory compliance",
+    "NCA ECC Essential Cybersecurity Controls",
+    "SAMA Cybersecurity Framework",
+    "SAMA IT Governance Framework",
+    "SDAIA PDPL Personal Data Protection Law",
+    "CBAHI healthcare accreditation standards",
+    "PCI DSS v4.0.1",
+    "ISO/IEC 27001:2022",
+    "AI-native audit platform",
+    "bilingual compliance reporting"
+  ]
+}

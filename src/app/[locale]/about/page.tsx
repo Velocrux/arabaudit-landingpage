@@ -1,8 +1,12 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import { buildMetadata } from "@/lib/seo";
+import { breadcrumbNode, jsonLdGraph } from "@/lib/jsonld";
 import {
   ShieldEnergyIcon,
   Agreement01Icon,
@@ -10,6 +14,25 @@ import {
   Linkedin01Icon,
   Tick02Icon,
 } from "hugeicons-react";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const m = await getTranslations({ locale, namespace: "meta.about" });
+  return buildMetadata({
+    locale,
+    path: "/about",
+    title: m("title"),
+    description: m("description"),
+    keywords: m("keywords")
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean),
+  });
+}
 
 export default async function AboutPage({
   params,
@@ -19,10 +42,19 @@ export default async function AboutPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("about");
+  const m = await getTranslations({ locale, namespace: "meta.about" });
+  const ld = jsonLdGraph([
+    breadcrumbNode(locale, [
+      { name: "ArabAudit", path: "/" },
+      { name: m("title"), path: "/about" },
+    ]),
+  ]);
 
   return (
     <>
+      <JsonLd id="ld-about" data={ld} />
       <Nav />
+      <main id="main">
 
       <section className="about-hero">
         <div className="wrap">
@@ -82,7 +114,7 @@ export default async function AboutPage({
       {/* Mission */}
       <section className="section" style={{ background: "var(--cream-1)" }}>
         <div className="wrap">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 80, alignItems: "start" }}>
+          <div className="about-mission-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 80, alignItems: "start" }}>
             <div>
               <div className="eyebrow">{t("missionEyebrow")}</div>
               <h2 className="h1" style={{ marginTop: 12 }}>{t("missionTitle")}</h2>
@@ -221,7 +253,7 @@ export default async function AboutPage({
           <div className="eyebrow">{t("partnersEyebrow")}</div>
           <h2 className="mt-4 h1" style={{ maxWidth: 720 }}>{t("partnersTitle")}</h2>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, marginTop: 40 }}>
+          <div className="about-partners-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, marginTop: 40 }}>
             {[
               { h: "p1h", tt: "p1t", s: "p1s" },
               { h: "p2h", tt: "p2t", s: "p2s" },
@@ -253,6 +285,7 @@ export default async function AboutPage({
         </div>
       </section>
 
+      </main>
       <Footer />
     </>
   );
