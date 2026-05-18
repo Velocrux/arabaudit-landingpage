@@ -90,6 +90,18 @@ export default async function ContactPage({
                 {[
                   { l: "i1L", tt: "i1T", body: <p>{t("i1P")}</p>, extra: <p><a href="mailto:kauser@arabaudit.com">kauser@arabaudit.com</a></p> },
                   {
+                    l: "i5L",
+                    tt: "i5T",
+                    body: (
+                      <p>
+                        <strong>{t("i5P1Label")}:</strong> {t("i5P1")}
+                        <br />
+                        <strong>{t("i5P2Label")}:</strong> {t("i5P2")}
+                      </p>
+                    ),
+                    extra: null,
+                  },
+                  {
                     l: "i4L",
                     tt: "i4T",
                     body: <p>{t("i4P")}</p>,
