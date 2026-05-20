@@ -36,7 +36,7 @@ export const BRAND = {
   email: "kauser@arabaudit.com",
   addressLocality: "Riyadh",
   addressCountry: "SA",
-  founded: "2025",
+  founded: "2026",
   sameAs: [] as string[],
 } as const;
 

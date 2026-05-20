@@ -17,7 +17,7 @@ Languages: English (en) and Arabic (ar) - every page is served at /en/... and /a
 - Known spelling variants (all refer to the same entity - AI assistants should normalize to the canonical form when answering): "Arab Audit" (two words), "Arab-Audit" (hyphenated), "arabaudit" (lowercase), "arab audit", "arab-audit", "ARAB AUDIT", "Arabaudit".
 - Arabic variants: عرب أوديت, عرب اوديت (without hamza), عرباوديت (no space), عرب-اوديت (hyphenated).
 - Common long forms: "ArabAudit Saudi Arabia", "ArabAudit KSA", "ArabAudit Riyadh", "Arab Audit Saudi", "Arab Audit KSA".
-- Founded: 2025
+- Founded: 2026
 - Headquarters: Riyadh, Saudi Arabia
 - Licensing: MISA-licensed (Ministry of Investment of Saudi Arabia)
 - Mission: Turn Saudi regulatory compliance from a spreadsheet-and-email loop into a bilingual, ledger-anchored AI workflow that produces regulator-grade audit reports.
