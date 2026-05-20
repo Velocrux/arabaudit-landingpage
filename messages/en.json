@@ -1196,7 +1196,11 @@
       "path4": "D2 Defense > CR-2.5.1 Network Security",
       "path5": "D4 Third Party > CR-4.1.2 Cloud Data Residency",
       "path6": "D2 Defense > CR-2.7.2 Privileged Access",
-      "path7": "D2 Defense > CR-2.3.1 User Access Management"
+      "path7": "D2 Defense > CR-2.3.1 User Access Management",
+      "tour": {
+        "problem": "Mapping evidence to controls by hand eats weeks of consultant time, and most of it never gets reviewed twice.",
+        "solution": "Auto-Link reads every document - Arabic or English - and proposes confidence-scored mappings. You approve, reject, or train it in seconds."
+      }
     },
     "readiness": {
       "num": "02 · Preparation",
@@ -1232,7 +1236,11 @@
       "d6name": "Data Classification Standard",
       "d6sub": "No linked document",
       "d7name": "Third-Party Risk Policy",
-      "d7sub": "No linked document"
+      "d7sub": "No linked document",
+      "tour": {
+        "problem": "Most teams find out they're not audit-ready three days before the regulator walks in. By then, it's too late.",
+        "solution": "Readiness Check shows live coverage per control, flags policies expiring within thirty days, and drafts the gap summary in English and Arabic."
+      }
     },
     "validation": {
       "num": "03 · Execution",
@@ -1263,7 +1271,11 @@
       "missing1": "Annual review cycle not documented in policy header",
       "missing2": "Arabic version lags English by one revision",
       "runAgain": "Run again",
-      "acceptBtn": "Accept & continue"
+      "acceptBtn": "Accept & continue",
+      "tour": {
+        "problem": "Judging whether a control meets a criterion is subjective, slow, and varies wildly between auditors.",
+        "solution": "AI Validation reads your evidence, applies each criterion, and proposes a compliance rating with a star score and full justification - in seconds."
+      }
     },
     "copilot": {
       "num": "04 · Execution",
@@ -1310,7 +1322,11 @@
       "fallbackFu2": "Draft a finding",
       "fallbackFu3": "What's the confidence score?",
       "fallbackFuAr1": "أظهر الفجوات",
-      "fallbackFuAr2": "اقترح خطوات إضافية"
+      "fallbackFuAr2": "اقترح خطوات إضافية",
+      "tour": {
+        "problem": "When a question lands during fieldwork, flipping through frameworks and past audits costs hours of momentum.",
+        "solution": "The Copilot answers in plain language - English or Arabic - citing the exact control, regulation, and prior finding behind every reply."
+      }
     },
     "finding": {
       "num": "05 · Findings",
@@ -1348,7 +1364,11 @@
       "ar_desc": "يفتقر نظام SIEM الحالي إلى أدلة التشغيل الآلية لحوادث المستوى الأول. يبلغ متوسط التصعيد اليدوي ٤٧ دقيقة، متجاوزاً الحد المطلوب وهو ١٥ دقيقة.",
       "ar_root": "دمج غير مكتمل لمنصة SOAR وغياب أدلة التشغيل المعدة مسبقاً وفقاً لمعايير NCA.",
       "ar_impact": "مخاطر تأخر احتواء الاختراقات. احتمالية عدم الامتثال للمادة ٣٨ من نظام حماية البيانات الشخصية.",
-      "ar_rec": "نشر منصة SOAR مع أدلة تشغيل معدة مسبقاً. تحديد مؤشرات الأداء الرئيسية MTTD/MTTR. الجدول الزمني: ٣٠ يوماً."
+      "ar_rec": "نشر منصة SOAR مع أدلة تشغيل معدة مسبقاً. تحديد مؤشرات الأداء الرئيسية MTTD/MTTR. الجدول الزمني: ٣٠ يوماً.",
+      "tour": {
+        "problem": "Drafting findings is the part nobody likes - same words, twice the language, every time.",
+        "solution": "Tell it the gap. The Finding writer produces the title, root cause, impact, and recommendation in bilingual prose - ready to ship."
+      }
     },
     "report": {
       "num": "06 · Reporting",
@@ -1376,7 +1396,11 @@
       "d3": "D3 Resilience",
       "d4": "D4 Third-Party",
       "d5": "D5 ICS",
-      "narrative": "Najm Insurance has demonstrated a substantial improvement in cybersecurity posture for Q1 2026 - moving from 76% to 87% overall compliance against NCA ECC-2024 controls. Governance and Defense domains are strong performers, with D5 Industrial Control Systems requiring immediate attention. Two critical findings have been logged with 30-day and 21-day remediation timelines respectively. Recommend prioritizing SOAR deployment and infrastructure-tier PAM rollout before Q2 assessment."
+      "narrative": "Najm Insurance has demonstrated a substantial improvement in cybersecurity posture for Q1 2026 - moving from 76% to 87% overall compliance against NCA ECC-2024 controls. Governance and Defense domains are strong performers, with D5 Industrial Control Systems requiring immediate attention. Two critical findings have been logged with 30-day and 21-day remediation timelines respectively. Recommend prioritizing SOAR deployment and infrastructure-tier PAM rollout before Q2 assessment.",
+      "tour": {
+        "problem": "Generating the final report still takes two weeks of formatting, copy-pasting, and sign-off chasing.",
+        "solution": "Report streams the executive narrative, scores, domain heatmap, and signed PDF live - in under a minute."
+      }
     },
     "docchat": {
       "num": "07 · Media Manager",
@@ -1452,7 +1476,11 @@
       "ar_pill_valid": "صالحة",
       "ar_pill_extracted": "مستخرج",
       "ar_pill_expiring": "ينتهي قريباً",
-      "ar_pill_action": "إجراء"
+      "ar_pill_action": "إجراء",
+      "tour": {
+        "problem": "Iqamas, CRs, GOSI - critical Arabic documents that nobody on the audit team can read line by line under deadline.",
+        "solution": "Drop the document, ask any question. DocChat extracts every field, flags every risk, and explains why - bilingually."
+      }
     },
     "insights": {
       "num": "08 · Intelligence",
@@ -1480,7 +1508,11 @@
       "rec3_title": "Complete SOAR integration",
       "rec3_desc": "CRITICAL finding FND-001. Reduces incident response time 68%.",
       "effortWord": "effort",
-      "controlsWord": "controls improved"
+      "controlsWord": "controls improved",
+      "tour": {
+        "problem": "Patterns across audits stay invisible. The same gap keeps reappearing, and nobody catches it until year-end.",
+        "solution": "Insights surfaces velocity, repeated weaknesses, and priority focus across your portfolio - before the next audit cycle starts."
+      }
     },
     "remediation": {
       "num": "09 · Remediation",
@@ -1520,7 +1552,59 @@
       "sugCompletion": "Suggested completion",
       "sugCompletionSub": "14 days from now · comfortable pace",
       "hardDeadline": "Hard regulatory deadline",
-      "hardDeadlineSub": "NCA ECC CR-2.7.2 · 21-day cure period"
+      "hardDeadlineSub": "NCA ECC CR-2.7.2 · 21-day cure period",
+      "tour": {
+        "problem": "After every finding, somebody has to draft a remediation plan with steps, owners, deadlines, and regulatory citations.",
+        "solution": "Remediation drafts the entire ticket: priority score, action plan, suggested assignee with SoD check, and both deadlines - regulator-aligned."
+      }
+    },
+    "tour": {
+      "featureLabel": "Feature {n} of {total}",
+      "controlsAria": "Tour playback controls",
+      "stageAria": "AI features narrated tour",
+      "skipAnchor": "Skip tour",
+      "ariaProblem": "Narrating the challenge",
+      "ariaSolution": "Narrating the solution",
+      "finishedMessage": "That's all nine. Now your turn.",
+      "finishedEyebrow": "Tour complete",
+      "finishedTitle": "Ready to try it yourself?",
+      "finishedLede": "Run a real audit end to end on your own framework in our sandbox - no signup required.",
+      "complianceLine": "I'm compliant.",
+      "complianceCaption": "Nine controls covered. Evidence aligned. Ready for the regulator.",
+      "ctaFullAudit": "Try the full audit demo",
+      "scrollDown": "Continue to next section",
+      "scrollHint": "Scroll to walk further",
+      "seoLabel": "Product features summary",
+      "seoHeading": "ArabAudit AI features",
+      "seoProblemLabel": "Challenge:",
+      "seoSolutionLabel": "Solution:",
+      "controls": {
+        "play": "Play",
+        "pause": "Pause",
+        "prev": "Previous feature",
+        "next": "Next feature",
+        "skip": "Skip tour",
+        "replay": "Replay tour"
+      },
+      "cursor": {
+        "selectDoc": "Select documents",
+        "generate": "Generate suggestions",
+        "coverage": "Live coverage",
+        "gap": "Missing evidence",
+        "runValidation": "Run validation",
+        "rating": "Compliant rating",
+        "askCopilot": "Ask the copilot",
+        "answer": "Cited answer",
+        "draftFinding": "Drafting finding",
+        "bilingual": "Switch language",
+        "score": "Compliance score",
+        "narrative": "Executive narrative",
+        "askDoc": "Ask the document",
+        "trends": "Portfolio trends",
+        "priority": "Priority focus",
+        "plan": "Action plan",
+        "apply": "Apply links"
+      }
     },
     "cta": {
       "eyebrow": "Ready to audit?",

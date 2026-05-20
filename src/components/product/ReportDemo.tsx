@@ -4,7 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { PlayIcon, Refresh01Icon, Tick02Icon } from "hugeicons-react";
 
-export default function ReportDemo() {
+interface Props {
+  autoStart?: number;
+  compact?: boolean;
+}
+
+export default function ReportDemo({ autoStart, compact }: Props = {}) {
   const t = useTranslations("product.report");
 
   const [gaugeVal, setGaugeVal] = useState(0);
@@ -28,6 +33,8 @@ export default function ReportDemo() {
     },
     []
   );
+
+  const lastAutoStart = useRef(0);
 
   const domains = [
     { name: t("d1"), pct: 94, cls: "" },
@@ -100,45 +107,55 @@ export default function ReportDemo() {
     intervals.current.push(narrativeInterval);
   };
 
+  useEffect(() => {
+    if (autoStart && autoStart > lastAutoStart.current) {
+      lastAutoStart.current = autoStart;
+      stream();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart]);
+
   return (
     <>
-      <div className="demo-info">
-        <div className="demo-header" style={{ marginBottom: 0 }}>
-          <div className="demo-num">{t("num")}</div>
-          <h2>
-            {t("title1")}
-            <br />
-            <em>{t("title2")}</em>
-          </h2>
-          <p>{t("lede")}</p>
+      {!compact && (
+        <div className="demo-info">
+          <div className="demo-header" style={{ marginBottom: 0 }}>
+            <div className="demo-num">{t("num")}</div>
+            <h2>
+              {t("title1")}
+              <br />
+              <em>{t("title2")}</em>
+            </h2>
+            <p>{t("lede")}</p>
+          </div>
+          <ul className="demo-feature-list">
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
+          </ul>
+          <div style={{ marginTop: 32 }}>
+            <button className="btn-ai" onClick={stream} disabled={running}>
+              {running ? (
+                <>
+                  <span className="ai-pulse" style={{ display: "inline-flex" }}>
+                    <PlayIcon size={16} />
+                  </span>{" "}
+                  {t("streamingBtn")}
+                </>
+              ) : started ? (
+                <>
+                  <Refresh01Icon size={16} /> {t("streamAgainBtn")}
+                </>
+              ) : (
+                <>
+                  <PlayIcon size={16} /> {t("streamBtn")}
+                </>
+              )}
+            </button>
+          </div>
         </div>
-        <ul className="demo-feature-list">
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
-        </ul>
-        <div style={{ marginTop: 32 }}>
-          <button className="btn-ai" onClick={stream} disabled={running}>
-            {running ? (
-              <>
-                <span className="ai-pulse" style={{ display: "inline-flex" }}>
-                  <PlayIcon size={16} />
-                </span>{" "}
-                {t("streamingBtn")}
-              </>
-            ) : started ? (
-              <>
-                <Refresh01Icon size={16} /> {t("streamAgainBtn")}
-              </>
-            ) : (
-              <>
-                <PlayIcon size={16} /> {t("streamBtn")}
-              </>
-            )}
-          </button>
-        </div>
-      </div>
+      )}
       <div className="demo-app">
         <div className="app-frame">
           <div className="app-titlebar">
@@ -183,7 +200,7 @@ export default function ReportDemo() {
                   {t("clientName")}
                 </div>
               </div>
-              <div style={{ marginLeft: "auto", textAlign: "right" }}>
+              <div style={{ marginLeft: "auto", textAlign: "right" }} data-tour-target="report-gauge">
                 <div className="gauge">
                   <svg viewBox="0 0 160 80">
                     <path className="track" d="M 14,66 A 56,56 0 0 1 146,66" />
@@ -244,7 +261,7 @@ export default function ReportDemo() {
               >
                 {t("execNar")}
               </div>
-              <div className="narrative-box">
+              <div className="narrative-box" data-tour-target="report-narrative">
                 <span>{narrative}</span>
                 {showCaret && <span className="narrative-caret" />}
               </div>

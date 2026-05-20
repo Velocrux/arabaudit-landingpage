@@ -3,15 +3,8 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import AutoLinkDemo from "@/components/product/AutoLinkDemo";
-import ReadinessDemo from "@/components/product/ReadinessDemo";
-import ValidationDemo from "@/components/product/ValidationDemo";
-import CopilotDemo from "@/components/product/CopilotDemo";
-import FindingDemo from "@/components/product/FindingDemo";
-import ReportDemo from "@/components/product/ReportDemo";
-import DocChatDemo from "@/components/product/DocChatDemo";
-import InsightsDemo from "@/components/product/InsightsDemo";
-import RemediationDemo from "@/components/product/RemediationDemo";
+import AvatarTourLoader from "@/components/product/avatar-tour/AvatarTourLoader";
+import SeoFallback from "@/components/product/avatar-tour/SeoFallback";
 import JsonLd from "@/components/JsonLd";
 import { buildMetadata } from "@/lib/seo";
 import {
@@ -122,86 +115,15 @@ export default async function ProductPage({
         </div>
       </section>
 
-      {/* DEMO 1: AUTO-LINK */}
-      <section className="demo-section">
+      {/* AVATAR-NARRATED TOUR (replaces the 9 individual demo sections) */}
+      <section className="avt-section">
         <div className="wrap">
-          <div className="demo-wrap">
-            <AutoLinkDemo />
-          </div>
+          <AvatarTourLoader />
         </div>
       </section>
 
-      {/* DEMO 2: READINESS */}
-      <section className="demo-section alt">
-        <div className="wrap">
-          <div className="demo-wrap reverse">
-            <ReadinessDemo />
-          </div>
-        </div>
-      </section>
-
-      {/* DEMO 3: VALIDATION */}
-      <section className="demo-section">
-        <div className="wrap">
-          <div className="demo-wrap">
-            <ValidationDemo />
-          </div>
-        </div>
-      </section>
-
-      {/* DEMO 4: COPILOT */}
-      <section className="demo-section alt">
-        <div className="wrap">
-          <div className="demo-wrap reverse">
-            <CopilotDemo />
-          </div>
-        </div>
-      </section>
-
-      {/* DEMO 5: FINDING */}
-      <section className="demo-section">
-        <div className="wrap">
-          <div className="demo-wrap">
-            <FindingDemo />
-          </div>
-        </div>
-      </section>
-
-      {/* DEMO 6: REPORT */}
-      <section className="demo-section alt">
-        <div className="wrap">
-          <div className="demo-wrap reverse">
-            <ReportDemo />
-          </div>
-        </div>
-      </section>
-
-      {/* DEMO 7: DOC CHAT */}
-      <section className="demo-section">
-        <div className="wrap">
-          <div className="demo-wrap">
-            <DocChatDemo />
-          </div>
-        </div>
-      </section>
-
-      {/* DEMO 8: INSIGHTS */}
-      <section className="demo-section alt">
-        <div className="wrap">
-          <div className="demo-wrap reverse">
-            <InsightsDemo />
-          </div>
-        </div>
-      </section>
-
-      {/* DEMO 9: REMEDIATION */}
-      <section className="demo-section">
-        <div className="wrap">
-          <div className="demo-wrap">
-            <RemediationDemo />
-          </div>
-        </div>
-      </section>
+      {/* SEO summary (screen-reader-only, indexed by crawlers) */}
+      <SeoFallback />
 
       {/* CTA */}
       <section className="dark" style={{ padding: "120px 0", backgroundColor: "rgb(7, 55, 39)" }}>

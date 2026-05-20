@@ -24,7 +24,12 @@ interface Template {
 
 type TplKey = "expiry" | "extract" | "sponsor" | "ar";
 
-export default function DocChatDemo() {
+interface Props {
+  autoStart?: number;
+  compact?: boolean;
+}
+
+export default function DocChatDemo({ autoStart, compact }: Props = {}) {
   const t = useTranslations("product.docchat");
 
   const templates: Record<TplKey, Template> = {
@@ -79,6 +84,8 @@ export default function DocChatDemo() {
 
   useEffect(() => () => { timers.current.forEach(clearTimeout); }, []);
 
+  const lastAutoStart = useRef(0);
+
   const run = (key: TplKey) => {
     timers.current.forEach(clearTimeout);
     timers.current = [];
@@ -98,41 +105,51 @@ export default function DocChatDemo() {
     );
   };
 
+  useEffect(() => {
+    if (autoStart && autoStart > lastAutoStart.current) {
+      lastAutoStart.current = autoStart;
+      run("expiry");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart]);
+
   const activeTpl = activeKey ? templates[activeKey] : null;
   const isAr = activeKey === "ar";
 
   return (
     <>
-      <div className="demo-info">
-        <div className="demo-header" style={{ marginBottom: 0 }}>
-          <div className="demo-num">{t("num")}</div>
-          <h2>
-            {t("title1")}
-            <br />
-            <em>{t("title2")}</em>
-          </h2>
-          <p>{t("lede")}</p>
+      {!compact && (
+        <div className="demo-info">
+          <div className="demo-header" style={{ marginBottom: 0 }}>
+            <div className="demo-num">{t("num")}</div>
+            <h2>
+              {t("title1")}
+              <br />
+              <em>{t("title2")}</em>
+            </h2>
+            <p>{t("lede")}</p>
+          </div>
+          <ul className="demo-feature-list">
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
+          </ul>
+          <div
+            style={{
+              marginTop: 32,
+              padding: "14px 18px",
+              background: "rgba(200,169,81,.08)",
+              borderRadius: 8,
+              borderLeft: "3px solid var(--aa-gold)",
+              fontSize: 13,
+              color: "var(--aa-slate-800)",
+            }}
+          >
+            <b>{t("tryItLabel")}</b> {t("tryItText")}
+          </div>
         </div>
-        <ul className="demo-feature-list">
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
-        </ul>
-        <div
-          style={{
-            marginTop: 32,
-            padding: "14px 18px",
-            background: "rgba(200,169,81,.08)",
-            borderRadius: 8,
-            borderLeft: "3px solid var(--aa-gold)",
-            fontSize: 13,
-            color: "var(--aa-slate-800)",
-          }}
-        >
-          <b>{t("tryItLabel")}</b> {t("tryItText")}
-        </div>
-      </div>
+      )}
       <div className="demo-app">
         <div className="app-frame">
           <div className="app-titlebar">
@@ -179,7 +196,7 @@ export default function DocChatDemo() {
               </div>
               <div className="doc-chat-panel">
                 <div className="doc-templates">
-                  <button className="doc-template" onClick={() => run("expiry")}>
+                  <button className="doc-template" data-tour-target="docchat-expiry" onClick={() => run("expiry")}>
                     <span className="ico"><LicenseIcon size={14} /></span>
                     {t("tpl_expiry")}
                   </button>
@@ -191,7 +208,7 @@ export default function DocChatDemo() {
                     <span className="ico"><Building01Icon size={14} /></span>
                     {t("tpl_sponsor")}
                   </button>
-                  <button className="doc-template" onClick={() => run("ar")}>
+                  <button className="doc-template" data-tour-target="docchat-ar" onClick={() => run("ar")}>
                     <span className="ico"><MagicWand01Icon size={14} /></span>
                     {t("tpl_ar")}
                   </button>

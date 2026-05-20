@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "framer-motion": "^12.39.0",
     "hugeicons-react": "^0.4.0",
     "next": "^15.1.0",
     "next-intl": "^3.26.0",

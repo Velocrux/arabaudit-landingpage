@@ -26,7 +26,12 @@ interface Suggestion {
   reason: string;
 }
 
-export default function AutoLinkDemo() {
+interface Props {
+  autoStart?: number;
+  compact?: boolean;
+}
+
+export default function AutoLinkDemo({ autoStart, compact }: Props = {}) {
   const t = useTranslations("product.autoLink");
   const tShared = useTranslations("product");
 
@@ -63,12 +68,13 @@ export default function AutoLinkDemo() {
     setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
   };
 
-  const start = () => {
-    if (selected.length === 0) return;
+  const start = (docIds?: number[]) => {
+    const useIds = docIds ?? selected;
+    if (useIds.length === 0) return;
     setStep(2);
     setProcessed(0);
     setPhase(phases[0]);
-    const total = selected.length;
+    const total = useIds.length;
     let p = 0;
     timer.current = setInterval(() => {
       p++;
@@ -78,7 +84,7 @@ export default function AutoLinkDemo() {
       if (p >= total) {
         if (timer.current) clearInterval(timer.current);
         setTimeout(() => {
-          const selectedDocs = docs.filter((d) => selected.includes(d.id));
+          const selectedDocs = docs.filter((d) => useIds.includes(d.id));
           const filtered = allSuggestions.filter((s) =>
             selectedDocs.some((d) => d.name === s.doc)
           );
@@ -103,32 +109,44 @@ export default function AutoLinkDemo() {
 
   useEffect(() => () => { if (timer.current) clearInterval(timer.current); }, []);
 
+  const lastAutoStart = useRef(0);
+  useEffect(() => {
+    if (autoStart && autoStart > lastAutoStart.current) {
+      lastAutoStart.current = autoStart;
+      setSelected([1, 2, 3]);
+      start([1, 2, 3]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart]);
+
   const total = selected.length;
   const avgConf = results.length ? Math.round(results.reduce((a, s) => a + s.conf, 0) / results.length) : 0;
   const stepLabels = [t("stepConfigure"), t("stepProcessing"), t("stepReview"), t("stepApply")];
 
   return (
     <>
-      <div className="demo-info">
-        <div className="demo-header" style={{ marginBottom: 0 }}>
-          <div className="demo-num">{t("num")}</div>
-          <h2>
-            {t("title1")}
-            <br />
-            <em>{t("title2")}</em>
-          </h2>
-          <p>{t("lede")}</p>
+      {!compact && (
+        <div className="demo-info">
+          <div className="demo-header" style={{ marginBottom: 0 }}>
+            <div className="demo-num">{t("num")}</div>
+            <h2>
+              {t("title1")}
+              <br />
+              <em>{t("title2")}</em>
+            </h2>
+            <p>{t("lede")}</p>
+          </div>
+          <ul className="demo-feature-list">
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
+          </ul>
+          <div style={{ marginTop: 32, display: "flex", gap: 12 }}>
+            <Link href="/demo-audit" className="btn btn-primary">{t("ctaFull")} →</Link>
+          </div>
         </div>
-        <ul className="demo-feature-list">
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
-        </ul>
-        <div style={{ marginTop: 32, display: "flex", gap: 12 }}>
-          <Link href="/demo-audit" className="btn btn-primary">{t("ctaFull")} →</Link>
-        </div>
-      </div>
+      )}
       <div className="demo-app">
         <div className="app-frame">
           <div className="app-titlebar">
@@ -162,6 +180,7 @@ export default function AutoLinkDemo() {
                   {docs.map((d) => (
                     <div
                       key={d.id}
+                      data-tour-target={`autolink-doc-${d.id}`}
                       className={`doc-row ${selected.includes(d.id) ? "selected" : ""}`}
                       onClick={() => toggle(d.id)}
                     >
@@ -188,7 +207,12 @@ export default function AutoLinkDemo() {
                   ))}
                 </div>
                 <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
-                  <button className="btn-ai" onClick={start} disabled={total === 0}>
+                  <button
+                    className="btn-ai"
+                    data-tour-target="autolink-generate"
+                    onClick={() => start()}
+                    disabled={total === 0}
+                  >
                     <MagicWand01Icon size={16} /> {t("generateBtn")}
                   </button>
                 </div>
@@ -196,7 +220,7 @@ export default function AutoLinkDemo() {
             )}
 
             {step === 2 && (
-              <div className="progress-container">
+              <div className="progress-container" data-tour-target="autolink-progress">
                 <div className="progress-spinner">
                   <svg viewBox="0 0 60 60">
                     <circle className="track" cx="30" cy="30" r="24" />
@@ -255,7 +279,7 @@ export default function AutoLinkDemo() {
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", marginTop: 16 }}>
                   <button className="btn-ai ghost" onClick={reset}>← {t("startOver")}</button>
-                  <button className="btn-ai" onClick={apply}>{t("applyAll")} →</button>
+                  <button className="btn-ai" data-tour-target="autolink-apply" onClick={apply}>{t("applyAll")} →</button>
                 </div>
               </div>
             )}

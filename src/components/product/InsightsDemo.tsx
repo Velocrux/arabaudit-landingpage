@@ -10,7 +10,12 @@ import {
   Tick02Icon,
 } from "hugeicons-react";
 
-export default function InsightsDemo() {
+interface Props {
+  autoStart?: number;
+  compact?: boolean;
+}
+
+export default function InsightsDemo({ autoStart, compact }: Props = {}) {
   const t = useTranslations("product.insights");
 
   const [velocity, setVelocity] = useState("+0%");
@@ -111,48 +116,59 @@ export default function InsightsDemo() {
     timers.current.push(setTimeout(() => setRunning(false), 3500));
   };
 
+  const lastAutoStart = useRef(0);
+  useEffect(() => {
+    if (autoStart && autoStart > lastAutoStart.current) {
+      lastAutoStart.current = autoStart;
+      run();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart]);
+
   return (
     <>
-      <div className="demo-info">
-        <div className="demo-header" style={{ marginBottom: 0 }}>
-          <div className="demo-num">{t("num")}</div>
-          <h2>
-            {t("title1")}
-            <br />
-            <em>{t("title2")}</em>
-          </h2>
-          <p>{t("lede")}</p>
+      {!compact && (
+        <div className="demo-info">
+          <div className="demo-header" style={{ marginBottom: 0 }}>
+            <div className="demo-num">{t("num")}</div>
+            <h2>
+              {t("title1")}
+              <br />
+              <em>{t("title2")}</em>
+            </h2>
+            <p>{t("lede")}</p>
+          </div>
+          <ul className="demo-feature-list">
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
+          </ul>
+          <div style={{ marginTop: 32 }}>
+            <button className="btn-ai" onClick={run} disabled={running}>
+              {running ? (
+                <>
+                  <span className="ai-pulse" style={{ display: "inline-flex" }}>
+                    <MagicWand01Icon size={16} />
+                  </span>{" "}
+                  {t("analyzingBtn")}
+                </>
+              ) : started ? (
+                <>
+                  <Refresh01Icon size={16} /> {t("regenBtn")}
+                </>
+              ) : (
+                <>
+                  <span className="ai-pulse" style={{ display: "inline-flex" }}>
+                    <MagicWand01Icon size={16} />
+                  </span>{" "}
+                  {t("genBtn")}
+                </>
+              )}
+            </button>
+          </div>
         </div>
-        <ul className="demo-feature-list">
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
-        </ul>
-        <div style={{ marginTop: 32 }}>
-          <button className="btn-ai" onClick={run} disabled={running}>
-            {running ? (
-              <>
-                <span className="ai-pulse" style={{ display: "inline-flex" }}>
-                  <MagicWand01Icon size={16} />
-                </span>{" "}
-                {t("analyzingBtn")}
-              </>
-            ) : started ? (
-              <>
-                <Refresh01Icon size={16} /> {t("regenBtn")}
-              </>
-            ) : (
-              <>
-                <span className="ai-pulse" style={{ display: "inline-flex" }}>
-                  <MagicWand01Icon size={16} />
-                </span>{" "}
-                {t("genBtn")}
-              </>
-            )}
-          </button>
-        </div>
-      </div>
+      )}
       <div className="demo-app">
         <div className="app-frame">
           <div className="app-titlebar">
@@ -183,7 +199,7 @@ export default function InsightsDemo() {
               </div>
             </div>
 
-            <div className="insights-metrics">
+            <div className="insights-metrics" data-tour-target="insights-metrics">
               <div className="insights-metric"><div className="v">{audits}</div><div className="l">{t("mAudits")}</div></div>
               <div className="insights-metric"><div className="v">{months}</div><div className="l">{t("mMonths")}</div></div>
               <div className="insights-metric"><div className="v">{conf}</div><div className="l">{t("mConf")}</div></div>
@@ -207,7 +223,11 @@ export default function InsightsDemo() {
                   const visible = recs[i]?.visible;
                   if (!recs[i]) return null;
                   return (
-                    <div key={i} className={`insights-rec ${visible ? "visible" : ""}`}>
+                    <div
+                      key={i}
+                      data-tour-target={i === 0 ? "insights-rec-1" : undefined}
+                      className={`insights-rec ${visible ? "visible" : ""}`}
+                    >
                       <div className="priority">{r.p}</div>
                       <div style={{ flex: 1 }}>
                         <h5>{r.title}</h5>

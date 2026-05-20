@@ -4,7 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { MagicWand01Icon, Tick02Icon, StarIcon } from "hugeicons-react";
 
-export default function ValidationDemo() {
+interface Props {
+  autoStart?: number;
+  compact?: boolean;
+}
+
+export default function ValidationDemo({ autoStart, compact }: Props = {}) {
   const t = useTranslations("product.validation");
   const [stage, setStage] = useState<"idle" | "loading" | "result">("idle");
   const [phaseIdx, setPhaseIdx] = useState(0);
@@ -32,25 +37,36 @@ export default function ValidationDemo() {
 
   useEffect(() => () => { if (timer.current) clearInterval(timer.current); }, []);
 
+  const lastAutoStart = useRef(0);
+  useEffect(() => {
+    if (autoStart && autoStart > lastAutoStart.current) {
+      lastAutoStart.current = autoStart;
+      run();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart]);
+
   return (
     <>
-      <div className="demo-info">
-        <div className="demo-header" style={{ marginBottom: 0 }}>
-          <div className="demo-num">{t("num")}</div>
-          <h2>
-            {t("title1")}
-            <br />
-            <em>{t("title2")}</em>
-          </h2>
-          <p>{t("lede")}</p>
+      {!compact && (
+        <div className="demo-info">
+          <div className="demo-header" style={{ marginBottom: 0 }}>
+            <div className="demo-num">{t("num")}</div>
+            <h2>
+              {t("title1")}
+              <br />
+              <em>{t("title2")}</em>
+            </h2>
+            <p>{t("lede")}</p>
+          </div>
+          <ul className="demo-feature-list">
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
+          </ul>
         </div>
-        <ul className="demo-feature-list">
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
-        </ul>
-      </div>
+      )}
       <div className="demo-app">
         <div className="app-frame">
           <div className="app-titlebar">
@@ -95,7 +111,7 @@ export default function ValidationDemo() {
 
             {stage === "idle" && (
               <div style={{ textAlign: "center", padding: "20px 0" }}>
-                <button className="btn-ai" onClick={run}>
+                <button className="btn-ai" data-tour-target="validation-run" onClick={run}>
                   <span className="ai-pulse" style={{ display: "inline-flex" }}>
                     <MagicWand01Icon size={16} />
                   </span>{" "}
@@ -127,7 +143,7 @@ export default function ValidationDemo() {
             )}
 
             {stage === "result" && (
-              <div>
+              <div data-tour-target="validation-result">
                 <div className="validation-result">
                   <div className="validation-header compliant">
                     <div className="val-status compliant">

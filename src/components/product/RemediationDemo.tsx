@@ -9,7 +9,12 @@ import {
   AlertCircleIcon,
 } from "hugeicons-react";
 
-export default function RemediationDemo() {
+interface Props {
+  autoStart?: number;
+  compact?: boolean;
+}
+
+export default function RemediationDemo({ autoStart, compact }: Props = {}) {
   const t = useTranslations("product.remediation");
 
   const [state, setState] = useState<"idle" | "loading" | "result">("idle");
@@ -77,48 +82,59 @@ export default function RemediationDemo() {
     );
   };
 
+  const lastAutoStart = useRef(0);
+  useEffect(() => {
+    if (autoStart && autoStart > lastAutoStart.current) {
+      lastAutoStart.current = autoStart;
+      run();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart]);
+
   return (
     <>
-      <div className="demo-info">
-        <div className="demo-header" style={{ marginBottom: 0 }}>
-          <div className="demo-num">{t("num")}</div>
-          <h2>
-            {t("title1")}
-            <br />
-            <em>{t("title2")}</em>
-          </h2>
-          <p>{t("lede")}</p>
+      {!compact && (
+        <div className="demo-info">
+          <div className="demo-header" style={{ marginBottom: 0 }}>
+            <div className="demo-num">{t("num")}</div>
+            <h2>
+              {t("title1")}
+              <br />
+              <em>{t("title2")}</em>
+            </h2>
+            <p>{t("lede")}</p>
+          </div>
+          <ul className="demo-feature-list">
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
+          </ul>
+          <div style={{ marginTop: 32 }}>
+            <button className="btn-ai" onClick={run} disabled={running}>
+              {running ? (
+                <>
+                  <span className="ai-pulse" style={{ display: "inline-flex" }}>
+                    <MagicWand01Icon size={16} />
+                  </span>{" "}
+                  {t("draftingBtn")}
+                </>
+              ) : state !== "idle" ? (
+                <>
+                  <Refresh01Icon size={16} /> {t("regenBtn")}
+                </>
+              ) : (
+                <>
+                  <span className="ai-pulse" style={{ display: "inline-flex" }}>
+                    <MagicWand01Icon size={16} />
+                  </span>{" "}
+                  {t("draftBtn")}
+                </>
+              )}
+            </button>
+          </div>
         </div>
-        <ul className="demo-feature-list">
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
-        </ul>
-        <div style={{ marginTop: 32 }}>
-          <button className="btn-ai" onClick={run} disabled={running}>
-            {running ? (
-              <>
-                <span className="ai-pulse" style={{ display: "inline-flex" }}>
-                  <MagicWand01Icon size={16} />
-                </span>{" "}
-                {t("draftingBtn")}
-              </>
-            ) : state !== "idle" ? (
-              <>
-                <Refresh01Icon size={16} /> {t("regenBtn")}
-              </>
-            ) : (
-              <>
-                <span className="ai-pulse" style={{ display: "inline-flex" }}>
-                  <MagicWand01Icon size={16} />
-                </span>{" "}
-                {t("draftBtn")}
-              </>
-            )}
-          </button>
-        </div>
-      </div>
+      )}
       <div className="demo-app">
         <div className="app-frame">
           <div className="app-titlebar">
@@ -133,7 +149,7 @@ export default function RemediationDemo() {
                   <div className="id">FND-2026-Q1-002 · NCA ECC CR-2.7.2</div>
                   <div className="title" style={{ marginTop: 4 }}>{t("findingTitle")}</div>
                 </div>
-                <div className="ticket-priority">
+                <div className="ticket-priority" data-tour-target="remediation-priority">
                   <div className="score">{state === "result" ? priority : "-"}</div>
                   <div className="label">{t("priorityLabel")}</div>
                 </div>
@@ -228,6 +244,7 @@ export default function RemediationDemo() {
                     </div>
 
                     <div
+                      data-tour-target="remediation-actions"
                       className={`ticket-section ${visibleSections.s3 ? "visible" : ""}`}
                       style={{ marginTop: 16 }}
                     >

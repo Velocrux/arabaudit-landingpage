@@ -6,7 +6,12 @@ import { MagicWand01Icon, Refresh01Icon, Tick02Icon } from "hugeicons-react";
 
 type FieldKey = "title" | "desc" | "root" | "impact" | "rec";
 
-export default function FindingDemo() {
+interface Props {
+  autoStart?: number;
+  compact?: boolean;
+}
+
+export default function FindingDemo({ autoStart, compact }: Props = {}) {
   const t = useTranslations("product.finding");
 
   const fieldKeys: FieldKey[] = ["title", "desc", "root", "impact", "rec"];
@@ -62,6 +67,15 @@ export default function FindingDemo() {
 
   useEffect(() => () => { timers.current.forEach(clearTimeout); }, []);
 
+  const lastAutoStart = useRef(0);
+  useEffect(() => {
+    if (autoStart && autoStart > lastAutoStart.current) {
+      lastAutoStart.current = autoStart;
+      generate();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart]);
+
   const generate = () => {
     timers.current.forEach(clearTimeout);
     timers.current = [];
@@ -104,46 +118,48 @@ export default function FindingDemo() {
 
   return (
     <>
-      <div className="demo-info">
-        <div className="demo-header" style={{ marginBottom: 0 }}>
-          <div className="demo-num">{t("num")}</div>
-          <h2>
-            {t("title1")}
-            <br />
-            <em>{t("title2")}</em>
-          </h2>
-          <p>{t("lede")}</p>
+      {!compact && (
+        <div className="demo-info">
+          <div className="demo-header" style={{ marginBottom: 0 }}>
+            <div className="demo-num">{t("num")}</div>
+            <h2>
+              {t("title1")}
+              <br />
+              <em>{t("title2")}</em>
+            </h2>
+            <p>{t("lede")}</p>
+          </div>
+          <ul className="demo-feature-list">
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
+          </ul>
+          <div style={{ marginTop: 32 }}>
+            <button className="btn-ai" onClick={generate} disabled={running}>
+              {running ? (
+                <>
+                  <span className="ai-pulse" style={{ display: "inline-flex" }}>
+                    <MagicWand01Icon size={16} />
+                  </span>{" "}
+                  {t("generatingBtn")}
+                </>
+              ) : placeholderMode ? (
+                <>
+                  <span className="ai-pulse" style={{ display: "inline-flex" }}>
+                    <MagicWand01Icon size={16} />
+                  </span>{" "}
+                  {t("generateBtn")}
+                </>
+              ) : (
+                <>
+                  <Refresh01Icon size={16} /> {t("regenBtn")}
+                </>
+              )}
+            </button>
+          </div>
         </div>
-        <ul className="demo-feature-list">
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
-        </ul>
-        <div style={{ marginTop: 32 }}>
-          <button className="btn-ai" onClick={generate} disabled={running}>
-            {running ? (
-              <>
-                <span className="ai-pulse" style={{ display: "inline-flex" }}>
-                  <MagicWand01Icon size={16} />
-                </span>{" "}
-                {t("generatingBtn")}
-              </>
-            ) : placeholderMode ? (
-              <>
-                <span className="ai-pulse" style={{ display: "inline-flex" }}>
-                  <MagicWand01Icon size={16} />
-                </span>{" "}
-                {t("generateBtn")}
-              </>
-            ) : (
-              <>
-                <Refresh01Icon size={16} /> {t("regenBtn")}
-              </>
-            )}
-          </button>
-        </div>
-      </div>
+      )}
       <div className="demo-app">
         <div className="finding-modal">
           <div className="finding-header">
@@ -154,19 +170,21 @@ export default function FindingDemo() {
           </div>
           <div className="lang-tabs">
             <div
+              data-tour-target="finding-lang-en"
               className={`lang-tab ${lang === "en" ? "active" : ""}`}
               onClick={() => setLang("en")}
             >
               English
             </div>
             <div
+              data-tour-target="finding-lang-ar"
               className={`lang-tab ${lang === "ar" ? "active" : ""}`}
               onClick={() => setLang("ar")}
             >
               عربي
             </div>
           </div>
-          <div className="finding-body">
+          <div className="finding-body" data-tour-target="finding-body">
             {fieldKeys.map((k) => (
               <div key={k} className={`finding-field ${visibleFields[k] ? "visible" : ""}`}>
                 <div className="finding-field-label">{labs[k]}</div>

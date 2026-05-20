@@ -4,7 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Refresh01Icon, AlertCircleIcon, Cancel01Icon, Tick02Icon } from "hugeicons-react";
 
-export default function ReadinessDemo() {
+interface Props {
+  autoStart?: number;
+  compact?: boolean;
+}
+
+export default function ReadinessDemo({ autoStart, compact }: Props = {}) {
   const t = useTranslations("product.readiness");
   const tShared = useTranslations("product");
 
@@ -42,6 +47,14 @@ export default function ReadinessDemo() {
     return () => { if (timer.current) clearInterval(timer.current); };
   }, [runKey, pct, linked]);
 
+  const lastAutoStart = useRef(0);
+  useEffect(() => {
+    if (autoStart && autoStart > lastAutoStart.current) {
+      lastAutoStart.current = autoStart;
+      setRunKey((k) => k + 1);
+    }
+  }, [autoStart]);
+
   const circumference = 377;
   const offset = circumference - (displayPct / 100) * circumference;
 
@@ -63,28 +76,30 @@ export default function ReadinessDemo() {
 
   return (
     <>
-      <div className="demo-info">
-        <div className="demo-header" style={{ marginBottom: 0 }}>
-          <div className="demo-num">{t("num")}</div>
-          <h2>
-            {t("title1")}
-            <br />
-            <em>{t("title2")}</em>
-          </h2>
-          <p>{t("lede")}</p>
+      {!compact && (
+        <div className="demo-info">
+          <div className="demo-header" style={{ marginBottom: 0 }}>
+            <div className="demo-num">{t("num")}</div>
+            <h2>
+              {t("title1")}
+              <br />
+              <em>{t("title2")}</em>
+            </h2>
+            <p>{t("lede")}</p>
+          </div>
+          <ul className="demo-feature-list">
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
+          </ul>
+          <div style={{ marginTop: 32 }}>
+            <button className="btn-ai" onClick={() => setRunKey((k) => k + 1)}>
+              <Refresh01Icon size={16} /> {t("rerunBtn")}
+            </button>
+          </div>
         </div>
-        <ul className="demo-feature-list">
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
-        </ul>
-        <div style={{ marginTop: 32 }}>
-          <button className="btn-ai" onClick={() => setRunKey((k) => k + 1)}>
-            <Refresh01Icon size={16} /> {t("rerunBtn")}
-          </button>
-        </div>
-      </div>
+      )}
       <div className="demo-app">
         <div className="app-frame">
           <div className="app-titlebar">
@@ -94,7 +109,7 @@ export default function ReadinessDemo() {
           </div>
           <div className="app-body">
             <div className="readiness-ring-grid" style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 24, alignItems: "center" }}>
-              <div>
+              <div data-tour-target="readiness-ring">
                 <div className="readiness-status-ring">
                   <svg viewBox="0 0 140 140">
                     <circle className="track" cx="70" cy="70" r="60" />
@@ -143,7 +158,11 @@ export default function ReadinessDemo() {
                 {t("requiredDocsHeading")}
               </div>
               {docs.map((d, i) => (
-                <div key={i} className={`readiness-card ${d.status}`}>
+                <div
+                  key={i}
+                  data-tour-target={i === 5 ? "readiness-missing" : undefined}
+                  className={`readiness-card ${d.status}`}
+                >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div>
                       <div style={{ fontSize: 14, color: "var(--aa-slate-800)", fontWeight: 500 }}>

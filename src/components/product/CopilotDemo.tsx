@@ -15,7 +15,12 @@ interface Resp {
   followups: string[];
 }
 
-export default function CopilotDemo() {
+interface Props {
+  autoStart?: number;
+  compact?: boolean;
+}
+
+export default function CopilotDemo({ autoStart, compact }: Props = {}) {
   const t = useTranslations("product.copilot");
   const bodyRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<Msg[]>([
@@ -56,6 +61,22 @@ export default function CopilotDemo() {
     if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
   }, [messages, typing]);
 
+  const lastAutoStart = useRef(0);
+  const autoTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (autoStart && autoStart > lastAutoStart.current) {
+      lastAutoStart.current = autoStart;
+      if (autoTimer.current) clearTimeout(autoTimer.current);
+      autoTimer.current = setTimeout(() => {
+        handleMessage(t("sug1"));
+      }, 800);
+    }
+    return () => {
+      if (autoTimer.current) clearTimeout(autoTimer.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart]);
+
   const handleMessage = (msg: string) => {
     if (!msg) return;
     const isAr = /[\u0600-\u06FF]/.test(msg);
@@ -80,36 +101,38 @@ export default function CopilotDemo() {
 
   return (
     <>
-      <div className="demo-info">
-        <div className="demo-header" style={{ marginBottom: 0 }}>
-          <div className="demo-num">{t("num")}</div>
-          <h2>
-            {t("title1")}
-            <br />
-            <em>{t("title2")}</em>
-          </h2>
-          <p>{t("lede")}</p>
+      {!compact && (
+        <div className="demo-info">
+          <div className="demo-header" style={{ marginBottom: 0 }}>
+            <div className="demo-num">{t("num")}</div>
+            <h2>
+              {t("title1")}
+              <br />
+              <em>{t("title2")}</em>
+            </h2>
+            <p>{t("lede")}</p>
+          </div>
+          <ul className="demo-feature-list">
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
+            <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
+          </ul>
+          <div
+            style={{
+              marginTop: 32,
+              padding: "14px 18px",
+              background: "rgba(200,169,81,.08)",
+              borderRadius: 8,
+              borderLeft: "3px solid var(--aa-gold)",
+              fontSize: 13,
+              color: "var(--aa-slate-800)",
+            }}
+          >
+            <b>{t("tryItLabel")}</b> {t("tryItText")}
+          </div>
         </div>
-        <ul className="demo-feature-list">
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f1")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f2")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f3")}</li>
-          <li><span className="fli-dot"><Tick02Icon size={10} /></span>{t("f4")}</li>
-        </ul>
-        <div
-          style={{
-            marginTop: 32,
-            padding: "14px 18px",
-            background: "rgba(200,169,81,.08)",
-            borderRadius: 8,
-            borderLeft: "3px solid var(--aa-gold)",
-            fontSize: 13,
-            color: "var(--aa-slate-800)",
-          }}
-        >
-          <b>{t("tryItLabel")}</b> {t("tryItText")}
-        </div>
-      </div>
+      )}
       <div className="demo-app">
         <div className="chat-window">
           <div className="chat-header">
@@ -143,7 +166,7 @@ export default function CopilotDemo() {
               LIVE
             </div>
           </div>
-          <div className="chat-body" ref={bodyRef}>
+          <div className="chat-body" data-tour-target="copilot-chat" ref={bodyRef}>
             {messages.map((m, i) => (
               <div key={i} className={`msg ${m.isUser ? "msg-user" : "msg-ai"}`}>
                 <div className="msg-avatar">{m.isUser ? "Y" : "AI"}</div>
@@ -169,7 +192,12 @@ export default function CopilotDemo() {
           </div>
           <div className="chat-suggestions">
             {suggestions.map((q, i) => (
-              <div key={i} className="chat-suggestion" onClick={() => handleMessage(q)}>
+              <div
+                key={i}
+                data-tour-target={i === 0 ? "copilot-suggestion" : undefined}
+                className="chat-suggestion"
+                onClick={() => handleMessage(q)}
+              >
                 {q}
               </div>
             ))}
