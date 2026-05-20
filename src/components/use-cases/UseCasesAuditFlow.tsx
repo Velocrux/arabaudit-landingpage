@@ -14,7 +14,12 @@ import { useAutoplay } from "@/components/autoplay/useAutoplay";
 import AutoplayCursor from "@/components/autoplay/AutoplayCursor";
 import { buildAuditFlowSequence } from "@/components/autoplay/sequences/auditFlow";
 
-type UseCaseKey = "healthcare" | "cybersecurity" | "itGovernance" | "general";
+type UseCaseKey =
+  | "healthcare"
+  | "cybersecurity"
+  | "itGovernance"
+  | "dataProtection"
+  | "general";
 type Phase = 1 | 2 | 3 | 4 | 5 | 6;
 type Rating = "compliant" | "noncompliant" | "na" | null;
 type Criterion = {
@@ -61,6 +66,16 @@ const LOCAL_FILES_BY_USE_CASE: Record<UseCaseKey, LocalFile[]> = {
     { icon: <File01Icon size={18} />, name: "Enterprise Architecture Standards.pdf", size: "1.4 MB", date: "28 Oct 2025" },
     { icon: <File01Icon size={18} />, name: "User Satisfaction Survey Q4.csv", size: "128 KB", date: "03 Jan 2026" },
     { icon: <File01Icon size={18} />, name: "BC-DR Test Results 2025.pdf", size: "890 KB", date: "05 Feb 2026" },
+  ],
+  dataProtection: [
+    { icon: <File01Icon size={18} />, name: "Personal Data Protection Policy v2.0.pdf", size: "2.4 MB", date: "15 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "Data Subject Rights Procedure.pdf", size: "1.6 MB", date: "22 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "ROPA - Record of Processing Activities.xlsx", size: "780 KB", date: "31 Dec 2025" },
+    { icon: <File01Icon size={18} />, name: "Data Protection Impact Assessment Q4.pdf", size: "1.2 MB", date: "12 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "Cross-Border Transfer Register.xlsx", size: "420 KB", date: "18 Apr 2026" },
+    { icon: <File01Icon size={18} />, name: "Breach Notification Playbook.pdf", size: "1.1 MB", date: "05 Feb 2026" },
+    { icon: <File01Icon size={18} />, name: "Consent Management Log Q4.csv", size: "256 KB", date: "03 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "سياسة حماية البيانات الشخصية.pdf", size: "1.8 MB", date: "20 Nov 2025" },
   ],
   general: [
     { icon: <File01Icon size={18} />, name: "Corporate Governance Policy.pdf", size: "2.4 MB", date: "15 Nov 2025" },
@@ -117,6 +132,17 @@ const useCaseMeta: Record<
       { i: 1, pattern: "Resource Management Plan v2.docx" },
     ],
     colors: { primary: "rgb(168, 85, 247)", accent: "rgba(168, 85, 247, 0.15)", light: "rgba(168, 85, 247, 0.08)" },
+  },
+  dataProtection: {
+    framework: "SDAIA PDPL",
+    controlIds: ["LAWF", "RGHT", "DPIA", "XBOR", "BRCH"],
+    critIds: ["LAWF-1", "LAWF-2", "LAWF-3", "RGHT-1", "RGHT-2", "RGHT-3", "DPIA-1", "DPIA-2", "DPIA-3", "XBOR-1", "XBOR-2", "XBOR-3", "BRCH-1", "BRCH-2", "BRCH-3"],
+    critToControl: { "LAWF-1": "LAWF", "LAWF-2": "LAWF", "LAWF-3": "LAWF", "RGHT-1": "RGHT", "RGHT-2": "RGHT", "RGHT-3": "RGHT", "DPIA-1": "DPIA", "DPIA-2": "DPIA", "DPIA-3": "DPIA", "XBOR-1": "XBOR", "XBOR-2": "XBOR", "XBOR-3": "XBOR", "BRCH-1": "BRCH", "BRCH-2": "BRCH", "BRCH-3": "BRCH" },
+    docs: [
+      { i: 0, pattern: "Personal Data Protection Policy v2.0.pdf" },
+      { i: 1, pattern: "Data Subject Rights Procedure.pdf" },
+    ],
+    colors: { primary: "rgb(109, 64, 153)", accent: "rgba(109, 64, 153, 0.15)", light: "rgba(109, 64, 153, 0.08)" },
   },
   general: {
     framework: "NCA ECC",

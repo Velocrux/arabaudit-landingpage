@@ -1867,6 +1867,87 @@
         "rec2": "Implement enhanced monitoring for partially compliant performance and capacity planning controls within 30 days.",
         "rec3": "Establish executive oversight for IT compliance and business continuity programs."
       },
+      "dataProtection": {
+        "domain": "Personal Data Protection",
+        "ctrl": {
+          "LAWF": "Lawful Basis & Consent",
+          "RGHT": "Data Subject Rights",
+          "DPIA": "Impact Assessment & Records",
+          "XBOR": "Cross-Border Transfers",
+          "BRCH": "Breach & Incident Response"
+        },
+        "doc": {
+          "0": { "cat": "Privacy", "name": "Personal Data Protection Policy" },
+          "1": { "cat": "Rights", "name": "Data Subject Rights Procedure" }
+        },
+        "crit": {
+          "LAWF-1": {
+            "title": "Lawful Basis Documentation",
+            "expect": "Documented lawful basis for every processing activity, mapped to PDPL Article 5"
+          },
+          "LAWF-2": {
+            "title": "Consent Capture & Withdrawal",
+            "expect": "Granular consent capture with logged timestamps and one-click withdrawal mechanism"
+          },
+          "LAWF-3": {
+            "title": "Privacy Notice Transparency",
+            "expect": "Bilingual privacy notice covering purposes, retention, recipients, and rights per PDPL Article 12"
+          },
+          "RGHT-1": {
+            "title": "Access & Portability Requests",
+            "expect": "Documented workflow to fulfil access and portability requests within 30 days"
+          },
+          "RGHT-2": {
+            "title": "Correction & Erasure",
+            "expect": "Verified identity workflow for correction and erasure requests with audit trail"
+          },
+          "RGHT-3": {
+            "title": "Objection & Restriction",
+            "expect": "Channel for data subjects to object to processing or restrict use, with response SLA"
+          },
+          "DPIA-1": {
+            "title": "Record of Processing Activities",
+            "expect": "Maintained ROPA covering controllers, processors, purposes, categories, and recipients"
+          },
+          "DPIA-2": {
+            "title": "Data Protection Impact Assessment",
+            "expect": "DPIA completed for high-risk processing with mitigations and approval by DPO"
+          },
+          "DPIA-3": {
+            "title": "Privacy by Design",
+            "expect": "Privacy-by-design and minimisation controls applied to new systems and changes"
+          },
+          "XBOR-1": {
+            "title": "Cross-Border Transfer Register",
+            "expect": "Register of cross-border transfers with destination, safeguards, and SDAIA approval evidence"
+          },
+          "XBOR-2": {
+            "title": "Transfer Safeguards",
+            "expect": "Standard contractual clauses or adequacy basis documented for each transfer route"
+          },
+          "XBOR-3": {
+            "title": "Data Localisation",
+            "expect": "Sensitive personal data hosted in-Kingdom in line with PDPL Article 29 requirements"
+          },
+          "BRCH-1": {
+            "title": "Breach Detection",
+            "expect": "Monitoring and alerting to detect personal data breaches across systems and processors"
+          },
+          "BRCH-2": {
+            "title": "72-Hour Regulator Notification",
+            "expect": "Documented breach response capable of notifying SDAIA within 72 hours per PDPL Article 38"
+          },
+          "BRCH-3": {
+            "title": "Data Subject Notification",
+            "expect": "Affected data subjects notified without undue delay where breach poses high risk"
+          }
+        },
+        "narrativeEN": "Najm Insurance's Personal Data Protection audit for Q1 2026 demonstrates {solidOrDeveloping} alignment with SDAIA PDPL controls, achieving {score}% compliance across {total} criteria. The personal data protection policy, ROPA, and data subject rights procedure are formally documented, approved, and maintained in both English and Arabic. Cross-border transfer register and DPO oversight are in place. {ncLine} Evidence coverage is 100%, with all responses AI-validated against SDAIA PDPL Articles 5, 12, 29 and 38. Recommend tightening the cross-border transfer safeguards and rehearsing the 72-hour breach notification drill before the next SDAIA review.",
+        "narrativeAR": "أظهرت شركة نجم للتأمين في مراجعة حماية البيانات الشخصية للربع الأول 2026 توافقاً {solidOrDeveloping} مع متطلبات نظام حماية البيانات الشخصية SDAIA PDPL، محققةً نسبة امتثال {score}٪ عبر {total} معايير. سياسة حماية البيانات الشخصية وسجل أنشطة المعالجة وإجراء حقوق أصحاب البيانات موثقة ومعتمدة باللغتين العربية والإنجليزية. سجل النقل عبر الحدود وإشراف مسؤول حماية البيانات قائمان. {ncLine} تغطية الأدلة 100٪ مع التحقق الكامل بالذكاء الاصطناعي وفق المواد 5 و12 و29 و38 من نظام حماية البيانات الشخصية. يُوصى بإحكام ضمانات النقل عبر الحدود وإجراء تمرين الإبلاغ خلال 72 ساعة قبل المراجعة القادمة من الهيئة السعودية للبيانات والذكاء الاصطناعي.",
+        "rec1": "Prioritize remediation of critical findings in cross-border transfer safeguards and consent capture.",
+        "rec2": "Implement enhanced monitoring for partially compliant data subject rights workflows within 30 days.",
+        "rec3": "Establish DPO-led oversight for DPIA refresh and 72-hour breach notification readiness."
+      },
       "general": {
         "domain": "Enterprise Compliance",
         "ctrl": {
@@ -1983,6 +2064,18 @@
         "82% compliance",
         "45 findings",
         "6 months to full readiness"
+      ]
+    },
+    "dataProtection": {
+      "title": "Data Protection",
+      "subtitle": "Personal Data Protection Law Readiness",
+      "framework": "SDAIA PDPL",
+      "description": "Personal data protection audit covering lawful basis, data subject rights, cross-border transfers, and 72-hour breach notification.",
+      "metrics": [
+        "20 PDPL controls",
+        "79% compliance",
+        "18 findings",
+        "72-hour breach SLA"
       ]
     },
     "general": {

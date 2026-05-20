@@ -4,12 +4,18 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import UseCasesAuditFlow from "./UseCasesAuditFlow";
 
-type UseCaseKey = "healthcare" | "cybersecurity" | "itGovernance" | "general";
+type UseCaseKey =
+  | "healthcare"
+  | "cybersecurity"
+  | "itGovernance"
+  | "dataProtection"
+  | "general";
 
 const useCaseColors: Record<UseCaseKey, string> = {
   healthcare: "rgb(34, 197, 94)",
   cybersecurity: "rgb(59, 130, 246)",
   itGovernance: "rgb(168, 85, 247)",
+  dataProtection: "rgb(109, 64, 153)",
   general: "rgb(217, 119, 6)",
 };
 
@@ -26,7 +32,7 @@ export default function UseCasesSelector() {
     );
   }
 
-  const useCases: UseCaseKey[] = ["healthcare", "cybersecurity", "itGovernance", "general"];
+  const useCases: UseCaseKey[] = ["healthcare", "cybersecurity", "itGovernance", "dataProtection", "general"];
 
   return (
     <main className="page-container">
