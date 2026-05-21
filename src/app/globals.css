@@ -7237,12 +7237,13 @@ main#main li {
 
 .avt-boat-traveler {
   position: absolute;
-  top: 28%;
-  width: 520px;
-  height: 420px;
+  top: 38%;
+  width: 620px;
+  height: 440px;
   pointer-events: none;
   z-index: 3;
-  will-change: left;
+  will-change: left, top, transform;
+  transform-origin: center bottom;
 }
 
 .avt-boat-bob {
@@ -7254,29 +7255,32 @@ main#main li {
   justify-content: center;
 }
 
+/* Sheikh stands on the open main deck just forward of the stern cabin
+   (~x=190 in the 620-wide hull SVG → 31% of width). The container is
+   sized to show head + torso; the legs are clipped behind the deck. */
 .avt-boat-avatar {
   position: absolute;
-  left: 50%;
-  bottom: 96px;
+  left: 31%;
+  bottom: 132px;
   transform: translateX(-50%);
-  width: 178px;
-  height: 240px;
+  width: 150px;
+  height: 200px;
   overflow: hidden;
   pointer-events: none;
-  z-index: 1;
-  /* Warm sunset rim light on the figure */
-  filter: drop-shadow(-6px 0 6px rgba(244, 205, 114, 0.25));
+  z-index: 4; /* in front of hull + sail */
+  filter: drop-shadow(-6px 0 10px rgba(244, 205, 114, 0.32));
 }
 
 .avt-boat-avatar svg {
   width: 100%;
-  height: 100%;
+  height: auto;
+  display: block;
 }
 
 .avt-boat-hull {
   position: relative;
   z-index: 2;
-  margin-bottom: -28px;
+  margin-bottom: -22px;
   filter: drop-shadow(0 22px 22px rgba(10, 14, 36, 0.55));
 }
 
@@ -7392,21 +7396,20 @@ main#main li {
 
 @media (max-width: 900px) {
   .avt-boat-scene {
-    height: 500px;
+    height: 520px;
     border-radius: 18px;
   }
   .avt-boat-traveler {
-    width: 380px;
+    width: 400px;
     height: 320px;
-    top: 30%;
   }
   .avt-boat-avatar {
-    bottom: 72px;
-    width: 134px;
-    height: 184px;
+    bottom: 84px;
+    width: 122px;
+    height: 162px;
   }
   .avt-boat-hull svg {
-    width: 380px;
+    width: 400px;
     height: auto;
   }
   .avt-boat-bubble {
@@ -7420,26 +7423,25 @@ main#main li {
 
 @media (max-width: 640px) {
   .avt-boat-scene {
-    height: 420px;
+    height: 440px;
     border-radius: 14px;
   }
   .avt-boat-traveler {
-    width: 280px;
+    width: 300px;
     height: 240px;
   }
   .avt-boat-avatar {
-    bottom: 54px;
-    width: 102px;
-    height: 142px;
+    bottom: 64px;
+    width: 92px;
+    height: 124px;
   }
   .avt-boat-hull svg {
-    width: 280px;
+    width: 300px;
   }
   .avt-boat-bubble {
     font-size: 14px;
     max-width: 180px;
     padding: 8px 12px;
-    left: 62%;
   }
   .avt-boat-bubble-caption {
     display: none;
