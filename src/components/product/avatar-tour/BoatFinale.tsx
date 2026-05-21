@@ -34,6 +34,13 @@ const MAST_LIGHT = "#6a4424";
 const ROPE = "#a98353";
 const FLAG_RED = "#b22a22";
 const FLAG_GOLD = "#e3b34a";
+const FLAG_GREEN = "#0d6645";
+const FLAG_GREEN_DEEP = "#073727";
+const SEAL_GOLD = "#e8b84b";
+const SEAL_GOLD_DEEP = "#a8821e";
+const SEAL_GOLD_LIGHT = "#fbe3a2";
+const SKYLINE_DARK = "#0c2618";
+const SKYLINE_MID = "#1a4a36";
 
 function DhowSvg({ uid }: { uid: string }) {
   const hullGrad = `dhow-hull-${uid}`;
@@ -134,12 +141,36 @@ function DhowSvg({ uid }: { uid: string }) {
           opacity="0.45"
         />
 
-        {/* small pennant */}
-        <path
-          d="M 118 28 L 154 32 L 118 38 Z"
-          fill={FLAG_RED}
+      </motion.g>
+
+      {/* ===== ARRIVAL FLAG (green-and-gold, waves dynamically on the mast top) ===== */}
+      <motion.g
+        style={{ transformOrigin: "118px 14px" }}
+        animate={{ rotate: [-3, 3, -3] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <line x1="118" y1="36" x2="118" y2="10" stroke={MAST_DARK} strokeWidth="2.4" strokeLinecap="round" />
+        {/* gold pommel at the top */}
+        <circle cx="118" cy="9" r="3" fill={FLAG_GOLD} stroke={MAST_DARK} strokeWidth="0.6" />
+        {/* waving flag */}
+        <motion.path
+          d="M 118 12 L 168 14 Q 156 22 168 32 L 118 34 Z"
+          fill={FLAG_GREEN}
+          stroke={FLAG_GREEN_DEEP}
+          strokeWidth="0.8"
+          animate={{
+            d: [
+              "M 118 12 L 168 14 Q 156 22 168 32 L 118 34 Z",
+              "M 118 12 L 166 16 Q 158 22 164 32 L 118 34 Z",
+              "M 118 12 L 168 14 Q 156 22 168 32 L 118 34 Z",
+            ],
+          }}
+          transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
         />
-        <path d="M 118 32 L 144 34" stroke={FLAG_GOLD} strokeWidth="0.6" />
+        {/* gold geometric trim (alluding to Saudi heritage without depicting shahada) */}
+        <path d="M 124 18 L 158 20" stroke={FLAG_GOLD} strokeWidth="0.8" />
+        <path d="M 124 26 L 158 26" stroke={FLAG_GOLD} strokeWidth="0.6" opacity="0.7" />
+        <circle cx="148" cy="23" r="2" fill={FLAG_GOLD} />
       </motion.g>
 
       {/* rigging ropes */}
@@ -518,7 +549,7 @@ export default function BoatFinale({ active }: Props) {
           }
         >
           <div className="avt-boat-avatar">
-            <Avatar talking={revealBubble} isRtl={isRtl} />
+            <Avatar talking={revealBubble} isRtl={isRtl} collectedCount={9} />
           </div>
           <div className="avt-boat-hull">
             <DhowSvg uid={uid} />

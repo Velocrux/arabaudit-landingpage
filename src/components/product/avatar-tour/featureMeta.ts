@@ -74,6 +74,6 @@ export const FEATURE_META: FeatureMeta[] = [
   },
 ];
 
-export const TYPEWRITER_CHARS_PER_SECOND_EN = 28;
-export const TYPEWRITER_CHARS_PER_SECOND_AR = 22;
-export const PHASE_HOLD_MS = 600;
+export const TYPEWRITER_CHARS_PER_SECOND_EN = 38;
+export const TYPEWRITER_CHARS_PER_SECOND_AR = 30;
+export const PHASE_HOLD_MS = 400;

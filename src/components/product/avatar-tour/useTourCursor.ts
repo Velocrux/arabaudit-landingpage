@@ -82,7 +82,15 @@ export function useTourCursor(options: Options): CursorState {
         if (sessionRef.current !== session) return;
         const { x, y, el } = positionForTarget(stop);
         if (!el) {
-          if (attempt >= FALLBACK_POLL_MAX_ATTEMPTS) return;
+          if (attempt >= FALLBACK_POLL_MAX_ATTEMPTS) {
+            if (process.env.NODE_ENV !== "production") {
+              // eslint-disable-next-line no-console
+              console.warn(
+                `[avatar-tour] cursor target "${stop.target}" not found after ${FALLBACK_POLL_MAX_ATTEMPTS} attempts (feature: ${featureId}). Check data-tour-target wiring.`
+              );
+            }
+            return;
+          }
           const t = setTimeout(() => apply(attempt + 1), FALLBACK_POLL_INTERVAL);
           timersRef.current.push(t);
           return;

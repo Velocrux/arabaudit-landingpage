@@ -8,6 +8,122 @@ import type { Viseme } from "./visemes";
 interface Props {
   talking: boolean;
   isRtl: boolean;
+  collectedCount?: number;
+}
+
+const SASH_TOTAL = 9;
+const SASH_LEATHER = "#5a3520";
+const SASH_LEATHER_DARK = "#3a2110";
+const SASH_LEATHER_LIGHT = "#8e6238";
+const SEAL_GOLD = "#e8b84b";
+const SEAL_GOLD_DEEP = "#a8821e";
+const SEAL_GOLD_HIGHLIGHT = "#fbe3a2";
+
+/**
+ * Diagonal bandolier across the chest with up to 9 gold compliance seals.
+ * Seals fade in one-by-one as the journey progresses.
+ */
+function CollectedSash({ count }: { count: number }) {
+  const filled = Math.max(0, Math.min(SASH_TOTAL, count));
+  // sash anchors (avatar viewBox 0..320, 0..560)
+  const x0 = 118;
+  const y0 = 312;
+  const x1 = 214;
+  const y1 = 448;
+  const positions = Array.from({ length: SASH_TOTAL }).map((_, i) => {
+    const t = (i + 1) / (SASH_TOTAL + 1);
+    return {
+      cx: x0 + (x1 - x0) * t,
+      cy: y0 + (y1 - y0) * t,
+    };
+  });
+  const angleDeg = Math.atan2(y1 - y0, x1 - x0) * (180 / Math.PI);
+
+  return (
+    <g id="avt-collected-sash" aria-hidden="true">
+      {/* leather strap shadow */}
+      <line
+        x1={x0 + 1}
+        y1={y0 + 2}
+        x2={x1 + 1}
+        y2={y1 + 2}
+        stroke="rgba(0,0,0,0.25)"
+        strokeWidth="11"
+        strokeLinecap="round"
+      />
+      {/* leather strap */}
+      <line
+        x1={x0}
+        y1={y0}
+        x2={x1}
+        y2={y1}
+        stroke={SASH_LEATHER}
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+      <line
+        x1={x0}
+        y1={y0}
+        x2={x1}
+        y2={y1}
+        stroke={SASH_LEATHER_DARK}
+        strokeWidth="10"
+        strokeLinecap="round"
+        opacity="0.4"
+        strokeDasharray="2 6"
+      />
+      <line
+        x1={x0}
+        y1={y0 - 2}
+        x2={x1}
+        y2={y1 - 2}
+        stroke={SASH_LEATHER_LIGHT}
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        opacity="0.7"
+      />
+      {/* buckle near top */}
+      <g transform={`translate(${x0} ${y0}) rotate(${angleDeg})`}>
+        <rect x="-9" y="-7" width="18" height="14" rx="2" fill={SEAL_GOLD_DEEP} stroke="#5a4012" strokeWidth="0.8" />
+        <rect x="-7" y="-5" width="14" height="10" rx="1.5" fill={SEAL_GOLD} />
+        <rect x="-3" y="-3" width="6" height="6" rx="1" fill="none" stroke="#5a4012" strokeWidth="0.6" />
+      </g>
+      {positions.map((p, i) => {
+        const isFilled = i < filled;
+        return (
+          <g key={`seal-${i}`} transform={`translate(${p.cx} ${p.cy}) rotate(${angleDeg})`}>
+            {/* seal back-shadow */}
+            <circle cx="0.5" cy="1" r="7.5" fill="rgba(0,0,0,0.35)" />
+            {/* leather attachment ring */}
+            <circle cx="0" cy="0" r="7.8" fill={SASH_LEATHER_DARK} />
+            {/* seal disc */}
+            <circle
+              cx="0"
+              cy="0"
+              r="6.4"
+              fill={isFilled ? SEAL_GOLD : "#2a1a0a"}
+              opacity={isFilled ? 1 : 0.85}
+            />
+            {isFilled && (
+              <>
+                <circle cx="-1.2" cy="-1.4" r="2.2" fill={SEAL_GOLD_HIGHLIGHT} opacity="0.8" />
+                {/* tiny emblem — star */}
+                <path
+                  d="M 0 -3 L 0.9 -0.9 L 3 -0.9 L 1.3 0.4 L 1.9 2.5 L 0 1.3 L -1.9 2.5 L -1.3 0.4 L -3 -0.9 L -0.9 -0.9 Z"
+                  fill={SEAL_GOLD_DEEP}
+                />
+              </>
+            )}
+            {!isFilled && (
+              <circle cx="0" cy="0" r="4" fill="none" stroke="#1a0e04" strokeWidth="0.6" opacity="0.7" />
+            )}
+            {/* rim */}
+            <circle cx="0" cy="0" r="6.4" fill="none" stroke="#3a2410" strokeWidth="0.5" />
+          </g>
+        );
+      })}
+    </g>
+  );
 }
 
 const SHEMAGH_WHITE = "#fefcf5";
@@ -40,7 +156,7 @@ const NOSE_LINE = "#9c6c44";
 const NOSE_SHADOW = "#a8794f";
 const LIP = "#7a2e22";
 
-export default function Avatar({ talking, isRtl }: Props) {
+export default function Avatar({ talking, isRtl, collectedCount = 0 }: Props) {
   const reduced = useReducedMotion();
   const [viseme, setViseme] = useState<Viseme>("closed");
   const [blink, setBlink] = useState(false);
@@ -250,6 +366,9 @@ export default function Avatar({ talking, isRtl }: Props) {
           opacity="0.7"
         />
       </g>
+
+      {/* CHEST SASH — accumulating compliance seals (rendered before arms so they cover edges) */}
+      <CollectedSash count={collectedCount} />
 
       {/* RIGHT ARM (character's right, viewer's left) - hangs at side with subtle motion */}
       <motion.g

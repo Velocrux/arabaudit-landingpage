@@ -1532,6 +1532,9 @@
     "tour": {
       "featureLabel": "الميزة {n} من {total}",
       "controlsAria": "أزرار التحكم بالجولة",
+      "chapterAria": "التنقل بين فصول الجولة",
+      "skipToEnd": "الانتقال إلى الخاتمة",
+      "sealsCollected": "{n} من {total} ختماً",
       "stageAria": "جولة معلَّقة عبر ميزات الذكاء الاصطناعي",
       "skipAnchor": "تخطي الجولة",
       "ariaProblem": "سرد التحدي",

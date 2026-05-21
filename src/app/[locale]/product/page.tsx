@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import AvatarTourLoader from "@/components/product/avatar-tour/AvatarTourLoader";
+import HeroScene from "@/components/product/avatar-tour/HeroScene";
 import SeoFallback from "@/components/product/avatar-tour/SeoFallback";
 import JsonLd from "@/components/JsonLd";
 import { buildMetadata } from "@/lib/seo";
@@ -61,7 +61,7 @@ export default async function ProductPage({
         style={{
           background: "var(--emerald-1)",
           color: "var(--cream-1)",
-          padding: "120px 0 80px",
+          padding: "120px 0 0",
           position: "relative",
           overflow: "hidden",
         }}
@@ -75,7 +75,17 @@ export default async function ProductPage({
             pointerEvents: "none",
           }}
         />
-        <div className="wrap" style={{ position: "relative" }}>
+        <div
+          className="wrap"
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+            paddingBottom: 0,
+          }}
+        >
           <div className="demo-live-badge">
             <span className="dot" />
             <span>{t("hero.pill")}</span>
@@ -112,7 +122,13 @@ export default async function ProductPage({
             <b style={{ color: "var(--cream-1)", fontWeight: 400 }}>{t("hero.ledeBold")}</b>
             {t("hero.ledeB")}
           </p>
+
+          {/* Inline scene — teaser of the journey ahead */}
+          <HeroScene />
         </div>
+
+        {/* Smooth handoff into the desert section */}
+        <div className="avt-hero-handoff" aria-hidden="true" />
       </section>
 
       {/* AVATAR-NARRATED TOUR (replaces the 9 individual demo sections) */}
@@ -124,27 +140,6 @@ export default async function ProductPage({
 
       {/* SEO summary (screen-reader-only, indexed by crawlers) */}
       <SeoFallback />
-
-      {/* CTA */}
-      <section className="dark" style={{ padding: "120px 0", backgroundColor: "rgb(7, 55, 39)" }}>
-        <div className="wrap" style={{ textAlign: "center" }}>
-          <div className="eyebrow on-dark">{t("cta.eyebrow")}</div>
-          <h2 className="display" style={{ fontSize: "clamp(40px, 5.6vw, 84px)", marginTop: 20 }}>
-            {t("cta.title")}
-          </h2>
-          <p className="lede" style={{ margin: "28px auto 0", maxWidth: 680 }}>
-            {t("cta.lede")}
-          </p>
-          <div className="flex gap-3 mt-8 center">
-            <Link href="/demo-audit" className="btn btn-primary">
-              {t("cta.primary")}
-            </Link>
-            <Link href="/contact" className="btn btn-ghost on-dark">
-              {t("cta.ghost")}
-            </Link>
-          </div>
-        </div>
-      </section>
 
       </main>
       <Footer />

@@ -11,6 +11,9 @@ import JourneyRoad from "./JourneyRoad";
 import DesertDecor from "./DesertDecor";
 import CamelSvg from "./CamelSvg";
 import BoatFinale from "./BoatFinale";
+import Atmosphere from "./Atmosphere";
+import Footprints from "./Footprints";
+import ChapterRail from "./ChapterRail";
 import {
   FEATURE_SCRIPT,
   TYPEWRITER_CHARS_PER_SECOND_AR,
@@ -36,9 +39,9 @@ interface StationGeometry {
   side: "left" | "right";
 }
 
-const WALK_MS = 1400;
-const PROBLEM_HOLD_MS = 700;
-const SOLUTION_HOLD_MS = 900;
+const WALK_MS = 1000;
+const PROBLEM_HOLD_MS = 350;
+const SOLUTION_HOLD_MS = 500;
 
 export default function AvatarTour() {
   const locale = useLocale();
@@ -80,9 +83,9 @@ export default function AvatarTour() {
 
   const estimateMs = useCallback(
     (text: string) => {
-      if (!text) return 1500;
+      if (!text) return 1200;
       const ms = (text.length / Math.max(1, cps)) * 1000;
-      return Math.max(1500, Math.min(5500, Math.round(ms)));
+      return Math.max(1200, Math.min(3500, Math.round(ms)));
     },
     [cps]
   );
@@ -333,6 +336,41 @@ export default function AvatarTour() {
     }
   }, []);
 
+  const handleSelectChapter = useCallback((idx: number) => {
+    const el = stationRefs.current[idx];
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, []);
+
+  const handleSkipToEnd = useCallback(() => {
+    setStationStates(
+      FEATURE_SCRIPT.map((_, i) =>
+        i === FEATURE_SCRIPT.length - 1
+          ? { phase: "demo", autoStartKey: 1 }
+          : { phase: "idle", autoStartKey: 0 }
+      )
+    );
+    setActiveIndex(FEATURE_SCRIPT.length - 1);
+    setIsFinished(true);
+    const after = document.getElementById("avt-after");
+    if (after) {
+      after.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
+
+  // collected count — how many stations the user has "completed" / passed
+  const collectedCount = useMemo(() => {
+    if (isFinished) return FEATURE_SCRIPT.length;
+    // station counts as collected once user has reached solution/demo phase
+    // or once they've scrolled past it to a later station
+    const passedByScroll = activeIndex; // stations strictly before activeIndex
+    const currentPhase = stationStates[activeIndex]?.phase;
+    const currentBonus =
+      currentPhase === "solution" || currentPhase === "demo" ? 1 : 0;
+    return Math.min(FEATURE_SCRIPT.length, passedByScroll + currentBonus);
+  }, [activeIndex, stationStates, isFinished]);
+
   return (
     <section
       ref={journeyWrapRef}
@@ -343,13 +381,27 @@ export default function AvatarTour() {
         {tTour("skipAnchor")}
       </a>
 
+      <ChapterRail
+        activeIndex={activeIndex}
+        visible={isStarted && !isFinished}
+        onSelect={handleSelectChapter}
+      />
+
       <div ref={journeyRef} className="avt-journey">
+        <Atmosphere geometries={geometries} totalHeight={totalHeight} />
+
         <DesertDecor geometries={geometries} totalHeight={totalHeight} />
 
         <JourneyRoad
           geometries={geometries}
           activeIndex={activeIndex}
           stationSides={stationSides}
+        />
+
+        <Footprints
+          geometries={geometries}
+          activeIndex={activeIndex}
+          totalHeight={totalHeight}
         />
 
         {camelSpots.map((spot, i) => (
@@ -393,7 +445,7 @@ export default function AvatarTour() {
               }
             >
               <div className="avt-sheikh-figure">
-                <Avatar talking={talking} isRtl={isRtl} />
+                <Avatar talking={talking} isRtl={isRtl} collectedCount={collectedCount} />
               </div>
             </motion.div>
             {bubbleText && (
@@ -432,6 +484,31 @@ export default function AvatarTour() {
               aria-current={isActive ? "true" : undefined}
             >
               <div className="avt-station-card">
+                {/* Mobile inline narrator — hidden on desktop via CSS */}
+                <div className="avt-station-narrator">
+                  <div className="avt-station-narrator-avatar">
+                    <Avatar
+                      talking={isActive && talking}
+                      isRtl={isRtl}
+                      collectedCount={collectedCount}
+                    />
+                  </div>
+                  {isActive && bubbleText && (
+                    <div className="avt-station-narrator-bubble">
+                      <SpeechBubble
+                        text={bubbleText}
+                        charsPerSecond={cps}
+                        reducedMotion={reducedMotion}
+                        tone={bubbleTone}
+                        ariaLabel={
+                          bubbleTone === "problem"
+                            ? tTour("ariaProblem")
+                            : tTour("ariaSolution")
+                        }
+                      />
+                    </div>
+                  )}
+                </div>
                 <div className="avt-station-num">
                   {tTour("featureLabel", { n: idx + 1, total: FEATURE_SCRIPT.length })}
                 </div>
@@ -458,16 +535,59 @@ export default function AvatarTour() {
 
       <div className="avt-journey-controls" aria-label={tTour("controlsAria")}>
         <span className="avt-journey-progress">
-          {tTour("featureLabel", { n: Math.min(activeIndex + 1, FEATURE_SCRIPT.length), total: FEATURE_SCRIPT.length })}
+          <span className="avt-journey-progress-bar" aria-hidden="true">
+            <span
+              className="avt-journey-progress-fill"
+              style={{
+                width: `${
+                  ((Math.min(activeIndex + 1, FEATURE_SCRIPT.length)) /
+                    FEATURE_SCRIPT.length) *
+                  100
+                }%`,
+              }}
+            />
+          </span>
+          <span className="avt-journey-progress-label">
+            {tTour("featureLabel", {
+              n: Math.min(activeIndex + 1, FEATURE_SCRIPT.length),
+              total: FEATURE_SCRIPT.length,
+            })}
+          </span>
         </span>
-        {activeIndex === FEATURE_SCRIPT.length - 1 && isFinished ? (
-          <button type="button" className="btn btn-primary" onClick={handleScrollDown}>
-            {tTour("scrollDown")}
-          </button>
+        {isFinished ? (
+          <>
+            <button
+              type="button"
+              className="avt-control-btn avt-control-ghost"
+              onClick={handleReplay}
+            >
+              {tTour("controls.replay")}
+            </button>
+            <button
+              type="button"
+              className="avt-control-btn avt-control-primary"
+              onClick={handleScrollDown}
+            >
+              {tTour("scrollDown")}
+            </button>
+          </>
         ) : (
-          <button type="button" className="btn btn-ghost" onClick={handleReplay}>
-            {tTour("controls.replay")}
-          </button>
+          <>
+            <button
+              type="button"
+              className="avt-control-btn avt-control-ghost"
+              onClick={handleReplay}
+            >
+              {tTour("controls.replay")}
+            </button>
+            <button
+              type="button"
+              className="avt-control-btn avt-control-primary"
+              onClick={handleSkipToEnd}
+            >
+              {tTour("skipToEnd")}
+            </button>
+          </>
         )}
       </div>
 

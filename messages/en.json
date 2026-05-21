@@ -1561,6 +1561,9 @@
     "tour": {
       "featureLabel": "Feature {n} of {total}",
       "controlsAria": "Tour playback controls",
+      "chapterAria": "Tour chapter navigation",
+      "skipToEnd": "Skip to finale",
+      "sealsCollected": "{n} of {total} seals",
       "stageAria": "AI features narrated tour",
       "skipAnchor": "Skip tour",
       "ariaProblem": "Narrating the challenge",

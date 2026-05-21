@@ -43,7 +43,15 @@ interface DuneSpec {
   layer: 0 | 1 | 2;
 }
 
-type Spec = PalmSpec | CactusSpec | DuneSpec;
+interface RockSpec {
+  kind: "rock";
+  side: Side;
+  edgeOffset: number;
+  top: number;
+  scale: number;
+}
+
+type Spec = PalmSpec | CactusSpec | DuneSpec | RockSpec;
 
 // --- Palette ---
 const PALM_TRUNK_HIGHLIGHT = "#a06a32";
@@ -67,12 +75,15 @@ const SAND_MID = "#c4905a";
 const SAND_LIGHT = "#dcb074";
 const SAND_HIGHLIGHT = "#ead098";
 
+const ROCK_DARK = "#6a4a30";
+const ROCK_MID = "#a3744a";
+const ROCK_LIGHT = "#c89668";
+
 // ============================================================
 // PALM
 // ============================================================
 function PalmSvg({ flip, phase, uid }: { flip: boolean; phase: number; uid: string }) {
   const trunkGrad = `palm-trunk-${uid}`;
-  const frondGrad = `palm-frond-${uid}`;
   const coconutGrad = `palm-coconut-${uid}`;
   const shadowFilter = `palm-shadow-${uid}`;
 
@@ -83,13 +94,11 @@ function PalmSvg({ flip, phase, uid }: { flip: boolean; phase: number; uid: stri
     { angle: -40, len: 60, width: 9, color: PALM_FROND_MID, depth: 0 },
     { angle: 240, len: 58, width: 8, color: PALM_FROND_MID, depth: 0 },
     { angle: -60, len: 56, width: 8, color: PALM_FROND_MID, depth: 0 },
-    // mid layer
     { angle: 195, len: 52, width: 7, color: PALM_FROND_LIGHT, depth: 1 },
     { angle: 250, len: 50, width: 7, color: PALM_FROND_LIGHT, depth: 1 },
     { angle: -10, len: 52, width: 7, color: PALM_FROND_LIGHT, depth: 1 },
     { angle: -70, len: 50, width: 7, color: PALM_FROND_LIGHT, depth: 1 },
     { angle: 270, len: 46, width: 6, color: PALM_FROND_LIGHT, depth: 1 },
-    // top/front layer
     { angle: 175, len: 40, width: 5, color: PALM_FROND_TIP, depth: 2 },
     { angle: 215, len: 42, width: 5, color: PALM_FROND_TIP, depth: 2 },
     { angle: 5, len: 40, width: 5, color: PALM_FROND_TIP, depth: 2 },
@@ -103,7 +112,6 @@ function PalmSvg({ flip, phase, uid }: { flip: boolean; phase: number; uid: stri
         const rad = (f.angle * Math.PI) / 180;
         const x2 = Math.cos(rad) * f.len;
         const y2 = Math.sin(rad) * f.len;
-        // arc the frond — bulge perpendicular to its direction
         const px = -Math.sin(rad) * 8;
         const py = Math.cos(rad) * 8;
         const arcCx = x2 * 0.55 + px;
@@ -117,7 +125,6 @@ function PalmSvg({ flip, phase, uid }: { flip: boolean; phase: number; uid: stri
               strokeLinecap="round"
               fill="none"
             />
-            {/* leaflet details */}
             <path
               d={`M ${arcCx * 0.4} ${arcCy * 0.4} L ${arcCx * 0.4 - Math.sin(rad) * 6} ${arcCy * 0.4 + Math.cos(rad) * 6}`}
               stroke={f.color}
@@ -157,10 +164,6 @@ function PalmSvg({ flip, phase, uid }: { flip: boolean; phase: number; uid: stri
           <stop offset="68%" stopColor={PALM_TRUNK_HIGHLIGHT} />
           <stop offset="100%" stopColor={PALM_TRUNK_MID} />
         </linearGradient>
-        <linearGradient id={frondGrad} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={PALM_FROND_LIGHT} />
-          <stop offset="100%" stopColor={PALM_FROND_DARK} />
-        </linearGradient>
         <radialGradient id={coconutGrad} cx="0.3" cy="0.3" r="0.8">
           <stop offset="0%" stopColor={COCONUT_HIGHLIGHT} />
           <stop offset="100%" stopColor={COCONUT_DARK} />
@@ -170,17 +173,14 @@ function PalmSvg({ flip, phase, uid }: { flip: boolean; phase: number; uid: stri
         </filter>
       </defs>
 
-      {/* ground shadow */}
       <ellipse cx="0" cy="2" rx="36" ry="6" fill="rgba(40,20,8,0.32)" />
 
-      {/* trunk — slight curve with rings */}
       <g filter={`url(#${shadowFilter})`}>
         <path
           d="M -7 0 Q -3 -60 -5 -110 Q -2 -150 -3 -190 Q -2 -200 0 -210
              Q 4 -200 5 -190 Q 3 -150 5 -110 Q 7 -60 7 0 Z"
           fill={`url(#${trunkGrad})`}
         />
-        {/* rings */}
         {[-180, -160, -140, -120, -100, -80, -60, -40, -20].map((y, i) => (
           <path
             key={`ring-${i}`}
@@ -189,7 +189,6 @@ function PalmSvg({ flip, phase, uid }: { flip: boolean; phase: number; uid: stri
             opacity="0.55"
           />
         ))}
-        {/* trunk highlight stripe */}
         <path
           d="M 1 -200 Q 2 -120 0 -10"
           stroke={PALM_TRUNK_HIGHLIGHT}
@@ -199,19 +198,16 @@ function PalmSvg({ flip, phase, uid }: { flip: boolean; phase: number; uid: stri
         />
       </g>
 
-      {/* fronds — render back→front for depth */}
       <g transform="translate(0 -208)">
         {renderFronds(0)}
         {renderFronds(1)}
 
-        {/* coconuts cluster — beneath top fronds */}
         <g>
           <circle cx="-7" cy="2" r="5" fill={`url(#${coconutGrad})`} />
           <circle cx="0" cy="4" r="5.5" fill={`url(#${coconutGrad})`} />
           <circle cx="7" cy="2" r="5" fill={`url(#${coconutGrad})`} />
           <circle cx="-3" cy="-2" r="4.5" fill={`url(#${coconutGrad})`} />
           <circle cx="4" cy="-1" r="4.5" fill={`url(#${coconutGrad})`} />
-          {/* highlights */}
           <circle cx="-8" cy="0" r="1.2" fill={COCONUT_HIGHLIGHT} opacity="0.7" />
           <circle cx="-1" cy="2" r="1.4" fill={COCONUT_HIGHLIGHT} opacity="0.7" />
           <circle cx="6" cy="0" r="1.2" fill={COCONUT_HIGHLIGHT} opacity="0.7" />
@@ -219,7 +215,6 @@ function PalmSvg({ flip, phase, uid }: { flip: boolean; phase: number; uid: stri
 
         {renderFronds(2)}
 
-        {/* center boss */}
         <circle cx="0" cy="0" r="4" fill={PALM_TRUNK_SHADE} opacity="0.7" />
       </g>
     </svg>
@@ -257,11 +252,9 @@ function CactusSvg({ phase, uid }: { phase: number; uid: string }) {
         </filter>
       </defs>
 
-      {/* ground shadow */}
       <ellipse cx="0" cy="2" rx="20" ry="4" fill="rgba(10,20,8,0.32)" />
 
       <g filter={`url(#${shadowFilter})`}>
-        {/* right arm */}
         <path
           d="M 10 -56 Q 22 -56 24 -64 L 24 -80 Q 24 -88 18 -88 Q 16 -86 16 -82 L 16 -74 Q 16 -66 12 -64"
           stroke={CACTUS_MID}
@@ -270,7 +263,6 @@ function CactusSvg({ phase, uid }: { phase: number; uid: string }) {
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        {/* left arm */}
         <path
           d="M -10 -46 Q -22 -46 -24 -54 L -24 -68 Q -24 -76 -18 -76 Q -16 -74 -16 -70 L -16 -62"
           stroke={CACTUS_MID}
@@ -280,37 +272,30 @@ function CactusSvg({ phase, uid }: { phase: number; uid: string }) {
           strokeLinejoin="round"
         />
 
-        {/* main body */}
         <rect x="-12" y="-90" width="24" height="92" rx="11" fill={`url(#${bodyGrad})`} />
         <ellipse cx="0" cy="-90" rx="12" ry="8" fill={`url(#${bodyGrad})`} />
 
-        {/* shading ribs */}
         <path d="M -6 -86 L -6 -2" stroke={CACTUS_DARK} strokeWidth="1.6" opacity="0.55" />
         <path d="M 0 -86 L 0 -2" stroke={CACTUS_DARK} strokeWidth="1.4" opacity="0.45" />
         <path d="M 6 -86 L 6 -2" stroke={CACTUS_DARK} strokeWidth="1.6" opacity="0.55" />
-        {/* highlights */}
         <path d="M -3.5 -84 L -3.5 -4" stroke={CACTUS_GLOW} strokeWidth="1" opacity="0.5" />
         <path d="M 3.5 -84 L 3.5 -4" stroke={CACTUS_GLOW} strokeWidth="1" opacity="0.5" />
 
-        {/* arm highlights */}
         <path d="M 18 -82 L 18 -66" stroke={CACTUS_GLOW} strokeWidth="0.8" opacity="0.5" />
         <path d="M -18 -70 L -18 -56" stroke={CACTUS_GLOW} strokeWidth="0.8" opacity="0.5" />
       </g>
 
-      {/* spines */}
       {[-78, -68, -58, -48, -38, -28, -18, -8].map((y, i) => (
         <g key={`spine-${i}`}>
           <line x1="-11" y1={y} x2="-15" y2={y + 1} stroke={SPINE} strokeWidth="0.8" />
           <line x1="11" y1={y} x2="15" y2={y + 1} stroke={SPINE} strokeWidth="0.8" />
         </g>
       ))}
-      {/* arm spines */}
       <line x1="18" y1="-80" x2="22" y2="-78" stroke={SPINE} strokeWidth="0.7" />
       <line x1="18" y1="-72" x2="22" y2="-70" stroke={SPINE} strokeWidth="0.7" />
       <line x1="-18" y1="-68" x2="-22" y2="-66" stroke={SPINE} strokeWidth="0.7" />
       <line x1="-18" y1="-60" x2="-22" y2="-58" stroke={SPINE} strokeWidth="0.7" />
 
-      {/* tiny flower at top */}
       <g transform="translate(0 -98)">
         <circle cx="0" cy="0" r="3" fill="#e85a4a" />
         <circle cx="0" cy="0" r="1.2" fill="#ffd24a" />
@@ -334,7 +319,6 @@ function DuneSvg({
   uid: string;
 }) {
   const grad = `dune-${layer}-${uid}`;
-  // colors per layer (back→front: deep→light)
   const top = layer === 0 ? SAND_DEEP : layer === 1 ? SAND_MID : SAND_LIGHT;
   const bot = layer === 0 ? SAND_MID : layer === 1 ? SAND_LIGHT : SAND_HIGHLIGHT;
   const opacity = layer === 0 ? 0.55 : layer === 1 ? 0.72 : 0.86;
@@ -361,13 +345,54 @@ function DuneSvg({
             Z`}
         fill={`url(#${grad})`}
       />
-      {/* ridge highlight */}
       <path
         d={`M ${width * 0.18} ${height * 0.55}
             Q ${width * 0.34} ${height * 0.38} ${width * 0.5} ${height * 0.24}`}
         stroke={layer === 2 ? "#fbeac8" : "#f5d6a0"}
         strokeWidth="1.2"
         fill="none"
+        opacity="0.45"
+      />
+    </svg>
+  );
+}
+
+// ============================================================
+// ROCK
+// ============================================================
+function RockSvg({ uid }: { uid: string }) {
+  const grad = `rock-${uid}`;
+  return (
+    <svg
+      width="120"
+      height="78"
+      viewBox="0 0 120 78"
+      style={{ display: "block" }}
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id={grad} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={ROCK_LIGHT} />
+          <stop offset="60%" stopColor={ROCK_MID} />
+          <stop offset="100%" stopColor={ROCK_DARK} />
+        </linearGradient>
+      </defs>
+      <ellipse cx="60" cy="74" rx="48" ry="4" fill="rgba(20,10,4,0.32)" />
+      <path
+        d="M 8 70 Q 14 30 38 22 Q 56 8 78 18 Q 100 26 110 50 Q 116 64 110 70 Z"
+        fill={`url(#${grad})`}
+      />
+      <path
+        d="M 30 32 Q 50 20 70 24"
+        stroke="#e6c490"
+        strokeWidth="1.2"
+        fill="none"
+        opacity="0.55"
+      />
+      <path
+        d="M 22 52 L 36 46 M 52 42 L 64 38 M 78 36 L 92 44"
+        stroke={ROCK_DARK}
+        strokeWidth="0.9"
         opacity="0.45"
       />
     </svg>
@@ -389,84 +414,118 @@ export default function DesertDecor({ geometries, totalHeight }: Props) {
     };
     const arr: Spec[] = [];
 
-    // ---- DUNES — 3 layers (back to front) along both sides ----
-    const duneRows = 6;
+    // ---- DUNES — back layers along both viewport edges,
+    //      front layer occasionally peeking in further ----
+    const duneRows = 8;
     for (let i = 0; i < duneRows; i += 1) {
-      const top = (i / duneRows) * totalHeight + rand() * 80 + 40;
-      // back layer
+      const top = (i / duneRows) * totalHeight + rand() * 80 + 60;
       arr.push({
         kind: "dune",
         side: i % 2 === 0 ? "left" : "right",
-        edgeOffset: -60 - rand() * 40,
+        edgeOffset: -110 - rand() * 50,
         top,
-        width: 460 + rand() * 240,
-        height: 140 + rand() * 70,
+        width: 520 + rand() * 280,
+        height: 160 + rand() * 80,
         layer: 0,
       });
-      // mid layer
       arr.push({
         kind: "dune",
         side: i % 2 === 0 ? "right" : "left",
-        edgeOffset: -50 - rand() * 30,
-        top: top + 20,
-        width: 360 + rand() * 200,
-        height: 100 + rand() * 50,
+        edgeOffset: -90 - rand() * 40,
+        top: top + 24,
+        width: 420 + rand() * 220,
+        height: 120 + rand() * 60,
         layer: 1,
       });
-      // front layer
       arr.push({
         kind: "dune",
         side: i % 2 === 0 ? "left" : "right",
-        edgeOffset: -30 - rand() * 20,
-        top: top + 50 + rand() * 20,
-        width: 280 + rand() * 160,
-        height: 70 + rand() * 30,
+        edgeOffset: -50 - rand() * 30,
+        top: top + 60 + rand() * 30,
+        width: 320 + rand() * 180,
+        height: 80 + rand() * 40,
         layer: 2,
       });
     }
 
-    // ---- PALMS in the gaps between stations ----
+    // ---- PALMS in the viewport gutters between stations,
+    //      anchored from baseline so trunks always start near road level ----
     for (let i = 0; i < geometries.length; i += 1) {
       const cur = geometries[i];
       const next = geometries[i + 1];
       if (!cur) continue;
-      const midY = next ? (cur.sheikhY + next.sheikhY) / 2 : cur.sheikhY + 180;
+      const midY = next ? (cur.sheikhY + next.sheikhY) / 2 : cur.sheikhY + 220;
+
+      // primary palm — opposite side from the card on this station
+      const cardSide: Side = i % 2 === 0 ? "left" : "right";
+      const palmSide: Side = cardSide === "left" ? "right" : "left";
       arr.push({
         kind: "palm",
-        side: "left",
-        edgeOffset: 14 + rand() * 26,
-        top: midY + (rand() - 0.5) * 60,
-        scale: 0.62 + rand() * 0.32,
-        flip: false,
+        side: palmSide,
+        edgeOffset: 24 + rand() * 30,
+        top: midY + (rand() - 0.5) * 30,
+        scale: 0.78 + rand() * 0.18,
+        flip: palmSide === "right",
         phase: rand() * 6,
       });
-      if (rand() > 0.25) {
+
+      // secondary palm on same side, smaller, behind
+      if (rand() > 0.3) {
         arr.push({
           kind: "palm",
-          side: "right",
-          edgeOffset: 14 + rand() * 26,
-          top: midY + (rand() - 0.5) * 50,
-          scale: 0.6 + rand() * 0.35,
-          flip: true,
+          side: palmSide,
+          edgeOffset: 90 + rand() * 40,
+          top: midY + 30 + rand() * 30,
+          scale: 0.55 + rand() * 0.2,
+          flip: palmSide === "left",
+          phase: rand() * 6,
+        });
+      }
+
+      // occasionally a small palm on the card-side too, for asymmetry
+      if (rand() > 0.5) {
+        arr.push({
+          kind: "palm",
+          side: cardSide,
+          edgeOffset: 14 + rand() * 18,
+          top: midY + 50 + rand() * 40,
+          scale: 0.42 + rand() * 0.18,
+          flip: cardSide === "right",
           phase: rand() * 6,
         });
       }
     }
 
-    // ---- CACTI sparsely along ----
-    for (let i = 0; i < geometries.length; i += 2) {
+    // ---- CACTI sparsely along, in viewport gutters ----
+    for (let i = 0; i < geometries.length; i += 1) {
+      if (rand() < 0.45) continue;
       const cur = geometries[i];
       const next = geometries[i + 1];
       if (!cur) continue;
-      const midY = next ? (cur.sheikhY + next.sheikhY) / 2 : cur.sheikhY + 120;
-      const side: Side = rand() > 0.5 ? "left" : "right";
+      const midY = next ? (cur.sheikhY + next.sheikhY) / 2 : cur.sheikhY + 100;
+      const cardSide: Side = i % 2 === 0 ? "left" : "right";
+      const side: Side = rand() > 0.5 ? cardSide : (cardSide === "left" ? "right" : "left");
       arr.push({
         kind: "cactus",
         side,
-        edgeOffset: 100 + rand() * 50,
-        top: midY + 50 + rand() * 30,
-        scale: 0.7 + rand() * 0.35,
+        edgeOffset: 60 + rand() * 30,
+        top: midY + 80 + rand() * 40,
+        scale: 0.7 + rand() * 0.4,
         phase: rand() * 7,
+      });
+    }
+
+    // ---- ROCKS for grounding (small clusters near each gutter every other station) ----
+    for (let i = 0; i < geometries.length; i += 2) {
+      const cur = geometries[i];
+      if (!cur) continue;
+      const side: Side = i % 4 === 0 ? "left" : "right";
+      arr.push({
+        kind: "rock",
+        side,
+        edgeOffset: 18 + rand() * 18,
+        top: cur.sheikhY + 120 + rand() * 40,
+        scale: 0.6 + rand() * 0.5,
       });
     }
 
@@ -486,19 +545,25 @@ export default function DesertDecor({ geometries, totalHeight }: Props) {
           it.side === "left"
             ? { left: it.edgeOffset }
             : { right: it.edgeOffset };
+        const scale = "scale" in it ? it.scale : 1;
+        const transform =
+          it.kind === "palm" || it.kind === "cactus" || it.kind === "rock"
+            ? { transform: `scale(${scale})`, transformOrigin: "50% 100%" }
+            : {};
         return (
           <div
             key={i}
             className={`avt-decor-item avt-decor-${it.kind} avt-decor-${it.kind}-${
               it.kind === "dune" ? it.layer : "x"
             }`}
-            style={{ top: it.top, ...positionStyle }}
+            style={{ top: it.top, ...positionStyle, ...transform }}
           >
             {it.kind === "palm" && <PalmSvg flip={it.flip} phase={it.phase} uid={`${uid}-${i}`} />}
             {it.kind === "cactus" && <CactusSvg phase={it.phase} uid={`${uid}-${i}`} />}
             {it.kind === "dune" && (
               <DuneSvg width={it.width} height={it.height} layer={it.layer} uid={`${uid}-${i}`} />
             )}
+            {it.kind === "rock" && <RockSvg uid={`${uid}-${i}`} />}
           </div>
         );
       })}

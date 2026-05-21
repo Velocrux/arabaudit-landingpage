@@ -7078,39 +7078,59 @@ main#main li {
 }
 
 .avt-section {
-  padding: 64px 0 96px;
+  padding: 0 0 96px;
   background:
-    radial-gradient(circle 320px at 88% 4%, rgba(255, 224, 156, 0.95) 0%, rgba(252, 213, 142, 0.55) 30%, rgba(232, 201, 147, 0) 70%),
-    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(245, 220, 170, 0.5), transparent 60%),
     linear-gradient(180deg, #fbe8c0 0%, #f5dba2 40%, #eccc88 75%, #d8b06a 100%);
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
+/* fade-in handoff from emerald hero into desert sky */
 .avt-section::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 96px;
   pointer-events: none;
-  background:
-    radial-gradient(circle 90px at 88% 4%, rgba(255, 247, 220, 0.9) 0%, rgba(255, 222, 152, 0) 70%);
+  background: linear-gradient(180deg, rgba(7, 55, 39, 0.55) 0%, rgba(7, 55, 39, 0) 100%);
   z-index: 0;
+}
+
+/* Product page gets a wider wrap for the tour cards */
+.avt-section > .wrap {
+  max-width: 1440px;
 }
 
 .avt-journey {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 120px;
+  gap: 200px;
+  padding: 120px 40px 0;
   z-index: 1;
 }
 
-/* ---- desert decor layer ---- */
+@media (max-width: 1100px) {
+  .avt-journey { padding: 100px 24px 0; gap: 160px; }
+}
+@media (max-width: 900px) {
+  .avt-journey { padding: 64px 16px 0; gap: 96px; }
+}
+@media (max-width: 640px) {
+  .avt-journey { padding: 56px 12px 0; gap: 72px; }
+}
+
+/* ---- desert decor layer — full-bleed via 100vw breakout ---- */
 .avt-desert-decor {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  right: auto;
+  width: 100vw;
+  transform: translateX(-50%);
   pointer-events: none;
   z-index: 0;
   overflow: visible;
@@ -7146,17 +7166,14 @@ main#main li {
 }
 
 @media (max-width: 900px) {
-  .avt-decor-palm,
-  .avt-decor-cactus {
-    opacity: 0.45;
-  }
+  .avt-decor-palm { transform: scale(0.55) !important; opacity: 0.75; }
+  .avt-decor-cactus { transform: scale(0.55) !important; }
+  .avt-decor-rock { transform: scale(0.6) !important; opacity: 0.7; }
 }
-
 @media (max-width: 640px) {
-  .avt-decor-palm,
-  .avt-decor-cactus {
-    display: none;
-  }
+  .avt-decor-palm { transform: scale(0.42) !important; opacity: 0.7; }
+  .avt-decor-cactus { transform: scale(0.42) !important; }
+  .avt-decor-rock { transform: scale(0.5) !important; }
 }
 
 /* ---- decorative camel along the road ---- */
@@ -7175,15 +7192,10 @@ main#main li {
 }
 
 @media (max-width: 900px) {
-  .avt-decor-camel {
-    width: 180px;
-  }
+  .avt-decor-camel { width: 140px; opacity: 0.85; }
 }
-
 @media (max-width: 640px) {
-  .avt-decor-camel {
-    display: none;
-  }
+  .avt-decor-camel { width: 96px; opacity: 0.75; }
 }
 
 /* ---- boat finale ---- */
@@ -7472,26 +7484,37 @@ main#main li {
 .avt-station {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  gap: 56px;
   align-items: start;
   z-index: 1;
 }
 
+/* Card always lands in the WIDE column on its visual side. */
+.avt-station-left {
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+}
+.avt-station-right {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr);
+}
 .avt-station-left .avt-station-card {
   grid-column: 1;
   grid-row: 1;
 }
-
 .avt-station-right .avt-station-card {
   grid-column: 2;
   grid-row: 1;
 }
 
+/* RTL: visually mirror — wide column moves to the opposite logical side */
+[dir="rtl"] .avt-station-left {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr);
+}
+[dir="rtl"] .avt-station-right {
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+}
 [dir="rtl"] .avt-station-left .avt-station-card {
   grid-column: 2;
 }
-
 [dir="rtl"] .avt-station-right .avt-station-card {
   grid-column: 1;
 }
@@ -7566,7 +7589,7 @@ main#main li {
 
 .avt-journey-wrap {
   position: relative;
-  padding: 56px 0 96px;
+  padding: 0 0 96px;
   outline: none;
 }
 
@@ -7641,9 +7664,6 @@ main#main li {
 }
 
 @media (max-width: 900px) {
-  .avt-journey {
-    gap: 64px;
-  }
   .avt-station {
     grid-template-columns: 1fr;
     min-height: auto;
@@ -8230,3 +8250,483 @@ main#main li {
   .avt-skeleton-theater { animation: none; }
   .avt-progress-dot { transition: none; }
 }
+
+/* ============================================================
+   ATMOSPHERE — sky, sun, mountains, birds, oasis, shimmer
+   ============================================================ */
+.avt-atmosphere {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: auto;
+  width: 100vw;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.avt-atmosphere-sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 280px;
+  pointer-events: none;
+}
+.avt-atmosphere-sky svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.avt-sun-rays {
+  transform-origin: center;
+  animation: avt-sun-pulse 7s ease-in-out infinite;
+}
+@keyframes avt-sun-pulse {
+  0%, 100% { transform: rotate(0deg) scale(1); opacity: 1; }
+  50% { transform: rotate(4deg) scale(1.06); opacity: 0.92; }
+}
+
+.avt-atmosphere-shimmer {
+  position: absolute;
+  top: 220px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(255, 220, 150, 0.55), transparent);
+  filter: blur(10px);
+  animation: avt-shimmer 9s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes avt-shimmer {
+  0%, 100% { opacity: 0.5; transform: translateY(0); }
+  50% { opacity: 0.85; transform: translateY(3px); }
+}
+
+.avt-atmosphere-glow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 320px;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255, 220, 150, 0.42), transparent 70%);
+  pointer-events: none;
+}
+
+.avt-bird {
+  position: absolute;
+  left: 0;
+  pointer-events: none;
+  animation: avt-bird-drift linear infinite;
+  will-change: transform;
+  filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.2));
+}
+@keyframes avt-bird-drift {
+  0% { transform: translateX(-80px); }
+  100% { transform: translateX(110vw); }
+}
+
+.avt-oasis {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 520px;
+  filter: drop-shadow(0 18px 28px rgba(40, 60, 80, 0.22));
+  z-index: 0;
+  pointer-events: none;
+}
+.avt-oasis svg { width: 100%; height: auto; display: block; }
+@media (max-width: 1100px) {
+  .avt-oasis { width: 420px; }
+}
+@media (max-width: 900px) {
+  .avt-oasis { width: 320px; }
+  .avt-atmosphere-sky { height: 220px; }
+  .avt-atmosphere-shimmer { top: 170px; }
+}
+@media (max-width: 640px) {
+  .avt-oasis { width: 240px; }
+  .avt-atmosphere-sky { height: 180px; }
+  .avt-atmosphere-shimmer { top: 140px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avt-sun-rays { animation: none; }
+  .avt-atmosphere-shimmer { animation: none; }
+  .avt-bird { animation: none; opacity: 0.55; }
+}
+
+/* ============================================================
+   FOOTPRINTS — trail behind the traveling sheikh
+   ============================================================ */
+.avt-footprints {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+/* ============================================================
+   ROCK DECOR
+   ============================================================ */
+.avt-decor-rock {
+  z-index: 0;
+  filter: drop-shadow(0 6px 8px rgba(20, 10, 4, 0.18));
+}
+
+/* ============================================================
+   CHAPTER RAIL — sticky compass on right edge
+   ============================================================ */
+.avt-chapter-rail {
+  position: fixed;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  z-index: 40;
+  background: rgba(247, 243, 234, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(10, 31, 23, 0.08);
+  border-radius: 999px;
+  padding: 10px 6px;
+  box-shadow: 0 14px 32px rgba(10, 31, 23, 0.12);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+.avt-chapter-rail.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+[dir="rtl"] .avt-chapter-rail {
+  right: auto;
+  left: 18px;
+}
+
+.avt-chapter-rail ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.avt-chapter-rail li {
+  display: flex;
+}
+
+.avt-chapter-dot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--ink-3);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+.avt-chapter-dot::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 999px;
+  background: rgba(10, 31, 23, 0.18);
+  transition: background 180ms ease, transform 180ms ease;
+}
+.avt-chapter-dot:hover::after {
+  background: var(--emerald-3);
+  transform: scale(1.08);
+}
+.avt-chapter-dot.is-traveled::after {
+  background: var(--emerald-5);
+}
+.avt-chapter-dot.is-active::after {
+  background: var(--gold-3);
+  transform: scale(1.32);
+  box-shadow: 0 0 0 3px rgba(232, 184, 75, 0.28);
+}
+.avt-chapter-num {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  color: transparent;
+}
+.avt-chapter-dot.is-active .avt-chapter-num,
+.avt-chapter-dot.is-traveled .avt-chapter-num {
+  color: #0a1f17;
+}
+
+.avt-chapter-label {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  background: var(--emerald-3);
+  color: var(--cream-1);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: var(--f-sans);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+[dir="rtl"] .avt-chapter-label {
+  right: auto;
+  left: calc(100% + 10px);
+  font-family: var(--f-arabic);
+  transform: translateY(-50%) translateX(-6px);
+}
+.avt-chapter-dot:hover .avt-chapter-label,
+.avt-chapter-dot:focus-visible .avt-chapter-label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (max-width: 900px) {
+  .avt-chapter-rail {
+    top: auto;
+    bottom: 80px;
+    right: 50%;
+    transform: translateX(50%);
+    flex-direction: row;
+    border-radius: 999px;
+    padding: 6px 10px;
+  }
+  [dir="rtl"] .avt-chapter-rail {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+  .avt-chapter-rail ul { flex-direction: row; gap: 4px; }
+  .avt-chapter-dot { width: 18px; height: 18px; }
+  .avt-chapter-dot::after { inset: 4px; }
+  .avt-chapter-label { display: none; }
+}
+
+/* ============================================================
+   STATION INLINE NARRATOR (mobile only)
+   ============================================================ */
+.avt-station-narrator { display: none; }
+
+@media (max-width: 900px) {
+  .avt-station-narrator {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 0 0 14px;
+    padding: 0 0 14px;
+    border-bottom: 1px dashed rgba(10, 31, 23, 0.08);
+  }
+  .avt-station-narrator-avatar {
+    flex: 0 0 auto;
+    width: 78px;
+    height: 110px;
+    filter: drop-shadow(0 10px 18px rgba(10, 31, 23, 0.16));
+  }
+  .avt-station-narrator-avatar .avt-avatar {
+    width: 100%;
+    height: 100%;
+  }
+  .avt-station-narrator-bubble {
+    flex: 1;
+    min-width: 0;
+  }
+  .avt-station-narrator-bubble .avt-bubble {
+    font-size: 15px;
+    padding: 12px 14px;
+    max-width: none;
+  }
+  .avt-station-narrator-bubble .avt-bubble-tail { display: none; }
+}
+
+/* ============================================================
+   STICKY CONTROLS — progress bar + visible skip
+   ============================================================ */
+.avt-journey-controls {
+  /* override the old simple pill — keep sticky but expanded */
+  position: sticky;
+  bottom: 16px;
+  margin: 48px auto 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(247, 243, 234, 0.96);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(10, 31, 23, 0.08);
+  border-radius: 999px;
+  padding: 8px 12px;
+  box-shadow: 0 18px 36px rgba(10, 31, 23, 0.14);
+  z-index: 6;
+  width: max-content;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.avt-journey-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 8px;
+}
+.avt-journey-progress-bar {
+  display: inline-block;
+  width: 84px;
+  height: 4px;
+  background: rgba(10, 31, 23, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.avt-journey-progress-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--emerald-5), var(--gold-3));
+  border-radius: 999px;
+  transition: width 360ms ease;
+}
+.avt-journey-progress-label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.avt-control-btn {
+  font-family: var(--f-sans);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border-radius: 999px;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  white-space: nowrap;
+}
+.avt-control-btn:hover { transform: translateY(-1px); }
+.avt-control-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(232, 184, 75, 0.45);
+}
+.avt-control-primary {
+  background: var(--emerald-3);
+  color: var(--cream-1);
+}
+.avt-control-primary:hover { background: var(--emerald-2); }
+.avt-control-ghost {
+  background: transparent;
+  color: var(--ink-2);
+  border-color: rgba(10, 31, 23, 0.12);
+}
+.avt-control-ghost:hover {
+  background: rgba(10, 31, 23, 0.05);
+  border-color: rgba(10, 31, 23, 0.2);
+}
+
+[dir="rtl"] .avt-journey-progress-label,
+[dir="rtl"] .avt-control-btn { font-family: var(--f-arabic); letter-spacing: 0; }
+
+@media (max-width: 640px) {
+  .avt-journey-controls { gap: 8px; padding: 6px 10px; flex-wrap: wrap; }
+  .avt-journey-progress-bar { width: 56px; }
+  .avt-control-btn { font-size: 12px; padding: 7px 11px; }
+}
+
+/* ============================================================
+   HERO → DESERT TRANSITION (used by product hero)
+   ============================================================ */
+.avt-hero-handoff {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 80px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(7, 55, 39, 0) 0%, rgba(251, 232, 192, 0.92) 80%, #fbe8c0 100%);
+  z-index: 1;
+}
+
+/* Hero inline scene preview */
+.avt-hero-scene {
+  position: relative;
+  margin-top: 56px;
+  max-width: 980px;
+  width: 100%;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.28));
+}
+.avt-hero-scene svg { width: 100%; height: auto; display: block; }
+
+@media (max-width: 640px) {
+  .avt-hero-scene { margin-top: 36px; }
+}
+
+/* ============================================================
+   IMPROVE STATION CARDS — frosted, more grounded, gold ring on active
+   ============================================================ */
+.avt-station-card {
+  background: rgba(252, 248, 238, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(10, 31, 23, 0.08);
+  border-radius: 18px;
+  padding: 28px 28px 36px;
+  box-shadow: 0 12px 28px rgba(120, 80, 40, 0.10);
+  z-index: 3;
+}
+.avt-station.is-active .avt-station-card {
+  background: var(--cream-1);
+  border-color: var(--gold-3);
+  box-shadow:
+    0 18px 48px rgba(120, 80, 40, 0.20),
+    0 0 0 1px rgba(232, 184, 75, 0.45);
+}
+
+/* numbered station chip becomes a small caravan-checkpoint badge */
+.avt-station-num {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-1);
+  padding: 4px 10px;
+  border: 1px solid rgba(232, 184, 75, 0.5);
+  border-radius: 999px;
+  background: rgba(255, 248, 230, 0.6);
+  width: max-content;
+}
+.avt-station-num::before {
+  content: "✦";
+  color: var(--gold-2);
+  font-size: 11px;
+}
+[dir="rtl"] .avt-station-num { font-family: var(--f-mono); letter-spacing: 0.04em; }
+
+/* ============================================================
+   AVATAR-NARRATED MOBILE ADJUSTMENTS — keep narrative alive on phones
+   ============================================================ */
+@media (max-width: 900px) {
+  .avt-section { padding: 0 0 64px; }
+  .avt-section::before { height: 56px; }
+}
+
