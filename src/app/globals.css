@@ -7198,16 +7198,21 @@ main#main li {
   .avt-decor-camel { width: 96px; opacity: 0.75; }
 }
 
-/* ---- boat finale ---- */
+/* ---- boat finale (cinematic Arabian Gulf sunset) ---- */
 .avt-boat-scene {
   position: relative;
   width: 100%;
-  height: 540px;
+  height: 620px;
   margin-top: 48px;
-  border-radius: 18px;
+  border-radius: 22px;
   overflow: hidden;
-  box-shadow: var(--shadow-2);
-  background: linear-gradient(180deg, #f8c97a 0%, #fcd58e 32%, #f7a05c 52%, #2f7aa6 100%);
+  box-shadow:
+    0 32px 64px rgba(10, 18, 40, 0.32),
+    0 8px 20px rgba(10, 18, 40, 0.18),
+    inset 0 0 0 1px rgba(232, 184, 75, 0.22);
+  background:
+    radial-gradient(ellipse 60% 40% at 75% 42%, rgba(245, 205, 114, 0.35), transparent 70%),
+    linear-gradient(180deg, #1a2a4a 0%, #3a3568 22%, #a04c5a 52%, #e88a4a 78%, #f4cd72 92%, #1f4870 100%);
 }
 
 .avt-boat-water {
@@ -7224,17 +7229,17 @@ main#main li {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 80px;
+  height: 100px;
   pointer-events: none;
-  z-index: 2;
-  opacity: 0.85;
+  z-index: 4;
+  opacity: 0.9;
 }
 
 .avt-boat-traveler {
   position: absolute;
-  top: 26%;
-  width: 420px;
-  height: 360px;
+  top: 28%;
+  width: 520px;
+  height: 420px;
   pointer-events: none;
   z-index: 3;
   will-change: left;
@@ -7252,13 +7257,15 @@ main#main li {
 .avt-boat-avatar {
   position: absolute;
   left: 50%;
-  bottom: 78px;
+  bottom: 96px;
   transform: translateX(-50%);
-  width: 170px;
-  height: 230px;
+  width: 178px;
+  height: 240px;
   overflow: hidden;
   pointer-events: none;
   z-index: 1;
+  /* Warm sunset rim light on the figure */
+  filter: drop-shadow(-6px 0 6px rgba(244, 205, 114, 0.25));
 }
 
 .avt-boat-avatar svg {
@@ -7269,41 +7276,60 @@ main#main li {
 .avt-boat-hull {
   position: relative;
   z-index: 2;
-  margin-bottom: -32px;
-  filter: drop-shadow(0 16px 18px rgba(20, 10, 0, 0.35));
+  margin-bottom: -28px;
+  filter: drop-shadow(0 22px 22px rgba(10, 14, 36, 0.55));
 }
 
 .avt-boat-bubble {
   position: absolute;
-  top: 4px;
-  left: 56%;
-  background: linear-gradient(rgba(216, 162, 58, 0.10), rgba(216, 162, 58, 0.10)), var(--cream-1);
-  border: 1px solid var(--gold-3);
-  border-radius: 16px;
-  padding: 12px 18px;
-  box-shadow: 0 12px 28px rgba(20, 10, 0, 0.18);
+  top: -6px;
+  left: 58%;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 232, 0.96), rgba(247, 238, 215, 0.96));
+  border: 1.5px solid var(--gold-3);
+  border-radius: 14px;
+  padding: 14px 20px 12px;
+  box-shadow:
+    0 18px 42px rgba(10, 14, 36, 0.45),
+    0 2px 6px rgba(10, 14, 36, 0.25),
+    inset 0 0 0 1px rgba(255, 250, 232, 0.5),
+    inset 0 0 24px rgba(232, 184, 75, 0.18);
   z-index: 5;
-  max-width: 260px;
+  max-width: 280px;
   pointer-events: none;
 }
 
 [dir="rtl"] .avt-boat-bubble {
   left: auto;
-  right: 56%;
+  right: 58%;
 }
+
+/* Ornate gold corner glints — evokes Islamic calligraphic frame */
+.avt-boat-bubble-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid var(--gold-2);
+  pointer-events: none;
+}
+.avt-boat-bubble-corner-tl { top: -4px; left: -4px; border-right: none; border-bottom: none; border-top-left-radius: 6px; }
+.avt-boat-bubble-corner-tr { top: -4px; right: -4px; border-left: none; border-bottom: none; border-top-right-radius: 6px; }
+.avt-boat-bubble-corner-bl { bottom: -4px; left: -4px; border-right: none; border-top: none; border-bottom-left-radius: 6px; }
+.avt-boat-bubble-corner-br { bottom: -4px; right: -4px; border-left: none; border-top: none; border-bottom-right-radius: 6px; }
 
 .avt-boat-bubble-inner {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .avt-boat-bubble-text {
   font-family: var(--f-serif);
-  font-size: 19px;
+  font-size: 21px;
   font-weight: 500;
   color: var(--emerald-3);
   letter-spacing: -0.01em;
+  line-height: 1.15;
 }
 
 [dir="rtl"] .avt-boat-bubble-text {
@@ -7312,17 +7338,20 @@ main#main li {
 
 .avt-boat-bubble-star {
   color: var(--gold-2);
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1;
+  filter: drop-shadow(0 0 4px rgba(232, 184, 75, 0.6));
 }
 
 .avt-boat-bubble-caption {
   font-family: var(--f-sans);
-  font-size: 11.5px;
-  line-height: 1.45;
+  font-size: 12px;
+  line-height: 1.5;
   color: var(--ink-3);
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   letter-spacing: 0.01em;
+  padding-top: 6px;
+  border-top: 1px solid rgba(216, 162, 58, 0.35);
 }
 
 [dir="rtl"] .avt-boat-bubble-caption {
@@ -7332,25 +7361,25 @@ main#main li {
 .avt-boat-bubble-tail {
   position: absolute;
   bottom: -8px;
-  left: 24px;
+  left: 28px;
   width: 16px;
   height: 10px;
-  background: var(--cream-1);
-  border-right: 1px solid var(--gold-3);
-  border-bottom: 1px solid var(--gold-3);
+  background: linear-gradient(180deg, rgba(255, 250, 232, 0.96), rgba(247, 238, 215, 0.96));
+  border-right: 1.5px solid var(--gold-3);
+  border-bottom: 1.5px solid var(--gold-3);
   transform: rotate(45deg);
 }
 
 [dir="rtl"] .avt-boat-bubble-tail {
   left: auto;
-  right: 24px;
+  right: 28px;
 }
 
 .avt-boat-bowwave {
   position: absolute;
-  top: 64%;
-  width: 220px;
-  margin-left: 130px;
+  top: 66%;
+  width: 280px;
+  margin-left: 150px;
   pointer-events: none;
   z-index: 2;
   will-change: left;
@@ -7358,57 +7387,59 @@ main#main li {
 
 [dir="rtl"] .avt-boat-bowwave {
   margin-left: 0;
-  margin-right: 130px;
+  margin-right: 150px;
 }
 
 @media (max-width: 900px) {
   .avt-boat-scene {
-    height: 460px;
+    height: 500px;
+    border-radius: 18px;
   }
   .avt-boat-traveler {
-    width: 320px;
-    height: 280px;
-    top: 28%;
+    width: 380px;
+    height: 320px;
+    top: 30%;
   }
   .avt-boat-avatar {
-    bottom: 60px;
-    width: 130px;
-    height: 175px;
+    bottom: 72px;
+    width: 134px;
+    height: 184px;
   }
   .avt-boat-hull svg {
-    width: 320px;
+    width: 380px;
     height: auto;
   }
   .avt-boat-bubble {
-    max-width: 200px;
-    padding: 10px 14px;
+    max-width: 220px;
+    padding: 11px 15px 10px;
   }
   .avt-boat-bubble-text {
-    font-size: 16px;
+    font-size: 17px;
   }
 }
 
 @media (max-width: 640px) {
   .avt-boat-scene {
-    height: 380px;
+    height: 420px;
+    border-radius: 14px;
   }
   .avt-boat-traveler {
-    width: 240px;
-    height: 220px;
+    width: 280px;
+    height: 240px;
   }
   .avt-boat-avatar {
-    bottom: 45px;
-    width: 100px;
-    height: 138px;
+    bottom: 54px;
+    width: 102px;
+    height: 142px;
   }
   .avt-boat-hull svg {
-    width: 240px;
+    width: 280px;
   }
   .avt-boat-bubble {
     font-size: 14px;
-    max-width: 170px;
+    max-width: 180px;
     padding: 8px 12px;
-    left: 60%;
+    left: 62%;
   }
   .avt-boat-bubble-caption {
     display: none;

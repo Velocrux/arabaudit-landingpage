@@ -143,11 +143,14 @@ export default function AvatarTour() {
   useEffect(() => {
     const node = journeyWrapRef.current;
     if (!node) return;
+    // Threshold must be 0: the journey wrap is taller than the viewport (it
+    // contains all 9 stations stacked), so its intersectionRatio can never
+    // reach the previous 0.1 threshold and the tour would never start.
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setIsStarted(true);
       },
-      { threshold: 0.1 }
+      { threshold: 0, rootMargin: "0px 0px -10% 0px" }
     );
     obs.observe(node);
     return () => obs.disconnect();
