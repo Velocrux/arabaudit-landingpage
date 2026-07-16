@@ -13,6 +13,7 @@ import {
 import { useAutoplay } from "@/components/autoplay/useAutoplay";
 import AutoplayCursor from "@/components/autoplay/AutoplayCursor";
 import { buildAuditFlowSequence } from "@/components/autoplay/sequences/auditFlow";
+import { LOCAL_FILES_BY_USE_CASE } from "@/components/use-cases/UseCasesAuditFlow";
 
 // ----- Types -----
 type Phase = 1 | 2 | 3 | 4 | 5 | 6;
@@ -30,59 +31,68 @@ type RequiredDoc = { cat: string; name: string; file: string | null; pattern: st
 
 type FilePickerContext = "bulk" | "crit" | number | null;
 
-// ----- Static demo data -----
-const LOCAL_FILES: LocalFile[] = [
-  { icon: <File01Icon size={18} />, name: "IT Security Policy v3.2.pdf", size: "2.4 MB", date: "15 Nov 2025" },
-  { icon: <File01Icon size={18} />, name: "سياسة أمن المعلومات.pdf", size: "1.8 MB", date: "22 Nov 2025" },
-  { icon: <File01Icon size={18} />, name: "Firewall Configuration Q4-2025.xlsx", size: "512 KB", date: "31 Dec 2025" },
-  { icon: <File01Icon size={18} />, name: "AWS Riyadh Region Attestation.pdf", size: "890 KB", date: "12 Jan 2026" },
-  { icon: <File01Icon size={18} />, name: "Quarterly Access Review Q4.csv", size: "128 KB", date: "03 Jan 2026" },
-  { icon: <File01Icon size={18} />, name: "Data-Classification-Standard.pdf", size: "1.2 MB", date: "28 Oct 2025" },
-  { icon: <File01Icon size={18} />, name: "Incident-Response-Plan-v2.1.docx", size: "760 KB", date: "05 Feb 2026" },
-  { icon: <File01Icon size={18} />, name: "Iqama-Renewals-2026.xlsx", size: "320 KB", date: "18 Apr 2026" },
-];
+// ----- Framework-aware demo data -----
+// The Schedule-phase framework dropdown drives the whole walkthrough. Each
+// framework maps to a use-case dataset (domain, one control, three criteria)
+// plus the matching evidence file list, so picking a framework swaps the
+// criteria, required document, and file picker to that framework. Content is
+// pulled from the shared "useCases.flow" translations (EN + AR).
+type DemoFrameworkMeta = {
+  label: string;
+  uc: keyof typeof LOCAL_FILES_BY_USE_CASE;
+  control: string;
+  critIds: [string, string, string];
+};
+const DEFAULT_FRAMEWORK = "nca-ecc";
+const DEMO_FRAMEWORKS: Record<string, DemoFrameworkMeta> = {
+  "nca-ecc": { label: "NCA ECC · v2024", uc: "general", control: "ORG", critIds: ["ORG-1", "ORG-2", "ORG-3"] },
+  "sama-csf": { label: "SAMA CSF · v2024", uc: "cybersecurity", control: "GOV", critIds: ["GOV-1", "GOV-2", "GOV-3"] },
+  "sama-it-governance": { label: "SAMA IT Governance", uc: "itGovernance", control: "STRAT", critIds: ["STRAT-1", "STRAT-2", "STRAT-3"] },
+  "sdaia-pdpl": { label: "SDAIA PDPL · v2023", uc: "dataProtection", control: "LAWF", critIds: ["LAWF-1", "LAWF-2", "LAWF-3"] },
+  "pci-dss-v4.0.1": { label: "PCI DSS · v4.0.1", uc: "payments", control: "NET", critIds: ["NET-1", "NET-2", "NET-3"] },
+  "iso-27001:2022": { label: "ISO/IEC 27001:2022", uc: "infosec", control: "ISMS", critIds: ["ISMS-1", "ISMS-2", "ISMS-3"] },
+  "cbahi-clinic": { label: "CBAHI · Ambulatory", uc: "healthcare", control: "HG", critIds: ["HG-1", "HG-2", "HG-3"] },
+  "cbahi-hospital": { label: "CBAHI · Hospital", uc: "healthcare", control: "HG", critIds: ["HG-1", "HG-2", "HG-3"] },
+};
 
 export default function DemoAuditFlow() {
   const t = useTranslations("demoAudit");
+  const tc = useTranslations("useCases.flow");
   const searchParams = useSearchParams();
   const fromFramework = searchParams?.get("from") === "framework-browser";
 
-  // ----- Initial data (translated) -----
-  const initialRequiredDocs = useCallback(
-    (): RequiredDoc[] => [
-      { cat: t("catPolicy"), name: t("docCyberPolicy"), file: null, pattern: "IT Security Policy v3.2.pdf" },
-    ],
-    [t]
+  // ----- Framework-aware initial data -----
+  // Build the required document and criteria from the shared use-case content
+  // for whichever framework is selected in the Schedule phase.
+  const buildRequiredDocs = useCallback(
+    (fw: string): RequiredDoc[] => {
+      const m = DEMO_FRAMEWORKS[fw] ?? DEMO_FRAMEWORKS[DEFAULT_FRAMEWORK];
+      const files = LOCAL_FILES_BY_USE_CASE[m.uc];
+      return [
+        {
+          cat: tc(`${m.uc}.doc.0.cat`),
+          name: tc(`${m.uc}.doc.0.name`),
+          file: null,
+          pattern: files[0].name,
+        },
+      ];
+    },
+    [tc]
   );
 
-  const initialCriteria = useCallback(
-    (): Criterion[] => [
-      {
-        id: "1.1.1",
-        domain: t("d1Governance"),
-        control: t("ct11Board"),
-        title: t("crit111Title"),
-        expect: t("crit111Expect"),
+  const buildCriteria = useCallback(
+    (fw: string): Criterion[] => {
+      const m = DEMO_FRAMEWORKS[fw] ?? DEMO_FRAMEWORKS[DEFAULT_FRAMEWORK];
+      return m.critIds.map((id) => ({
+        id,
+        domain: tc(`${m.uc}.domain`),
+        control: tc(`${m.uc}.ctrl.${m.control}`),
+        title: tc(`${m.uc}.crit.${id}.title`),
+        expect: tc(`${m.uc}.crit.${id}.expect`),
         rating: null,
-      },
-      {
-        id: "1.1.2",
-        domain: t("d1Governance"),
-        control: t("ct11Board"),
-        title: t("crit112Title"),
-        expect: t("crit112Expect"),
-        rating: null,
-      },
-      {
-        id: "1.2.1",
-        domain: t("d1Governance"),
-        control: t("ct12Strategy"),
-        title: t("crit121Title"),
-        expect: t("crit121Expect"),
-        rating: null,
-      },
-    ],
-    [t]
+      }));
+    },
+    [tc]
   );
 
   // ----- State -----
@@ -102,9 +112,14 @@ export default function DemoAuditFlow() {
     ];
 
   const [phase, setPhase] = useState<Phase>(fromFramework ? 2 : 1);
-  const [requiredDocs, setRequiredDocs] = useState<RequiredDoc[]>(initialRequiredDocs);
-  const [criteria, setCriteria] = useState<Criterion[]>(initialCriteria);
+  const [selectedFramework, setSelectedFramework] = useState(DEFAULT_FRAMEWORK);
+  const [requiredDocs, setRequiredDocs] = useState<RequiredDoc[]>(() => buildRequiredDocs(DEFAULT_FRAMEWORK));
+  const [criteria, setCriteria] = useState<Criterion[]>(() => buildCriteria(DEFAULT_FRAMEWORK));
   const [activeCritIdx, setActiveCritIdx] = useState(0);
+
+  // Framework-appropriate evidence + display label for the selected framework.
+  const fwMeta = DEMO_FRAMEWORKS[selectedFramework] ?? DEMO_FRAMEWORKS[DEFAULT_FRAMEWORK];
+  const localFiles = LOCAL_FILES_BY_USE_CASE[fwMeta.uc];
 
   // File picker
   const [filePickerOpen, setFilePickerOpen] = useState(false);
@@ -225,7 +240,7 @@ export default function DemoAuditFlow() {
     // auto-suggest expected file
     const expected = typeof ctx === "number" ? requiredDocs[ctx]?.pattern : null;
     if (expected) {
-      const idx = LOCAL_FILES.findIndex((f) => f.name === expected);
+      const idx = localFiles.findIndex((f) => f.name === expected);
       if (idx > -1) {
         setTimeout(() => setSelectedFileIdx(idx), 300);
       }
@@ -238,7 +253,7 @@ export default function DemoAuditFlow() {
 
   const confirmFilePicker = () => {
     if (selectedFileIdx === null) return;
-    const file = LOCAL_FILES[selectedFileIdx];
+    const file = localFiles[selectedFileIdx];
     closeFilePicker();
     simulateUpload(file);
   };
@@ -247,7 +262,7 @@ export default function DemoAuditFlow() {
     const ctx = filePickerContext;
     if (ctx === "bulk") {
       requiredDocs.forEach((d, i) => {
-        const match = LOCAL_FILES.find((f) => f.name === d.pattern);
+        const match = localFiles.find((f) => f.name === d.pattern);
         if (match) {
           setTimeout(() => {
             setRequiredDocs((prev) => {
@@ -603,12 +618,24 @@ export default function DemoAuditFlow() {
   // ----- Reset -----
   const resetDemo = () => {
     clearTypewriter();
-    setRequiredDocs(initialRequiredDocs());
-    setCriteria(initialCriteria());
+    setRequiredDocs(buildRequiredDocs(selectedFramework));
+    setCriteria(buildCriteria(selectedFramework));
     setActiveCritIdx(0);
     setSignState("idle");
     setRptContentVisible(false);
     goTo(fromFramework ? 2 : 1);
+  };
+
+  // Swap the whole walkthrough to a different framework when the Schedule-phase
+  // dropdown changes (also fired by the autoplay when it selects a framework).
+  const changeFramework = (fw: string) => {
+    setSelectedFramework(fw);
+    setRequiredDocs(buildRequiredDocs(fw));
+    setCriteria(buildCriteria(fw));
+    setActiveCritIdx(0);
+    setSelectedFileIdx(null);
+    setUploadProgress(null);
+    setFilePickerOpen(false);
   };
 
   // ----- Stepper -----
@@ -764,12 +791,18 @@ export default function DemoAuditFlow() {
                           {t("framework")} <span className="req">*</span>
                         </label>
                         <select
-                          defaultValue="nca-ecc"
+                          value={selectedFramework}
+                          onChange={(e) => changeFramework(e.target.value)}
                           data-autoplay="phase1-framework-select"
                         >
                           <option value="nca-ecc">NCA ECC (v2024)</option>
                           <option value="sama-csf">SAMA CSF (v2024)</option>
+                          <option value="sama-it-governance">SAMA IT Governance</option>
                           <option value="sdaia-pdpl">SDAIA PDPL (v2023)</option>
+                          <option value="pci-dss-v4.0.1">PCI DSS v4.0.1</option>
+                          <option value="iso-27001:2022">ISO/IEC 27001:2022</option>
+                          <option value="cbahi-clinic">CBAHI — Ambulatory Care</option>
+                          <option value="cbahi-hospital">CBAHI — Hospital</option>
                         </select>
                       </div>
                       <div className="field">
@@ -1182,7 +1215,7 @@ export default function DemoAuditFlow() {
                       <h3 className="ov-title">{t("q1Assessment")}</h3>
                       <div className="ov-facts">
                         <span className="ov-fact">Najm Insurance Services Co.</span>
-                        <span className="ov-fact">NCA ECC · v2024</span>
+                        <span className="ov-fact">{fwMeta.label}</span>
                         <span className="ov-fact">{t("reportDate")}</span>
                         <span className="ov-fact">Layla Al-Sulaiman, CISA</span>
                       </div>
@@ -1474,7 +1507,7 @@ export default function DemoAuditFlow() {
                         </div>
                         <div className="row">
                           <span className="k">{t("sigFramework")}</span>
-                          <span className="v">NCA ECC · v2024</span>
+                          <span className="v">{fwMeta.label}</span>
                         </div>
                         <div className="row">
                           <span className="k">{t("sigComplianceScore")}</span>
@@ -1701,7 +1734,7 @@ export default function DemoAuditFlow() {
                 </div>
               </div>
               <div className="fp-files">
-                {LOCAL_FILES.map((f, i) => {
+                {localFiles.map((f, i) => {
                   const expected =
                     typeof filePickerContext === "number"
                       ? requiredDocs[filePickerContext]?.pattern

@@ -31,7 +31,8 @@ type FrameworkKey =
   | "samaItGovernance"
   | "pciDss"
   | "iso27001"
-  | "cbahiClinic";
+  | "cbahiClinic"
+  | "cbahiHospital";
 
 interface FrameworkMeta {
   id: string;
@@ -172,6 +173,34 @@ export const frameworkMeta: FrameworkMeta[] = [
       { id: "d9", number: 9, controlCount: 9 },
       { id: "d10", number: 10, controlCount: 12 },
       { id: "d11", number: 11, controlCount: 6 },
+    ],
+  },
+  {
+    id: "cbahi-hospital",
+    frameworkId: "cbahi-hospital",
+    shortCode: "CBAHI-HOSPITAL",
+    controls: 314,
+    domains: 16,
+    color: "#b8472f",
+    version: "1.0",
+    translationKey: "cbahiHospital",
+    domainsList: [
+      { id: "d1", number: 1, controlCount: 22 },
+      { id: "d2", number: 2, controlCount: 16 },
+      { id: "d3", number: 3, controlCount: 24 },
+      { id: "d4", number: 4, controlCount: 16 },
+      { id: "d5", number: 5, controlCount: 28 },
+      { id: "d6", number: 6, controlCount: 14 },
+      { id: "d7", number: 7, controlCount: 16 },
+      { id: "d8", number: 8, controlCount: 20 },
+      { id: "d9", number: 9, controlCount: 28 },
+      { id: "d10", number: 10, controlCount: 26 },
+      { id: "d11", number: 11, controlCount: 14 },
+      { id: "d12", number: 12, controlCount: 22 },
+      { id: "d13", number: 13, controlCount: 14 },
+      { id: "d14", number: 14, controlCount: 24 },
+      { id: "d15", number: 15, controlCount: 16 },
+      { id: "d16", number: 16, controlCount: 14 },
     ],
   },
 ];

@@ -19,6 +19,8 @@ type UseCaseKey =
   | "cybersecurity"
   | "itGovernance"
   | "dataProtection"
+  | "payments"
+  | "infosec"
   | "general";
 type Phase = 1 | 2 | 3 | 4 | 5 | 6;
 type Rating = "compliant" | "noncompliant" | "na" | null;
@@ -36,7 +38,9 @@ type FilePickerContext = "bulk" | "crit" | number | null;
 
 // Per-use-case file lists so the file picker, the auto-suggested upload, and
 // the linked evidence shown in the report all look domain-appropriate.
-const LOCAL_FILES_BY_USE_CASE: Record<UseCaseKey, LocalFile[]> = {
+// Exported so the live audit demo (DemoAuditFlow) can reuse the same
+// framework-appropriate evidence when its framework dropdown changes.
+export const LOCAL_FILES_BY_USE_CASE: Record<UseCaseKey, LocalFile[]> = {
   healthcare: [
     { icon: <File01Icon size={18} />, name: "Patient Privacy Policy v2.1.pdf", size: "2.4 MB", date: "15 Nov 2025" },
     { icon: <File01Icon size={18} />, name: "Clinical Governance Framework.pdf", size: "1.8 MB", date: "22 Nov 2025" },
@@ -86,6 +90,26 @@ const LOCAL_FILES_BY_USE_CASE: Record<UseCaseKey, LocalFile[]> = {
     { icon: <File01Icon size={18} />, name: "Business Continuity Plan 2026.pdf", size: "1.4 MB", date: "05 Feb 2026" },
     { icon: <File01Icon size={18} />, name: "Security Awareness Training Records.csv", size: "128 KB", date: "03 Jan 2026" },
     { icon: <File01Icon size={18} />, name: "سياسة الحوكمة المؤسسية.pdf", size: "1.6 MB", date: "20 Nov 2025" },
+  ],
+  payments: [
+    { icon: <File01Icon size={18} />, name: "Cardholder Data Environment Policy v2.pdf", size: "2.4 MB", date: "15 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "Network Segmentation Diagram.pdf", size: "1.8 MB", date: "22 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "Quarterly ASV Scan Report Q4.pdf", size: "890 KB", date: "12 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "Penetration Test Report 2026.pdf", size: "2.1 MB", date: "28 Feb 2026" },
+    { icon: <File01Icon size={18} />, name: "Access Control Matrix Q4.xlsx", size: "128 KB", date: "03 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "Key Management Procedure v1.3.pdf", size: "1.2 MB", date: "28 Oct 2025" },
+    { icon: <File01Icon size={18} />, name: "File Integrity Monitoring Log.csv", size: "320 KB", date: "18 Apr 2026" },
+    { icon: <File01Icon size={18} />, name: "سياسة بيئة بيانات حاملي البطاقات.pdf", size: "1.6 MB", date: "20 Nov 2025" },
+  ],
+  infosec: [
+    { icon: <File01Icon size={18} />, name: "ISMS Scope and Information Security Policy.pdf", size: "2.4 MB", date: "15 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "Statement of Applicability v3.xlsx", size: "1.8 MB", date: "22 Nov 2025" },
+    { icon: <File01Icon size={18} />, name: "Risk Assessment and Treatment Plan.pdf", size: "1.4 MB", date: "10 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "Internal Audit Report ISMS 2025.pdf", size: "890 KB", date: "12 Jan 2026" },
+    { icon: <File01Icon size={18} />, name: "Access Control Policy v2.pdf", size: "1.2 MB", date: "28 Oct 2025" },
+    { icon: <File01Icon size={18} />, name: "Supplier Security Assessment Log.xlsx", size: "320 KB", date: "18 Apr 2026" },
+    { icon: <File01Icon size={18} />, name: "Business Continuity Test Results.pdf", size: "1.1 MB", date: "05 Feb 2026" },
+    { icon: <File01Icon size={18} />, name: "سياسة أمن المعلومات ونطاق النظام.pdf", size: "1.6 MB", date: "20 Nov 2025" },
   ],
 };
 
@@ -154,6 +178,28 @@ const useCaseMeta: Record<
       { i: 1, pattern: "Compliance Framework v2.1.pdf" },
     ],
     colors: { primary: "rgb(217, 119, 6)", accent: "rgba(217, 119, 6, 0.15)", light: "rgba(217, 119, 6, 0.08)" },
+  },
+  payments: {
+    framework: "PCI DSS",
+    controlIds: ["NET", "DATA", "VULN", "ACC", "MON"],
+    critIds: ["NET-1", "NET-2", "NET-3", "DATA-1", "DATA-2", "DATA-3", "VULN-1", "VULN-2", "VULN-3", "ACC-1", "ACC-2", "ACC-3", "MON-1", "MON-2", "MON-3"],
+    critToControl: { "NET-1": "NET", "NET-2": "NET", "NET-3": "NET", "DATA-1": "DATA", "DATA-2": "DATA", "DATA-3": "DATA", "VULN-1": "VULN", "VULN-2": "VULN", "VULN-3": "VULN", "ACC-1": "ACC", "ACC-2": "ACC", "ACC-3": "ACC", "MON-1": "MON", "MON-2": "MON", "MON-3": "MON" },
+    docs: [
+      { i: 0, pattern: "Cardholder Data Environment Policy v2.pdf" },
+      { i: 1, pattern: "Network Segmentation Diagram.pdf" },
+    ],
+    colors: { primary: "rgb(204, 51, 51)", accent: "rgba(204, 51, 51, 0.15)", light: "rgba(204, 51, 51, 0.08)" },
+  },
+  infosec: {
+    framework: "ISO 27001",
+    controlIds: ["ISMS", "ORG", "PPL", "PHY", "TECH"],
+    critIds: ["ISMS-1", "ISMS-2", "ISMS-3", "ORG-1", "ORG-2", "ORG-3", "PPL-1", "PPL-2", "PPL-3", "PHY-1", "PHY-2", "PHY-3", "TECH-1", "TECH-2", "TECH-3"],
+    critToControl: { "ISMS-1": "ISMS", "ISMS-2": "ISMS", "ISMS-3": "ISMS", "ORG-1": "ORG", "ORG-2": "ORG", "ORG-3": "ORG", "PPL-1": "PPL", "PPL-2": "PPL", "PPL-3": "PPL", "PHY-1": "PHY", "PHY-2": "PHY", "PHY-3": "PHY", "TECH-1": "TECH", "TECH-2": "TECH", "TECH-3": "TECH" },
+    docs: [
+      { i: 0, pattern: "ISMS Scope and Information Security Policy.pdf" },
+      { i: 1, pattern: "Statement of Applicability v3.xlsx" },
+    ],
+    colors: { primary: "rgb(26, 77, 122)", accent: "rgba(26, 77, 122, 0.15)", light: "rgba(26, 77, 122, 0.08)" },
   },
 };
 

@@ -749,12 +749,82 @@
         "name": "DA - Dermatology & Aesthetics Medicine",
         "desc": "Although dermatology and aesthetics medicine are recognized scopes of medical services that can be covered by the other chapters in this standards' manual, yet their wide spread practices in the ambulatory arena and their specific risky procedures warrants a separate chapter. The chapter, therefore, focuses on specific human resources and structural requirements as well as clinical risk management requirements."
       }
+    },
+    "cbahiHospital": {
+      "name": "CBAHI National Hospital Standards",
+      "authority": "Central Board for Accreditation of Healthcare Institutions",
+      "tagline": "CBAHI National Hospital Standards for hospital accreditation across the Kingdom. Chapters span organizational leadership, clinical care, medication and infection safety, and critical services - scored on CBAHI's 0-5 compliance rubric with zero-tolerance Essential Safety Requirements (ESR) and a 75% accreditation threshold. Fully bilingual (English / Arabic).",
+      "summary": "CBAHI National Hospital Standards for hospital accreditation across the Kingdom. Chapters span organizational leadership, clinical care, medication and infection safety, and critical services - scored on CBAHI's 0-5 compliance rubric with zero-tolerance Essential Safety Requirements (ESR) and a 75% accreditation threshold. Fully bilingual (English / Arabic).",
+      "d1": {
+        "name": "LD - Leadership of the Organization",
+        "desc": "Addresses the hospital's governance structure, the roles and responsibilities of governing body and executive leadership, strategic and operational planning, service scope definition, ethical management, and leadership accountability for quality of care and patient safety across every department."
+      },
+      "d2": {
+        "name": "HRM - Human Resources Management",
+        "desc": "Covers credentialing and privileging, staffing plans, job descriptions, competency assessment, orientation and continuing education, performance evaluation, and personnel file management to ensure a qualified and competent workforce throughout the hospital."
+      },
+      "d3": {
+        "name": "QPS - Quality and Patient Safety",
+        "desc": "Defines the hospital-wide quality management and patient-safety program, including performance-improvement projects, key performance indicators, incident and sentinel-event reporting, root-cause analysis, risk management, and the National Patient Safety Goals."
+      },
+      "d4": {
+        "name": "PFR - Patient and Family Rights and Education",
+        "desc": "Protects patients' and families' rights and responsibilities, informed consent, privacy and confidentiality, complaint management, protection of vulnerable populations, and structured patient and family education throughout the care journey."
+      },
+      "d5": {
+        "name": "AOP - Assessment and Provision of Care",
+        "desc": "Governs patient registration, initial and ongoing assessment and reassessment, individualized plans of care, multidisciplinary coordination, consultations, resuscitation, transfer and referral, discharge planning, and continuity of care for inpatients and outpatients."
+      },
+      "d6": {
+        "name": "MS - Medical Staff",
+        "desc": "Addresses the organization of the medical staff, clinical privileges, medical staff bylaws, peer review, morbidity and mortality review, physician documentation requirements, and the ongoing evaluation of practitioner performance."
+      },
+      "d7": {
+        "name": "NR - Nursing Care",
+        "desc": "Covers the organization and leadership of nursing services, nursing assessment and care planning, nurse staffing and skill mix, clinical competency, nursing documentation, and the delivery of safe, evidence-based nursing care across all clinical units."
+      },
+      "d8": {
+        "name": "AN - Anesthesia and Surgical Care",
+        "desc": "Standards for pre-anesthesia and pre-sedation assessment, moderate and deep sedation, intra-operative and post-anesthesia monitoring, the surgical safety checklist, operating-room environment and workflow, and management of the peri-operative patient."
+      },
+      "d9": {
+        "name": "MM - Medication Management",
+        "desc": "Governs medication selection and procurement, safe storage, prescribing and transcribing, preparation and dispensing, administration and monitoring, high-alert and look-alike / sound-alike medications, narcotics control, and medication-error and adverse-drug-reaction management."
+      },
+      "d10": {
+        "name": "IPC - Infection Prevention and Control",
+        "desc": "Requires a hospital-wide infection prevention and control program covering hand hygiene, standard and transmission-based precautions, sterilization and disinfection, environmental cleaning, surveillance of healthcare-associated infections, and outbreak management."
+      },
+      "d11": {
+        "name": "ED - Emergency Department",
+        "desc": "Addresses emergency triage and prioritization, timely assessment and stabilization, management of high-risk and time-sensitive conditions, staffing and equipment readiness, and safe disposition, admission, or transfer of emergency patients."
+      },
+      "d12": {
+        "name": "LB - Laboratory and Blood Bank Services",
+        "desc": "Covers laboratory staffing and safety, specimen collection and handling, quality control and proficiency testing, critical-value reporting, point-of-care testing, and the safe management of the blood bank including donor screening, storage, and transfusion practices."
+      },
+      "d13": {
+        "name": "RAD - Radiology and Medical Imaging",
+        "desc": "Standards for diagnostic and interventional imaging, radiation safety and protection, staffing and credentialing, equipment maintenance and quality control, contrast-media management, and timely and accurate reporting of imaging results."
+      },
+      "d14": {
+        "name": "FMS - Facility Management and Safety",
+        "desc": "Ensures a safe and functional environment of care through management of safety and security, hazardous materials and waste, fire safety and life safety, medical equipment, utility systems, and emergency preparedness and disaster planning."
+      },
+      "d15": {
+        "name": "MOI - Management of Information",
+        "desc": "Governs the information management plan, the completeness and integrity of the unique medical record, data security and confidentiality, record retention, coding and documentation standards, and the use of aggregate data for decision support."
+      },
+      "d16": {
+        "name": "ICU - Intensive and Critical Care Services",
+        "desc": "Addresses admission and discharge criteria for critical-care units, intensity of monitoring, staffing and competency for critically ill patients, management of ventilated and unstable patients, and prevention of complications in the intensive-care environment."
+      }
     }
   },
   "frameworks": {
     "eyebrow": "Frameworks",
     "title": "All Saudi regulatory & sector frameworks",
-    "lede": "Seven frameworks, one platform. Built for NCA · SAMA · PDPL · CBAHI · compliance audits across the Kingdom.",
+    "lede": "Eight frameworks, one platform. Built for NCA · SAMA · PDPL · CBAHI · compliance audits across the Kingdom.",
     "framework": "Framework",
     "domains": "Domains",
     "controls": "Controls",
@@ -2031,6 +2101,168 @@
         "rec1": "Prioritize remediation of critical findings in high-risk governance and security control domains.",
         "rec2": "Implement enhanced monitoring for partially compliant operational and third-party controls within 30 days.",
         "rec3": "Establish governance oversight for identified control improvement areas across the enterprise."
+      },
+      "payments": {
+        "domain": "Payment Card Security",
+        "ctrl": {
+          "NET": "Network Security Controls",
+          "DATA": "Protect Cardholder Data",
+          "VULN": "Vulnerability Management",
+          "ACC": "Access Control",
+          "MON": "Monitoring & Testing"
+        },
+        "doc": {
+          "0": { "cat": "Policies", "name": "Cardholder Data Environment Policy" },
+          "1": { "cat": "Architecture", "name": "Network Segmentation Diagram" }
+        },
+        "crit": {
+          "NET-1": {
+            "title": "Firewall & Router Configuration",
+            "expect": "Firewall and router rule sets restrict traffic to and from the cardholder data environment and are reviewed at least every six months"
+          },
+          "NET-2": {
+            "title": "Network Segmentation",
+            "expect": "The cardholder data environment is isolated from untrusted networks and segmentation is confirmed by testing"
+          },
+          "NET-3": {
+            "title": "Secure Configurations",
+            "expect": "Vendor default passwords and unnecessary services are removed before systems are deployed into the CDE"
+          },
+          "DATA-1": {
+            "title": "Cardholder Data Retention",
+            "expect": "Stored cardholder data is limited to documented business need with defined retention and secure deletion"
+          },
+          "DATA-2": {
+            "title": "Strong Cryptography at Rest",
+            "expect": "The primary account number is rendered unreadable using strong cryptography wherever it is stored"
+          },
+          "DATA-3": {
+            "title": "Encryption in Transit",
+            "expect": "Cardholder data is encrypted with strong cryptography and secure protocols during transmission over open networks"
+          },
+          "VULN-1": {
+            "title": "Anti-Malware Protection",
+            "expect": "Anti-malware solutions are deployed, kept current, and actively running on all applicable systems"
+          },
+          "VULN-2": {
+            "title": "Secure Software Development",
+            "expect": "Security vulnerabilities are identified and addressed through a documented secure development and change process"
+          },
+          "VULN-3": {
+            "title": "Patch Management",
+            "expect": "Critical security patches are installed within one month of release across the cardholder data environment"
+          },
+          "ACC-1": {
+            "title": "Need-to-Know Access",
+            "expect": "Access to cardholder data is restricted to the least privilege required for each role and documented"
+          },
+          "ACC-2": {
+            "title": "Unique IDs & MFA",
+            "expect": "Every user has a unique ID and multi-factor authentication is enforced for all access into the CDE"
+          },
+          "ACC-3": {
+            "title": "Physical Access Controls",
+            "expect": "Physical access to systems that store cardholder data is restricted, logged, and monitored"
+          },
+          "MON-1": {
+            "title": "Audit Logging",
+            "expect": "All access to cardholder data and system components is logged and logs are retained for at least one year"
+          },
+          "MON-2": {
+            "title": "Log Review & Integrity",
+            "expect": "Audit logs are reviewed regularly and file-integrity monitoring alerts on unauthorized changes"
+          },
+          "MON-3": {
+            "title": "Security Testing",
+            "expect": "Internal and external vulnerability scans and an annual penetration test are performed and findings remediated"
+          }
+        },
+        "narrativeEN": "Najm Insurance's PCI DSS v4.0.1 assessment for Q1 2026 demonstrates {solidOrDeveloping} alignment with the payment card security requirements, achieving {score}% compliance across {total} criteria. The cardholder data environment policy and network segmentation are formally documented and validated, and stored account data is protected with strong cryptography. Quarterly ASV scans and the annual penetration test are complete with findings tracked to closure. {ncLine} Evidence coverage is 100%, with all responses AI-validated against the twelve PCI DSS requirements. Recommend finalizing key-management rotation evidence and scheduling the next segmentation penetration test before the annual attestation.",
+        "narrativeAR": "أظهرت شركة نجم للتأمين في تقييم PCI DSS v4.0.1 للربع الأول 2026 توافقاً {solidOrDeveloping} مع متطلبات أمن بطاقات الدفع، محققةً نسبة امتثال {score}٪ عبر {total} معايير. سياسة بيئة بيانات حاملي البطاقات وعزل الشبكة موثقان ومُتحقَّق منهما، وبيانات الحساب المخزّنة محمية بتشفير قوي. اكتملت عمليات الفحص الفصلية المعتمدة (ASV) واختبار الاختراق السنوي مع متابعة الملاحظات حتى الإغلاق. {ncLine} تغطية الأدلة 100٪ مع التحقق الكامل بالذكاء الاصطناعي وفق متطلبات PCI DSS الاثني عشر. يُوصى بإتمام أدلة تدوير مفاتيح التشفير وجدولة اختبار اختراق العزل التالي قبل الإقرار السنوي.",
+        "rec1": "Prioritize remediation of critical findings in cardholder data protection and access control requirements.",
+        "rec2": "Implement enhanced monitoring for partially compliant network segmentation controls within 30 days.",
+        "rec3": "Establish quarterly evidence collection for ASV scans, log review, and key management."
+      },
+      "infosec": {
+        "domain": "Information Security Management",
+        "ctrl": {
+          "ISMS": "ISMS Governance",
+          "ORG": "Organizational Controls",
+          "PPL": "People Controls",
+          "PHY": "Physical Controls",
+          "TECH": "Technological Controls"
+        },
+        "doc": {
+          "0": { "cat": "Policies", "name": "ISMS Scope & Information Security Policy" },
+          "1": { "cat": "Governance", "name": "Statement of Applicability" }
+        },
+        "crit": {
+          "ISMS-1": {
+            "title": "ISMS Scope Definition",
+            "expect": "The boundaries and applicability of the information security management system are documented and approved by leadership"
+          },
+          "ISMS-2": {
+            "title": "Risk Assessment & Treatment",
+            "expect": "Information security risks are assessed against defined criteria and a risk treatment plan is maintained"
+          },
+          "ISMS-3": {
+            "title": "Management Review & Improvement",
+            "expect": "Leadership reviews ISMS performance at planned intervals and drives continual improvement with documented actions"
+          },
+          "ORG-1": {
+            "title": "Information Security Policies",
+            "expect": "A set of information security policies is defined, approved, published, and communicated to relevant parties"
+          },
+          "ORG-2": {
+            "title": "Supplier Relationships",
+            "expect": "Information security requirements are agreed with suppliers and monitored throughout the relationship"
+          },
+          "ORG-3": {
+            "title": "Incident Management",
+            "expect": "Information security events are reported, assessed, and responded to through a documented incident process"
+          },
+          "PPL-1": {
+            "title": "Screening & Terms of Employment",
+            "expect": "Personnel are screened prior to employment and security responsibilities are defined in terms of employment"
+          },
+          "PPL-2": {
+            "title": "Security Awareness & Training",
+            "expect": "Personnel receive information security awareness education and training relevant to their role"
+          },
+          "PPL-3": {
+            "title": "Disciplinary & Offboarding",
+            "expect": "A disciplinary process exists and access rights are revoked promptly on change or termination of employment"
+          },
+          "PHY-1": {
+            "title": "Secure Areas",
+            "expect": "Physical security perimeters and entry controls protect areas that contain information processing facilities"
+          },
+          "PHY-2": {
+            "title": "Equipment Protection",
+            "expect": "Equipment is sited, protected, and maintained to reduce risks from environmental threats and unauthorized access"
+          },
+          "PHY-3": {
+            "title": "Secure Disposal & Media",
+            "expect": "Storage media and equipment are securely disposed of or reused with data rendered unrecoverable"
+          },
+          "TECH-1": {
+            "title": "Access Control & Authentication",
+            "expect": "Access to information and systems is restricted per policy and secured with strong authentication"
+          },
+          "TECH-2": {
+            "title": "Cryptography & Key Management",
+            "expect": "Rules for the effective use of cryptography, including key management, are defined and implemented"
+          },
+          "TECH-3": {
+            "title": "Logging, Backup & Malware Protection",
+            "expect": "Logging, backup, and protection against malware are implemented and monitored across systems"
+          }
+        },
+        "narrativeEN": "Najm Insurance's ISO/IEC 27001:2022 readiness assessment for Q1 2026 demonstrates {solidOrDeveloping} alignment with the ISMS requirements, achieving {score}% compliance across {total} criteria. The ISMS scope, information security policy, and Statement of Applicability are documented and approved, and the risk treatment plan is maintained with assigned owners. Annex A organizational, people, physical, and technological controls are largely implemented with evidence. {ncLine} Evidence coverage is 100%, with all responses AI-validated against the 2022 control set. Recommend closing the remaining supplier-security and cryptography actions and scheduling the Stage 2 certification audit.",
+        "narrativeAR": "أظهرت شركة نجم للتأمين في تقييم الجاهزية لـ ISO/IEC 27001:2022 للربع الأول 2026 توافقاً {solidOrDeveloping} مع متطلبات نظام إدارة أمن المعلومات، محققةً نسبة امتثال {score}٪ عبر {total} معايير. نطاق النظام وسياسة أمن المعلومات وبيان قابلية التطبيق موثقة ومعتمدة، وخطة معالجة المخاطر مُحدَّثة مع مسؤولين معينين. ضوابط الملحق (أ) التنظيمية والبشرية والمادية والتقنية مطبقة إلى حد كبير مع أدلة. {ncLine} تغطية الأدلة 100٪ مع التحقق الكامل بالذكاء الاصطناعي وفق مجموعة ضوابط 2022. يُوصى بإغلاق إجراءات أمن الموردين والتشفير المتبقية وجدولة تدقيق المرحلة الثانية للحصول على الشهادة.",
+        "rec1": "Prioritize remediation of critical findings in ISMS governance and technological control themes.",
+        "rec2": "Implement enhanced monitoring for partially compliant supplier and cryptography controls within 30 days.",
+        "rec3": "Establish a management-review cadence and evidence collection ahead of the Stage 2 certification audit."
       }
     },
     "healthcare": {
@@ -2091,6 +2323,30 @@
         "81% compliance",
         "38 findings",
         "SAR 850K remediation cost"
+      ]
+    },
+    "payments": {
+      "title": "Payments & Retail",
+      "subtitle": "Cardholder Data Security",
+      "framework": "PCI DSS v4.0.1",
+      "description": "Payment card security audit covering cardholder data protection, network segmentation, and the twelve PCI DSS requirements.",
+      "metrics": [
+        "12 PCI requirements",
+        "84% compliance",
+        "16 findings",
+        "SAR 1.4M exposure avoided"
+      ]
+    },
+    "infosec": {
+      "title": "Information Security",
+      "subtitle": "ISO 27001 Certification Readiness",
+      "framework": "ISO/IEC 27001:2022",
+      "description": "Information Security Management System audit covering ISMS clauses and Annex A organizational, people, physical, and technological controls.",
+      "metrics": [
+        "93 Annex A controls",
+        "80% compliance",
+        "21 findings",
+        "Stage 2 audit ready"
       ]
     },
     "demoTitle": "Live Audit Flow Demo",

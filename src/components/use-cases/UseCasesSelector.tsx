@@ -9,6 +9,8 @@ type UseCaseKey =
   | "cybersecurity"
   | "itGovernance"
   | "dataProtection"
+  | "payments"
+  | "infosec"
   | "general";
 
 const useCaseColors: Record<UseCaseKey, string> = {
@@ -16,6 +18,8 @@ const useCaseColors: Record<UseCaseKey, string> = {
   cybersecurity: "rgb(59, 130, 246)",
   itGovernance: "rgb(168, 85, 247)",
   dataProtection: "rgb(109, 64, 153)",
+  payments: "rgb(204, 51, 51)",
+  infosec: "rgb(26, 77, 122)",
   general: "rgb(217, 119, 6)",
 };
 
@@ -32,7 +36,7 @@ export default function UseCasesSelector() {
     );
   }
 
-  const useCases: UseCaseKey[] = ["healthcare", "cybersecurity", "itGovernance", "dataProtection", "general"];
+  const useCases: UseCaseKey[] = ["healthcare", "cybersecurity", "itGovernance", "dataProtection", "payments", "infosec", "general"];
 
   return (
     <main className="page-container">
