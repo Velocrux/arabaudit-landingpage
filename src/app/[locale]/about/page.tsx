@@ -213,7 +213,6 @@ export default async function AboutPage({
             <div className="leader-grid">
               {[
                 { name: t("l1name"), role: t("l1role"), bio: t("l1bio"), img: "/team/kauser-jahan.jpg", linkedin: "https://www.linkedin.com/in/kauser-jahan-324985300", cta: t("l1cta") },
-                { name: t("l2name"), role: t("l2role"), bio: t("l2bio"), img: "/team/abdul-sagheer.jpg" },
                 { name: t("l3name"), role: t("l3role"), bio: t("l3bio"), img: "/team/javeed-pasha.png" },
                 { name: t("l4name"), role: t("l4role"), bio: t("l4bio"), initials: "ZT" },
               ].map((l, i) => (
