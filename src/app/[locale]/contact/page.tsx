@@ -74,8 +74,6 @@ export default async function ContactPage({
             <div className="eyebrow">{t("eyebrow")}</div>
             <h1 className="h1" style={{ marginTop: 14, maxWidth: 820 }}>
               {t("titleA")}
-              <br />
-              <em style={{ color: "var(--gold-1)" }}>{t("titleB")}</em>
             </h1>
             <p className="lede" style={{ marginTop: 20, maxWidth: 640 }}>{t("lede")}</p>
           </div>
@@ -88,7 +86,7 @@ export default async function ContactPage({
 
               <div className="contact-info">
                 {[
-                  { l: "i1L", tt: "i1T", body: <p>{t("i1P")}</p>, extra: <p><a href="mailto:kauser@arabaudit.com">kauser@arabaudit.com</a></p> },
+                  { l: "i1L", tt: "i1T", body: <p>{t("i1P")}</p>, extra: <p><a href={`mailto:${BRAND.email}`}>{BRAND.email}</a></p> },
                   {
                     l: "i5L",
                     tt: "i5T",

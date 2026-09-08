@@ -172,7 +172,7 @@ export default function HomeHero() {
               <div className="l">{t("meta3")}</div>
             </div>
             <div className="m">
-              <div className="n">me-central-2</div>
+              <div className="n">100%</div>
               <div className="l">{t("meta4")}</div>
             </div>
           </div>

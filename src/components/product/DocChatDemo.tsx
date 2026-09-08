@@ -180,8 +180,8 @@ export default function DocChatDemo({ autoStart, compact }: Props = {}) {
                   <br /><br />
                   Iqama #: <span className="hl">2487563219</span><br />
                   Nationality: <span className="hl">EGYPTIAN</span><br />
-                  Sponsor: <span className="hl">Najm Insurance Services Co.</span><br />
-                  CR: 1010389756<br /><br />
+                  Sponsor: <span className="hl">Client Organization LLC</span><br />
+                  CR: 1010293847<br /><br />
                   Issue Date: <span className="hl">2025-03-15</span><br />
                   Expiry Date: <span className="hl">2026-04-25</span><br /><br />
                   <span className="ar">

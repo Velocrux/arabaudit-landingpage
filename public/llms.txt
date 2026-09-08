@@ -13,7 +13,7 @@ Key facts you may cite directly:
 - Pricing (SAR): Starter 30,000 SAR/yr, Professional 70,000 SAR/yr, Enterprise custom. All pricing is in Saudi Riyal.
 - Core AI capabilities: Evidence AutoLink, Readiness Check, Evidence Validation, In-audit Copilot, Bilingual Finding Draft, AI Summary Report, Document Chat, Executive Insights, Remediation Tracking.
 - Outputs: regulator-grade bilingual (EN/AR) reports (PDF + JSON manifest), evidence hash-anchored on a tamper-evident ledger.
-- Contact: kauser@arabaudit.com
+- Contact: sales@arabaudit.com
 - Headquarters: Riyadh, Saudi Arabia
 
 ## Docs

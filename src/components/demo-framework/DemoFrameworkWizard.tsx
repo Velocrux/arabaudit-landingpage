@@ -989,7 +989,7 @@ function AppTopbar({ url, small }: { url: string; small?: boolean }) {
       <div className="url" style={small ? { fontSize: 10 } : undefined}>{url}</div>
       <div className="user">
         <div className="avatar">KJ</div>
-        {!small && <div className="name">Kauser · Najm Insurance</div>}
+        {!small && <div className="name">Kauser · Client Organization</div>}
       </div>
     </div>
   );

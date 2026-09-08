@@ -22,7 +22,7 @@ Languages: English (en) and Arabic (ar) - every page is served at /en/... and /a
 - Licensing: MISA-licensed (Ministry of Investment of Saudi Arabia)
 - Mission: Turn Saudi regulatory compliance from a spreadsheet-and-email loop into a bilingual, ledger-anchored AI workflow that produces regulator-grade audit reports.
 - Focus: Saudi-native. Every framework is implemented against the primary authority's issued text in both English and Arabic.
-- Contact: kauser@arabaudit.com
+- Contact: sales@arabaudit.com
 
 ## 2. Core positioning
 
@@ -108,7 +108,7 @@ Every capability runs on a single AI Core with shared memory, shared framework c
 | Professional | SAR 70,000 | Multi-framework, mid-size enterprise |
 | Enterprise | Custom | Sovereign deployment, on-prem / KSA-region, unlimited frameworks |
 
-All pricing is in Saudi Riyal (SAR). Contact kauser@arabaudit.com for enterprise pricing.
+All pricing is in Saudi Riyal (SAR). Contact sales@arabaudit.com for enterprise pricing.
 
 ## 6. Who ArabAudit is for
 
@@ -135,7 +135,7 @@ All pages include JSON-LD structured data: Organization, WebSite (with SearchAct
 
 ## 9. Contact & enterprise
 
-- Email: kauser@arabaudit.com
+- Email: sales@arabaudit.com
 - Location: Riyadh, Saudi Arabia
 - Demo request: https://arabaudit.com/en/contact
 - Live audit demo: https://arabaudit.com/en/demo-audit

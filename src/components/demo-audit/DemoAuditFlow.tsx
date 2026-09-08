@@ -830,7 +830,7 @@ export default function DemoAuditFlow() {
                       <div className="field">
                         <label>{t("organization")}</label>
                         <select disabled>
-                          <option>Najm Insurance Services Co.</option>
+                          <option>Client Organization LLC</option>
                         </select>
                       </div>
                       <div className="field">
@@ -1214,7 +1214,7 @@ export default function DemoAuditFlow() {
                       <div className="ov-label">{t("overviewReport")} · AUD-2026-Q1-001</div>
                       <h3 className="ov-title">{t("q1Assessment")}</h3>
                       <div className="ov-facts">
-                        <span className="ov-fact">Najm Insurance Services Co.</span>
+                        <span className="ov-fact">Client Organization LLC</span>
                         <span className="ov-fact">{fwMeta.label}</span>
                         <span className="ov-fact">{t("reportDate")}</span>
                         <span className="ov-fact">Layla Al-Sulaiman, CISA</span>
@@ -1678,7 +1678,7 @@ export default function DemoAuditFlow() {
                 <button type="button">‹</button>
                 <button type="button">›</button>
               </div>
-              <div className="fp-path">~/Documents/Compliance/Najm-Insurance-2026</div>
+              <div className="fp-path">~/Documents/Compliance/Client-Organization-2026</div>
             </div>
             <div className="fp-content">
               <div className="fp-sidebar">
@@ -2035,7 +2035,7 @@ function AppTopbar({ url }: { url: string }) {
       <div className="url">{url}</div>
       <div className="user">
         <div className="avatar">KJ</div>
-        <div className="name">Kauser · Najm Insurance</div>
+        <div className="name">Kauser · Client Organization</div>
       </div>
     </div>
   );

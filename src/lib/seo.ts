@@ -33,7 +33,7 @@ export const BRAND = {
     "AI-native compliance and audit platform for Saudi Arabia. Supports NCA ECC, SAMA CSF, SDAIA PDPL, CBAHI, PCI DSS and ISO 27001 with bilingual evidence, findings and regulator-grade reports.",
   descriptionAr:
     "منصّة تدقيق وامتثال مدعومة بالذكاء الاصطناعي وُلدت في المملكة. تدعم أطر NCA ECC وSAMA CSF وSDAIA PDPL وCBAHI وPCI DSS وISO 27001 بتقارير ثنائية اللغة جاهزة للجهات التنظيمية.",
-  email: "kauser@arabaudit.com",
+  email: "sales@arabaudit.com",
   addressLocality: "Riyadh",
   addressCountry: "SA",
   founded: "2026",

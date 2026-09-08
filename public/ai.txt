@@ -3,7 +3,7 @@
 # Format: simple plaintext, one directive per line. Machine and human readable.
 
 Site: https://arabaudit.com
-Contact: kauser@arabaudit.com
+Contact: sales@arabaudit.com
 Canonical-LLM-Index: https://arabaudit.com/llms.txt
 Canonical-LLM-Full: https://arabaudit.com/llms-full.txt
 Sitemap: https://arabaudit.com/sitemap.xml
